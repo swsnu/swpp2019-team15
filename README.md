@@ -82,6 +82,10 @@ Messenger services like KakaoTalk can also be a competitor, as users can directl
 - **Acceptance Test:**
   Given the question sender has chosen an pictogram for the answer and clicked the `RATE` button, the question sender should see a page displaying `Thank you. Your response has been successfully recorded.`
 
+** For Future Iteration**
+
+There are two ways of getting questions. One is when the user logs in, then page displays map with question balloon near the user. The other way is getting alarm from the user's nearby locations. The user can choose whether he/she will choose question balloon voluntarily or getting alarms.
+
 ### User Interface Requirements<br>
 
 Describes any customer user interface requirements including graphical user interface requirements. Here you should have sketches or mockups for the main parts of the interface. To save time you may want to use scanned drawings of interface mockups here, instead of Photoshop drawings.
