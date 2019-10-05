@@ -20,11 +20,13 @@ For our initial implementation and testing phase, this software will mainly targ
 
 ### Competitive Landscape<br>
 
-**Competitors**<br>
-Öga's questions and answers are focused around a certain location, and take almost zero effort to ask and reply. Quora and Stackoverflow, on the other hand, mainly focus on technical questions that requires effort to both ask and answer. Thus, speed would be a comparative advantage that Öga has over Quora or Stackoverflow. <br/><br/>
-Compared to Stackoverflow and Quora, Naver Jiski-iN, takes care of a wider range of questions, and it takes less user effort to answer. However, allowing less user effort leads to poor quality answers in which users have to offer points known as 'Nae-Gong' in order to receive better answers. Öga prevents this issue by providing a predefined set of questions and answers, so that less effort does not lead to poor quality answers. Moreover, Öga asks about a certain location, so it takes less time to receive answers, while Jisik-iN usually requires more than 3,000 views before an answer is received.
+**Competitors: Question and Answer Services**<br>
+Öga's competitor would be Question and Answer Services like Quora, Stackoverflow, and Naver Jiski-iN.
+Öga's questions and answers are focused around a certain location, and take almost zero effort to ask and reply. Quora and Stackoverflow, on the other hand, mainly focus on technical questions that require effort to both ask and answer. Thus, speed would be a comparative advantage that Öga has over Quora or Stackoverflow. <br/><br/>
+Compared to Stackoverflow and Quora, Naver Jisik-iN, takes care of a wider range of questions, and it takes less user effort to answer. However, allowing less user effort leads to poor quality answers in which users have to offer points known as 'Nae-Gong' in order to receive better answers. Öga prevents this issue by providing a predefined set of questions and answers, so that less effort does not lead to poor quality answers. Moreover, unlike Jisik-iN, where questions are viewed by everyone, Öga forwards the question to targetted users at a certain location, so that reponses are faster and more accurate.
 
-**Social Network Services like KaKaoTalk and Twitter.**<br>
+**Competitor: Social Network Services**<br>
+Öga's other competitor would be Social Network Services like Twitter and KaKaoTalk that provide user communication.
 Users on Twitter often "tweet" about a certain location via hashtags. A user might post a tweet asking about seats in the library, or post that the line in front of the cafeteria is absurdly long. These tweets, can be a competitor to Öga. However, these tweets are shown to users following a certain hashtag, and there is no guarantee that the user is at that location. By choosing to ask people at the selected location, Öga has an advantage over Twitter.<br/><br/>
 Messenger services like KakaoTalk can also be a competitor, as users can directly ask their friends about a location. However, users would have to know in advance whether their friends are at the location, or first inquire about their friends' locations. Using Öga, users can skip these cumbersome phases and obtain the information they need in a more efficient manner.
 
