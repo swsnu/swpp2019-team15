@@ -87,7 +87,7 @@ Users will be able to receive or view submitted questions in two ways. One is wh
 
 ### User Interface Requirements<br>
 
-[[https://github.com/swsnu/swpp2019-team15/blob/master/ui_mockup_1_0_0.png|alt=uiimage]]
+![ui image](https://github.com/swsnu/swpp2019-team15/blob/master/ui_mockup_1_0_0.png)
 Describes any customer user interface requirements including graphical user interface requirements. Here you should have sketches or mockups for the main parts of the interface. To save time you may want to use scanned drawings of interface mockups here, instead of Photoshop drawings.
 
 Just like for the User Stories section, you need to list here only the parts of the user interface that are applicable to the previous sprints and the current one. (**Must include in the first version, and must be expanded for future sprints**)
