@@ -81,7 +81,7 @@ Messenger services like KakaoTalk can also be a competitor, as users can directl
 
 ** For Future Iterations**
 
-There are two ways of getting questions. One is when the user logs in, then page displays map with question balloon near the user. The other way is getting alarm from the user's nearby locations. The user can choose whether he/she will choose question balloon voluntarily or getting alarms.
+There are two ways of getting questions. One is when the user logs in, then page displays map with map marker near the user. The other way is getting alarm from the user's nearby locations. The user can choose whether he/she will choose map marker voluntarily or getting alarms.
 
 ### User Interface Requirements<br>
 
