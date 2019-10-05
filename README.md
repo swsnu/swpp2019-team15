@@ -1,3 +1,5 @@
+Rev. 1.0 2019-10-05 - initial version
+
 # swpp2019-team15
 
 ### Project Requirements and Specification<br>
@@ -82,7 +84,7 @@ Messenger services like KakaoTalk can also be a competitor, as users can directl
 - **Acceptance Test:**
   Given the question sender has chosen an pictogram for the answer and clicked the `RATE` button, the question sender should see a page displaying `Thank you. Your response has been successfully recorded.`
 
-** For Future Iteration**
+** For Future Iterations**
 
 There are two ways of getting questions. One is when the user logs in, then page displays map with question balloon near the user. The other way is getting alarm from the user's nearby locations. The user can choose whether he/she will choose question balloon voluntarily or getting alarms.
 
