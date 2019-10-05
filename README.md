@@ -1,22 +1,16 @@
-Rev. 1.0 2019-10-05 - initial version
-
 # swpp2019-team15
 
 ### Project Requirements and Specification<br>
 
 **Öga**<br>
 Requirements and Specification Document<br>
-2019/10/05, version 1.0
+Rev. 1.0 2019-10-05 - initial version
 
 ### Project Abstract<br>
 
 Öga is a location based Q&A service, where users' questions regarding a location are forwarded to other users in that location. Its name, meaning eye in Swedish, implies the nature of the questions--it only requires a glance of an eye to answer. The name also hints at the service's nature; where questions and answers are "오고가다" amongst users--a term meaning to and fro in Korean.<br>
 There are often occasions when we want to acquire information about a place minutes before arriving. For instance, you may want to know how many seats are available before entering a restaurant or café. But it would be bothersome and inefficient to call all candidate restaurants. Picture this: You want to know how long the current queue is for Gwanak02 as you approach NakSeong Station. If it's too long, riding a different bus would be the smarter option. If you could correctly grasp the circumstance, your decision-making process would be greatly improved.<br/><br/>
 Öga connects you with people who are at/near the location at the moment while maintaining the anonymity of users. Moreover, Öga provides a slight sense of bonding and affinity, as users share one thing in common--they will be in the same place sooner or later. These feelings will in turn, encourage users to ask and answer questions.
-
-### Document Revision History<br>
-
-`Rev. 1.0 2019-10-05 - initial version`
 
 ### Customer<br>
 
