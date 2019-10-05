@@ -18,7 +18,7 @@ There are often occasions when we want to acquire information about a place minu
 Living in a modern, fast-paced era means that many people are often looking for ways to maximize time efficiency and reduce wasted effort. With this in mind, Öga targets customers who are constantly moving around and changing positions throughout the day, unlike normal office workers. Additionally, Öga is also a useful software for anyone who wants to obtain information about a place prior to visiting. Similar customers who like to provide and receive help from others with the glance of an eye and touch of a finger would benefit greatly from this service.<br/><br/>
 For our initial implementation and testing phase, this software will mainly target SNU students looking for efficient ways to survey the status of a place on campus before visiting; and gradually increase the customer range to cover a larger population for future iterations.
 
-## Competitive Landscape<br>
+### Competitive Landscape<br>
 
 **Competitors**<br>
 Öga's questions and answers are focused around a certain location, and take almost zero effort to ask and reply. Quora and Stackoverflow, on the other hand, mainly focus on technical questions that requires effort to both ask and answer. Thus, speed would be a comparative advantage that Öga has over Quora or Stackoverflow. <br/><br/>
@@ -79,9 +79,9 @@ Messenger services like KakaoTalk can also be a competitor, as users can directl
 - **Acceptance Test:**
   Given the question sender has chosen an pictogram for the answer and clicked the `RATE` button, the question sender should see a page displaying `Thank you. Your response has been successfully recorded.`
 
-** For Future Iterations**
+**For Future Iterations**
 
-There are two ways of getting questions. One is when the user logs in, then page displays map with map marker near the user. The other way is getting alarm from the user's nearby locations. The user can choose whether he/she will choose map marker voluntarily or getting alarms.
+Users will be able to receive or view submitted questions in two ways. One is when the user logs in, the page displays a map with map markers of the user's surrounding location. Each map marker indicates a question submitted by a user. The other way is by receiving notifications forwarded to users located nearby the target destination. The user can choose whether he/she wants to voluntarily answer queries by clicking on map markers or answer upon receiving notifications from a question sender.
 
 ### User Interface Requirements<br>
 
