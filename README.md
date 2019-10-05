@@ -1,10 +1,11 @@
 # swpp2019-team15
 
+Rev. 1.0 2019-10-05 - initial version
+
 ### Project Requirements and Specification<br>
 
 **Öga**<br>
 Requirements and Specification Document<br>
-Rev. 1.0 2019-10-05 - initial version
 
 ### Project Abstract<br>
 
