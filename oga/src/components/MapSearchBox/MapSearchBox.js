@@ -16,7 +16,6 @@ import './MapSearchBox.css';
 class MapSearchBox extends Component {
   constructor(props) {
     super(props);
-    this.clearSearchBox = this.clearSearchBox.bind(this);
   }
 
   componentDidMount({ map, mapApi } = this.props) {
@@ -36,9 +35,9 @@ class MapSearchBox extends Component {
     this.searchInput.blur();
   };
 
-  clearSearchBox() {
+  clearSearchBox = () => {
     this.searchInput.value = '';
-  }
+  };
 
   render() {
     return (
