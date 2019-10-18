@@ -12,7 +12,6 @@ class User(models.Model):
         return self.username
 
 class Question(models.Model):
-    id = models.AutoField(primary_key=True)
     #each Question is related to a single user
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -24,6 +23,22 @@ class Question(models.Model):
 
     def __str__(self):
         return self.content
+    
+    class Meta:
+        ordering = ('publish_date_time',)
 
+class Answer(models.Model):
+    #each Answer is related to a single question
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    author = models.CharField(max_length=20)
+    publish_date_time = models.DateTimeField(auto_now=True)
+    content = models.TextField(max_length=100)
+    location_id = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.content
+    
     class Meta:
         ordering = ('publish_date_time',)
