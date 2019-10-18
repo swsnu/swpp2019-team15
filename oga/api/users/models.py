@@ -3,8 +3,8 @@ from django.db import models
 
 class Location(models.Model):
     name = models.CharField(max_length=100)
-    longitude = models.DecimalField(max_digits=22, decimal_places=16, blank=True, null=True)
-    latitude = models.DecimalField(max_digits=22, decimal_places=16, blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
+    latitude = models.FloatField(blank=True, null=True)
     
     def __str__(self):
         return self.name
