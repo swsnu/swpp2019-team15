@@ -49,8 +49,8 @@ class RealDetail extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedQuestion: state.td.selectedQuestion,
-    log_status: state.td.log_status,
+    selectedQuestion: state.rd.selectedQuestion,
+    log_status: state.rd.log_status,
   };
 };
 
