@@ -16,9 +16,12 @@
 import React, { Component } from 'react';
 import isEmpty from 'lodash';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import { NavLink } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import API_KEY from '../../const/api_key';
 import SearchBox from '../../components/MapSearchBox/MapSearchBox';
+import * as actionCreators from '../../store/actions/index';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -51,6 +54,13 @@ class GoogleMap extends Component {
     });
   };
 
+  clickSubmitHandler = () => {
+    const { 0: place } = this.state.places;
+    if (place) {
+      this.props.submitPlace(place);
+    }
+  };
+
 
   //as of now, use default markers
   //but we can render any component via this library
@@ -58,22 +68,16 @@ class GoogleMap extends Component {
     const mapInstance = this.state.mapInstance;
     const mapApi = this.state.mapApi;
     const { 0: place } = places;
-    console.log(place);
-    console.log(place.geometry.location.lat());
     let marker = new mapApi.Marker({
       position: place.geometry.location,
       map: mapInstance,
       title: place.name,
     });
-    console.log(marker);
   }
 
   renderMap = (places) => {
     const map = this.state.mapInstance;
     const { 0: place } = places;
-    console.log(place.name);
-    console.log(place.geometry.location.lat());
-    console.log(place.geometry.location.lng());
 
     if (!place.geometry) return;
     if (place.geometry.viewport) {
@@ -109,9 +113,23 @@ class GoogleMap extends Component {
             yesIWantToUseGoogleMapApiInternals
             onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}>
           </GoogleMapReact>
+          <button id="submit-button" onClick={this.clickSubmitHandler}>
+            Here!
+          </button>
         </div>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    //should get user location
+  };
+};
 
-export default GoogleMap;
+const mapDispatchToProps = dispatch => {
+  return {
+    //upon submit, should send name, and coordinates of the location
+    submitPlace: (target) => dispatch(actionCreators.setTargetLocation(target)),
+  };
+};
+export default connect (mapStateToProps, mapDispatchToProps)(withRouter(GoogleMap));
