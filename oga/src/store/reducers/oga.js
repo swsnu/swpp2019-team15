@@ -9,28 +9,11 @@ const initialState = {
   log_status: false,
   selectedQuestion: null,
   targetLocation: null,
+  currentCoordinates: null,
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.LOG_IN_SUCCEED:
-      return { ...state, log_status: true}
-    case actionTypes.LOG_IN_FAIL:
-      return { ...state, log_status: false}
-    case actionTypes.LOG_OUT:
-      return { ...state, log_status: false}
-    case actionTypes.CREATE_QUESTION:
-      const newQuestion = {
-        id: action.id,
-        author_id: action.author_id,
-        title: action.title,
-        content: action.content
-      };
-      return { ...state, articles: state.articles.concat(newQuestion)};
-    case actionTypes.GET_QUESTIONS:
-      return { ...state, questions: action.questions };
-    case actionTypes.GET_QUESTION:
-      return {...state, selectedQuestion: action.selectedQuestion};
     case actionTypes.SET_TARGET_LOCATION:
       const target = {
         name: action.name,
@@ -38,6 +21,12 @@ const reducer = (state = initialState, action) => {
         longitdue: action.longitude,
       }
       return {...state, targetLocation: target};
+    case actionTypes.SET_CURRENT_COORDINATES:
+      const coordinates = {
+        latitude: action.latitude,
+        longitude: action.longitude,
+      }
+      return {...state, currentCoordinates: coordinates};
     default:
       break;
   }
