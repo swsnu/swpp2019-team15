@@ -5,4 +5,5 @@ export {
   getQuestions,
   getQuestion,
   setTargetLocation,
+  setCurrentCoordinates,
 } from './oga';
