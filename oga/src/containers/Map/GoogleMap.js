@@ -96,11 +96,12 @@ class GoogleMap extends Component {
     } = this.state;
     let center = { lat: 37.459882, lng: 126.9519053}; //somewhere in SNU
 
-    if (this.props.currentCoordinates) {
+    if (this.props.currentCoordinates && places.length==0) {
       center = {
         lat: this.props.currentCoordinates.latitude,
         lng: this.props.currentCoordinates.longitude,
       }
+      console.log(center);
     }
     return (
       <div style= {{ height: '60vh', width: '40%' }}>
