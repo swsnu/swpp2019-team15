@@ -105,7 +105,7 @@ class GoogleMap extends Component {
           <SearchBox map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />}
           <GoogleMapReact
             defaultZoom={this.props.zoom}
-            defaultCenter={this.props.center}
+            center={this.props.center}
             bootstrapURLKeys={{
               key: API_KEY,
               libraries: ['places', 'geometry'],
