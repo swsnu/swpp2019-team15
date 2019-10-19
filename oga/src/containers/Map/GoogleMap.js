@@ -11,8 +11,6 @@
  * @author taehioum
  * @since  2019-10-18
  */
- 
-/** jshint {inline configuration here} */
 import React, { Component } from 'react';
 import isEmpty from 'lodash';
 import {connect} from 'react-redux';
@@ -21,6 +19,7 @@ import { NavLink } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import API_KEY from '../../const/api_key';
 import SearchBox from '../../components/MapSearchBox/MapSearchBox';
+import LocationListener from '../../components/LocationListener/LocationListener';
 import * as actionCreators from '../../store/actions/index';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
@@ -28,10 +27,6 @@ const AnyReactComponent = ({ text }) => <div>{text}</div>;
 class GoogleMap extends Component {
   static defaultProps = {
   //somewhere in SNU, but should actually get from user
-    center: {
-      lat: 37.459882,
-      lng: 126.9519053,
-    },
     zoom: 14
   };
 
@@ -99,13 +94,22 @@ class GoogleMap extends Component {
     const {
       places, mapApiLoaded, mapInstance, mapApi,
     } = this.state;
+    let center = { lat: 37.459882, lng: 126.9519053}; //somewhere in SNU
+
+    if (this.props.currentCoordinates) {
+      center = {
+        lat: this.props.currentCoordinates.latitude,
+        lng: this.props.currentCoordinates.longitude,
+      }
+    }
     return (
       <div style= {{ height: '60vh', width: '40%' }}>
+        <LocationListener/>
         {mapApiLoaded && 
           <SearchBox map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />}
           <GoogleMapReact
             defaultZoom={this.props.zoom}
-            center={this.props.center}
+            center={center}
             bootstrapURLKeys={{
               key: API_KEY,
               libraries: ['places', 'geometry'],
@@ -122,7 +126,7 @@ class GoogleMap extends Component {
 }
 const mapStateToProps = state => {
   return {
-    //should get user location
+    currentCoordinates: state.rd.currentCoordinates,
   };
 };
 
