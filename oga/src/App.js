@@ -10,15 +10,15 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 
 
+          //<Route path='/login' exact render={() => <LogIn title="Log In"/>} />
+          //<Route path='/main/questions' exact render={() => <QuestionList title="QUESTIONS"/>} />
+          //<Route path='/main/questions/:id' exact component={RealDetail} />
 function App(props) {
   return (
     <ConnectedRouter history={props.history}>
       <div className="App" >
         <Switch>
-          <Route path='/login' exact render={() => <LogIn title="Log In"/>} />
-          <Route path='/main/questions' exact render={() => <QuestionList title="QUESTIONS"/>} />
-          <Route path='/main/questions/create' exact component={NewQuestion} />
-          <Route path='/main/questions/:id' exact component={RealDetail} />
+          <Route path='/questions/create' exact component={NewQuestion} />
           <Route path='/map' exact component={Map}/>
           <Redirect exact from='/' to='login'/>
           <Route render={() => <h1>Not Found</h1>} />

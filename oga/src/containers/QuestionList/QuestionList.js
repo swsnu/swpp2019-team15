@@ -53,18 +53,17 @@ class QuestionList extends Component {
 
 const mapStateToProps = state => {
   return {
-    
-    storedQuestions: state.rd.questions,
-    log_status: state.rd.log_status,
+    storedQuestions: state.question.questions,
+    //log_status: state.rd.log_status,
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetAll: () =>
-      dispatch(actionCreators.getQuestions()),
-    setLogout: () => 
-      dispatch(actionCreators.settingLogout())
+    //onGetAll: () =>
+      //dispatch(actionCreators.getQuestions()),
+    //setLogout: () => 
+      //dispatch(actionCreators.settingLogout())
   }
 }
 

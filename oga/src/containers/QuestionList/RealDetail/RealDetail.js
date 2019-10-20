@@ -9,9 +9,9 @@ class RealDetail extends Component {
 
   componentDidMount() {
     this.props.onGetQuestion(this.props.match.params.id);
-    if (!this.props.log_status) {
-        this.props.history.push('/login');
-      }
+    //if (!this.props.log_status) {
+        //this.props.history.push('/login');
+      //}
   }
 
   render() {
@@ -49,17 +49,17 @@ class RealDetail extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedQuestion: state.rd.selectedQuestion,
-    log_status: state.rd.log_status,
+    selectedQuestion: state.question.selectedQuestion,
+    //log_status: state.rd.log_status,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetQuestion: id =>
-      dispatch(actionCreators.getQuestion(id)),
-    setLogout: () => 
-      dispatch(actionCreators.settingLogout()),
+    //onGetQuestion: id =>
+      //dispatch(actionCreators.getQuestion(id)),
+    //setLogout: () => 
+      //dispatch(actionCreators.settingLogout()),
   }
 }
 

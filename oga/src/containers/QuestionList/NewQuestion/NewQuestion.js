@@ -6,12 +6,11 @@ import * as actionCreators from '../../../store/actions';
 
 import { Redirect } from 'react-router-dom';
 import { push } from 'connected-react-router';
+import Map from '../../Map/GoogleMap';
 
 class NewQuestion extends Component {
   state = {
-    title: '',
-    content: '',
-    back: false,
+    content: '....',
   }
 
   componentDidMount() {
@@ -21,25 +20,30 @@ class NewQuestion extends Component {
   }
 
   postQuestionHandler = () => {
-    if (this.state.title !== '' && this.state.content !== '')
-    {
-        this.props.crQuestion(this.state.title, this.state.content);
+    if (this.state.content !== '' && this.props.target_location)
+    { // for testing purposes, we set type to 0, and pass content as well
+      // actually, we only have to store type in questions, 
+      // as content is fixed based on type
+      this.props.createQuestion(0, this.state.content, this.props.target_location);
     }
   }
 
-  postBackHandler = () => {
-    this.setState({...this.state, back:true})
+  clickBackHandler = () => {
+    this.props.history.goBack();
+  }
+
+  clickMapHandler = () => {
+    this.props.history.push('/map');
   }
 
   render() {
-      let redirect = null;
-      if (this.state.back) {
-          redirect = <Redirect to='/main/questions/' />
-      }
+    let place_name = "...";
+    if (this.props.target_location)
+      place_name = this.props.target_location.name;
+
     return (
       <div className="NewQuestion">
-        {redirect}
-        <h1>Add a New Question!</h1>
+        <h1>Ask a New Question!</h1>
         {/* <label>Title</label> */}
         {/* <input
           id="question-title-input"
@@ -48,44 +52,51 @@ class NewQuestion extends Component {
           onChange={(event) => this.setState({ title: event.target.value })}
         ></input> */}
         <div>
-            <label>Enter Question!</label>
-            <textarea
-            id="question-content-input"
-            rows="4"
-            type="text"
-            value={this.state.question_content}
-            onChange={(event) => this.setState({ content: event.target.value })}
-            >
-            </textarea>
+          <div onChange={(event) => this.setState({content: event.target.value})}>
+            <input type="radio" value="LONG LINE" name="question" /> LINES?
+            <input type="radio" value="MANY SEATS" name="question" /> SEATS?
+            <input type="radio" value="RAINING" name="question" /> RAIN?
+            <input type="radio" value="QUIET" name="question" /> QUIET?
+          </div>
+        </div>
+        <div>Is it {this.state.content} in {place_name}?</div>
+        <div>
+          <Map/>
+        </div>
+        <div>
+          {/*<button
+            id="map-create-question-button"
+            onClick={() => this.clickMapHandler()}>Map
+          </button>*/}
         </div>
         <button
-            id="back-create-question-button"
-            onClick={() => this.postBackHandler()}>Back</button>
+          id="back-create-question-button"
+          onClick={() => this.clickBackHandler()}>Back
+        </button>
         <button
-            id="confirm-create-question-button"
-            onClick={() => this.postQuestionHandler()}>Create</button>
-        <button
-            id="logout-button"
-            onClick={() => this.props.setLogout()}>Log-out</button>
+          id="confirm-create-question-button"
+          onClick={() => this.postQuestionHandler()}>Submit
+        </button>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-    return {
-      id: state.rd.id,
-      log_status: state.rd.log_status,
-      question_author: state.rd.username,
-    };
-  }
+  return {
+    //id: state.rd.id,
+    //log_status: state.rd.log_status,
+    //question_author: state.question.username,
+    target_location: state.location.targetLocation,
+  };
+}
 
 const mapDispatchToProps = dispatch => {
   return {
-    crQuestion: (title, content) =>
-        dispatch(actionCreators.createQuestion({ question_author: this.props.username, question_content: this.question_content})),
-    setLogout: () => 
-        dispatch(actionCreators.settingLogout())
+    createQuestion: (type, content, target_location) =>
+    dispatch(actionCreators.createQuestion({ author: "HI", type: type, content: content, target_location: target_location})),
+    //setLogout: () => 
+    //dispatch(actionCreators.settingLogout())
     // prevQuestion: () =>
     //     dispatch(actionCreators.toggleToPreview()),
     // writQuestion: () =>
