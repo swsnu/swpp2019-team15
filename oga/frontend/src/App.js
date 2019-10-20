@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import LogIn from './containers/LogIn/LogIn';
+import Login from './containers/Login/Login';
 import QuestionList from './containers/QuestionList/QuestionList';
 import NewQuestion from './containers/QuestionList/NewQuestion/NewQuestion.js';
 import RealDetail from './containers/QuestionList/RealDetail/RealDetail.js'
@@ -18,6 +18,7 @@ function App(props) {
     <ConnectedRouter history={props.history}>
       <div className="App" >
         <Switch>
+          <Route path='/login' exact component={Login} />
           <Route path='/questions/create' exact component={NewQuestion} />
           <Route path='/map' exact component={Map}/>
           <Redirect exact from='/' to='login'/>
