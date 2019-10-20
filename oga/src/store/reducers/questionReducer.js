@@ -4,6 +4,7 @@ const initialState = {
   selectedQuestion: null,
   user_name: null,
   targetLocation: null,
+  questions: []
 }
 
 const questionReducer = (state = initialState, action) => {
@@ -15,7 +16,8 @@ const questionReducer = (state = initialState, action) => {
         title: action.title,
         content: action.content
       };
-      return { ...state, articles: state.articles.concat(newQuestion)};
+      return { ...state, questions: state.questions.concat(newQuestion)};
+      return {...state};
     case actionTypes.GET_QUESTIONS:
       return { ...state, questions: action.questions };
     case actionTypes.GET_QUESTION:
