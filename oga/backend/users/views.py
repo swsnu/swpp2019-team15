@@ -2,7 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import User, Question, Answer, Location
+from .models import Profile, Question, Answer, Location
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
 from django.views import generic
 
 
@@ -10,11 +12,11 @@ def index(request):
     return HttpResponse('Hello World!')
 
 def UserProfile(request, username):
-    user = get_object_or_404(User, username=username)
+    user = get_object_or_404(Profile, username=username)
     return render(request, 'users/user.html', {'user': user})
 
 def Main(request, username):
-    question_user = get_object_or_404(User, username=username)
+    question_user = get_object_or_404(Profile, username=username)
     question_list = [question for question in Question.objects.filter(author = question_user).values()]
     return render(request, 'users/main.html', {'user': question_user, 'question_list': question_list})
     
@@ -38,7 +40,7 @@ def questions(request):
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
         # FIXME: should use real data from body
-        user = get_object_or_404(User, username="hiboy")
+        user = get_object_or_404(Profile, username="hiboy")
         location, _ = Location.objects.get_or_create(name=location['name'],
                                                      latitude=location['latitude'],
                                                      longitude=location['longitude'])
@@ -47,3 +49,37 @@ def questions(request):
         question.save()
         response_dict = {'id': question.id}
         return JsonResponse(response_dict, status=201)
+
+@csrf_exempt
+def sign_up(request):
+    if request.method == 'POST':
+        try:
+            body = request.body.decode()
+            # username = json.loads(body)['name']
+            username = json.loads(body)['username']
+            password = json.loads(body)['password']
+        except (KeyError, json.JSONDecodeError):
+            return HttpResponseBadRequest()
+        new_user = User.objects.create_user(username=username, password=password)
+        response_dict = {'id': new_user.id}
+        return JsonResponse(response_dict, status=201)
+
+@csrf_exempt
+def sign_in(request):
+    if request.method == 'POST':
+        try:
+            print("HELLO")
+            body = request.body.decode()
+            # username = json.loads(body)['name']
+            username = json.loads(body)['username']
+            password = json.loads(body)['password']
+        except (KeyError, json.JSONDecodeError):
+            return HttpResponseBadRequest()
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            print(user.id)
+            response_dict = {'id': user.id}
+            return JsonResponse(response_dict, status=201)
+        else:
+            return JsonResponse({}, status=401)
