@@ -54,6 +54,7 @@ class GoogleMap extends Component {
     if (place) {
       this.props.submitPlace(place);
     }
+    //this.props.history.goBack();
   };
 
 
@@ -68,6 +69,7 @@ class GoogleMap extends Component {
       map: mapInstance,
       title: place.name,
     });
+    marker.addListener('click', this.clickSubmitHandler);
   }
 
   renderMap = (places) => {
@@ -94,8 +96,9 @@ class GoogleMap extends Component {
     const {
       places, mapApiLoaded, mapInstance, mapApi,
     } = this.state;
-    let center = { lat: 37.459882, lng: 126.9519053}; //somewhere in SNU
+    let center = null;
 
+    //FIXME: BUGGY
     if (this.props.currentCoordinates && places.length==0) {
       center = {
         lat: this.props.currentCoordinates.latitude,
@@ -104,7 +107,7 @@ class GoogleMap extends Component {
       console.log(center);
     }
     return (
-      <div style= {{ height: '60vh', width: '40%' }}>
+      <div style= {{ height: '50vh', width: '40%' }}>
         <LocationListener/>
         {mapApiLoaded && 
           <SearchBox map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />}
@@ -116,18 +119,16 @@ class GoogleMap extends Component {
               libraries: ['places', 'geometry'],
             }}
             yesIWantToUseGoogleMapApiInternals
+            onChildClick={this.clickSubmitHandler}
             onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}>
           </GoogleMapReact>
-          <button id="submit-button" onClick={this.clickSubmitHandler}>
-            Here!
-          </button>
         </div>
     );
   }
 }
 const mapStateToProps = state => {
   return {
-    currentCoordinates: state.rd.currentCoordinates,
+    currentCoordinates: state.location.currentCoordinates,
   };
 };
 
