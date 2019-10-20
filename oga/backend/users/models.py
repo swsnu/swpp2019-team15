@@ -8,14 +8,12 @@ class Location(models.Model):
     
     def __str__(self):
         return self.name
-
 class User(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=20)
     password = models.CharField(max_length=20) 
     # can use Pointfield to store location coordinates
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE,
-            blank=True, null=True)
+    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.username

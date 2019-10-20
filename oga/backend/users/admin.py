@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import User, Question, Answer, Location
+from .models import User, Question, Answer
 
-admin.register(User, Question, Answer, Location)(admin.ModelAdmin)
+admin.register(User, Question, Answer)(admin.ModelAdmin)
