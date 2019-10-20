@@ -13,7 +13,7 @@ const locationReducer = (state = initialState, action) => {
       const target = {
         name: action.name,
         latitude: action.latitude,
-        longitdue: action.longitude,
+        longitude: action.longitude,
       }
       return {...state, targetLocation: target};
     case actionTypes.SET_CURRENT_COORDINATES:
