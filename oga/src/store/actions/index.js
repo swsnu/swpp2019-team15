@@ -1,9 +1,7 @@
+import {setTargetLocation, setCurrentCoordinates} from './locationActions.js';
+import {createQuestion} from './questionActions.js';
 export {
   setTargetLocation,
   setCurrentCoordinates,
-  settingLogged,
-  settingLogout,
   createQuestion,
-  getQuestions,
-  getQuestion,
-} from './oga';
+}
