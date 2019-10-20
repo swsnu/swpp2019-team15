@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from .models import User, Question, Answer
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import User, Question, Answer, Location
 from django.views import generic
-
 
 def index(request):
     return HttpResponse('Hello World!')
@@ -23,3 +24,24 @@ def Details(request, question_id):
     answer_list = [answer for answer in Answer.objects.filter(question = question_to_answer).values()]
     return render(request, 'users/detail.html', {'question': question_to_answer, 'answer_list': answer_list})
     
+@csrf_exempt
+def questions(request):
+    if request.method == 'POST':
+        try:
+            body = request.body.decode()
+            # username = json.loads(body)['name']
+            location = json.loads(body)['target_location']
+            content = json.loads(body)['content']
+            print(body)
+        except (KeyError, json.JSONDecodeError):
+            return HttpResponseBadRequest()
+        # FIXME: should use real data from body
+        user = get_object_or_404(User, username="hiboy")
+        location, _ = Location.objects.get_or_create(name=location['name'],
+                                                     latitude=location['latitude'],
+                                                     longitude=location['longitude'])
+        question = Question(author=user, location_id=location,
+                            content=content)
+        question.save()
+        response_dict = {'id': question.id}
+        return JsonResponse(response_dict, status=201)
