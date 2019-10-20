@@ -7,7 +7,7 @@ const initialState = {
   currentCoordinates: null,
 }
 
-const reducer = (state = initialState, action) => {
+const locationReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_TARGET_LOCATION:
       const target = {
