@@ -31,15 +31,16 @@ def questions(request):
         try:
             body = request.body.decode()
             # username = json.loads(body)['name']
-            # location = json.loads(body)['location']
+            location = json.loads(body)['target_location']
             content = json.loads(body)['content']
             print(body)
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
         # FIXME: should use real data from body
         user = get_object_or_404(User, username="hiboy")
-        location = get_object_or_404(Location, name="ome")
-        print(location)
+        location, _ = Location.objects.get_or_create(name=location['name'],
+                                                     latitude=location['latitude'],
+                                                     longitude=location['longitude'])
         question = Question(author=user, location_id=location,
                             content=content)
         question.save()
