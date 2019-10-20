@@ -1,0 +1,29 @@
+import * as actionTypes from '../actions/actionTypes';
+
+const initialState = {
+  selectedQuestion: null,
+  user_name: null,
+  targetLocation: null,
+}
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.CREATE_QUESTION:
+      const newQuestion = {
+        id: action.id,
+        author_id: action.author_id,
+        title: action.title,
+        content: action.content
+      };
+      return { ...state, articles: state.articles.concat(newQuestion)};
+    case actionTypes.GET_QUESTIONS:
+      return { ...state, questions: action.questions };
+    case actionTypes.GET_QUESTION:
+      return {...state, selectedQuestion: action.selectedQuestion};
+    default:
+      break;
+  }
+  return state;
+}
+
+export default questionReducer;

@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
-import ogaReducer from './reducers/oga';
+import locationReducer from './reducers/locationReducer';
+import questionReducer from './reducers/questionReducer';
 
 export const history = createBrowserHistory();
 const rootReducer = combineReducers({
-  rd: ogaReducer,
+  location: locationReducer,
+  question: questionReducer,
   router: connectRouter(history),
 });
 export const middlewares = [thunk, routerMiddleware(history)]

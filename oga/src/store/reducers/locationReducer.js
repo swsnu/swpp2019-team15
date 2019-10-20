@@ -1,13 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  questions: [
-  ],
-  id: 1,
-  user_name: null,
-  location_id: null,
-  log_status: false,
-  selectedQuestion: null,
+  name: null,
+  //location_id: null,
   targetLocation: null,
   currentCoordinates: null,
 }
@@ -33,4 +28,4 @@ const reducer = (state = initialState, action) => {
   return state;
 }
 
-export default reducer;
+export default locationReducer;
