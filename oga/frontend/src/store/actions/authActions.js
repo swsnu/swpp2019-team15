@@ -25,10 +25,10 @@ export const signUp = (user) => {
   }
 }
 
-export const signIn_ = () => {
+export const signIn_ = (res) => {
   return {
     type: actionTypes.AUTHENTICATED,
-    //username: user.username,
+    userid: res.data.id,
   }
 }
 
@@ -36,7 +36,7 @@ export const signIn = (user) => {
   return (dispatch) => {
     return axios.post('/api/signin/', user)
       .then(res => {
-        dispatch(signIn_());
+        dispatch(signIn_(res));
         dispatch(push('/questions/create/'));
       })
   }
