@@ -4,10 +4,9 @@ matrix:
       node_js:
       - '10'
       before_install:
-      - cd oga
+      - cd oga_front
       install:
       - yarn install
       script:
-      - ls -alh
       - ./node_modules/.bin/eslint src
       - yarn test --coverage --watchAll=false
