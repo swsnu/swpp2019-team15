@@ -8,5 +8,6 @@ matrix:
       install:
       - yarn install
       script:
+      - ls -alh
       - ./node_modules/.bin/eslint src
       - yarn test --coverage --watchAll=false
