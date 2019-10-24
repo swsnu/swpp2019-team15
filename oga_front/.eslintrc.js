@@ -2,11 +2,10 @@ module.exports = {
     "env": {
         "browser": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
-    "extends": [
-        "airbnb"
-    ],
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -22,5 +21,11 @@ module.exports = {
         "react"
     ],
     "rules": {
-    }
+    },
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "16.11"
+        }
+     }
 };
