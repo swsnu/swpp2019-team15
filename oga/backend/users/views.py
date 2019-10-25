@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Profile, Question, Answer, Location
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, get_user
 from django.views import generic
 
 
@@ -32,15 +32,13 @@ def Details(request, question_id):
 def questions(request):
     if request.method == 'POST':
         try:
-            body = request.body.decode()
-            # username = json.loads(body)['name']
-            location = json.loads(body)['target_location']
-            content = json.loads(body)['content']
-            print(body)
+            req_data = json.loads(request.body.decode())
+            location = req_data['target_location']
+            content = req_data['content']
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
-        # FIXME: should use real data from body
-        user = get_object_or_404(Profile, username="hiboy")
+        user = get_user(request)
+        print(user.username)
         location, _ = Location.objects.get_or_create(name=location['name'],
                                                      latitude=location['latitude'],
                                                      longitude=location['longitude'])
@@ -54,10 +52,9 @@ def questions(request):
 def sign_up(request):
     if request.method == 'POST':
         try:
-            body = request.body.decode()
-            # username = json.loads(body)['name']
-            username = json.loads(body)['username']
-            password = json.loads(body)['password']
+            req_data = json.loads(request.body.decode())
+            username = req_data['username']
+            password = req_data['password']
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
         new_user = User.objects.create_user(username=username, password=password)
@@ -68,17 +65,14 @@ def sign_up(request):
 def sign_in(request):
     if request.method == 'POST':
         try:
-            print("HELLO")
-            body = request.body.decode()
-            # username = json.loads(body)['name']
-            username = json.loads(body)['username']
-            password = json.loads(body)['password']
+            req_data = json.loads(request.body.decode())
+            username = req_data['username']
+            password = req_data['password']
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            print(user.id)
             response_dict = {'id': user.id}
             return JsonResponse(response_dict, status=201)
         else:
