@@ -1,0 +1,14 @@
+<h1>{{user.username}}</h1>
+
+<h2>My Questions</h2>
+{% if question_list %} 
+    <ul>
+    {% for question in question_list %}
+        <li>{{ question.content }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No questions available.</p>
+{% endif %}
+
+<h2>A Question For You</h2>
