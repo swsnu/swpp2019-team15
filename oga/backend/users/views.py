@@ -1,20 +1,22 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Profile, Question, Answer, Location
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, get_user
 from django.views import generic
+from django.views.decorators.http import require_http_methods
 from functools import wraps
 
-def login_required(views_func):
+
+def check_login_required(views_func):
     @wraps(views_func)
     def wrapper(request, *args, **kwargs):
         if request.user.is_authenticated:
             return views_func(request, *args, **kwargs)
         else:
-            return HttpResponse(status=400)
+            return HttpResponse(status=401)
     return wrapper
 
 def check_request(views_func):
@@ -23,21 +25,45 @@ def check_request(views_func):
         try:
             return views_func
         except (KeyError, ValueError) as e:
-            return HttpResponse(status=400)
+            return HttpResponseBadRequest(str(e))
     return wrapper
 
-# def index(request):
-#     return HttpResponse('Hello World!')
+# def check_request_method_post(views_func):
+#     @wraps(views_func)
+#     def wrapper(request, *args, **kwargs):
+#         if not request.method == 'POST':
+#             return HttpResponseNotAllowed()
+#     return wrapper
 
-@login_required
+def check_user_owner(views_func):
+    @wraps(views_func)
+    def wrapper(request, *args, **kwargs):
+        if 'username' not in kwargs.keys():
+            return HttpResponseBadRequest()
+        else:
+            user_name = kwargs["username"]
+            if user_name == request.user.username:
+                return HttpResponseForbidden()
+    return wrapper
+
+# def check_question_exist_check(views_func):
+#     @wraps(views_func)
+#     def wrapper(request, *args, **kwargs):
+#         if 'question_id' not in kwargs.keys():
+#             return HttpResponseBadRequest()
+#         elif not (Question.objects.filter(question_id=kwargs[question_id]).exists()):
+#             return HttpResponseBadRequest()
+#     return wrapper
+
+
+@check_user_owner
+@check_login_required
 @check_request
 def UserProfile(request, username):
-    if not (request.user.username == username):
-        return HttpResponse(status=403)
     user = get_object_or_404(Profile, username=username)
     return render(request, 'users/user.html', {'user': user})
 
-@login_required
+@check_login_required
 @check_request
 def Main(request, username):
     question_user = get_object_or_404(Profile, username=username)
@@ -45,18 +71,17 @@ def Main(request, username):
     return render(request, 'users/main.html', {'user': question_user, 'question_list': question_list})
     
 # Displays detailed question page
-@login_required
+@check_login_required
 @check_request
 def Details(request, question_id):
-    if not (Question.objects.filter(id==question_id).exists()):
-        return HttpResponse(status=404)
     question_to_answer = get_object_or_404(Question, id = question_id)
     # questions to answers are one to many
     answer_list = [answer for answer in Answer.objects.filter(question = question_to_answer).values()]
     return render(request, 'users/detail.html', {'question': question_to_answer, 'answer_list': answer_list})
     
-@login_required
+@check_login_required
 @check_request
+@require_http_methods(["POST"])
 @csrf_exempt
 def questions(request):
     if request.method == 'POST':
@@ -72,11 +97,10 @@ def questions(request):
         question.save()
         response_dict = {'id': question.id}
         return JsonResponse(response_dict, status=201)
-    else:
-        return HttpResponse(status=405)
 
 @check_request
 @csrf_exempt
+@require_http_methods(["POST"])
 def sign_up(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
@@ -85,11 +109,10 @@ def sign_up(request):
         new_user = User.objects.create_user(username=username, password=password)
         response_dict = {'id': new_user.id}
         return JsonResponse(response_dict, status=201)
-    else:
-        return HttpResponseNotAllowed(['POST'])
 
 @check_request
 @csrf_exempt
+@require_http_methods(["POST"])
 def sign_in(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
@@ -99,8 +122,6 @@ def sign_in(request):
         if user is not None:
             login(request, user)
             response_dict = {'id': user.id}
-            return JsonResponse(response_dict, status=204)
+            return JsonResponse(response_dict, status=201)
         else:
             return JsonResponse({}, status=401)
-    else:
-        return HttpResponse(status=405)
