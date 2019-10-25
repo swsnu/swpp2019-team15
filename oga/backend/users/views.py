@@ -32,10 +32,9 @@ def Details(request, question_id):
 def questions(request):
     if request.method == 'POST':
         try:
-            body = request.body.decode()
-            location = json.loads(body)['target_location']
-            content = json.loads(body)['content']
-            print(body)
+            req_data = json.loads(request.body.decode())
+            location = req_data['target_location']
+            content = req_data['content']
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
         user = get_user(request)
@@ -52,10 +51,9 @@ def questions(request):
 def sign_up(request):
     if request.method == 'POST':
         try:
-            body = request.body.decode()
-            # username = json.loads(body)['name']
-            username = json.loads(body)['username']
-            password = json.loads(body)['password']
+            req_data = json.loads(request.body.decode())
+            username = req_data['username']
+            password = req_data['password']
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
         new_user = User.objects.create_user(username=username, password=password)
@@ -66,10 +64,9 @@ def sign_up(request):
 def sign_in(request):
     if request.method == 'POST':
         try:
-            body = request.body.decode()
-            # username = json.loads(body)['name']
-            username = json.loads(body)['username']
-            password = json.loads(body)['password']
+            req_data = json.loads(request.body.decode())
+            username = req_data['username']
+            password = req_data['password']
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
         user = authenticate(username=username, password=password)
