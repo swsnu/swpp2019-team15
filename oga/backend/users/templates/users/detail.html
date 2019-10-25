@@ -1,0 +1,20 @@
+<h1>Question</h1>
+{% comment %} if list is not empty {% endcomment %}
+{% if question%} 
+    <h2>{{question.content}}</h2>
+{% else %}
+    <h2>Question not found!</h2>
+{% endif %}
+
+<h1>Answers</h1>
+{% if answer_list %} 
+    <ul>
+    {% for answer in answer_list %}
+        {% comment %} add reference link to questions and list out question list
+        {%url %} removes reliance on specific URL paths, and looks up url def as specified in polls.url based on the given name value{% endcomment %}
+        <li>{{ answer.content }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No answers yet!</p>
+{% endif %}
