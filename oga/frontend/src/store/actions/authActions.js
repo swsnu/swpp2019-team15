@@ -6,14 +6,6 @@ import { push } from 'connected-react-router';
 axios.defaults.xsrfCookieName="csrftoken";
 axios.defaults.xsrfHeaderName="X-CSRFTOKEN";
 
-export const signUp_ = (user) => {
-  return {
-    type: actionTypes.SIGN_UP,
-    username: user.username,
-    password: user.password,
-  }
-}
-
 //TODO: build a seperate signup page, and push different link after signup
 export const signUp = (user) => {
   return (dispatch) => {
