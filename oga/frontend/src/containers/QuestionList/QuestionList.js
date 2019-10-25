@@ -17,8 +17,8 @@ class QuestionList extends Component {
     // }
   }
 
-  clickTodoHandler = (ar) => {
-    this.props.history.push('/questions/' + ar.id);
+  clickTodoHandler = (qst) => {
+    this.props.history.push('/questions/' + qst.id);
   }
 
   render() {
