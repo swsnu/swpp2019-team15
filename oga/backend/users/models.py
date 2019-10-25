@@ -32,10 +32,11 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
 class Question(models.Model):
     id = models.AutoField(primary_key=True)
     #each Question is related to a single user
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     publish_date_time = models.DateTimeField(auto_now=True)
     content = models.TextField(max_length=100)
@@ -50,7 +51,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     #each Answer is related to a single question
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(User, on_delete=models.CASCADE)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     publish_date_time = models.DateTimeField(auto_now=True)
