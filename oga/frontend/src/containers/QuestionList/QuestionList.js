@@ -35,7 +35,7 @@ class QuestionList extends Component {
     });
 
     return (
-      <div className="TodoList">
+      <div className="QuestionList">
         <div className='title'>
           {this.props.title}
         </div>
