@@ -33,14 +33,12 @@ def questions(request):
     if request.method == 'POST':
         try:
             body = request.body.decode()
-            # username = json.loads(body)['name']
             location = json.loads(body)['target_location']
             content = json.loads(body)['content']
             print(body)
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
-        # FIXME: should use real data from body
-        user = get_object_or_404(Profile, username="hiboy")
+        user = get_user(request)
         location, _ = Location.objects.get_or_create(name=location['name'],
                                                      latitude=location['latitude'],
                                                      longitude=location['longitude'])
@@ -68,7 +66,6 @@ def sign_up(request):
 def sign_in(request):
     if request.method == 'POST':
         try:
-            print("HELLO")
             body = request.body.decode()
             # username = json.loads(body)['name']
             username = json.loads(body)['username']
@@ -78,7 +75,6 @@ def sign_in(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            print(user.id)
             response_dict = {'id': user.id}
             return JsonResponse(response_dict, status=201)
         else:
