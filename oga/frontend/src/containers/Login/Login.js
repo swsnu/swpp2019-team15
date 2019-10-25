@@ -16,12 +16,12 @@ class Login extends Component {
 
 
   clickSignUpHandler(){
-    this.props.signUp(this.state.username, this.state.password);
+    this.props.signup(this.state.username, this.state.password);
   } 
 
   clickSignInHandler(){
     //this.props.logIn_try = true;
-    this.props.signIn(this.state.username, this.state.password);
+    this.props.signin(this.state.username, this.state.password);
   } 
 
   render() {
