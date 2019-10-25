@@ -38,7 +38,6 @@ def questions(request):
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
         user = get_user(request)
-        print(user.username)
         location, _ = Location.objects.get_or_create(name=location['name'],
                                                      latitude=location['latitude'],
                                                      longitude=location['longitude'])
