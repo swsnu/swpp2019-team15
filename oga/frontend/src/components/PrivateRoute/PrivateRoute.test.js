@@ -16,7 +16,7 @@ describe('<PrivateRoute/>', () => {
       <Provider store={store}>
       <Route 
         path='/' 
-        render={() => <PrivateRoute/>}/>
+        render={() => <PrivateRoute auth={false}/>}/>
       </Provider>
       </Router>
     );
@@ -33,7 +33,7 @@ describe('<PrivateRoute/>', () => {
       <Provider store={store}>
       <Route 
         path='/' 
-        render={() => <PrivateRoute component={component}/>}/>
+        render={() => <PrivateRoute auth={true} component={component}/>}/>
       </Provider>
       </Router>
     );
