@@ -12,13 +12,10 @@ class Login extends Component {
   state = {
     username: '',
     password: '',
-    //logged_in: true,
-    //logIn_try: false,
   }
 
 
   clickSignUpHandler(){
-    //this.props.logIn_try = true;
     this.props.signUp(this.state.username, this.state.password);
   } 
 
@@ -29,14 +26,6 @@ class Login extends Component {
 
   render() {
     let redirect = null;
-    if (this.state.logged_in)
-    {
-      redirect = <Redirect to="./main/questions"></Redirect>
-    } else {
-      if (this.state.logIn_try) {
-        alert("username or password is wrong");
-      }
-    }
 
     return (
       <div className="Login">
@@ -74,9 +63,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signUp: (username, password) => 
+    signup: (username, password) => 
     dispatch(actionCreators.signUp({username: username, password: password})),
-    signIn: (username, password) => 
+    signin: (username, password) => 
     dispatch(actionCreators.signIn({username: username, password: password})),
   }
 }
