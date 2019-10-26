@@ -16,7 +16,7 @@ matrix:
       before_install:
       - cd oga/backend
       install:
-      - pip install --user coverage
+      - pip install coverage
       script:
       - coverage run --source='./users' manage.py test
       - coverage run --branch --source='./users' manage.py test
