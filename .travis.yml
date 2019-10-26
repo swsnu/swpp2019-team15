@@ -1,0 +1,23 @@
+matrix:
+  include:
+    - language: node_js
+      node_js:
+      - '10'
+      before_install:
+      - cd oga/frontend
+      install:
+      - yarn install
+      script:
+      - ./node_modules/.bin/eslint src
+      - yarn test -- --coverage --watchAll=false
+     
+    - language: python
+      python: 3.6
+      before_install:
+      - cd oga/backend
+      install:
+      - pip install django
+      - pip install coverage
+      script:
+      - coverage run --source='./users' manage.py test
+      - coverage run --branch --source='./users' manage.py test
