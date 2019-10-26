@@ -9,7 +9,6 @@ matrix:
       - yarn install
       script:
       - ./node_modules/.bin/eslint src
-      - yarn test --coverage --watchAll=false
      
   include:
     - language: python
