@@ -1,31 +1,15 @@
 """
     function views
 """
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import Profile, Question, Answer, Location
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseBadRequest, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, get_user
-from django.views import generic
 
+from .models import Profile, Question, Answer, Location
 
-def index(request):
-    """test method"""
-    return HttpResponse('Hello World!')
-
-def user_profile(request, username):
-    """test method"""
-    user = get_object_or_404(Profile, username=username)
-    return render(request, 'users/user.html', {'user': user})
-
-def main(request, username):
-    """test method"""
-    question_user = get_object_or_404(Profile, username=username)
-    question_list = Question.objects.filter(author=question_user).values()
-    return render(request, 'users/main.html',
-                  {'user': question_user, 'question_list': question_list})
 
 # Displays detailed question page
 def details(request, question_id):
