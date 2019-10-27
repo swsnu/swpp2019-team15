@@ -4,3 +4,6 @@
 # path. You may set this option multiple times.
 ignore=migrations
 load-plugins=pylint_django
+
+[MESSAGES CONTROL]
+disable=R1705
