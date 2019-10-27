@@ -18,5 +18,7 @@ matrix:
       install:
       - pip install -r requirements.txt
       script:
+      - pylint users
+      - pylint oga
       - coverage run --source='./users' manage.py test
       - coverage run --branch --source='./users' manage.py test
