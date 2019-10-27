@@ -16,8 +16,9 @@ matrix:
       before_install:
       - cd oga/backend
       install:
-      - pip install django
-      - pip install coverage
+      - pip install -r requirements.txt
       script:
+      - pylint users
+      - pylint oga
       - coverage run --source='./users' manage.py test
       - coverage run --branch --source='./users' manage.py test
