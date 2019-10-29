@@ -1,14 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.csrf import csrf_exempt
-import json
-from .models import Profile, Question, Answer, Location
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, get_user
 from django.views import generic
 
 from webpush import send_group_notification, send_user_notification
+from .models import Profile, Question, Answer, Location
 
+import json
 
 def UserProfile(request, username):
     user = get_object_or_404(Profile, username=username)
@@ -76,8 +77,11 @@ def sign_in(request):
         else:
             return JsonResponse({}, status=401)
 
-# send notifications about a question to a specific group
+
+@require_POST
+@csrf_exempt
 def send_question_push_notification(request):
+# send notifications about a question to a specific group
     try:
         req_data = json.loads(request.body.decode())
         question = get_object_or_404(Question, id=req_data['id'])
@@ -97,10 +101,11 @@ def send_question_push_notification(request):
         # "url": "<int:question_id>/detail"
     else:
         webpush.send_group_notification(group_name=receiver_group, payload=payload, ttl=1000) 
-            # web push server stores the data for maximum of 1000 seconds if user is not online
+        # web push server stores the data for maximum of 1000 seconds if user is not online
         return JsonResponse(status=200)
 
 # send notification about answer to a single question sender
+@req_POST
 def send_answer_notification(request):
     try:
         req_data = json.loads(request.body.decode())
@@ -117,3 +122,4 @@ def send_answer_notification(request):
         return HttpResponseBadRequest()
     else:
         webpush.send_user_notification(user=receiver, payload=payload, ttl=1000)
+        return JsonResponse(status=200)
