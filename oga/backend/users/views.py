@@ -76,26 +76,44 @@ def sign_in(request):
         else:
             return JsonResponse({}, status=401)
 
-# send notifications to a specific group
-def send_group_notification(request):
-    payload = {"head": "A Question for You!",
-                "body": "Hello World!"}
-    # TODO: add pictogram
-    # "icon": "images/image_location.png"
-    # TODO: add url to redirect to question/answer when notification clicked    
-    # "url": "<int:question_id>/detail"
-    # TODO: define group object to be passed
-    send_group_notification(group_name='my_group', payload=payload, ttl=1000) 
-    # web push server stores the data for maximum of 1000 seconds if user is not online
+# send notifications about a question to a specific group
+def send_question_push_notification(request):
+    try:
+        req_data = json.loads(request.body.decode())
+        question = get_object_or_404(Question, id=req_data['id'])
+        """ 
+        TODO: define group object to be passed
+        Parse location_id of Question object to define receiver group in backend (TBD)
+        """
+        receiver_group = req_data['user_group']
+        payload = {"head": "A Question for You!",
+                    "body": question.content,
+                    "author": question.author.username}
+    except (KeyError, json.JSONDecodeError):
+        return HttpResponseBadRequest()
+        # TODO: add pictogram
+        # "icon": "images/image_location.png"
+        # TODO: add url to redirect to question/answer when notification clicked    
+        # "url": "<int:question_id>/detail"
+    else:
+        webpush.send_group_notification(group_name=receiver_group, payload=payload, ttl=1000) 
+            # web push server stores the data for maximum of 1000 seconds if user is not online
+        return JsonResponse(status=200)
 
-# send notification to a specific user
-def send_user_notification(request):
-    payload = {'head': 'A Question for You!', 
-                'body': 'Hello World!'}
+# send notification about answer to a single question sender
+def send_answer_notification(request):
+    try:
+        req_data = json.loads(request.body.decode())
+        answer = get_object_or_404(Answer, id=req_data['id'])
+        receiver = answer.question.author
+        payload = {'head': 'Here\'s an answer for you!', 
+                    'body': answer.content,
+                    'author': answer.author}
     # TODO: add pictogram
     # "icon": "images/image_location.png"
     # TODO: add url to redirect to question/answer when notification clicked    
     # "url": "<int:question_id>/detail"
-    # TODO: define user object to be passed 
-    user = request.user
-    send_user_notification(user=user, payload=payload, ttl=1000)
+    except (KeyError, json.JSONDecodeError):
+        return HttpResponseBadRequest()
+    else:
+        webpush.send_user_notification(user=receiver, payload=payload, ttl=1000)
