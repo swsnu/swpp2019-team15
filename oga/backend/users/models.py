@@ -14,10 +14,6 @@ class Location(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # id = models.AutoField(primary_key=True)
-    # username = models.CharField(max_length=20)
-    # password = models.CharField(max_length=20) 
-    # can use Pointfield to store location coordinates
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE,
                                     blank=True, null=True)
 
@@ -51,7 +47,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     #each Answer is related to a single question
-    question = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     publish_date_time = models.DateTimeField(auto_now=True)
