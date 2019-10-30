@@ -21,19 +21,12 @@ def check_login_required(views_func):
 
 def check_request(views_func):
     @wraps(views_func)
-    def wrapper(request, *args, **kwargs):
+    def wrapper(*args, **kwargs):
         try:
-            return views_func
+            return views_func(*args, **kwargs)
         except (KeyError, ValueError) as e:
             return HttpResponseBadRequest(str(e))
     return wrapper
-
-# def check_request_method_post(views_func):
-#     @wraps(views_func)
-#     def wrapper(request, *args, **kwargs):
-#         if not request.method == 'POST':
-#             return HttpResponseNotAllowed()
-#     return wrapper
 
 def check_user_owner(views_func):
     @wraps(views_func)
@@ -45,15 +38,6 @@ def check_user_owner(views_func):
             if user_name == request.user.username:
                 return HttpResponseForbidden()
     return wrapper
-
-# def check_question_exist_check(views_func):
-#     @wraps(views_func)
-#     def wrapper(request, *args, **kwargs):
-#         if 'question_id' not in kwargs.keys():
-#             return HttpResponseBadRequest()
-#         elif not (Question.objects.filter(question_id=kwargs[question_id]).exists()):
-#             return HttpResponseBadRequest()
-#     return wrapper
 
 
 @check_user_owner
