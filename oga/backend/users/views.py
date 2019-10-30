@@ -72,9 +72,8 @@ def questions(request):
     location = req_data['target_location']
     content = req_data['content']
     user = get_user(request)
-    location, _ = Location.objects.get_or_create(name=location['name'],
-                                                    latitude=location['latitude'],
-                                                    longitude=location['longitude'])
+    location, _ = Location.objects.get_or_create(name=location['name'], latitude=location['latitude'], longitude=location['longitude'])
+
     question = Question(author=user, location_id=location,
                         content=content)
     question.save()
