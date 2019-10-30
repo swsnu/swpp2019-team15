@@ -23,7 +23,6 @@ def details(request, question_id):
 
 @csrf_exempt
 def questions(request):
-    """submit question"""
     if request.method == 'POST':
         try:
             req_data = json.loads(request.body.decode())
