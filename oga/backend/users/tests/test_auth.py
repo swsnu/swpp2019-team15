@@ -7,12 +7,13 @@ import json
 class AuthTest(TestCase):
     csrftoken = 0
     sessionid = 0
+    user = None
     client = Client()
 
     def setUp(self):
         User = get_user_model()
-        user = User.objects.create_user(username='test', password='1234')
-        user.save()
+        self.user = User.objects.create_user(username='test', password='1234')
+        # user.save()
 
     def tearDown(self):
         self.csrftoken = 0
