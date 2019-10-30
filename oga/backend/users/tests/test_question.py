@@ -40,3 +40,7 @@ class QuestionTestCase(TestCase):
                                     content_type='application/json')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['id'], 2)
+        self.sign
+        response = self.client.post('/api/questions/', 
+                                    json.dumps(question_data),
+                                    content_type='application/json')
