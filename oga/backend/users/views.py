@@ -68,19 +68,18 @@ def Details(request, question_id):
 @require_http_methods(["POST"])
 @csrf_exempt
 def questions(request):
-    if request.method == 'POST':
-        req_data = json.loads(request.body.decode())
-        location = req_data['target_location']
-        content = req_data['content']
-        user = get_user(request)
-        location, _ = Location.objects.get_or_create(name=location['name'],
-                                                     latitude=location['latitude'],
-                                                     longitude=location['longitude'])
-        question = Question(author=user, location_id=location,
-                            content=content)
-        question.save()
-        response_dict = {'id': question.id}
-        return JsonResponse(response_dict, status=201)
+    req_data = json.loads(request.body.decode())
+    location = req_data['target_location']
+    content = req_data['content']
+    user = get_user(request)
+    location, _ = Location.objects.get_or_create(name=location['name'],
+                                                 latitude=location['latitude'],
+                                                 longitude=location['longitude'])
+    question = Question(author=user, location_id=location,
+                        content=content)
+    question.save()
+    response_dict = {'id': question.id}
+    return JsonResponse(response_dict, status=201)
 
 @check_request
 @csrf_exempt
