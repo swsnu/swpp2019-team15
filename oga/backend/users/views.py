@@ -68,41 +68,44 @@ def Details(request, question_id):
 @require_http_methods(["POST"])
 @csrf_exempt
 def questions(request):
-    req_data = json.loads(request.body.decode())
-    location = req_data['target_location']
-    content = req_data['content']
-    user = get_user(request)
-    location, _ = Location.objects.get_or_create(name=location['name'],
-                                                 latitude=location['latitude'],
-                                                 longitude=location['longitude'])
-    question = Question(author=user, location_id=location,
-                        content=content)
-    question.save()
-    response_dict = {'id': question.id}
-    return JsonResponse(response_dict, status=201)
+    if request.method == 'POST':
+        req_data = json.loads(request.body.decode())
+        location = req_data['target_location']
+        content = req_data['content']
+        user = get_user(request)
+        location, _ = Location.objects.get_or_create(name=location['name'],
+                                                     latitude=location['latitude'],
+                                                     longitude=location['longitude'])
+        question = Question(author=user, location_id=location,
+                            content=content)
+        question.save()
+        response_dict = {'id': question.id}
+        return JsonResponse(response_dict, status=201)
 
 @check_request
 @csrf_exempt
 @require_http_methods(["POST"])
 def sign_up(request):
-    req_data = json.loads(request.body.decode())
-    username = req_data['username']
-    password = req_data['password']
-    new_user = User.objects.create_user(username=username, password=password)
-    response_dict = {'id': new_user.id}
-    return JsonResponse(response_dict, status=201)
+    if request.method == 'POST':
+        req_data = json.loads(request.body.decode())
+        username = req_data['username']
+        password = req_data['password']
+        new_user = User.objects.create_user(username=username, password=password)
+        response_dict = {'id': new_user.id}
+        return JsonResponse(response_dict, status=201)
 
 @check_request
 @csrf_exempt
 @require_http_methods(["POST"])
 def sign_in(request):
-    req_data = json.loads(request.body.decode())
-    username = req_data['username']
-    password = req_data['password']
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        login(request, user)
-        response_dict = {'id': user.id}
-        return JsonResponse(response_dict, status=201)
-    else:
-        return JsonResponse({}, status=401)
+    if request.method == 'POST':
+        req_data = json.loads(request.body.decode())
+        username = req_data['username']
+        password = req_data['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            response_dict = {'id': user.id}
+            return JsonResponse(response_dict, status=201)
+        else:
+            return JsonResponse({}, status=401)
