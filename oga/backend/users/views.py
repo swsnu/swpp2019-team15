@@ -83,6 +83,7 @@ def questions(request):
     response_dict = {'id': question.id}
     return JsonResponse(response_dict, status=201)
 
+
 @check_request
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -108,3 +109,4 @@ def sign_in(request):
         return JsonResponse(response_dict, status=201)
     else:
         return JsonResponse({}, status=401)
+
