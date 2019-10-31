@@ -40,3 +40,4 @@ class QuestionTestCase(TestCase):
                                     content_type='application/json')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['id'], 2)
+        

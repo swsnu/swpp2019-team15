@@ -53,7 +53,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     #each Answer is related to a single question
-    question = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     publish_date_time = models.DateTimeField(auto_now=True)
