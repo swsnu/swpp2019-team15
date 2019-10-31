@@ -1,31 +1,30 @@
 matrix:
   include:
-    - language: node_js
-      node_js:
-      - '10'
-      dist: trusty
-      addons:
-        sonarcloud:
-          organization: swsnu
-          token:
-            secure: 36c7955bfc5116537c2b0d1087a5d0341fff8d6b
-      before_install:
-      - cd oga/frontend
-      install:
-      - yarn install
-      script:
-      - ./node_modules/.bin/eslint src
-      - yarn test -- --coverage --watchAll=false
-      - sonar-scanner
-     
-    - language: python
-      python: 3.6
-      before_install:
-      - cd oga/backend
-      install:
-      - pip install -r requirements.txt
-      script:
-      - pylint users
-      - pylint oga
-      - coverage run --source='./users' manage.py test
-      - coverage run --branch --source='./users' manage.py test
+  - language: node_js
+    node_js:
+    - '10'
+    dist: trusty
+    addons:
+      sonarcloud:
+        organization: swsnu
+        token:
+          secure: U4gf6NH5HXPTrIvGugePmX2SHBBOcGP7X8rKa6XDePcfxhC2IJrFbRPLwSQXV/QBG/YXzYNGkTCHZUgRprMdIc2U3+tJbl5Y4XxBId9EpFUETDVghQgrd5rR2Z3HR+AXA6DVl8UpuXZZrHdd8YmNnnYO6/uW7/ZG0cOP8bw20xZn576Cv1FZwPeH6/RnNXKCiGDNSzgIZpsRSBeXVDqc6+8djHzqGiv7BSvP7709KXQ4m1dYNvbXbk+Jwl4UKKHecRtLP9rT4qX2qlJpew2uQnlGvsm1RU4x+5NgtWn6DZKiYxto9MVS13Mrdd08N+Cu1A9QfrT5v3SEwGzEVPCxaAhqZG0EyzvolMRAkccXznz3e0XzCy+dbmMzwknlFzFbgfhgIleiza4wKHf0h5a8uISfJqzGhOh5+oRF8yGhdhqJR/kKgABvEWR6Ny0MnJrnMp2JWA+q8mAfk6GC6+ejg7mc7MkejzBmMOo7fUpHpPtE0RM9Rtmx4302tBvJ/LBWvUNQ2KnvTvcQwxFrnAdVLra7BNwY46ccJzAKpUb+HPJq7r9IKOdOOyVLm42jKy+OaAd3tCmWKq6cuuzkcrQH0pdJXYfnNk3oCocxiNebdtrTPcBuP4sYcp3NUEmAN5jNkSwoNfmgFU54kdWB3MHrXY91fJ3163f/hg2eJk6pxms=
+    before_install:
+    - cd oga/frontend
+    install:
+    - yarn install
+    script:
+    - "./node_modules/.bin/eslint src"
+    - yarn test -- --coverage --watchAll=false
+    - sonar-scanner
+  - language: python
+    python: 3.6
+    before_install:
+    - cd oga/backend
+    install:
+    - pip install -r requirements.txt
+    script:
+    - pylint users
+    - pylint oga
+    - coverage run --source='./users' manage.py test
+    - coverage run --branch --source='./users' manage.py test
