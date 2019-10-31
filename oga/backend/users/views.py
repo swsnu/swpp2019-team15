@@ -8,6 +8,8 @@ from django.contrib.auth import login, authenticate, get_user
 from django.views import generic
 from django.views.decorators.http import require_http_methods
 from functools import wraps
+from pywebpush import webpush, WebPushException
+from time import sleep
 
 
 def check_login_required(views_func):
@@ -108,3 +110,32 @@ def sign_in(request):
         return JsonResponse(response_dict, status=201)
     else:
         return JsonResponse({}, status=401)
+
+@check_request
+@csrf_exempt
+@require_http_methods(["POST"])
+def save_subscription(request):
+    req_data = json.loads(request.body.decode())
+    # the request body should at least hold the following
+    endpoint = req_data['endpoint']
+    keys = req_data['keys']
+    user = get_user(request)
+    profile = get_object_or_404(Profile, user=user)
+    profile.subscription = req_data
+    profile.save()
+    # try:
+        # webpush(user.sbscription,
+                # json.dumps({'body': "HI"}),
+                # vapid_private_key="LhJWR3cBwqckwjYMC1vQoCLXmI8d3qXK6LOUMZ-6LzY",
+                # vapid_claims={"sub": "mailto:indiofish@naver.com"})
+    # except WebPushException as ex:
+        # print("I'm sorry, Dave, but I can't do that: {}", repr(ex))
+        # # Mozilla returns additional information in the body of the response.
+        # if ex.response and ex.response.json():
+            # extra = ex.response.json()
+            # print("Remote service replied with a {}:{}, {}",
+                  # extra.code,
+                  # extra.errno,
+                  # extra.message
+                  # )
+    return JsonResponse({'data':{'success': True}}, status=201)
