@@ -85,6 +85,7 @@ def questions(request):
     response_dict = {'id': question.id}
     return JsonResponse(response_dict, status=201)
 
+
 @check_request
 @csrf_exempt
 @require_http_methods(["POST"])
