@@ -1,18 +1,21 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse, HttpResponseNotAllowed, HttpResponseForbidden
-from django.views.decorators.csrf import csrf_exempt
+"""functional views api for the models"""
 import json
-from .models import Profile, Question, Answer, Location
+from functools import wraps
+
+# from django.shortcuts import get_object_or_404
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponseForbidden
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, get_user
-from django.views import generic
 from django.views.decorators.http import require_http_methods
-from functools import wraps
+
 from .utils.send_push import send_push
-from time import sleep
+from .models import Question, Location
 
 
 def check_login_required(views_func):
+    """checks if user has logged in"""
     @wraps(views_func)
     def wrapper(request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -22,15 +25,17 @@ def check_login_required(views_func):
     return wrapper
 
 def check_request(views_func):
+    """checks if request body is valid json"""
     @wraps(views_func)
     def wrapper(*args, **kwargs):
         try:
             return views_func(*args, **kwargs)
-        except (KeyError, ValueError) as e:
-            return HttpResponseBadRequest(str(e))
+        except (KeyError, ValueError) as ex:
+            return HttpResponseBadRequest(str(ex))
     return wrapper
 
 def check_user_owner(views_func):
+    """checks if user is owner of the model"""
     @wraps(views_func)
     def wrapper(request, *args, **kwargs):
         if 'username' not in kwargs.keys():
@@ -39,37 +44,18 @@ def check_user_owner(views_func):
             user_name = kwargs["username"]
             if user_name == request.user.username:
                 return HttpResponseForbidden()
+            else:
+                return views_func(request, *args, **kwargs)
+
     return wrapper
 
 
-@check_user_owner
-@check_login_required
-@check_request
-def UserProfile(request, username):
-    user = get_object_or_404(Profile, username=username)
-    return render(request, 'users/user.html', {'user': user})
-
-@check_login_required
-@check_request
-def Main(request, username):
-    question_user = get_object_or_404(Profile, username=username)
-    question_list = [question for question in Question.objects.filter(author = question_user).values()]
-    return render(request, 'users/main.html', {'user': question_user, 'question_list': question_list})
-    
-# Displays detailed question page
-@check_login_required
-@check_request
-def Details(request, question_id):
-    question_to_answer = get_object_or_404(Question, id = question_id)
-    # questions to answers are one to many
-    answer_list = [answer for answer in Answer.objects.filter(question = question_to_answer).values()]
-    return render(request, 'users/detail.html', {'question': question_to_answer, 'answer_list': answer_list})
-    
 @check_login_required
 @check_request
 @require_http_methods(["POST"])
 @csrf_exempt
 def questions(request):
+    """questions api"""
     req_data = json.loads(request.body.decode())
     location = req_data['target_location']
     content = req_data['content']
@@ -90,6 +76,7 @@ def questions(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 def sign_up(request):
+    """sign up api"""
     req_data = json.loads(request.body.decode())
     username = req_data['username']
     password = req_data['password']
@@ -101,6 +88,7 @@ def sign_up(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 def sign_in(request):
+    """sign in api"""
     req_data = json.loads(request.body.decode())
     username = req_data['username']
     password = req_data['password']
@@ -111,6 +99,7 @@ def sign_in(request):
         return JsonResponse(response_dict, status=201)
     else:
         return JsonResponse({}, status=401)
+<<<<<<< HEAD
 
 @check_request
 @csrf_exempt
@@ -125,3 +114,5 @@ def save_subscription(request):
     profile.subscription = req_data
     profile.save()
     return JsonResponse({'data':{'success': True}}, status=201)
+=======
+>>>>>>> 306ab74b6575377813db07ce62b1dba94d4033b0
