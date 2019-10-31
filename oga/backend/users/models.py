@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from .custommodels.json_field import JSONField
 
 
 class Location(models.Model):
@@ -20,6 +21,7 @@ class Profile(models.Model):
     # can use Pointfield to store location coordinates
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE,
                                     blank=True, null=True)
+    subscription = JSONField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username
