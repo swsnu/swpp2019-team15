@@ -8,7 +8,7 @@ from django.contrib.auth import login, authenticate, get_user
 from django.views import generic
 from django.views.decorators.http import require_http_methods
 from functools import wraps
-from pywebpush import webpush, WebPushException
+from .utils.send_push import send_push
 from time import sleep
 
 
@@ -123,19 +123,4 @@ def save_subscription(request):
     profile = get_object_or_404(Profile, user=user)
     profile.subscription = req_data
     profile.save()
-    # try:
-        # webpush(user.sbscription,
-                # json.dumps({'body': "HI"}),
-                # vapid_private_key="LhJWR3cBwqckwjYMC1vQoCLXmI8d3qXK6LOUMZ-6LzY",
-                # vapid_claims={"sub": "mailto:indiofish@naver.com"})
-    # except WebPushException as ex:
-        # print("I'm sorry, Dave, but I can't do that: {}", repr(ex))
-        # # Mozilla returns additional information in the body of the response.
-        # if ex.response and ex.response.json():
-            # extra = ex.response.json()
-            # print("Remote service replied with a {}:{}, {}",
-                  # extra.code,
-                  # extra.errno,
-                  # extra.message
-                  # )
     return JsonResponse({'data':{'success': True}}, status=201)
