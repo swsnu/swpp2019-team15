@@ -1,4 +1,4 @@
-""""""
+"""wrapper for webpush"""
 import json
 from pywebpush import webpush, WebPushException
 

@@ -2,7 +2,7 @@
 import json
 from functools import wraps
 
-# from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.http import JsonResponse, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
@@ -10,8 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, get_user
 from django.views.decorators.http import require_http_methods
 
-from .utils.send_push import send_push
-from .models import Question, Location
+from .models import Question, Location, Profile
 
 
 def check_login_required(views_func):
@@ -99,20 +98,18 @@ def sign_in(request):
         return JsonResponse(response_dict, status=201)
     else:
         return JsonResponse({}, status=401)
-<<<<<<< HEAD
 
 @check_request
 @csrf_exempt
 @require_http_methods(["POST"])
 def save_subscription(request):
+    """save subscription data to user's profile for push notification"""
     req_data = json.loads(request.body.decode())
     # the request body should at least hold the following
-    endpoint = req_data['endpoint']
-    keys = req_data['keys']
+    # endpoint = req_data['endpoint']
+    # keys = req_data['keys']
     user = get_user(request)
     profile = get_object_or_404(Profile, user=user)
     profile.subscription = req_data
     profile.save()
     return JsonResponse({'data':{'success': True}}, status=201)
-=======
->>>>>>> 306ab74b6575377813db07ce62b1dba94d4033b0
