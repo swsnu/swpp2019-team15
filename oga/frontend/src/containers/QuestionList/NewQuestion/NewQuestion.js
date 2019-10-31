@@ -7,7 +7,7 @@ import * as actionCreators from '../../../store/actions';
 import { Redirect } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import Map from '../../Map/GoogleMap';
-import PushNotification from '../../../components/PushNotification'
+import PushNotification from '../../../components/PushNotification/PushNotification'
 
 class NewQuestion extends Component {
   state = {
