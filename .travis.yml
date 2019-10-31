@@ -3,6 +3,12 @@ matrix:
     - language: node_js
       node_js:
       - '10'
+      dist: trusty
+      addons:
+        sonarcloud:
+          organization: "swsnu"
+          token:
+            secire: "723b11c72cb0f773dd32eb99ebbaa3e17e5fa610"
       before_install:
       - cd oga/frontend
       install:
@@ -10,7 +16,7 @@ matrix:
       script:
       - ./node_modules/.bin/eslint src
       - yarn test -- --coverage --watchAll=false
-     
+      - sonar-scanner
     - language: python
       python: 3.6
       before_install:
