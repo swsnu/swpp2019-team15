@@ -1,3 +1,4 @@
+""""""
 import json
 from pywebpush import webpush, WebPushException
 
@@ -5,6 +6,9 @@ def send_push(subscription, body):
     """
     given a subscription of a user (a json object),
     send an appropriate notification with body (a dictionary object) notification
+
+    how to use:
+    send_push(subscription, {'title': 'hi', 'text': 'hi'})
     """
     try:
         webpush(subscription,
