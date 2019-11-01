@@ -27,7 +27,7 @@ class Profile(models.Model):
     # password = models.CharField(max_length=20)
     # can use Pointfield to store location coordinates
     location = models.ForeignKey(Location, on_delete=models.CASCADE,
-                                    blank=True, null=True)
+                                 blank=True, null=True)
     subscription = JSONField(blank=True, null=True)
 
     def __str__(self):
