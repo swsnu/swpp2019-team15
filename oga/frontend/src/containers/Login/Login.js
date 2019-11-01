@@ -10,7 +10,7 @@ class Login extends Component {
     };
 
     clickSignUpHandler() {
-        this.props.history.push("/register");
+        this.props.history.push("/signup");
     }
 
     clickSignInHandler() {

@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import Register from "./containers/Login/Register";
+import Signup from "./containers/Login/Signup";
 
 function App(props) {
     let session = false;
@@ -20,7 +20,7 @@ function App(props) {
             <div className="App">
                 <Switch>
                     <Route path="/login" exact component={Login} />
-                    <Route path="/register" exact component={Register} />
+                    <Route path="/signup" exact component={Signup} />
                     <PrivateRoute
                         auth={session}
                         path="/questions/create"

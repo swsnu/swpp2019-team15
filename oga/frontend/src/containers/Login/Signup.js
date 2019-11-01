@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import * as actionCreators from "../../store/actions/index";
 
-class Register extends Component {
+class Signup extends Component {
     state = {
         username: "",
         password: "",
@@ -29,7 +29,7 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="Register">
+            <div className="Signup">
                 <h1>Sign up</h1>
                 <div>
                     <label>Username</label>
@@ -99,4 +99,4 @@ export default connect(
     // mapStateToProps,
     null,
     mapDispatchToProps
-)(Register);
+)(Signup);
