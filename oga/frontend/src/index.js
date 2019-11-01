@@ -9,6 +9,10 @@ import { Provider } from 'react-redux';
 
 import store, { history } from './store/store';
 
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+
+
 ReactDOM.render(
   <Provider store={store}>
     <App history={history} />

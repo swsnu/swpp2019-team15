@@ -3,9 +3,6 @@ import axios from "axios";
 
 import { push } from "connected-react-router";
 
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-
 //TODO: build a seperate signup page, and push different link after signup
 
 export const signUp_ = res => {

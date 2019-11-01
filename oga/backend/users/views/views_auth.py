@@ -3,7 +3,6 @@ import json
 
 # from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.views.decorators.http import require_http_methods
@@ -11,7 +10,6 @@ from django.views.decorators.http import require_http_methods
 from users.views.decorators import check_request
 
 @check_request
-@csrf_exempt
 @require_http_methods(["POST"])
 def sign_up(request):
     """sign up api"""
@@ -23,7 +21,6 @@ def sign_up(request):
     return JsonResponse(response_dict, status=201)
 
 @check_request
-@csrf_exempt
 @require_http_methods(["POST"])
 def sign_in(request):
     """sign in api"""
