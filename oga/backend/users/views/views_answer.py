@@ -19,11 +19,12 @@ def create_answer(request, question_id):
     question = Question.objects.get(id=question_id)
     question_type = req_data['question_type']
     answer_author = get_user(request)
+    author = Profile.objects.get(user=answer_author)
     answer_content = req_data['answer_content']
 
     answer = Answer(question_id=question_id,
-                    author_id=answer_author.id,
+                    author=answer_author.id,
                     question_type=question_type,
                     answer_content=answer_content)
-    question.save()
+    answer.save()
     return JsonResponse(response_dict, status=200)

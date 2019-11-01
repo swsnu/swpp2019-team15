@@ -29,23 +29,6 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
   console.warn('Push messaging is not supported');
 }
 
-let swRegistration = null;
-if ('serviceWorker' in navigator && 'PushManager' in window) {
-  console.log('Service Worker and Push is supported');
-
-  navigator.serviceWorker.register('/sw.js')
-  .then(function(swReg) {
-    console.log('Service Worker is registered', swReg);
-
-    swRegistration = swReg;
-  })
-  .catch(function(error) {
-    console.error('Service Worker Error', error);
-  });
-} else {
-  console.warn('Push messaging is not supported');
-}
-
 function App(props) {
     let session = false;
     if (props.auth) session = props.auth;
@@ -67,7 +50,7 @@ function App(props) {
                         exact
                         component={Map}
                     />
-                    <Route
+                    <PrivateRoute
                         auth={session}
                         path='/reply/:id'
                         exact

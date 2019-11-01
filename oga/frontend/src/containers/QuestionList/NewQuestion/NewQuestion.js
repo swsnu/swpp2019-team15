@@ -25,7 +25,7 @@ class NewQuestion extends Component {
     { // for testing purposes, we set type to 0, and pass content as well
       // actually, we only have to store type in questions, 
       // as content is fixed based on type
-      this.props.createQuestion(0, this.state.content, this.props.target_location);
+      this.props.createQuestion(this.state.content, this.props.target_location);
     }
   }
 
@@ -95,8 +95,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createQuestion: (type, content, target_location) =>
-      dispatch(actionCreators.createQuestion({ author: "HI", type: type, content: content, target_location: target_location})),
+    createQuestion: (type, target_location) =>
+      dispatch(actionCreators.createQuestion({question_type: type, target_location: target_location})),
+      // dispatch(actionCreators.createQuestion({ author: "HI", type: type, content: content, target_location: target_location})),
     //setLogout: () => 
     //dispatch(actionCreators.settingLogout())
     // prevQuestion: () =>
