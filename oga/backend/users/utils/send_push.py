@@ -10,8 +10,7 @@ def send_push(profile, body):
     how to use:
     send_push(profile, {'title': 'hi', 'text': 'hi'})
     """
-    if (not profile.subscription):
-        return
+
     try:
         webpush(profile.subscription,
                 json.dumps(body),
@@ -19,7 +18,6 @@ def send_push(profile, body):
                 vapid_private_key="LhJWR3cBwqckwjYMC1vQoCLXmI8d3qXK6LOUMZ-6LzY",
                 vapid_claims={"sub": "mailto:indiofish@naver.com"})
     except WebPushException as ex:
-        print("ERRORHERE")
         print(": {}", repr(ex))
         # Mozilla returns additional information in the body of the response.
         if ex.response and ex.response.json():

@@ -7,6 +7,8 @@ urlpatterns = [
     path('question/<int:question_id>/', views_question.get_question, name='question'),
     path('signup/', views_auth.sign_up, name='sign_up'),
     path('signin/', views_auth.sign_in, name='sign_in'),
+    path('save-subscription/', views.save_subscription, name='save-subscription'),
+    path('location/', views.locations, name='set_location'),
     path('reply/<int:question_id>/', views_answer.create_answer, name='create_answer'),
 #    path('save-subscription/', views_auth.save_subscription, name='save-subscription'),
 ]

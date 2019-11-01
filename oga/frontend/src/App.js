@@ -1,4 +1,7 @@
 import React from "react";
+import { Route, Redirect, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import Signup from "./containers/Login/Signup";
 import "./App.css";
 import Login from "./containers/Login/Login";
 import QuestionList from "./containers/QuestionList/QuestionList";
@@ -9,9 +12,22 @@ import Map from "./containers/Map/GoogleMap";
 import NewAnswer from './containers/Answer/NewAnswer';
 import { connect } from "react-redux";
 
-import { Route, Redirect, Switch } from "react-router-dom";
-import { ConnectedRouter } from "connected-react-router";
-import Signup from "./containers/Login/Signup";
+let swRegistration = null;
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+  console.log('Service Worker and Push is supported');
+
+  navigator.serviceWorker.register('/sw.js')
+  .then(function(swReg) {
+    console.log('Service Worker is registered', swReg);
+
+    swRegistration = swReg;
+  })
+  .catch(function(error) {
+    console.error('Service Worker Error', error);
+  });
+} else {
+  console.warn('Push messaging is not supported');
+}
 
 let swRegistration = null;
 if ('serviceWorker' in navigator && 'PushManager' in window) {
