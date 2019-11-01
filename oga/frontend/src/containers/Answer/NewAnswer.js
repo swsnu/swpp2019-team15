@@ -138,8 +138,8 @@ const mapDispatchToProps = dispatch => {
     onGetQuestion: (id) =>
       dispatch(actionCreators.getQuestion(id)),
     createAnswer: (question_type, author, answer_content) =>
-      dispatch(actionCreators.createAnswer({'question_type': question_type,
-                                            'answer_author': author,
+      dispatch(actionCreators.createAnswer({'question_id': this.props.match.params.id,
+                                            'question_type': question_type,
                                             'answer_content': answer_content}))
   }
 };
