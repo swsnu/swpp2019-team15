@@ -25,6 +25,8 @@ import haversine from 'haversine'
 import * as actionCreators from '../../store/actions/index';
 import {connect} from 'react-redux';
 
+const options = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
+
 class LocationListener extends Component {
   constructor(props) {
     super(props);
@@ -46,38 +48,42 @@ class LocationListener extends Component {
 
   //returns meter distance between two coordinates
   //returns 0 if prevCoordinates is empty
-  calcDistance = (prevCoordinates, newCoordinates) => {
+  distance = (prevCoordinates, newCoordinates) => {
     //use haversine due to the curviness of the earth
     return haversine(prevCoordinates, newCoordinates, {unit: 'meter'}) || 0;
   };
 
+  setPosition = (position) => {
+    //const { routeCoordinates, totalDistanceMoved } = this.state;
+    const { latitude, longitude } = position.coords;
+    const {previousCoordinates} = this.state;
+    const newCoordinates = {
+      latitude,
+      longitude
+    };
+
+    //if called the first time, update previousCoordinates no matter what
+    if (previousCoordinates === null) {
+      this.setState({latitude, longitude, previousCoordinates: newCoordinates});
+      this.props.setCurrentCoordinates(newCoordinates);
+      return;
+    }
+
+    const distance = this.distance(previousCoordinates, newCoordinates);
+    if (distance > this.THRESHOLD) {
+      this.setState({latitude, longitude, previousCoordinates: newCoordinates});
+      this.props.setCurrentCoordinates(newCoordinates);
+    }
+  };
+
+  handleError = (error) => {
+    console.log(error);
+  };
+
   componentDidMount() {
+    //TODO: should introduce better error handling
     this.watchID = navigator.geolocation.watchPosition(
-      position => {
-        //const { routeCoordinates, totalDistanceMoved } = this.state;
-        const { latitude, longitude } = position.coords;
-        const {previousCoordinates} = this.state;
-        const newCoordinates = {
-          latitude,
-          longitude
-        };
-
-        //if called the first time, update previousCoordinates no matter what
-        if (previousCoordinates === null) {
-          this.setState({latitude, longitude, previousCoordinates: newCoordinates});
-          this.props.setCurrentCoordinates(newCoordinates);
-          return;
-        }
-
-        const distance = this.calcDistance(previousCoordinates, newCoordinates);
-        if (distance > this.THRESHOLD) {
-          this.setState({latitude, longitude, previousCoordinates: newCoordinates});
-          this.props.setCurrentCoordinates(newCoordinates);
-        }
-      },
-      error => console.log(error), //TODO: should introduce better handling
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
+      this.setPosition, this.handleError, options);
   }
 
   render() {
