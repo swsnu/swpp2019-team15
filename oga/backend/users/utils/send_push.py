@@ -1,17 +1,17 @@
-""""""
+"""wrapper for webpush"""
 import json
 from pywebpush import webpush, WebPushException
 
-def send_push(subscription, body):
+def send_push(profile, body):
     """
-    given a subscription of a user (a json object),
+    given a subscription of a user (a Profile)
     send an appropriate notification with body (a dictionary object) notification
 
     how to use:
-    send_push(subscription, {'title': 'hi', 'text': 'hi'})
+    send_push(profile, {'title': 'hi', 'text': 'hi'})
     """
     try:
-        webpush(subscription,
+        webpush(profile.subscription,
                 json.dumps(body),
                 # encoded as a hard string as of now
                 vapid_private_key="LhJWR3cBwqckwjYMC1vQoCLXmI8d3qXK6LOUMZ-6LzY",
