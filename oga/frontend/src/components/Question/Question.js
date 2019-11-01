@@ -7,6 +7,12 @@ const Question = props => {
             <div>author: {props.author}</div>
             <div>published: {props.publish_date_time}</div>
             <div>content: {props.content}</div>
+            {props.is_answered ? (
+                <div className="answered-mark">&#128525;</div>
+            ) : (
+                <div>&#128591;</div>
+            )}
+            <button onClick={props.clickAnswer}>Answer</button>
             {/* <button onClick={props.clickDetail}>{props.title}</button> */}
         </div>
     );
