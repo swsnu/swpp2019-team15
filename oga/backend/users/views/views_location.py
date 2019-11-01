@@ -3,7 +3,6 @@ import json
 from django.contrib.auth import get_user
 
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from users.views.decorators import check_request, check_login_required
 from users.models import Location
@@ -11,7 +10,6 @@ from users.models import Location
 @check_login_required
 @check_request
 @require_http_methods(["POST"])
-@csrf_exempt
 def locations(request):
     """on post, store user's location"""
     req_data = json.loads(request.body.decode())
