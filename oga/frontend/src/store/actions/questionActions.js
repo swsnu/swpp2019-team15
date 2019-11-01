@@ -25,3 +25,19 @@ export const createQuestion = (question) => {
       })
   }
 }
+
+export const getQuestion_ = (qs) => {
+  return {
+    type: actionTypes.GET_QUESTION,
+    selectedQuestion: qs,
+  }
+}
+
+export const getQuestion = (id) => {
+  return (dispatch) => {
+    return axios.get('/api/question/' + id, question)
+      .then(res => {
+        dispatch(getQuestion_(res.data));
+      })
+  }
+}

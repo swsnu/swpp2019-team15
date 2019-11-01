@@ -5,5 +5,6 @@ export {
   setTargetLocation,
   setCurrentCoordinates,
   createQuestion,
-  signUp, signIn
+  signUp, signIn,
+  getQuestion,
 }

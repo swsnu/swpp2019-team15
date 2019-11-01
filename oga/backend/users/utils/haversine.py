@@ -1,4 +1,5 @@
 from math import radians, sin, cos, asin, sqrt
+from users.models import User, Profile, Question, Answer, Location
 
 def distance(loc1, loc2):
     return haversine(loc1.longitude, loc1.latitude, loc2.longitude, loc2.latitude)
