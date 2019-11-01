@@ -18,9 +18,13 @@ def sign_up(request):
     req_data = json.loads(request.body.decode())
     username = req_data['username']
     password = req_data['password']
-    new_user = User.objects.create_user(username=username, password=password)
-    response_dict = {'id': new_user.id}
-    return JsonResponse(response_dict, status=201)
+    if User.objects.filter(username=username).exists():
+        return JsonResponse({"error": "The username already exists"},
+                            status=401)
+    else:
+        new_user = User.objects.create_user(username=username, password=password)
+        response_dict = {'id': new_user.id}
+        return JsonResponse(response_dict, status=201)
 
 @check_request
 @csrf_exempt
