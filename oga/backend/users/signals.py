@@ -26,7 +26,7 @@ def notify_new_question(sender, instance, created, **kwargs):
         profiles = Profile.objects.all()
         for profile in profiles:
             rc_l = profile.location_id
-            if instance.author != profile.user and profile.location_id:
+            if (instance.author != profile.user) and profile.location_id:
                 if distance(qs_l, rc_l) <= 0.3:
                     send_push(profile, {"text": "newquestion!", "tag": "question"})
 
