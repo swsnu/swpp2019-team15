@@ -29,3 +29,17 @@ def questions(request):
     question.save()
     response_dict = {'id': question.id}
     return JsonResponse(response_dict, status=201)
+
+@check_login_required
+@check_request
+@require_http_methods(["GET"])
+@csrf_exempt
+def get_question(request):
+    """question api"""
+    req_data = json.loads(request.body.decode())
+    id = req_data['id']
+    question = Question.objects.get(id=id)
+    response_dict = {'id': question.id,
+                     'location': {question.location_id.longitude, question.location_id.latitude},
+                     'content': question.content}
+    return JsonResponse(response_dict, state=200)

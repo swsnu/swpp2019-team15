@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 axios.defaults.xsrfCookieName="csrftoken";
 axios.defaults.xsrfHeaderName="X-CSRFTOKEN";
 
-export const createQuestion_ = (question, id) => {
+export const createAnswer_ = (answer, id) => {
   return {
     type: actionTypes.CREATE_QUESTION,
     id: id,
@@ -16,7 +16,7 @@ export const createQuestion_ = (question, id) => {
   }
 }
 
-export const createQuestion = (question) => {
+export const createAnswer = (answer) => {
   return (dispatch) => {
     return axios.post('/api/questions/', question)
       .then(res => {
