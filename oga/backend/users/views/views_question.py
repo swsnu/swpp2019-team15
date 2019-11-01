@@ -1,9 +1,7 @@
 """functional views api for the models"""
 import json
 
-# from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user
 from django.views.decorators.http import require_http_methods
 from users.models import Question, Location
@@ -11,8 +9,7 @@ from users.views.decorators import check_request, check_login_required
 
 @check_login_required
 @check_request
-@require_http_methods(["POST"])
-@csrf_exempt
+@require_http_methods(["POST", "GET"])
 def questions(request):
     """questions api"""
     req_data = json.loads(request.body.decode())
