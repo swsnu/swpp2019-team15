@@ -24,6 +24,8 @@ import React, { Component } from 'react';
 import haversine from 'haversine'
 import * as actionCreators from '../../store/actions/index';
 import {connect} from 'react-redux';
+import GoogleMapReact from 'google-map-react';
+import API_KEY from '../../const/api_key';
 
 class LocationListener extends Component {
   constructor(props) {
@@ -46,7 +48,7 @@ class LocationListener extends Component {
 
   //returns meter distance between two coordinates
   //returns 0 if prevCoordinates is empty
-  calcDistance = (prevCoordinates, newCoordinates) => {
+  distance = (prevCoordinates, newCoordinates) => {
     //use haversine due to the curviness of the earth
     return haversine(prevCoordinates, newCoordinates, {unit: 'meter'}) || 0;
   };
@@ -58,6 +60,12 @@ class LocationListener extends Component {
         const { latitude, longitude } = position.coords;
         const {previousCoordinates} = this.state;
         const newCoordinates = {
+          // this is left as a dummy string as of now.
+          // to use reverse geocoding of googlemaps, we have to 
+          // display the map(it's google's policy). 
+          // And if we are to use map, defeats the purpose of a light weight
+          // location tracker
+          name: "userlocation",
           latitude,
           longitude
         };
@@ -69,7 +77,7 @@ class LocationListener extends Component {
           return;
         }
 
-        const distance = this.calcDistance(previousCoordinates, newCoordinates);
+        const distance = this.distance(previousCoordinates, newCoordinates);
         if (distance > this.THRESHOLD) {
           this.setState({latitude, longitude, previousCoordinates: newCoordinates});
           this.props.setCurrentCoordinates(newCoordinates);

@@ -22,6 +22,7 @@ export const setTargetLocation = (target) => {
 export const setCurrentCoordinates_ = (coordinates) => {
   return {
     type: actionTypes.SET_CURRENT_COORDINATES,
+    //name: "test",
     latitude: coordinates.latitude,
     longitude: coordinates.longitude,
   }
@@ -29,6 +30,10 @@ export const setCurrentCoordinates_ = (coordinates) => {
 
 export const setCurrentCoordinates = (coordinates) => {
   return (dispatch) => {
-    return dispatch(setCurrentCoordinates_(coordinates));
+    return axios.post('/api/location/', coordinates)
+      .then(res => {
+        dispatch(setCurrentCoordinates_(coordinates));
+        //dispatch(push('/main/questions/'));
+      })
   }
 }

@@ -2,3 +2,4 @@
 from .views_auth import *
 from .views_question import *
 from .views_notification import *
+from .views_location import *
