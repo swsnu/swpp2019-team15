@@ -96,7 +96,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     createQuestion: (type, target_location) =>
-      dispatch(actionCreators.createQuestion({question_type: type, target_location: target_location})),
+      dispatch(actionCreators.createQuestion({content: type, target_location: target_location})),
       // dispatch(actionCreators.createQuestion({ author: "HI", type: type, content: content, target_location: target_location})),
     //setLogout: () => 
     //dispatch(actionCreators.settingLogout())

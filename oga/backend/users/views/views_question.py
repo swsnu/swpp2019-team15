@@ -16,18 +16,16 @@ def questions(request):
     """questions api"""
     req_data = json.loads(request.body.decode())
     location = req_data['target_location']
-    content = req_data['content']
-    question_type = req_data['question_type']
+    question_type = req_data['content']
     user = get_user(request)
 
     location, _ = Location.objects.get_or_create(name=location['name'],
                                                  latitude=location['latitude'],
                                                  longitude=location['longitude'])
 
-    question = Question(author=user, question_type=question_type, location_id=location,
-                        content=content)
+    question = Question(author=user, content=question_type, location_id=location)
     question.save()
-    response_dict = {'id': question.id}
+    response_dict = {'id': question.id, 'author_id': user.id, 'content': question.content, 'location_id': question.location_id.id}
     return JsonResponse(response_dict, status=201)
 
 @check_login_required
