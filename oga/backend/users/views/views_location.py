@@ -22,7 +22,7 @@ def locations(request):
                                                  longitude=req_data['longitude'])
     user = get_user(request)
     profile = get_object_or_404(Profile, user=user)
-    profile.location_id = location
+    profile.location = location
     profile.save()
     response_dict = {'success': True}
     return JsonResponse(response_dict, status=201)

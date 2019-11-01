@@ -26,7 +26,7 @@ class Profile(models.Model):
     # username = models.CharField(max_length=20)
     # password = models.CharField(max_length=20)
     # can use Pointfield to store location coordinates
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE,
+    location = models.ForeignKey(Location, on_delete=models.CASCADE,
                                     blank=True, null=True)
     subscription = JSONField(blank=True, null=True)
 
@@ -43,7 +43,7 @@ class Question(models.Model):
 
     publish_date_time = models.DateTimeField(auto_now=True)
     content = models.TextField(max_length=100)
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
     is_answered = models.BooleanField(default=False)
 
     def __str__(self):

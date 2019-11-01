@@ -23,7 +23,7 @@ def questions(request):
                                                  latitude=location['latitude'],
                                                  longitude=location['longitude'])
 
-    question = Question(author=user, location_id=location,
+    question = Question(author=user, location=location,
                         content=content)
     question.save()
     response_dict = {'id': question.id}

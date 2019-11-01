@@ -21,7 +21,7 @@ class QuestionTestCase(TestCase):
                                            latitude=127.39)
         location.save()
         question = Question.objects.create(author=user, content='rains?',
-                                           location_id=location)
+                                           location=location)
         question.save()
         profile = Profile.objects.get(user=user)
         profile.location = location
