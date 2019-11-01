@@ -36,7 +36,7 @@ class Login extends Component {
                 ></input>
                 <label>Password</label>
                 <input
-                    type="text"
+                    type="password"
                     id="pw-input"
                     value={this.state.password}
                     onChange={event =>
