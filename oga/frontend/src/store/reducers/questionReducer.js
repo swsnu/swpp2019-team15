@@ -13,8 +13,8 @@ const questionReducer = (state = initialState, action) => {
       const newQuestion = {
         id: action.id,
         author_id: action.author_id,
-        title: action.title,
-        content: action.content
+        content: action.content,
+        target_location: action.target_location,
       };
       return { ...state, questions: state.questions.concat(newQuestion)};
       return {...state};

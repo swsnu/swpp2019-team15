@@ -21,9 +21,7 @@ def save_user_profile(sender, instance, **kwargs):
 def notify_new_question(sender, instance, created, **kwargs):
     """upon saving a new question, find relevant users and send push
     notificaiton"""
-    print("called")
     if created:
-        print("called")
         qs_l = instance.location_id
         profiles = Profile.objects.all()
         for profile in profiles:

@@ -20,11 +20,11 @@ class NewAnswer extends Component {
   }
 
   postQuestionHandler = () => {
-    if (this.state.answer_content !== '' && this.props.selectedQuestion.question_type)
+    if (this.state.answer_content !== '' && this.props.selectedQuestion.content)
     { // for testing purposes, we set type to 0, and pass content as well
       // actually, we only have to store type in questions, 
       // as content is fixed based on type
-      this.props.createAnswer(this.props.selectedQuestion.question_type, this.state.answer_content);
+      this.props.createAnswer(this.props.selectedQuestion.content, this.state.answer_content);
     }
   }
 
@@ -39,7 +39,7 @@ class NewAnswer extends Component {
       place_name = this.props.target_location.name;
     }
     let show = null;
-    var qs_type = this.props.selectedQuestion.question_type;
+    var qs_type = this.props.selectedQuestion.content;
     if (qs_type == "LINE") {
       show =
       <React.Fragment>
@@ -94,7 +94,7 @@ class NewAnswer extends Component {
       >
       <div>
         <h1>
-          Answer to a Quetion!
+          Answer to a Question!
         </h1>
         {show}
       </div>
@@ -114,6 +114,7 @@ class NewAnswer extends Component {
 const mapStateToProps = state => {
   return {
     selectedQuestion: state.question.selectedQuestion,
+    // selectedQuestion: state.question.selectedQuestion,
   };
 }
 

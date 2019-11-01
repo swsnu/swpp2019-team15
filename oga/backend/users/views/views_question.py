@@ -25,7 +25,7 @@ def questions(request):
 
     question = Question(author=user, content=question_type, location_id=location)
     question.save()
-    response_dict = {'id': question.id, 'author_id': user.id, 'content': question.content, 'location_id': question.location_id.id}
+    response_dict = {'id': question.id, 'author_id': user.id, 'content': question.content, 'target_location': question.location_id.id}
     return JsonResponse(response_dict, status=201)
 
 @check_login_required
@@ -37,7 +37,6 @@ def get_question(request, question_id):
     req_data = json.loads(request.body.decode())
     question = Question.objects.get(id=question_id)
     response_dict = {'id': question.id,
-                     'question_type': question.question_type,
-                     'location': {question.location_id.longitude, question.location_id.latitude},
-                     'content': question.content}
+                     'content': question.content,
+                     'location': {question.location_id.longitude, question.location_id.latitude}}
     return JsonResponse(response_dict, state=200)
