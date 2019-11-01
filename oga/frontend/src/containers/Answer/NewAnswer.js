@@ -19,28 +19,12 @@ class NewAnswer extends Component {
     this.props.onGetQuestion(this.props.match.params.id);
   }
 
-  // postQuestionHandler = () => {
-  //   if (this.state.content !== '' && this.props.target_location)
-  //   { // for testing purposes, we set type to 0, and pass content as well
-  //     // actually, we only have to store type in questions, 
-  //     // as content is fixed based on type
-  //     this.props.createQuestion(0, this.state.content, this.props.target_location);
-  //   }
-  // }
-
-  // clickBackHandler = () => {
-  //   this.props.history.goBack();
-  // }
-
-  // clickMapHandler = () => {
-  //   this.props.history.push('/map');
-
   postQuestionHandler = () => {
     if (this.state.answer_content !== '' && this.props.selectedQuestion.question_type)
     { // for testing purposes, we set type to 0, and pass content as well
       // actually, we only have to store type in questions, 
       // as content is fixed based on type
-      this.props.createAnswer(this.props.selectedQuestion_type, 0, this.props.state.answer_content);
+      this.props.createAnswer(this.props.selectedQuestion.question_type, this.state.answer_content);
     }
   }
 
@@ -55,7 +39,7 @@ class NewAnswer extends Component {
       place_name = this.props.target_location.name;
     }
     let show = null;
-    qs_type = this.props.selectedQuestion.question_type;
+    var qs_type = this.props.selectedQuestion.question_type;
     if (qs_type == "LINE") {
       show =
       <React.Fragment>
@@ -137,10 +121,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onGetQuestion: (id) =>
       dispatch(actionCreators.getQuestion(id)),
-    createAnswer: (question_type, author, answer_content) =>
-      dispatch(actionCreators.createAnswer({'question_id': this.props.match.params.id,
-                                            'question_type': question_type,
-                                            'answer_content': answer_content}))
+    createAnswer: (question_type, answer_content) =>
+      dispatch(actionCreators.createAnswer({'question_type': question_type,
+                                            'answer_content': answer_content}, this.props.match.params.id))
   }
 };
 

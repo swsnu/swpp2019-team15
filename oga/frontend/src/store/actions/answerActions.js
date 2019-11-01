@@ -6,38 +6,22 @@ import { push } from 'connected-react-router';
 axios.defaults.xsrfCookieName="csrftoken";
 axios.defaults.xsrfHeaderName="X-CSRFTOKEN";
 
-export const createAnswer_ = (answer, id) => {
+export const createAnswer_ = (answer) => {
   return {
-    type: actionTypes.CREATE_QUESTION,
-    id: id,
-    author_id: question.author_id,
-    content: question.content,
-    target_location: question.target_location
+    type: actionTypes.CREATE_ANSWER,
+    question_id: answer.question_id,
+    author_id: answer.author_id,
+    question_type: answer.question_type,
+    answer_content: answer.answer_content,
   }
 }
 
-export const createAnswer = (answer) => {
+export const createAnswer = (answer, question_id) => {
   return (dispatch) => {
-    return axios.post('/api/questions/', question)
+    return axios.post('/api/reply/'+question_id, answer)
       .then(res => {
-        dispatch(createQuestion_(question, res.data.id));
-        //dispatch(push('/main/questions/'));
-      })
-  }
-}
-
-export const getQuestion_ = (qs) => {
-  return {
-    type: actionTypes.GET_QUESTION,
-    selectedQuestion: qs,
-  }
-}
-
-export const getQuestion = (id) => {
-  return (dispatch) => {
-    return axios.get('/api/question/' + id)
-      .then(res => {
-        dispatch(getQuestion_(res.data));
+        dispatch(createAnswer_(res.data));
+        dispatch(push('/main/'));
       })
   }
 }

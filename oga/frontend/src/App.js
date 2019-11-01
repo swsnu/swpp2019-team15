@@ -51,7 +51,7 @@ function App(props) {
                         exact
                         component={Map}
                     />
-                    <PrivateRoute
+                    <Route
                         auth={session}
                         path='/reply/:id'
                         exact

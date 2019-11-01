@@ -34,12 +34,12 @@ def questions(request):
 @check_request
 @require_http_methods(["GET"])
 @csrf_exempt
-def get_question(request):
+def get_question(request, question_id):
     """question api"""
     req_data = json.loads(request.body.decode())
-    id = req_data['id']
-    question = Question.objects.get(id=id)
+    question = Question.objects.get(id=question_id)
     response_dict = {'id': question.id,
+                     'question_type': question.question_type,
                      'location': {question.location_id.longitude, question.location_id.latitude},
                      'content': question.content}
     return JsonResponse(response_dict, state=200)
