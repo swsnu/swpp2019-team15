@@ -1,8 +1,9 @@
 """wrapper for webpush"""
 import json
 from pywebpush import webpush, WebPushException
+from users.models import Location
 
-def send_push(profile, body):
+def send_push(question_location_id, profile, body):
     """
     given a subscription of a user (a Profile)
     send an appropriate notification with body (a dictionary object) notification
@@ -11,11 +12,14 @@ def send_push(profile, body):
     send_push(profile, {'title': 'hi', 'text': 'hi'})
     """
     try:
-        webpush(profile.subscription,
-                json.dumps(body),
-                # encoded as a hard string as of now
-                vapid_private_key="LhJWR3cBwqckwjYMC1vQoCLXmI8d3qXK6LOUMZ-6LzY",
-                vapid_claims={"sub": "mailto:indiofish@naver.com"})
+        question_location = Location.objects.get(id=question_location_id)
+        location = Location.objects.get(id=profile.location_id)
+        if (location.longitude == question_location.longitude) and (location.latitude == question_location.latitude):
+            webpush(profile.subscription,
+                    json.dumps(body),
+                    # encoded as a hard string as of now
+                    vapid_private_key="LhJWR3cBwqckwjYMC1vQoCLXmI8d3qXK6LOUMZ-6LzY",
+                    vapid_claims={"sub": "mailto:indiofish@naver.com"})
     except WebPushException as ex:
         print(": {}", repr(ex))
         # Mozilla returns additional information in the body of the response.

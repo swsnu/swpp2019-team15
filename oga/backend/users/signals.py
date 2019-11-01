@@ -25,4 +25,4 @@ def notify_new_question(sender, instance, created, **kwargs):
         profiles = Profile.objects.all()
         for profile in profiles:
             if instance.author != profile.user:
-                send_push(profile, {"text": "newquestion!", "tag": "question"})
+                send_push(instance.location_id, profile, {"text": "newquestion!", "tag": "question"})
