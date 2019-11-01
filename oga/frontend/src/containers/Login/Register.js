@@ -1,10 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import { push } from "connected-react-router";
-import axios from "axios";
-import { Redirect } from "react-router-dom";
-import { bindActionCreators } from "redux";
 
 import * as actionCreators from "../../store/actions/index";
 
@@ -17,11 +12,11 @@ class Register extends Component {
 
     clickSignUpHandler() {
         //validation check
-        if (this.state.username == "") {
+        if (this.state.username === "") {
             alert("Please enter username");
-        } else if (this.state.password == "") {
+        } else if (this.state.password === "") {
             alert("Please enter password");
-        } else if (this.state.password == this.state.confirmPassword) {
+        } else if (this.state.password === this.state.confirmPassword) {
             // passwords match, sign up successful
             this.props.signup(this.state.username, this.state.password);
         } else {

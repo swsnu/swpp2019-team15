@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import axios from "axios";
-import { Redirect } from "react-router-dom";
-import { bindActionCreators } from "redux";
 
 import * as actionCreators from "../../store/actions/index";
 
