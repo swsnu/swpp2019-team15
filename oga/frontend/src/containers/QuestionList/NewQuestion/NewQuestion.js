@@ -10,7 +10,7 @@ import Map from '../../Map/GoogleMap';
 
 class NewQuestion extends Component {
   state = {
-    content: '....',
+    content: '',
   }
 
   componentDidMount() {
@@ -32,9 +32,9 @@ class NewQuestion extends Component {
     this.props.history.goBack();
   }
 
-  clickMapHandler = () => {
-    this.props.history.push('/map');
-  }
+  //clickMapHandler = () => {
+    //this.props.history.push('/map');
+  //}
 
   render() {
     let place_name = "...";
@@ -59,7 +59,7 @@ class NewQuestion extends Component {
             <input type="radio" value="QUIET" name="question" /> QUIET?
           </div>
         </div>
-        <div>Is it {this.state.content} in {place_name}?</div>
+        <div id="view">Is it {this.state.content} in {place_name}?</div>
         <div>
           <Map/>
         </div>
