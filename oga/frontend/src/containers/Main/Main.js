@@ -2,8 +2,6 @@ import React, { Component } from "react";
 
 import Question from "../../components/Question/Question";
 
-import { NavLink } from "react-router-dom";
-
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
@@ -17,38 +15,55 @@ class QuestionList extends Component {
         // }
     }
 
-    clickTodoHandler = qst => {
+    clickDetailHandler = qst => {
         this.props.history.push("/questions/" + qst.id);
     };
 
+    clickNewQuestionHandler = () => {
+        this.props.history.push("/questions/create");
+    };
+
+    click;
     render() {
         const Questions = this.props.storedQuestions.map(qs => {
             return (
                 <Question
                     key={qs.id}
                     id={qs.id}
-                    title={qs.title}
-                    author_id={qs.author_id}
-                    clickDetail={() => this.clickTodoHandler()}
+                    author={qs.author}
+                    publish_date_time={qs.publish_date_time}
+                    content={qs.content}
+                    // clickDetail={() => this.clickDetailHandler()}
                 />
             );
         });
 
         return (
             <div className="QuestionList">
-                <div className="title">{this.props.title}</div>
+                <h1>Question Feed</h1>
                 {Questions}
                 <div>
-                    <NavLink to="/main/questions/create" exact>
-                        New Question
-                    </NavLink>
+                    <button
+                        id="question-create-button"
+                        onClick={() => this.clickNewQuestionHandler()}
+                    >
+                        +
+                    </button>
                 </div>
-                <button
-                    id="logout-button"
-                    onClick={() => this.props.setLogout()}
-                >
-                    Log-out
-                </button>
+                <div>
+                    <button
+                        id="back-button"
+                        onClick={() => this.props.history.goBack()}
+                    >
+                        Back
+                    </button>
+                </div>
+                {/* <button
+                        id="logout-button"
+                        onClick={() => this.props.setLogout()}
+                    >
+                        Log-out
+                    </button> */}
             </div>
         );
     }
@@ -63,8 +78,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        //onGetAll: () =>
-        //dispatch(actionCreators.getQuestions()),
+        onGetAll: () => dispatch(actionCreators.getQuestions())
         //setLogout: () =>
         //dispatch(actionCreators.settingLogout())
     };
