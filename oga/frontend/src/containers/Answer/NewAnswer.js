@@ -120,7 +120,7 @@ class NewAnswer extends Component {
       </button>
       <button
         id="confirm-create-answer-button"
-        onClick={() => this.postQuestionHandler()}>Submit
+        onClick={() => this.postAnswerHandler()}>Submit
       </button>
     </div>
     );
