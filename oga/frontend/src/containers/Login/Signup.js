@@ -45,7 +45,7 @@ class Signup extends Component {
                 <div>
                     <label>Password</label>
                     <input
-                        type="text"
+                        type="password"
                         id="pw-input"
                         value={this.state.password}
                         onChange={event =>
@@ -56,7 +56,7 @@ class Signup extends Component {
                 <div>
                     <label>Confirm Password</label>
                     <input
-                        type="text"
+                        type="password"
                         id="confirm-pw-input"
                         value={this.state.confirmPassword}
                         onChange={event =>

@@ -18,10 +18,20 @@ export const signUp_ = res => {
 
 export const signUp = user => {
     return dispatch => {
-        return axios.post("/api/signup/", user).then(res => {
-            dispatch(signUp_(res));
-            dispatch(push("/login/"));
-        });
+        return axios
+            .post("/api/signup/", user)
+            .then(res => {
+                dispatch(signUp_(res));
+                if (res.status == 201) {
+                    alert("Sign up successful!");
+                    dispatch(push("/login/"));
+                }
+            })
+            .catch(err => {
+                if (err.status != 201) {
+                    alert("Username already taken!");
+                }
+            });
     };
 };
 
@@ -34,9 +44,16 @@ export const signIn_ = res => {
 
 export const signIn = user => {
     return dispatch => {
-        return axios.post("/api/signin/", user).then(res => {
-            dispatch(signIn_(res));
-            dispatch(push("/questions/create/"));
-        });
+        return axios
+            .post("/api/signin/", user)
+            .then(res => {
+                dispatch(signIn_(res));
+                dispatch(push("/questions/create/"));
+            })
+            .catch(err => {
+                alert(
+                    "The username of password is incorrect.\nPlease try again."
+                );
+            });
     };
 };
