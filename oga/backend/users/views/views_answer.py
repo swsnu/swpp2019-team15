@@ -28,5 +28,5 @@ def create_answer(request, question_id):
     response_dict = {'question_id': answer.question.question_id,
                      'author': answer_author.id,
                      'question_type': answer.question_type,
-                     'answer_content': answer.answer_content}
+                     'answer_content': answer.content}
     return JsonResponse(response_dict, status=200)
