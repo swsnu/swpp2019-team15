@@ -40,7 +40,7 @@ class Question(models.Model):
     id = models.AutoField(primary_key=True)
     #each Question is related to a single user
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField(max_length=100, default="LINE")
+    content = models.TextField(max_length=100, default="LONG LINE")
     publish_date_time = models.DateTimeField(auto_now=True)
     #content = models.TextField(max_length=100)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
@@ -68,4 +68,3 @@ class Answer(models.Model):
 
     class Meta:
         ordering = ('publish_date_time',)
-        

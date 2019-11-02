@@ -17,7 +17,6 @@ const questionReducer = (state = initialState, action) => {
         target_location: action.target_location,
       };
       return { ...state, questions: state.questions.concat(newQuestion)};
-      return {...state};
     case actionTypes.GET_QUESTIONS:
       return { ...state, questions: action.questions };
     case actionTypes.GET_QUESTION:

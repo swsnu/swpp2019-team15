@@ -28,7 +28,10 @@ def questions(request):
         question = Question(author=user, location_id=location,
                             content=content)
         question.save()
-        response_dict = {'id': question.id}
+        response_dict = {'id': question.id,
+                         'author_id': user.id,
+                         'content': question.content,
+                         'target_location': question.location_id.id}
         return JsonResponse(response_dict, status=201)
 
     elif request.method == 'GET':

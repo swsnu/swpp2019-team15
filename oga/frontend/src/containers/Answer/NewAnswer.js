@@ -36,30 +36,49 @@ class NewAnswer extends Component {
 
   render() {
     let place_name = "...";
-    const selected_question_type = null;
+    var selected_question_type = null;
     var selected_question_type_list = null;
     if (this.props.target_location)
     {
       place_name = this.props.target_location.name;
     }
-    var qs_type = this.props.selectedQuestion.content;
-    if (qs_type == "LINE") {
-      selected_question_type = 0;
-    } else if (qs_type == "SEAT") {
-      selected_question_type = 1;
-    } else if (qs_type == "RAIN") {
-      selected_question_type = 2;
-    } else if (qs_type == "IS_QUIET") {
-      selected_question_type = 3;
-    }
-    qs_type = question_types[selected_question_type];
-    selected_question_type_list = qs_type.map((val) => {
-      return (
-        <input type="radio" value={val} name="answer" >
-          {val}
-        </input> 
-      )
-    })
+    var qs_type = '';
+    let gotten_question = null;
+    if (this.props.selectedQuestion)
+    {
+      qs_type = this.props.selectedQuestion.content;
+      if (qs_type == "LONG LINE") {
+        selected_question_type = 0;
+      } else if (qs_type == "MANY SEATS") {
+        selected_question_type = 1;
+      } else if (qs_type == "RAINING") {
+        selected_question_type = 2;
+      } else if (qs_type == "QUIET") {
+        selected_question_type = 3;
+      }
+      qs_type = question_types[selected_question_type];
+      selected_question_type_list = qs_type.map((val) => {
+          return (
+            <div>
+              <label>
+                {val}
+              </label>
+               <input type="radio" value={val} name="answer" >
+              </input> 
+            </div>
+          )
+      }
+    )
+
+      gotten_question =
+      <React.Fragment>
+        <NewQuestion
+          key={this.props.selectedQuestion.id}
+          id={this.props.selectedQuestion.id}
+          content={this.props.selectedQuestion.content}
+        ></NewQuestion>
+      </React.Fragment>
+  }
 
     // <React.Fragment>
     //   <div onChange={(event) => this.setState({answer_content: event.target.value})}>
@@ -95,11 +114,7 @@ class NewAnswer extends Component {
 
    return (
       <div className="Answer">
-      `<NewQuestion
-          key={this.props.selectedQuestion.id}
-          id={this.props.selectedQuestion.id}
-          content={this.props.selectedQuestion.content}
-        />
+      `{gotten_question}
         <div>
           <PushNotification/>
         </div>
@@ -128,7 +143,6 @@ class NewAnswer extends Component {
 const mapStateToProps = state => {
   return {
     selectedQuestion: state.question.selectedQuestion,
-    // selectedQuestion: state.question.selectedQuestion,
   };
 }
 
