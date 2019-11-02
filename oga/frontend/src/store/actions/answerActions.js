@@ -12,7 +12,7 @@ export const createAnswer_ = (answer) => {
     question_id: answer.question_id,
     author_id: answer.author_id,
     question_type: answer.question_type,
-    answer_content: answer.answer_content,
+    content: answer.answer_content,
   }
 }
 
