@@ -7,6 +7,7 @@ import * as actionCreators from '../../../store/actions';
 import { Redirect } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import Map from '../../Map/GoogleMap';
+import PushNotification from '../../../components/PushNotification/PushNotification'
 
 class NewQuestion extends Component {
   state = {
@@ -77,6 +78,7 @@ class NewQuestion extends Component {
           id="confirm-create-question-button"
           onClick={() => this.postQuestionHandler()}>Submit
         </button>
+        <PushNotification/>
       </div>
     );
   }

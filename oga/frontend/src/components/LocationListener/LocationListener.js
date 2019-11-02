@@ -24,6 +24,8 @@ import React, { Component } from 'react';
 import haversine from 'haversine'
 import * as actionCreators from '../../store/actions/index';
 import {connect} from 'react-redux';
+import GoogleMapReact from 'google-map-react';
+import API_KEY from '../../const/api_key';
 
 const options = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
 
