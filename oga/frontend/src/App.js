@@ -5,7 +5,6 @@ import Signup from "./containers/Login/Signup";
 import "./App.css";
 
 import { connect } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
 import { Route, Redirect, Switch } from "react-router-dom";
 
 import Login from "./containers/Login/Login";
