@@ -9,7 +9,6 @@ import Main from "./containers/Main/Main";
 import Map from "./containers/Map/GoogleMap";
 import NewQuestion from "./containers/QuestionList/NewQuestion/NewQuestion.js";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.js";
-import Map from "./containers/Map/GoogleMap";
 
 import "./App.css";
 
