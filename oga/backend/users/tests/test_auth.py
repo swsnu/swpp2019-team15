@@ -33,6 +33,16 @@ class AuthTest(TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['id'], 2)
 
+    def test_signup_existing_user(self):
+        """ try signup with a taken user name"""
+        userinfo = {'username': 'foo', 'password':'bar'}
+        response = self.client.post('/api/signup/', json.dumps(userinfo),
+                                    content_type='application/json')
+        userinfo = {'username': 'foo', 'password':'bar'}
+        response = self.client.post('/api/signup/', json.dumps(userinfo),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+
     def test_signup_bad_request(self):
         """ try signup with bad request body; should be caught by the decorator """
         userinfo = {'badreqeust': 'foo', 'password':'bar'}
