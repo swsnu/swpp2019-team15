@@ -20,13 +20,13 @@ def create_answer(request, question_id):
     answer_author = get_user(request)
     answer_content = req_data['answer_content']
 
-    answer = Answer(question_id=question_id,
-                    author=answer_author.id,
+    answer = Answer(question=Question.objects.get(question_id=question_id),
+                    author=Profile.object.get(user=answer_author),
                     question_type=question_type,
-                    answer_content=answer_content)
+                    content=answer_content)
     answer.save()
-    response_dict = {'question_id': answer.question_id,
-                     'author': answer.author,
+    response_dict = {'question_id': answer.question.question_id,
+                     'author': answer_author.id,
                      'question_type': answer.question_type,
                      'answer_content': answer.answer_content}
     return JsonResponse(response_dict, status=200)

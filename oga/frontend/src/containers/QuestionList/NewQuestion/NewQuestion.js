@@ -21,11 +21,13 @@ class NewQuestion extends Component {
   }
 
   postQuestionHandler = () => {
-    if (this.state.content !== '' && this.props.target_location)
-    { // for testing purposes, we set type to 0, and pass content as well
-      // actually, we only have to store type in questions, 
-      // as content is fixed based on type
-      this.props.createQuestion(this.state.content, this.props.target_location);
+        if (this.state.content !== '' && this.props.target_location)
+        { // for testing purposes, we set type to 0, and pass content as well
+        // actually, we only have to store type in questions, 
+        // as content is fixed based on type
+        this.props.createQuestion(this.state.content, this.props.target_location);
+        }
+    }
 
     postQuestionHandler = () => {
         if (this.state.content !== "" && this.props.target_location) {
