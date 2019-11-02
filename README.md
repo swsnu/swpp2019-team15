@@ -127,7 +127,7 @@ The main page will be automatically updated via websockets, instead the user hav
 
 ### User Interface Requirements<br>
 
-![ui image](https://github.com/swsnu/swpp2019-team15/blob/master/ui_mockup_1_0_0.png)
+![ui image](https://github.com/swsnu/swpp2019-team15/blob/master/mockup_ver2.png)
 User Interface requirements for the current sprint will focus on asking, receiving, answering, and rating questions. The pages that provide these functions should be accessible from the main page.
 
 **User Interface Components**<br>
