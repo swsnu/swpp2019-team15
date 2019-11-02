@@ -1,8 +1,10 @@
 """functions to calculate distance between two markers"""
 from math import radians, sin, cos, asin, sqrt
 
-"""function which will be used to calculate distance using haversine"""
 def distance(loc1, loc2):
+    """
+    function which will be used to calculate distance using haversine
+    """
     return haversine(loc1.longitude, loc1.latitude, loc2.longitude, loc2.latitude)
 
 # haversine formula
