@@ -3,8 +3,6 @@ import axios from "axios";
 
 import { push } from "connected-react-router";
 
-//TODO: build a seperate signup page, and push different link after signup
-
 export const signUp_ = res => {
     return {
         type: actionTypes.SIGN_UP,
