@@ -1,19 +1,17 @@
 import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import Signup from "./containers/Login/Signup";
-import "./App.css";
-
 import { connect } from "react-redux";
-import { Route, Redirect, Switch } from "react-router-dom";
 
+import Signup from "./containers/Login/Signup";
 import Login from "./containers/Login/Login";
 import Main from "./containers/Main/Main";
 import Map from "./containers/Map/GoogleMap";
 import NewQuestion from "./containers/QuestionList/NewQuestion/NewQuestion.js";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.js";
 import Map from "./containers/Map/GoogleMap";
-import { connect } from "react-redux";
+
+import "./App.css";
 
 let swRegistration = null;
 if ('serviceWorker' in navigator && 'PushManager' in window) {
