@@ -35,7 +35,8 @@ def notify_new_answer(sender, instance, created, **kwargs):
     """upon saving a new answer, find owner of question and send push
     notificaiton"""
     if created:
-        profile = instance.question.author
+        user = instance.question.author
+        profile = Profile.objects.get(user=user)
         # user_id = User.objects.get(id=qs_sender_id)
         # profile = Profile.objects.get(user=user_id)
         send_push(profile, {"text": "newAnswer!", "tag": "answer"})

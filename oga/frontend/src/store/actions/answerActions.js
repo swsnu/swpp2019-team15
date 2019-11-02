@@ -18,7 +18,7 @@ export const createAnswer_ = (answer) => {
 
 export const createAnswer = (answer, question_id) => {
   return (dispatch) => {
-    return axios.post('/api/reply/'+question_id, answer)
+    return axios.post('/api/reply/'+question_id+'/', answer)
       .then(res => {
         dispatch(createAnswer_(res.data));
         dispatch(push('/main/'));
