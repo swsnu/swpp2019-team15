@@ -18,10 +18,6 @@ const store = mockStore({
 const state = {
   latitude: 0,
   longitude: 0,
-  //unused, but might be useful
-  //routeCoordinates: [],
-  //unused, but might be useful
-  //totalDistanceMoved: 0,
   previousCoordinates: {latitude:1, longitude: 3},
 };
 const mockGeolocation = {
@@ -51,6 +47,10 @@ describe('<LocationListener/>', () => {
     );
   })
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  })
+
   it('should render without errors', () => {
     const wrapper = mount(listener);
     expect(wrapper.find(".LocationListener").length).toBe(1);
@@ -73,5 +73,34 @@ describe('<LocationListener/>', () => {
   });
 
   it('should call error upon watchPosition failure', () => {
+    const mockErrorGeolocation = {
+      getCurrentPosition: jest.fn(),
+      watchPosition: jest.fn()
+      .mockImplementationOnce((success, error, options) => error("bye")),
+    };
+    const wrapper = mount(listener);
+    const instance = wrapper.find(LocationListener.WrappedComponent).instance();
+    const spy = jest.spyOn(instance, 'handleError');
+
+    global.navigator.geolocation = mockErrorGeolocation;
+    // mount again to spyon component method
+    instance.componentDidMount();
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not update coordinates upon small location change', () => {
+    const spy = jest.spyOn(actionCreators, 'setCurrentCoordinates').mockImplementation(coords => { return dispatch => {}; });
+    const wrapper = mount(listener);
+    const instance = wrapper.find(LocationListener.WrappedComponent).instance();
+    instance.setState(state);
+    global.navigator.geolocation.watchPosition = 
+      jest.fn().mockImplementationOnce((success) => Promise.resolve(success({
+        coords: {
+          latitude: 1,
+          longitude: 3
+        }
+      })));
+    instance.componentDidMount();
+    expect(spy).toHaveBeenCalledTimes(0);
   });
 });
