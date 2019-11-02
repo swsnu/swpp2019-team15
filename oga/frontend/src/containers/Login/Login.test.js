@@ -17,7 +17,8 @@ const store = mockStore({
   auth: {
     username: '',
     password: '',
-  }
+  },
+  router: history
 });
 const state = {userid: '', passwd: ''};
 
@@ -26,11 +27,13 @@ describe('<Login />', () => {
 
   beforeEach(() => {
     login = (
-      <Router>
-        <Provider store={store}>
-          <Route path='/' exact component={Login} />
-        </Provider>
-      </Router>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Switch>
+            <Route path='/' exact component={Login} />
+          </Switch>
+        </ConnectedRouter>
+      </Provider>
     );
   })
 
@@ -71,13 +74,13 @@ describe('<Login />', () => {
     expect(spySignIn).toHaveBeenCalledTimes(1);
   });
 
-  it('should handle signup button clicks', () => {
-    const spySignUp = jest.spyOn(actionCreators, 'signUp')
-      .mockImplementation(td => { return dispatch => {}; });
+  it('should redirect to signup page', () => {
+    const spyHistoryPush = jest.spyOn(history, 'push')
+      .mockImplementation(path => {});
     const component = mount(login);
     let wrapper = component.find('#signup-button');
     wrapper.simulate('click');
-    expect(spySignUp).toHaveBeenCalledTimes(1);
+    expect(spyHistoryPush).toHaveBeenCalledTimes(1);
   });
 
 
