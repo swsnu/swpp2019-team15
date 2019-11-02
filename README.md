@@ -1,6 +1,7 @@
 # swpp2019-team15
 
 Rev. 1.0 2019-10-05 - initial version
+
 Rev. 2.0 2019-11-02 - updated user story and UI
 
 ### Project Requirements and Specification<br>
