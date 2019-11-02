@@ -31,7 +31,7 @@ def questions(request):
         response_dict = {'id': question.id,
                          'author_id': user.id,
                          'content': question.content,
-                         'target_location': question.location_id.id}
+                         'target_location': location.name}
         return JsonResponse(response_dict, status=201)
 
     elif request.method == 'GET':
@@ -56,12 +56,14 @@ def questions(request):
 def question_detail(request, question_id):
     """ get single question with given id """
     question = get_object_or_404(Question, id=question_id)
+    location = question.location_id
     response_dict = {
         'id': question.id,
         'author': question.author.username,
         'publish_date_time': question.publish_date_time,
         'content': question.content,
         'location': question.location_id.name,
-        'is_answered': question.is_answered
+        'target_location_name': location.name,
+        'is_answered': question.is_answered,
     }
     return JsonResponse(response_dict)

@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import Map from '../Map/GoogleMap';
 import PushNotification from '../../components/PushNotification/PushNotification'
-import NewQuestion from '../QuestionList/NewQuestion/NewQuestion';
+import AnswerView from '../../components/AnswerView/AnswerView';
 import {question_types} from '../../const/question_type';
 
 class NewAnswer extends Component {
@@ -42,15 +42,10 @@ class NewAnswer extends Component {
   }
 
   render() {
-    let place_name = "...";
     var selected_question_type = null;
     var selected_question_type_list = null;
-    if (this.props.target_location)
-    {
-      place_name = this.props.target_location.name;
-    }
     var qs_type = '';
-    let gotten_question = null;
+    let gotten_answer_view = null;
     if (this.props.selectedQuestion)
     {
       qs_type = this.props.selectedQuestion.content;
@@ -77,13 +72,14 @@ class NewAnswer extends Component {
       }
     )
 
-      gotten_question =
+      gotten_answer_view =
       <React.Fragment>
-        <NewQuestion
+        <AnswerView
           key={this.props.selectedQuestion.id}
           id={this.props.selectedQuestion.id}
           content={this.props.selectedQuestion.content}
-        ></NewQuestion>
+          place_name={this.props.selectedQuestion.target_location_name}
+        ></AnswerView>
       </React.Fragment>
   }
 
@@ -121,15 +117,15 @@ class NewAnswer extends Component {
 
    return (
       <div className="Answer">
-      `{gotten_question}
-        <div>
-          <PushNotification/>
-        </div>
-      >
-      <div>
         <h1>
           Answer to a Question!
         </h1>
+        `
+        <h2>
+        {gotten_answer_view}
+        </h2>
+      >
+      <div>
         <div onChange={(event) => this.setState({answer_content: event.target.value, answered: true})}>
           {selected_question_type_list}
         </div>
