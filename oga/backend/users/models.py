@@ -3,6 +3,7 @@ models used in our oga apps: Location, Profile, Question, Answer
 """
 from django.db import models
 from django.contrib.auth.models import User
+from .custommodels.json_field import JSONField
 
 
 class Location(models.Model):
@@ -27,6 +28,7 @@ class Profile(models.Model):
     # can use Pointfield to store location coordinates
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE,
                                     blank=True, null=True)
+    subscription = JSONField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username
