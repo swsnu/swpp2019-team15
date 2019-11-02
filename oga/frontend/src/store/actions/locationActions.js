@@ -34,6 +34,6 @@ export const setCurrentCoordinates = (coordinates) => {
       .then(res => {
         dispatch(setCurrentCoordinates_(coordinates));
         //dispatch(push('/main/questions/'));
-      })
+      }).catch(error => -1);
   }
 }
