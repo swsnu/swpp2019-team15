@@ -9,7 +9,7 @@ import API_KEY from '../../const/api_key';
 
 const mockStore = configureMockStore();
 
-describe('<PrivateRoute/>', () => {
+describe('<MapSearchBox/>', () => {
   let box;
   let map = jest.mock();
   let mapApi = jest.mock();
