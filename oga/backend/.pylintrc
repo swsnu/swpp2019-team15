@@ -2,9 +2,8 @@
 
 # Add <file or directory> to the black list. It should be a base name, not a
 # path. You may set this option multiple times.
-ignore=migrations
+ignore=migrations,tests
 load-plugins=pylint_django
-ignore-patterns=test_*.py
 
 [MESSAGES CONTROL]
 disable=R1705
