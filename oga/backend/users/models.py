@@ -68,3 +68,4 @@ class Answer(models.Model):
 
     class Meta:
         ordering = ('publish_date_time',)
+        

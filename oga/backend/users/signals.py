@@ -1,9 +1,9 @@
 """signals and appropriate actions"""
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import User, Profile, Question, Answer, Location
+from .models import User, Profile, Question, Answer
 from .utils.send_push import send_push
-from .utils.haversine import distance, haversine
+from .utils.haversine import distance
 
 # pylint: disable=unused-argument
 @receiver(post_save, sender=User)
@@ -39,3 +39,4 @@ def notify_new_answer(sender, instance, created, **kwargs):
         # user_id = User.objects.get(id=qs_sender_id)
         # profile = Profile.objects.get(user=user_id)
         send_push(profile, {"text": "newAnswer!", "tag": "answer"})
+        
