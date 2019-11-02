@@ -1,6 +1,7 @@
 # swpp2019-team15
 
 Rev. 1.0 2019-10-05 - initial version
+Rev. 2.0 2019-11-02 - updated user story and UI
 
 ### Project Requirements and Specification<br>
 
@@ -41,8 +42,8 @@ Messenger services like KakaoTalk can also be a competitor, as users can directl
 - **Scenario:**
 
   1. The question sender clicks the `SEND A QUESTION` button
-  2. The page displays various pictograms which allows the user to select the type of targeted location. (E.g. library/restaurant/bus stop).
-  3. After the user has selected a pictogram, the page displays a location search bar, which the user will fill in with the name the target area/location (E.g. SNU library).
+  2. The page displays various pictograms which allows the user to select the type of question. (E.g. seats / weather).
+  3. After the user has selected a pictogram, the user searches a location from the map. (E.g. SNU library).
   4. The page displays a map of the desired area/available locations and shows a graphic user interface with a set of pre-made location-specific questions.
   5. The user will select an adequate question and press the `SEND` button.
 
@@ -52,15 +53,18 @@ Messenger services like KakaoTalk can also be a competitor, as users can directl
 
 **User Story #2 _(Sprint 2)_**<br>
 
-- **Feature:** Answering a question
+- **Feature:** Answering a question from push notification
 - **Actors:** A responder near the library (or target destination)
 - **Precondition:** The question sender and responder have to be registered users and logged in, and responders have to be near the target location.
-- **Trigger:** Question responder will receive a notification saying `You've got questions to answer`.
+- **Trigger:** Question responder will receive a push notification saying `You've got questions to answer`.
 - **Scenario:**
 
-  1. The responder receives a notification prompting the user to respond to a question.
-  2. The responder clicks the `RESPOND` button and the page displays a range of answers for the user to select based on the location-specific question.
-  3. The responder selects an answer by clicking on an adequate pictogram and presses the `ANSWER` button to submit his/her response.
+  1. The responder agrees to recieve a push notification from the settings page.
+  2. The responder is off the service, listening to youtube.
+  3. The responder receives a notification prompting that question for the user has arrived.
+  4. The responder clicks the the browser notification and is redirected to the reply page. 
+  5. The page displays a range of answers for the user to select based on the location-specific question.
+  6. The responder selects an answer by clicking on an adequate pictogram and presses the `ANSWER` button to submit his/her response.
 
 - **Exceptions:** When the responder clicks the `RESPOND` button without selecting the pictogram of an answer.
 - **Acceptance Test:**
@@ -81,11 +85,45 @@ Messenger services like KakaoTalk can also be a competitor, as users can directl
 - **Acceptance Test:**
   Given the question sender has chosen an pictogram for the answer and clicked the `RATE` button, the question sender should see a page displaying `Thank you. Your response has been successfully recorded.`
 
+**User Story #4 _(Sprint 3)_**<br>
+
+- **Feature:** Answering a question from the main page
+- **Actors:** A user reading the feeds on the main page
+- **Precondition:** The user must have agreed on location sharing.
+- **Trigger:** The user clicks an unanswered question from the main page.
+- **Scenario:**
+
+  1. The user is redirected to the reply page of the question.
+  2. The user will answer the question by the same steps introduced in User Story #2.4.
+  3. The user will be redirected to the main page.
+
+- **Exceptions:** The question is answered by someone else while the user is redirected to the reply page.
+- **Acceptance Test:**
+  Given the responder has chosen an answer for the question and clicked the `ANSWER` button, then the responder should see `Your answer has been sent successfully.`
+
+**User Story #5 _(Sprint 3)_**<br>
+
+- **Feature:** Subscribing to a question from the main page
+- **Actors:** A user reading the feeds on the main page
+- **Precondition:** The user must have agreed on location sharing and notification subscription.
+- **Trigger:** The user clicks a subscribe button of an unanswered question from the main page.
+- **Scenario:**
+
+  1. The subscribe button the question is turned on.
+  2. The user will be notified when the question is answered.
+  3. Upon clicking the notification, user will be redirected to the questions detail page.
+
+- **Exceptions:** The user tries to subscribe without notification subscription.
+- **Acceptance Test:**
+  The user should get a push notification within a reasonable amount of time after it has answered.
+
 **For Future Iterations**
 
 Users will be able to receive or view submitted questions in two ways. One is when the user logs in, the page displays a map with map markers of the user's surrounding location. Each map marker indicates a question submitted by a user. The other way is by receiving notifications forwarded to users located nearby the target destination. The user can choose whether he/she wants to voluntarily answer queries by clicking on map markers or answer upon receiving notifications from a question sender.
 
 If a user is not able to get a reponse from another user at a location, the user will get a machine generated answer, based on past answer records.
+
+The main page will be automatically updated via websockets, instead the user having to refresh it.
 
 ### User Interface Requirements<br>
 
@@ -94,10 +132,12 @@ User Interface requirements for the current sprint will focus on asking, receivi
 
 **User Interface Components**<br>
 
-- **Login Page:** Users can login by entering user ID, password, and clicking the login button. Users will be led to the `Main Page`.
-- **Main Page:** Users can view the questions they have asked, ask new question, and view a question from another users. Clicking an already asked and answered question will lead to `Detail Page`. Clicking a new question button will lead to `Asking Page`. Clicking a question from another user will lead to `Answering Page`. A floating ribbon menu will be provided, that lead to `Profile Page` and offer other functions like setting and logout.
+- **Signin Page:** Users can login by entering username, password, and clicking the login button. Users will be led to the `Main Page`.
+- **Signup Page:** Users can sign up by entering username, password, and password confirmation. Appropriate error message(duplicate username, conflicting passwords) will be displayed.
+- **Settings Page:** Users can click buttons to enable/disable location tracking and push notification subscription.
+- **Main Page:** Users can view the questions they have asked, ask new question, and view a question from another users. Clicking an already asked and answered question will lead to `Detail Page`. Clicking a new question button will lead to `Question Page`. Clicking a question from another user will lead to `Reply Page`. A floating ribbon menu will be provided, that lead to `Profile Page` and offer other functions like setting and logout.
 - **Detail Page:** Users can view their questions with a image of the map, and can rate the answers if it has been answered by other users.
-- **Asking Page:** Users will choose a pictogram depicting the questions they would like to ask, and click the GPS button. The GPS button will lead to the `Map Page`, from which the users will choose a location they are interested in. When the two inputs are provided, an autogenerated text of the question will be shown. Clicking submit will forward the question to other users, and the user is redirected to the `Main Page`.
-- **Answering Page:** Users will be provided with pictograms, a slider, or a stepper button based on the type of answers the question expects. Clicking the location will take the user to `Map Page`, where they can check the exact location. Choosing appropriate answer and clicking the submit button will redirect the user to the `Main Page`.
+- **Question Page:** Users will choose a pictogram depicting the questions they would like to ask, and click the GPS button. The GPS button will lead to the `Map Page`, from which the users will choose a location they are interested in. When the two inputs are provided, an autogenerated text of the question will be shown. Clicking submit will forward the question to other users, and the user is redirected to the `Main Page`.
+- **Reply Page:** Users will be provided with pictograms, a slider, or a stepper button based on the type of answers the question expects. Clicking the location will take the user to `Map Page`, where they can check the exact location. Choosing appropriate answer and clicking the submit button will redirect the user to the `Main Page`.
 - **Map Page:** The `Map Page` provides a slightly different view based on modes. In asking mode, users can search the place they are interested in via the search bar. In answering mode, the user can view the detailed location the question is interested in.
 - **Profile Page:** The `Profile Page` provides users with their profile information. Users can check the number of questions answered, asked, and see their personal achievements. These will act as a form of non-monetary incentive.
