@@ -43,6 +43,7 @@ class MapSearchBox extends Component {
     return (
       <div className="MapSearchBox">
         <input
+          id="searchbox"
           ref={(ref) => {
             this.searchInput = ref;
           }}
