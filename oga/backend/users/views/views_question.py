@@ -13,8 +13,9 @@ from users.views.decorators import check_request, check_login_required
 @check_request
 @require_http_methods(["POST", "GET"])
 def questions(request):
+    """api wrapper of POST and GET methods"""
     if request.method == 'POST':
-        """ create new question """
+        # create new question
         req_data = json.loads(request.body.decode())
         location = req_data['target_location']
         content = req_data['content']
@@ -31,7 +32,7 @@ def questions(request):
         return JsonResponse(response_dict, status=201)
 
     elif request.method == 'GET':
-        """ get question list """
+        # get question list
         question_list = Question.objects.filter()
         response_dict = [{
             'id': question.id,
@@ -42,6 +43,9 @@ def questions(request):
             'is_answered': question.is_answered,
         } for question in question_list]
         return JsonResponse(response_dict, safe=False)
+
+    else: #shouldn't reach here
+        return -1
 
 
 @check_login_required
