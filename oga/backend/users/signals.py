@@ -20,24 +20,27 @@ def save_user_profile(sender, instance, **kwargs):
 @receiver(post_save, sender=Question)
 def notify_new_question(sender, instance, created, **kwargs):
     """upon saving a new question, find relevant users and send push
-    notificaiton"""
+    notification"""
     if created:
         qs_l = instance.location_id
         profiles = Profile.objects.all()
+        data = {'text': instance.content, 'location': qs_l.name, 'id': instance.id, 'tag': 'q'}
         for profile in profiles:
             rc_l = profile.location_id
             if (instance.author != profile.user) and profile.location_id:
                 if distance(qs_l, rc_l) <= 0.3:
-                    send_push(profile, {"text": "newquestion!", "tag": "question"})
+                    send_push(profile, data)
 
 @receiver(post_save, sender=Answer)
 def notify_new_answer(sender, instance, created, **kwargs):
     """upon saving a new answer, find owner of question and send push
-    notificaiton"""
+    notification"""
     if created:
-        user = instance.question.author
+        question = instance.question
+        user = question.author
         profile = Profile.objects.get(user=user)
+        location = question.location_id.name
+        data = {'text': instance.content, 'location': location, 'id': instance.id, 'tag': 'a'}
         # user_id = User.objects.get(id=qs_sender_id)
         # profile = Profile.objects.get(user=user_id)
-        send_push(profile, {"text": "newAnswer!", "tag": "answer"})
-        
+        send_push(profile, data)
