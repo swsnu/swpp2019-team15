@@ -35,9 +35,25 @@ export const getAnswers_ = (answers) => {
 
 export const getAnswers = (question_id) => {
   return (dispatch) => {
-    return axios.get('/api/reply/'+question_id+'/')
+    return axios.get('/api/replies/'+question_id+'/')
       .then(res => {
         dispatch(getAnswers_(res.data));
+      })
+  }
+}
+
+export const getAnswer_ = (answer) => {
+  return {
+    type: actionTypes.GET_ANSWER,
+    answer: answer,
+  }
+}
+
+export const getAnswer = (question_id) => {
+  return (dispatch) => {
+    return axios.get('/api/reply/'+question_id+'/')
+      .then(res => {
+        dispatch(getAnswer_(res.data));
       })
   }
 }

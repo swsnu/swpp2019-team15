@@ -37,15 +37,35 @@ def get_or_create_answer(request, question_id):
     elif request.method == "GET":
         response_dict = []
         question = Question.objects.get(id=question_id)
-        answer_all_list = Answer.objects.filter(question=question)
-        response_dict = [{
+        ans = Answer.objects.get(question=question)
+        response_dict = {
             'id': ans.id,
             'author': ans.author.user.username,
             'publish_date_time': ans.publish_date_time,
             'question_type': ans.question_type,
             'content': ans.content,
-        } for ans in answer_all_list]
+            'place_name': question.location_id.name,
+        }
         return JsonResponse(response_dict, safe=False, status=200)
     else:
         # should not reach here.
         return -1
+
+@check_login_required
+@check_request
+@require_http_methods(["GET"])
+@csrf_exempt
+def get_answers(request, question_id):
+    """function to get answers of question_id
+        GET: get_answers api"""
+    response_dict = []
+    question = Question.objects.get(id=question_id)
+    answer_all_list = Answer.objects.filter(question=question)
+    response_dict = [{
+        'id': ans.id,
+        'author': ans.author.user.username,
+        'publish_date_time': ans.publish_date_time,
+        'question_type': ans.question_type,
+        'content': ans.content,
+    } for ans in answer_all_list]
+    return JsonResponse(response_dict, safe=False, status=200)

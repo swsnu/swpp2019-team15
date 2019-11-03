@@ -10,7 +10,7 @@ const AnswerView = props => {
                         {props.author} said
                     </h2>
                     <h3>
-                        "It is {props.answer_content} in {props.place_name}!"
+                        "For {props.content}, it is {props.answer_content} in {props.place_name}!"
                     </h3>
                     <h3>
                         At {props.publish_date_time}

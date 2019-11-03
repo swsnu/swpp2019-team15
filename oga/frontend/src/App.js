@@ -11,6 +11,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute.js";
 import NewAnswer from './containers/Answer/NewAnswer';
 import AnswerList from './containers/AnswerList/AnswerList';
 import { connect } from "react-redux"; import * as actionCreators from "./store/actions/index"; import "./App.css";
+import PushAnswer from "./containers/Answer/PushAnswer/PushAnswer";
 
 let swRegistration = null;
 if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -64,9 +65,14 @@ function App(props) {
               component={NewAnswer} />
             <PrivateRoute
               auth={props.auth}
-              path='/ask/:id/reply'
+              path='/replies/:id'
               exact
               component={AnswerList} />
+            <PrivateRoute
+              auth={props.auth}
+              path='/reply/:id'
+              exact
+              component={PushAnswer} />
             <Redirect exact from="/" to="/main" />
             <Route render={() => <h1>Not Found</h1>} />
           </Switch>
