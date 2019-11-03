@@ -34,6 +34,7 @@ class QuestionList extends Component {
                     author={qs.author}
                     publish_date_time={qs.publish_date_time}
                     content={qs.content}
+                    location={qs.location}
                     is_answered={qs.is_answered}
                     clickAnswer={() => this.clickAnswerHandler(qs)}
                     // clickDetail={() => this.clickDetailHandler()}
