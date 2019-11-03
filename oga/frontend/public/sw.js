@@ -1,20 +1,27 @@
 function receivePushNotification(event) {
-  console.log("HI [Service Worker] Push Received.");
-  console.log(event.data.json().text);
+  const { image, tag, url, title, text, data, id, location } = event.data.json();
+  let options = {}
+  switch(tag) {
+    case 'q':
+      options = {
+        data: 'reply/' + id,
+        body: text +' at\n' + location + '?',
+        tag: tag, //this is needed to hide duplicate notifications
+        actions: [{ action: "Detail", title: "Reply" }]
+      }
+    break;
+    case 'a':
+      options = {
+        data: 'reply/' + id,
+        body: text + ' at\n' + location,
+        tag: tag, //this is needed to hide duplicate notifications
+        actions: [{ action: "Detail", title: "Read" }]
+      }
+    break;
+  }
 
-  const { image, tag, url, title, text, data } = event.data.json();
-
-  const options = {
-    data: url,
-    body: text,
-    //icon: image,
-    //vibrate: [200, 100, 200],
-    tag: "1",
-    //image: image,
-    //badge: "https://spyna.it/icons/favicon.ico",
-    actions: [{ action: "Detail", title: "Look" }]
-  };
-  event.waitUntil(self.registration.showNotification(title, options));
+  console.log(options);
+  event.waitUntil(self.registration.showNotification("Oga", options));
 }
 
 function openPushNotification(event) {
