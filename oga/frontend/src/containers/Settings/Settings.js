@@ -2,6 +2,7 @@ import React, { useState, Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import * as actionCreators from "../../store/actions/index";
+import PushNotification from "../../components/PushNotification/PushNotification";
 
 class Settings extends Component {
     constructor(props) {
@@ -49,8 +50,9 @@ class Settings extends Component {
                     </button>
                 </div>
                 <div>
+                    <PushNotification>CLICK ME!</PushNotification>
                     <button
-                        id="location-toggle"
+                        id="back-button"
                         onClick={() => {
                             this.props.history.goBack();
                         }}
