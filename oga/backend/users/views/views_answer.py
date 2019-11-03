@@ -15,9 +15,9 @@ from users.views.decorators import check_request, check_login_required
 @require_http_methods(["GET", "POST"])
 @csrf_exempt
 def get_or_create_answer(request, question_id):
-    """function for post answer or get answers of question_id"""
-    """POST: create_answer api"""
-    """GET: get_answers api"""
+    """function for post answer or get answers of question_id
+        POST: create_answer api
+        GET: get_answers api"""
     if request.method == "POST":
         req_data = json.loads(request.body.decode())
         question_type = req_data['question_type']
