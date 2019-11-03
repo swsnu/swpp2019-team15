@@ -11,7 +11,6 @@
 
 import React, { Component } from 'react';
 import * as actionCreators from '../../store/actions/index';
-import {connect} from 'react-redux';
 import appServerKey from '../../const/applicationServerPublicKey';
 
 /**
@@ -121,10 +120,10 @@ class PushNotification extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-  }
-}
+//const mapDispatchToProps = dispatch => {
+  //return {
+  //}
+//}
 
 
 export default PushNotification;

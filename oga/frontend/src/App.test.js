@@ -37,6 +37,13 @@ describe('App', () => {
     const component = mount(apptest);
     expect(component.find('.App').length).toBe(1);
   });
+
+  it('should render Not Found', () => {
+    history.push('/aaa');
+    const component = mount(app);
+    expect(component.find('h1').text()).toBe("Not Found");
+  });
+
   it('should render Not Found', () => {
     history.push('/aaa');
     const component = mount(app);
