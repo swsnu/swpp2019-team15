@@ -4,7 +4,7 @@ import Question from "../../components/Question/Question";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 
 import * as actionCreators from "../../store/actions/index";
 
@@ -59,6 +59,12 @@ class QuestionList extends Component {
                         onClick={() => this.props.history.goBack()}
                     >
                         Back
+                    </button>
+                    <button
+                        id="settings-button"
+                        onClick={() => this.props.history.push("/settings")}
+                    >
+                        Settings
                     </button>
                 </div>
                 {/* <button
