@@ -6,12 +6,14 @@ import { createBrowserHistory } from 'history';
 import locationReducer from './reducers/locationReducer';
 import questionReducer from './reducers/questionReducer';
 import authReducer from './reducers/authReducer';
+import answerReducer from './reducers/answerReducer';
 
 export const history = createBrowserHistory();
 const rootReducer = combineReducers({
   location: locationReducer,
   question: questionReducer,
   auth: authReducer,
+  answer: answerReducer,
   router: connectRouter(history),
 });
 export const middlewares = [thunk, routerMiddleware(history)]

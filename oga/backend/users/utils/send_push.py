@@ -10,6 +10,7 @@ def send_push(profile, body):
     how to use:
     send_push(profile, {'title': 'hi', 'text': 'hi'})
     """
+
     try:
         webpush(profile.subscription,
                 json.dumps(body),

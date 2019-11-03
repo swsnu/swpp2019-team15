@@ -10,7 +10,7 @@ export const createQuestion_ = (question, id) => {
     return {
         type: actionTypes.CREATE_QUESTION,
         id: id,
-        author_id: question.author_id,
+        author: question.author,
         content: question.content,
         target_location: question.target_location
     };
@@ -41,7 +41,7 @@ export const getQuestions = () => {
     };
 };
 
-export const getQuestion_ = (question, id) => {
+export const getQuestion_ = (question) => {
     return {
         type: actionTypes.GET_QUESTION,
         selectedQuestion: question

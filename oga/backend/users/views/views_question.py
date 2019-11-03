@@ -28,7 +28,10 @@ def questions(request):
         question = Question(author=user, location_id=location,
                             content=content)
         question.save()
-        response_dict = {'id': question.id}
+        response_dict = {'id': question.id,
+                         'author_id': user.id,
+                         'content': question.content,
+                         'target_location': location.name}
         return JsonResponse(response_dict, status=201)
 
     elif request.method == 'GET':
@@ -47,19 +50,20 @@ def questions(request):
     else: #shouldn't reach here
         return -1
 
-
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
 def question_detail(request, question_id):
     """ get single question with given id """
     question = get_object_or_404(Question, id=question_id)
+    location = question.location_id
     response_dict = {
         'id': question.id,
         'author': question.author.username,
         'publish_date_time': question.publish_date_time,
         'content': question.content,
         'location': question.location_id.name,
-        'is_answered': question.is_answered
+        'target_location_name': location.name,
+        'is_answered': question.is_answered,
     }
     return JsonResponse(response_dict)
