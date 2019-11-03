@@ -4,11 +4,20 @@ import "./AnswerView.css";
 const AnswerView = props => {
     return (
         <div className="AnswerView" key={props.key}>
-            Is it {props.content} in {props.place_name}?
             {props.is_answered ? (
-                <div className="answered-mark">&#128525;</div>
+                <div className="answered">
+                    <h2>
+                        {props.author} said
+                    </h2>
+                    <h3>
+                        "It is {props.answer_content} in {props.place_name}!"
+                    </h3>
+                    <h3>
+                        At {props.publish_date_time}
+                    </h3>
+                </div>
             ) : (
-                <div></div>
+                <div> Is it {props.content} in {props.place_name}? </div>
             )}
         </div>
     );

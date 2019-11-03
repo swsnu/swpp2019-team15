@@ -54,7 +54,7 @@ class AnswerList extends Component {
                     key={ans.id}
                     id={ans.id}
                     author={ans.author}
-                    question_content = {ans.question_type}
+                    content = {ans.question_type}
                     publish_date_time = {ans.publish_date_time}
                     answer_content={ans.content}
                     is_answered={true}
