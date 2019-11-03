@@ -35,7 +35,8 @@ export const signUp = user => {
 export const signIn_ = res => {
     return {
         type: actionTypes.AUTHENTICATED,
-        userid: res.data.id
+        //userid: res.data.id,
+        auth: true,
     };
 };
 
@@ -54,3 +55,25 @@ export const signIn = user => {
             });
     };
 };
+
+export const isLoggedIn_ = res => {
+  return {
+    type: actionTypes.AUTHENTICATED,
+    auth: res,
+  }
+}
+
+export const isLoggedIn = () => {
+  return (dispatch) => {
+    return axios
+      .get("/api/is-authed/")
+      .then(res => {
+        //return true;
+        dispatch(isLoggedIn_(true));
+      })
+      .catch(err => {
+        //console.log("HERE");
+        dispatch(isLoggedIn_(false));
+      })
+  }
+}

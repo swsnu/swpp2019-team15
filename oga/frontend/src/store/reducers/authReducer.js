@@ -15,8 +15,8 @@ const authReducer = (state = initialState, action) => {
       return {...state};
     case actionTypes.AUTHENTICATED:
       const userid = action.userid;
-      console.log(userid);
-      return { ...state, authenticated: true, userid:userid};
+      console.log(action.auth);
+      return { ...state, authenticated: action.auth, userid:userid};
     case actionTypes.UNAUTHENTICATED:
       return {...state, authenticated: false, userid:null};
     default:
