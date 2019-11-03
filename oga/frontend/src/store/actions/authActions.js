@@ -35,7 +35,8 @@ export const signUp = user => {
 export const signIn_ = res => {
     return {
         type: actionTypes.AUTHENTICATED,
-        userid: res.data.id
+        //userid: res.data.id,
+        auth: true,
     };
 };
 
@@ -45,7 +46,7 @@ export const signIn = user => {
             .post("/api/signin/", user)
             .then(res => {
                 dispatch(signIn_(res));
-                dispatch(push("/questions/create/"));
+                dispatch(push("main"));
             })
             .catch(err => {
                 alert(
@@ -54,3 +55,23 @@ export const signIn = user => {
             });
     };
 };
+
+export const isLoggedIn_ = res => {
+  return {
+    type: actionTypes.AUTHENTICATED,
+    auth: res,
+  }
+}
+
+export const isLoggedIn = () => {
+  return (dispatch) => {
+    return axios
+      .get("/api/is-authed/")
+      .then(res => {
+        dispatch(isLoggedIn_(true));
+      })
+      .catch(err => {
+        dispatch(isLoggedIn_(false));
+      })
+  }
+}

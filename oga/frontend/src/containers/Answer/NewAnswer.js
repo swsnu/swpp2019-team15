@@ -17,12 +17,14 @@ class NewAnswer extends Component {
     this.state = {
       answer_content: null,
       answered: false,
+      id: this.props.match.params.id,
     };
+    console.log("I am created!!!");
   }
 
 
   componentDidMount() {
-    this.props.onGetQuestion(this.props.match.params.id);
+    this.props.onGetQuestion(this.state.id);
   }
 
   postAnswerHandler = (question_content, answer_content, id) => {
@@ -82,38 +84,6 @@ class NewAnswer extends Component {
         ></AnswerView>
       </React.Fragment>
   }
-
-    // <React.Fragment>
-    //   <div onChange={(event) => this.setState({answer_content: event.target.value})}>
-    //     <input type="radio" value="VERY LONG" name="answer" /> VERY LONG
-    //     <input type="radio" value="LONG" name="answer" /> LONG
-    //     <input type="radio" value="MODERATE" name="answer" /> MIDDLE
-    //     <input type="radio" value="SHORT" name="answer" /> SHORT
-    //     <input type="radio" value="LONG LINE" name="answer" /> LONG LINE
-    //   </div>
-    //   </React.Fragment>
-    //   <React.Fragment>
-    //   <div onChange={(event) => this.setState({answer_content: event.target.value})}>
-    //     <input type="radio" value="MANY" name="answer" /> MANY
-    //     <input type="radio" value="MODERATE" name="answer" /> MODERATE
-    //     <input type="radio" value="SMALL" name="answer" /> SMALL
-    //   </div>
-    //   </React.Fragment>
-    //         <React.Fragment>
-    //         <div onChange={(event) => this.setState({answer_content: event.target.value})}>
-    //           <input type="radio" value="HEAVY" name="answer" /> HEAVY
-    //           <input type="radio" value="MODERATE" name="answer" /> MODERATE
-    //           <input type="radio" value="SMALL" name="answer" /> SMALL
-    //           <input type="radio" value="NO" name="answer" /> NO
-    //         </div>
-    //         </React.Fragment>
-    //               <React.Fragment>
-    //               <div onChange={(event) => this.setState({answer_content: event.target.value})}>
-    //                 <input type="radio" value="NOISY" name="answer" /> NOISY
-    //                 <input type="radio" value="MODERATE" name="answer" /> MODERATE
-    //                 <input type="radio" value="QUIET" name="answer" /> QUIET
-    //               </div>
-    //               </React.Fragment>
 
    return (
       <div className="Answer">
