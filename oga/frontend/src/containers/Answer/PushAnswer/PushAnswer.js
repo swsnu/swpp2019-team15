@@ -30,13 +30,14 @@ class PushAnswer extends Component {
         answer =
         <React.Fragment>
             <AnswerView
-                key = {this.selectedAnswer.id}
-                id = {this.selectedAnswer.id}
-                author = {this.selectedAnswer.author}
-                content = {this.selectedAnswer.question_type}
-                publish_date_time = {this.selectedAnswer.publish_date_time}
-                answer_content = {this.selectedAnswer.content}
-                place_name = {this.selectedAnswer.place_name}
+                key = {this.props.selectedAnswer.id}
+                id = {this.props.selectedAnswer.id}
+                author = {this.props.selectedAnswer.author}
+                content = {this.props.selectedAnswer.question_type}
+                publish_date_time = {this.props.selectedAnswer.publish_date_time}
+                answer_content = {this.props.selectedAnswer.content}
+                place_name = {this.props.selectedAnswer.place_name}
+                is_answered = {true}
             ></AnswerView>
         </React.Fragment>
     }

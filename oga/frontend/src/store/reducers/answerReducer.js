@@ -21,7 +21,8 @@ const answerReducer = (state = initialState, action) => {
     case actionTypes.GET_ANSWERS:
       return { ...state, answers: action.answers };
     case actionTypes.GET_ANSWER:
-      return { ...state, answer: action.anser};
+      console.log(state.a)
+      return { ...state, answer: action.answer};
     default:
       break;
   }

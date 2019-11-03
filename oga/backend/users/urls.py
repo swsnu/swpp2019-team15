@@ -11,6 +11,6 @@ urlpatterns = [
     path('is-authed/', views.is_logged_in, name='is_logged_in'),
     path('save-subscription/', views.save_subscription, name='save-subscription'),
     path('location/', views.locations, name='set_location'),
-    path('reply/<int:question_id>/', views.get_or_create_answer, name='get_or_create_answer'),
+    path('reply/<int:id>/', views.get_or_create_answer, name='get_or_create_answer'),
     path('replies/<int:question_id>/', views.get_answers, name='get_answers')
 ]

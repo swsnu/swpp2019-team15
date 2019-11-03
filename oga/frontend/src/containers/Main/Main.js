@@ -84,9 +84,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetAll: () => dispatch(actionCreators.getQuestions())
-        //setLogout: () =>
-        //dispatch(actionCreators.settingLogout())
+        onGetAll: () => dispatch(actionCreators.getQuestions()),
+        // setLogout: () => dispatch(actionCreators.settingLogout())
     };
 };
 

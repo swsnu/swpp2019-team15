@@ -49,9 +49,9 @@ export const getAnswer_ = (answer) => {
   }
 }
 
-export const getAnswer = (question_id) => {
+export const getAnswer = (answer_id) => {
   return (dispatch) => {
-    return axios.get('/api/reply/'+question_id+'/')
+    return axios.get('/api/reply/'+answer_id+'/')
       .then(res => {
         dispatch(getAnswer_(res.data));
       })
