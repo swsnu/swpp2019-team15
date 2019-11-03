@@ -9,9 +9,7 @@ import Map from "./containers/Map/GoogleMap";
 import NewQuestion from "./containers/QuestionList/NewQuestion/NewQuestion.js";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.js";
 import NewAnswer from './containers/Answer/NewAnswer';
-import { connect } from "react-redux";
-import * as actionCreators from "./store/actions/index";
-import "./App.css";
+import { connect } from "react-redux"; import * as actionCreators from "./store/actions/index"; import "./App.css";
 
 let swRegistration = null;
 if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -48,7 +46,7 @@ function App(props) {
             />
             <PrivateRoute
               auth={props.auth}
-              path="/questions/create"
+              path="/ask"
               exact
               component={NewQuestion}
             />
@@ -63,7 +61,7 @@ function App(props) {
               path='/reply/:id'
               exact
               component={NewAnswer} />
-            <Redirect exact from="/" to="main" />
+            <Redirect exact from="/" to="/main" />
             <Route render={() => <h1>Not Found</h1>} />
           </Switch>
         </div>
@@ -81,10 +79,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    isLoggedIn: () => dispatch(
-      actionCreators.isLoggedIn()
-    )
-  };
+    isLoggedIn: () =>
+      dispatch(actionCreators.isLoggedIn())
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
