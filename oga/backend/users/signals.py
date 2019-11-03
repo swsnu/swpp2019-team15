@@ -40,4 +40,10 @@ def notify_new_answer(sender, instance, created, **kwargs):
         # user_id = User.objects.get(id=qs_sender_id)
         # profile = Profile.objects.get(user=user_id)
         send_push(profile, {"text": "newAnswer!", "tag": "answer"})
-        
+
+@receiver(post_save, sender=Answer)
+def mark_question_as_answered(sender, instance, created, **kwargs):
+    """upon saving a new answer, the mark the question as answered"""
+    if created:
+        instance.question.is_answered = True
+        instance.question.save()
