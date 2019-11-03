@@ -1,7 +1,5 @@
 import React, { useState, Component } from "react";
-import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import * as actionCreators from "../../store/actions/index";
 import PushNotification from "../../components/PushNotification/PushNotification";
 
 class Settings extends Component {
@@ -20,23 +18,11 @@ class Settings extends Component {
         });
     };
 
-    clickNotificationHandler = () => {
-        // this.setState(() => {
-        //     notificationSetting: notificationSetting == "ON" ? "OFF" : "ON";
-        // });
-    };
-
     render() {
         return (
             <div>
                 <div>
                     <PushNotification />
-                    {/* <button
-                        id="notification-toggle"
-                        onClick={() => this.clickNotificationHandler()}
-                    >
-                        Subscribe
-                    </button> */}
                 </div>
                 <div>
                     <label>

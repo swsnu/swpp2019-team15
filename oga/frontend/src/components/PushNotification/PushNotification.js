@@ -10,8 +10,6 @@
  */
 
 import React, { Component } from "react";
-import * as actionCreators from "../../store/actions/index";
-import { connect } from "react-redux";
 import appServerKey from "../../const/applicationServerPublicKey";
 import axios from "axios";
 
@@ -34,12 +32,6 @@ function urlBase64ToUint8Array(base64String) {
         outputArray[i] = rawData.charCodeAt(i);
     }
     return outputArray;
-}
-
-function updateSubscribeButton() {
-    // this.setState({
-    this.buttonText = isSubscribed ? "Unsubscribe" : "Subscribe";
-    // });
 }
 
 function askPermission() {
@@ -102,15 +94,6 @@ function unsubscribeUserToPush() {
                     return;
                 }
                 subscription.unsubscribe();
-                // axios
-                //     .delete("/api/save-subscription/", subscription)
-                //     .then(response => {
-                //         if (response.status !== 200) {
-                //             throw new Error("Bad status code from server.");
-                //         }
-                //         return response;
-                //     })
-                //     .catch(err => console.log(err));
             })
             .catch(err => console.log(err));
     });
@@ -148,14 +131,12 @@ class PushNotification extends Component {
             <div className="PushNotification">
                 <label>
                     Push Notifications
-                    {!isSubscribed() && (
-                        <button
-                            id="subscribe-button"
-                            onClick={() => this.subscribe()}
-                        >
-                            Subscribe
-                        </button>
-                    )}
+                    <button
+                        id="subscribe-button"
+                        onClick={() => this.subscribe()}
+                    >
+                        Subscribe
+                    </button>
                 </label>
             </div>
         );
