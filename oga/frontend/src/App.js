@@ -63,14 +63,13 @@ function App(props) {
               path='/reply/:id'
               exact
               component={NewAnswer} />
-            <Redirect exact from="/" to="login" />
+            <Redirect exact from="/" to="main" />
             <Route render={() => <h1>Not Found</h1>} />
           </Switch>
         </div>
       </ConnectedRouter>
     );
   else {
-    
     console.log("HERE");
     return null;
   }
