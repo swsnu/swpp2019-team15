@@ -30,27 +30,28 @@ class Settings extends Component {
         return (
             <div>
                 <div>
-                    <label>Push Notifications</label>
-                    <button
+                    <PushNotification />
+                    {/* <button
                         id="notification-toggle"
                         onClick={() => this.clickNotificationHandler()}
                     >
                         Subscribe
-                    </button>
+                    </button> */}
                 </div>
                 <div>
-                    <label>User Location</label>
-                    <button
-                        id="location-toggle"
-                        onClick={() => {
-                            this.clickLocationHandler();
-                        }}
-                    >
-                        Subscribe
-                    </button>
+                    <label>
+                        User Location
+                        <button
+                            id="location-toggle"
+                            onClick={() => {
+                                this.clickLocationHandler();
+                            }}
+                        >
+                            Subscribe
+                        </button>
+                    </label>
                 </div>
                 <div>
-                    <PushNotification>CLICK ME!</PushNotification>
                     <button
                         id="back-button"
                         onClick={() => {
