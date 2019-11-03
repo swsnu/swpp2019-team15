@@ -23,7 +23,7 @@ class Question(models.Model):
     """
     id = models.AutoField(primary_key=True)
     #each Question is related to a single user
-    author = models.OneToOneField(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(max_length=100, default="LONG LINE")
     publish_date_time = models.DateTimeField(auto_now=True)
     #content = models.TextField(max_length=100)
