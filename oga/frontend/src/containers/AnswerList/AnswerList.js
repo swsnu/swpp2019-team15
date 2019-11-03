@@ -38,30 +38,35 @@ class AnswerList extends Component {
   
 
     render() {
-       const gotten_answer_view =
-        <React.Fragment>
-            <AnswerView
-                key={this.props.selectedQuestion.id}
-                id={this.props.selectedQuestion.id}
-                content={this.props.selectedQuestion.content}
-                place_name={this.props.selectedQuestion.target_location_name}
-                is_answered={false}
-            ></AnswerView>
-        </React.Fragment>
-        const answers = this.props.selectedAnswers.map(ans => {
-            return (
+        var gotten_answer_view = null;
+        var answers= null;
+        if (this.props.selectedQuestion)
+        {
+            gotten_answer_view =
+            <React.Fragment>
                 <AnswerView
-                    key={ans.id}
-                    id={ans.id}
-                    author={ans.author}
-                    content = {ans.question_type}
-                    publish_date_time = {ans.publish_date_time}
-                    answer_content={ans.content}
-                    is_answered={true}
-                    place_name={this.props.selectedQuestion.target_location_name}  
+                    key={this.props.selectedQuestion.id}
+                    id={this.props.selectedQuestion.id}
+                    content={this.props.selectedQuestion.content}
+                    place_name={this.props.selectedQuestion.target_location_name}
+                    is_answered={false}
                 ></AnswerView>
-            );
-        });
+            </React.Fragment>
+            answers = this.props.selectedAnswers.map(ans => {
+                return (
+                    <AnswerView
+                        key={ans.id}
+                        id={ans.id}
+                        author={ans.author}
+                        content = {ans.question_type}
+                        publish_date_time = {ans.publish_date_time}
+                        answer_content={ans.content}
+                        is_answered={true}
+                        place_name={this.props.selectedQuestion.target_location_name}  
+                    ></AnswerView>
+                );
+            });
+        }
 
         return (
             <div className="AnswerList">
