@@ -29,7 +29,7 @@ class AnswerList extends Component {
   };
 
   clickAnswerHandler = id => {
-    this.props.history.push("/reply/" + id);
+    this.props.history.push("/reply/create/" + id);
   };
 
   clickBackHandler = () => {

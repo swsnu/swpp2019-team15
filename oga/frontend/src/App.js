@@ -58,11 +58,11 @@ function App(props) {
               exact
               component={Map}
             />
-            {/* <PrivateRoute
+            <PrivateRoute
               auth={props.auth}
-              path='/reply/:id'
+              path='/reply/create/:id'
               exact
-              component={NewAnswer} /> */}
+              component={NewAnswer} />
             <PrivateRoute
               auth={props.auth}
               path='/replies/:id'
