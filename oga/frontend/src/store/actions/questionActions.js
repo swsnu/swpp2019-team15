@@ -68,7 +68,7 @@ export const followQuestion = id => {
     return dispatch => {
         return axios
             .get("/api/follow/" + id)
-            .then(res => dispatch(getQuestion_(res.data)))
+            .then(res => {})
             .catch(err => console.log(err));
     };
 };
