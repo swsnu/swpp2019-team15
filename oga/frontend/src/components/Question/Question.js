@@ -1,12 +1,17 @@
 import React from "react";
 
 const Question = props => {
+    // TODO: fix ugly date time format
     return (
         <div className="Question">
-            <div>id: {props.id}</div>
-            <div>author: {props.author}</div>
-            <div>published: {props.publish_date_time}</div>
-            <div>content: {props.content}</div>
+            <div id="question-id">id: {props.id}</div>
+            <div id="question-author">Author: {props.author}</div>
+            <div id="question-publish-date-time">
+                Published on: {props.publish_date_time}
+            </div>
+            <div id="question-content">
+                Is it <b>{props.content}</b> in <b>{props.location}</b> ?
+            </div>
             {props.is_answered ? (
                 <div className="answered-mark">&#128525;</div>
             ) : (
