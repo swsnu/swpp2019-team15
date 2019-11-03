@@ -28,7 +28,7 @@ class AnswerList extends Component {
     this.props.history.push("/ask");
   };
 
-    clickAnswerHandler = id => {
+  clickAnswerHandler = id => {
     this.props.history.push("/reply/" + id);
   };
 
@@ -92,8 +92,8 @@ class AnswerList extends Component {
                 </div>
                 <div>
                     <button
-                        id="question-create-button"
-                        onClick={() => this.clickNewQuestionHandler(this.state.id)}
+                        id="reply-create-button"
+                        onClick={() => this.clickAnswerHandler(this.state.id)}
                     >
                         Reply to this question!
                     </button>
