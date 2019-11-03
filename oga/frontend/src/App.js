@@ -9,6 +9,7 @@ import Map from "./containers/Map/GoogleMap";
 import NewQuestion from "./containers/QuestionList/NewQuestion/NewQuestion.js";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.js";
 import NewAnswer from './containers/Answer/NewAnswer';
+import AnswerList from './containers/AnswerList/AnswerList';
 import { connect } from "react-redux"; import * as actionCreators from "./store/actions/index"; import "./App.css";
 
 let swRegistration = null;
@@ -61,6 +62,11 @@ function App(props) {
               path='/reply/:id'
               exact
               component={NewAnswer} />
+            <PrivateRoute
+              auth={props.auth}
+              path='/ask/:id/reply'
+              exact
+              component={AnswerList} />
             <Redirect exact from="/" to="/main" />
             <Route render={() => <h1>Not Found</h1>} />
           </Switch>

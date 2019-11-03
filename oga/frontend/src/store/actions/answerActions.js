@@ -25,3 +25,19 @@ export const createAnswer = (answer, question_id) => {
       })
   }
 }
+
+export const getAnswers_ = (answers) => {
+  return {
+    type: actionTypes.GET_ANSWERS,
+    answers: answers,
+  }
+}
+
+export const getAnswers = (question_id) => {
+  return (dispatch) => {
+    return axios.get('/api/reply/'+question_id+'/')
+      .then(res => {
+        dispatch(getAnswers_(res.data));
+      })
+  }
+}

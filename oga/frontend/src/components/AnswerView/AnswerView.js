@@ -5,7 +5,11 @@ const AnswerView = props => {
     return (
         <div className="AnswerView" key={props.key}>
             Is it {props.content} in {props.place_name}?
-            {/* <button onClick={props.clickDetail}>{props.title}</button> */}
+            {props.is_answered ? (
+                <div className="answered-mark">&#128525;</div>
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 };
