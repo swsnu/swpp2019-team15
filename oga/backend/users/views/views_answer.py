@@ -16,8 +16,9 @@ from users.views.decorators import check_request, check_login_required
 @csrf_exempt
 def get_or_create_answer(request, question_id):
     """function for post answer or get answers of question_id"""
+    """POST: create_answer api"""
+    """GET: get_answers api"""
     if request.method == "POST":
-        """create_answer api"""
         req_data = json.loads(request.body.decode())
         question_type = req_data['question_type']
         answer_author = get_user(request)
@@ -34,7 +35,6 @@ def get_or_create_answer(request, question_id):
                         }
         return JsonResponse(response_dict, status=200)
     elif request.method == "GET":
-        """get_answers api"""
         response_dict = []
         question = Question.objects.get(id=question_id)
         answer_all_list = Answer.objects.filter(question=question)
@@ -46,3 +46,6 @@ def get_or_create_answer(request, question_id):
             'content': ans.content,
         } for ans in answer_all_list]
         return JsonResponse(response_dict, safe=False, status=200)
+    else:
+        # should not reach here.
+        return -1
