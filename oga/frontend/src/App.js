@@ -9,68 +9,79 @@ import Map from "./containers/Map/GoogleMap";
 import NewQuestion from "./containers/QuestionList/NewQuestion/NewQuestion.js";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.js";
 import NewAnswer from './containers/Answer/NewAnswer';
-import { connect } from "react-redux";
-import "./App.css";
+import { connect } from "react-redux"; import * as actionCreators from "./store/actions/index"; import "./App.css";
 
 let swRegistration = null;
 if ('serviceWorker' in navigator && 'PushManager' in window) {
   console.log('Service Worker and Push is supported');
 
   navigator.serviceWorker.register('/sw.js')
-  .then(function(swReg) {
-    console.log('Service Worker is registered', swReg);
+    .then(function(swReg) {
+      console.log('Service Worker is registered', swReg);
 
-    swRegistration = swReg;
-  })
-  .catch(function(error) {
-    console.error('Service Worker Error', error);
-  });
+      swRegistration = swReg;
+    })
+    .catch(function(error) {
+      console.error('Service Worker Error', error);
+    });
 } else {
   console.warn('Push messaging is not supported');
 }
 
 function App(props) {
-    let session = false;
-    if (props.auth) session = props.auth;
+  let session = true;
+  props.isLoggedIn(); //sets state's authenticate
+  if (props.auth !== null)
     return (
-        <ConnectedRouter history={props.history}>
-            <div className="App">
-                <Switch>
-                    <Route path="/signup" exact component={Signup} />
-                    <Route path="/login" exact component={Login} />
-                    <PrivateRoute
-                        auth={session}
-                        path="/main"
-                        exact
-                        component={Main}
-                    />
-                    <PrivateRoute
-                        auth={session}
-                        path="/questions/create"
-                        exact
-                        component={NewQuestion}
-                    />
-                    <PrivateRoute
-                        auth={session}
-                        path="/map"
-                        exact
-                        component={Map}
-                    />
-                    <PrivateRoute
-                        auth={session}
-                        path='/reply/:id'
-                        exact
-                        component={NewAnswer} />
-                    <Redirect exact from="/" to="login" />
-                    <Route render={() => <h1>Not Found</h1>} />
-                </Switch>
-            </div>
-        </ConnectedRouter>
+      <ConnectedRouter history={props.history}>
+        <div className="App">
+          <Switch>
+            <Route path="/signup" exact component={Signup} />
+            <Route path="/login" exact component={Login} />
+            <PrivateRoute
+              auth={props.auth}
+              path="/main"
+              exact
+              component={Main}
+            />
+            <PrivateRoute
+              auth={props.auth}
+              path="/ask"
+              exact
+              component={NewQuestion}
+            />
+            <PrivateRoute
+              auth={props.auth}
+              path="/map"
+              exact
+              component={Map}
+            />
+            <PrivateRoute
+              auth={props.auth}
+              path='/reply/:id'
+              exact
+              component={NewAnswer} />
+            <Redirect exact from="/" to="/main" />
+            <Route render={() => <h1>Not Found</h1>} />
+          </Switch>
+        </div>
+      </ConnectedRouter>
     );
+  else {
+    console.log("HERE");
+    return null;
+  }
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth.authenticated
+  auth: state.auth.authenticated
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    isLoggedIn: () =>
+      dispatch(actionCreators.isLoggedIn())
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

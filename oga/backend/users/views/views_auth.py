@@ -6,8 +6,9 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import ensure_csrf_cookie
 
-from users.views.decorators import check_request
+from users.views.decorators import check_request, check_login_required
 
 @check_request
 @require_http_methods(["POST"])
@@ -38,3 +39,15 @@ def sign_in(request):
         return JsonResponse(response_dict, status=201)
     else:
         return JsonResponse({}, status=401)
+
+@check_login_required
+@ensure_csrf_cookie
+@require_http_methods(["GET"])
+def is_logged_in(request):
+    """
+    a method that tests if user is logged in or not.
+    if this function passes the @check_login_required,
+    it means the user is logged in so we can
+    just return a OK response
+    """
+    return JsonResponse({}, status=201)

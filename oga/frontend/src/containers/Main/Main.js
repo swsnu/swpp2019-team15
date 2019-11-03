@@ -4,6 +4,7 @@ import Question from "../../components/Question/Question";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import thunk from 'redux-thunk';
 
 import * as actionCreators from "../../store/actions/index";
 
@@ -19,9 +20,9 @@ class QuestionList extends Component {
     this.props.history.push("/reply/" + qst.id);
   };
 
-  clickNewQuestionHandler = () => {
-    this.props.history.push("/questions/create");
-  };
+    clickNewQuestionHandler = () => {
+        this.props.history.push("/ask");
+    };
 
   clickFollowHandler = qst => {
     this.props.onFollow(qst.id);
