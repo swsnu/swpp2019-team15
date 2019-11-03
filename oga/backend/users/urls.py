@@ -11,4 +11,6 @@ urlpatterns = [
     path('save-subscription/', views.save_subscription, name='save-subscription'),
     path('location/', views.locations, name='set_location'),
     path('reply/<int:question_id>/', views.create_answer, name='create_answer'),
+    path('follow/<int:question_id>/', views.follow_question,
+         name='follow_question'),
 ]
