@@ -46,7 +46,7 @@ export const signIn = user => {
             .post("/api/signin/", user)
             .then(res => {
                 dispatch(signIn_(res));
-                dispatch(push("/questions/create/"));
+                dispatch(push("main"));
             })
             .catch(err => {
                 alert(
@@ -68,11 +68,9 @@ export const isLoggedIn = () => {
     return axios
       .get("/api/is-authed/")
       .then(res => {
-        //return true;
         dispatch(isLoggedIn_(true));
       })
       .catch(err => {
-        //console.log("HERE");
         dispatch(isLoggedIn_(false));
       })
   }

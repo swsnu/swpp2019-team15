@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  authenticated: false,
+  authenticated: null,
   userid: null,
   //selectedQuestion: null,
   //user_name: null,
@@ -16,9 +16,9 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.AUTHENTICATED:
       const userid = action.userid;
       console.log(action.auth);
-      return { ...state, authenticated: action.auth, userid:userid};
+      return { ...state, authenticated: action.auth};
     case actionTypes.UNAUTHENTICATED:
-      return {...state, authenticated: false, userid:null};
+      return {...state, authenticated: false};
     default:
       break;
   }
