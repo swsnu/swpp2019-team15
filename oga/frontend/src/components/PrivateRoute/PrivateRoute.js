@@ -21,9 +21,12 @@ const PrivateRoute = ({auth: auth, component: Component, ...rest }) => (
       {...rest}
       render={props => {
         if (auth) {
+          console.log(auth);
           return <Component {...props} />;
-        } else
+        } else {
+          console.log(auth);
           return <Redirect to="/login" />;
+        }
       }}/>
 );
 
