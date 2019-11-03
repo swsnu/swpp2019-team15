@@ -19,6 +19,9 @@ class QuestionList extends Component {
     clickAnswerHandler = qst => {
         this.props.history.push("/reply/" + qst.id);
     };
+    clickDetailHandler = qst => {
+        this.props.history.push("/")
+    };
 
     clickNewQuestionHandler = () => {
         this.props.history.push("/ask");
@@ -36,7 +39,7 @@ class QuestionList extends Component {
                     content={qs.content}
                     is_answered={qs.is_answered}
                     clickAnswer={() => this.clickAnswerHandler(qs)}
-                    // clickDetail={() => this.clickDetailHandler()}
+                    clickDetail={() => this.clickDetailHandler(qs)}
                 />
             );
         });
