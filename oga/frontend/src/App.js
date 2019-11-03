@@ -1,15 +1,16 @@
 import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
+
 import Signup from "./containers/Login/Signup";
-import "./App.css";
 import Login from "./containers/Login/Login";
-import QuestionList from "./containers/QuestionList/QuestionList";
-import NewQuestion from "./containers/QuestionList/NewQuestion/NewQuestion.js";
-import RealDetail from "./containers/QuestionList/RealDetail/RealDetail.js";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute.js";
+import Main from "./containers/Main/Main";
 import Map from "./containers/Map/GoogleMap";
+import NewQuestion from "./containers/QuestionList/NewQuestion/NewQuestion.js";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute.js";
+import NewAnswer from './containers/Answer/NewAnswer';
 import { connect } from "react-redux";
+import "./App.css";
 
 let swRegistration = null;
 if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -35,8 +36,14 @@ function App(props) {
         <ConnectedRouter history={props.history}>
             <div className="App">
                 <Switch>
-                    <Route path="/login" exact component={Login} />
                     <Route path="/signup" exact component={Signup} />
+                    <Route path="/login" exact component={Login} />
+                    <PrivateRoute
+                        auth={session}
+                        path="/main"
+                        exact
+                        component={Main}
+                    />
                     <PrivateRoute
                         auth={session}
                         path="/questions/create"
@@ -49,6 +56,11 @@ function App(props) {
                         exact
                         component={Map}
                     />
+                    <PrivateRoute
+                        auth={session}
+                        path='/reply/:id'
+                        exact
+                        component={NewAnswer} />
                     <Redirect exact from="/" to="login" />
                     <Route render={() => <h1>Not Found</h1>} />
                 </Switch>

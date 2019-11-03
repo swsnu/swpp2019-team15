@@ -60,6 +60,12 @@ class LocationListener extends Component {
     const { latitude, longitude } = position.coords;
     const {previousCoordinates} = this.state;
     const newCoordinates = {
+      // this is left as a dummy string as of now.
+      // to use reverse geocoding of googlemaps, we have to 
+      // display the map(it's google's policy). 
+      // And if we are to use map, defeats the purpose of a light weight
+      // location tracker
+      name: "userlocation",
       latitude,
       longitude
     };

@@ -1,9 +1,18 @@
-import {setTargetLocation, setCurrentCoordinates} from './locationActions.js';
-import {createQuestion} from './questionActions.js';
-import {signUp, signIn} from './authActions.js';
+import { setTargetLocation, setCurrentCoordinates } from "./locationActions.js";
+import {
+    createQuestion,
+    getQuestion,
+    getQuestions
+} from "./questionActions.js";
+import { signUp, signIn } from "./authActions.js";
+import { createAnswer } from "./answerActions";
 export {
-  setTargetLocation,
-  setCurrentCoordinates,
-  createQuestion,
-  signUp, signIn
-}
+    setTargetLocation,
+    setCurrentCoordinates,
+    createQuestion,
+    getQuestion,
+    getQuestions,
+    signUp,
+    signIn,
+    createAnswer,
+};

@@ -12,6 +12,7 @@
 import React, { Component } from 'react';
 import * as actionCreators from '../../store/actions/index';
 import appServerKey from '../../const/applicationServerPublicKey';
+import axios from 'axios';
 
 /**
  * urlBase64ToUint8Array
@@ -52,25 +53,16 @@ function askPermission() {
 
 function sendSubscriptionToBackEnd(subscription) {
   console.log('Received PushSubscription: ', JSON.stringify(subscription));
-  return fetch('/api/save-subscription/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(subscription)
-  })
-  .then(function(response) {
-    if (!response.ok) {
-      throw new Error('Bad status code from server.');
-    }
-
-    return response.json();
-  })
-  .then(function(responseData) {
-    if (!(responseData.data && responseData.data.success)) {
-      throw new Error('Bad response from server.');
-    }
-  });
+  return axios.post('/api/save-subscription/', subscription)
+    .then(function(response) {
+      if (response.status!==201) {
+        throw new Error('Bad status code from server.');
+      }
+      if (!(response.data && response.data.data.success)) {
+        throw new Error('Bad reponse from server.');
+      }
+      return response;
+    })
 }
 
 
