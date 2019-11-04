@@ -16,9 +16,12 @@ class QuestionList extends Component {
     // }
   }
 
-  clickAnswerHandler = qst => {
-    this.props.history.push("/reply/" + qst.id);
-  };
+    clickAnswerHandler = qst => {
+        this.props.history.push("/reply/create/" + qst.id);
+    };
+    clickDetailHandler = qst => {
+        this.props.history.push("/replies/"+qst.id);
+    };
 
   clickNewQuestionHandler = () => {
     this.props.history.push("/ask");
@@ -44,10 +47,12 @@ class QuestionList extends Component {
           clickAnswer={() => this.clickAnswerHandler(qs)}
           clickFollow={() => this.clickFollowHandler(qs)}
           clickAnswer={() => this.clickAnswerHandler(qs)}
+          clickDetail={() => this.clickDetailHandler(qs)}
           // clickDetail={() => this.clickDetailHandler()}
         />
       );
     });
+
 
     return (
       <div className="QuestionList">

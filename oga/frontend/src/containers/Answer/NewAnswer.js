@@ -28,9 +28,9 @@ class NewAnswer extends Component {
   }
 
   postAnswerHandler = (question_content, answer_content, id) => {
-    console.log(this.state.answer_content)
-    console.log(this.state.answered)
-    console.log(this.props.selectedQuestion.content)
+    // console.log(this.state.answer_content)
+    // console.log(this.state.answered)
+    // console.log(this.props.selectedQuestion.content)
     if (this.state.answered && this.props.selectedQuestion && this.state.answer_content)
     { // for testing purposes, we set type to 0, and pass content as well
       // actually, we only have to store type in questions, 
@@ -81,6 +81,7 @@ class NewAnswer extends Component {
           id={this.props.selectedQuestion.id}
           content={this.props.selectedQuestion.content}
           place_name={this.props.selectedQuestion.target_location_name}
+          is_answered={false}
         ></AnswerView>
       </React.Fragment>
   }

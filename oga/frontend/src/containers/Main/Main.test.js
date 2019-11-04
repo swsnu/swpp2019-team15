@@ -59,7 +59,7 @@ describe('<Main />', () => {
     //button.simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledTimes(1);
     expect(m).toHaveBeenCalledTimes(1);
-    expect(spyHistoryPush).toHaveBeenCalledWith("/reply/1");
+    expect(spyHistoryPush).toHaveBeenCalledWith("/reply/create/1");
   });
 
   it('should go to ask page when clickNewQuestionHandler', () => {

@@ -23,3 +23,35 @@ export const createAnswer = (answer, question_id) => {
       })
   }
 }
+
+export const getAnswers_ = (answers) => {
+  return {
+    type: actionTypes.GET_ANSWERS,
+    answers: answers,
+  }
+}
+
+export const getAnswers = (question_id) => {
+  return (dispatch) => {
+    return axios.get('/api/replies/'+question_id+'/')
+      .then(res => {
+        dispatch(getAnswers_(res.data));
+      })
+  }
+}
+
+export const getAnswer_ = (answer) => {
+  return {
+    type: actionTypes.GET_ANSWER,
+    answer: answer,
+  }
+}
+
+export const getAnswer = (answer_id) => {
+  return (dispatch) => {
+    return axios.get('/api/reply/'+answer_id+'/')
+      .then(res => {
+        dispatch(getAnswer_(res.data));
+      })
+  }
+}

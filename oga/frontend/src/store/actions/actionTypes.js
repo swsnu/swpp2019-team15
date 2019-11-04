@@ -11,3 +11,5 @@ export const SIGN_UP = 'SIGN_UP';
 export const AUTHENTICATED = 'AUTHENTICATED';
 export const UNAUTHENTICATED = 'UNAUTHENTICATED';
 export const CREATE_ANSWER = 'CREATE_ANSWER';
+export const GET_ANSWERS = 'GET_ANSWERS';
+export const GET_ANSWER = 'GET_ANSWER';
