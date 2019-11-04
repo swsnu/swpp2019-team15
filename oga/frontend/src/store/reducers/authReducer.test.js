@@ -6,26 +6,27 @@ import * as actionTypes from '../actions/actionTypes';
 describe('Auth Reducer', () => {
   it('should return default state', () => {
     const newState = reducer(undefined, {}); // initialize
-    expect(newState).toEqual({authenticated: false, userid: null}); });
+    expect(newState).toEqual({authenticated: null}); });
 
   it('should return authenticated upon signin', () => {
     const newState = reducer(undefined, {
       type: actionTypes.AUTHENTICATED,
-      userid: "test",
+      authenticated: true,
+      //userid: "test",
     });
     expect(newState).toEqual({
       authenticated: true,
-      userid: "test",
+      //userid: "test",
     });
   });
 
-  it('should return authenticated upon signin', () => {
+  it('should return authenticated upon signup', () => {
     const newState = reducer(undefined, {
       type: actionTypes.SIGN_UP,
     });
     expect(newState).toEqual({
-      authenticated: false,
-      userid: null,
+      authenticated: null,
+      //userid: null,
     });
   });
 
@@ -35,7 +36,7 @@ describe('Auth Reducer', () => {
     });
     expect(newState).toEqual({
       authenticated: false,
-      userid: null,
+      //userid: null,
     });
   });
 

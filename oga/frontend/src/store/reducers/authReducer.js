@@ -1,8 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  authenticated: false,
-  userid: null,
+  authenticated: null,
+  //userid: null,
   //selectedQuestion: null,
   //user_name: null,
   //targetLocation: null,
@@ -14,11 +14,11 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.SIGN_UP: //nothing to do, really or show some success message?
       return {...state};
     case actionTypes.AUTHENTICATED:
-      const userid = action.userid;
-      console.log(userid);
-      return { ...state, authenticated: true, userid:userid};
+      //const userid = action.userid;
+      return { ...state, authenticated: action.authenticated};
     case actionTypes.UNAUTHENTICATED:
-      return {...state, authenticated: false, userid:null};
+      console.log(action);
+      return {...state, authenticated: false};
     default:
       break;
   }

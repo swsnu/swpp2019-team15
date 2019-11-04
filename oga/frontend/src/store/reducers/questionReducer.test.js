@@ -21,13 +21,14 @@ describe('Question Reducer', () => {
       id: 1,
       author_id: 1,
       title:"HI",
+      targetLocation: null,
       content:"HI",
     });
     expect(newState).toEqual({
       selectedQuestion: null,
       user_name: null,
       targetLocation: null,
-      questions: [{id: 1, author_id: 1, title:"HI", content:"HI"}]
+      questions: [{id: 1, author_id: 1, target_location:undefined, content:"HI"}]
     });
   });
 

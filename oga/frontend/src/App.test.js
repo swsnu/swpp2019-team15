@@ -1,16 +1,20 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Login from './containers/Login/Login';
 import { Provider } from 'react-redux';
 import { connectRouter, ConnectedRouter } from 'connected-react-router';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import App from './App';
+import Main from './containers/Main/Main';
 import { history } from './store/store';
 import configureMockStore from 'redux-mock-store';
+import * as actionCreators from './store/actions/index';
+import thunk from 'redux-thunk';
 
-const mockStore = configureMockStore();
+const mockStore = configureMockStore([thunk]);
 const store = mockStore({auth: {authenticated: true}, router:history});
+jest.mock("./containers/Main/Main", () => () => <div></div>);
 
 describe('App', () => {
   let app;
