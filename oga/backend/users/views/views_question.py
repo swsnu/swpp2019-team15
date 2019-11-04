@@ -67,3 +67,17 @@ def question_detail(request, question_id):
         'is_answered': question.is_answered,
     }
     return JsonResponse(response_dict)
+
+@check_login_required
+@check_request
+@require_http_methods(["GET"])
+def follow_question(request, question_id):
+    """ get single question with given id """
+    question = get_object_or_404(Question, pk=question_id)
+    profile = request.user.profile
+
+    profile.follows.add(question)
+    # print(profile.follows.all())
+    # print(question.followers.all())
+
+    return JsonResponse({}, status=201)

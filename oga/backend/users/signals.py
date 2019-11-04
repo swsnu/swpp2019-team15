@@ -37,13 +37,17 @@ def notify_new_answer(sender, instance, created, **kwargs):
     notification"""
     if created:
         question = instance.question
-        user = question.author
-        profile = Profile.objects.get(user=user)
+        profile = question.author.profile
         location = question.location_id.name
         data = {'text': instance.content, 'location': location, 'id': instance.id, 'tag': 'a'}
         # user_id = User.objects.get(id=qs_sender_id)
         # profile = Profile.objects.get(user=user_id)
         send_push(profile, data)
+
+        # do the same for all the followers
+        for profile in question.followers.all():
+            send_push(profile, data)
+
 
 @receiver(post_save, sender=Answer)
 def mark_question_as_answered(sender, instance, created, **kwargs):

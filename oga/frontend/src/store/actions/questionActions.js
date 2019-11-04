@@ -56,3 +56,19 @@ export const getQuestion = id => {
             .catch(err => console.log(err));
     };
 };
+
+export const followQuestion_ = (question) => {
+    return {
+        //type: actionTypes.GET_QUESTION,
+        //selectedQuestion: question
+    };
+};
+
+export const followQuestion = id => {
+    return dispatch => {
+        return axios
+            .get("/api/follow/" + id)
+            .then(res => {})
+            .catch(err => console.log(err));
+    };
+};

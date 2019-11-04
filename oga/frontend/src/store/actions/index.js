@@ -2,7 +2,8 @@ import { setTargetLocation, setCurrentCoordinates } from "./locationActions.js";
 import {
     createQuestion,
     getQuestion,
-    getQuestions
+    getQuestions,
+    followQuestion,
 } from "./questionActions.js";
 import { signUp, signIn, isLoggedIn } from "./authActions.js";
 import { createAnswer, getAnswers, getAnswer } from "./answerActions";
@@ -18,4 +19,5 @@ export {
     createAnswer,
     getAnswers,
     getAnswer,
+    followQuestion,
 };
