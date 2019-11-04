@@ -51,16 +51,16 @@ class NewAnswer extends Component {
     if (this.props.selectedQuestion)
     {
       qs_type = this.props.selectedQuestion.content;
-      if (qs_type == "LONG LINE") {
-        selected_question_type = 0;
-      } else if (qs_type == "MANY SEATS") {
-        selected_question_type = 1;
-      } else if (qs_type == "RAINING") {
-        selected_question_type = 2;
-      } else if (qs_type == "QUIET") {
-        selected_question_type = 3;
-      }
-      qs_type = question_types[selected_question_type];
+      // if (qs_type == "LONG LINE") {
+      //   selected_question_type = 0;
+      // } else if (qs_type == "MANY SEATS") {
+      //   selected_question_type = 1;
+      // } else if (qs_type == "RAINING") {
+      //   selected_question_type = 2;
+      // } else if (qs_type == "QUIET") {
+      //   selected_question_type = 3;
+      // }
+      qs_type = question_types[qs_type];
       selected_question_type_list = qs_type.map((val) => {
           return (
             <div>
