@@ -14,7 +14,7 @@ from users.views.decorators import check_request, check_login_required
 @check_request
 @require_http_methods(["GET", "POST"])
 @csrf_exempt
-def get_or_create_answer(request, id_):
+def get_or_create_answer(request, question_or_answer_id):
     """function for post answer of question_id or get answer of answer_id
         POST: create_answer api
         GET: get_answers api"""
@@ -23,7 +23,7 @@ def get_or_create_answer(request, id_):
         question_type = req_data['question_type']
         answer_author = get_user(request)
         answer_content = req_data['answer_content']
-        answer = Answer(question=Question.objects.get(id=id_),
+        answer = Answer(question=Question.objects.get(id=question_or_answer_id),
                         author=Profile.objects.get(user=answer_author),
                         question_type=question_type,
                         content=answer_content)
@@ -35,7 +35,7 @@ def get_or_create_answer(request, id_):
                         }
         return JsonResponse(response_dict, status=200)
     elif request.method == "GET":
-        ans = Answer.objects.get(id=id_)
+        ans = Answer.objects.get(id=question_or_answer_id)
         question = ans.question
         response_dict = {
             'id': ans.id,
