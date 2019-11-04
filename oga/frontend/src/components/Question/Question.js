@@ -18,6 +18,7 @@ const Question = props => {
                 <div>&#128591;</div>
             )}
             <button onClick={props.clickAnswer}>Answer</button>
+            <button onClick={props.clickFollow}>Follow</button>
             {/* <button onClick={props.clickDetail}>{props.title}</button> */}
         </div>
     );

@@ -11,7 +11,10 @@ def send_push(profile, body):
     how to use:
     send_push(profile, {'title': 'hi', 'text': 'hi'})
     """
-    return _send_push(profile.subscription, body)
+    if profile.subscription:
+        return _send_push(profile.subscription, body)
+    else:
+        return -1
 
 @background
 def _send_push(subscription, body):

@@ -24,6 +24,10 @@ class QuestionList extends Component {
     this.props.history.push("/ask");
   };
 
+  clickFollowHandler = qst => {
+    this.props.onFollow(qst.id);
+  };
+
   click;
   render() {
 
@@ -37,6 +41,8 @@ class QuestionList extends Component {
           content={qs.content}
           location={qs.location}
           is_answered={qs.is_answered}
+          clickAnswer={() => this.clickAnswerHandler(qs)}
+          clickFollow={() => this.clickFollowHandler(qs)}
           clickAnswer={() => this.clickAnswerHandler(qs)}
           // clickDetail={() => this.clickDetailHandler()}
         />
@@ -89,7 +95,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetAll: () => dispatch(actionCreators.getQuestions())
+    onGetAll: () => dispatch(actionCreators.getQuestions()),
+    onFollow: (id) => dispatch(actionCreators.followQuestion(id)),
     //setLogout: () =>
     //dispatch(actionCreators.settingLogout())
   };

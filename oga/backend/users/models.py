@@ -17,22 +17,6 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
-class Profile(models.Model):
-    """
-    Profile model that extends django user model
-    """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # id = models.AutoField(primary_key=True)
-    # username = models.CharField(max_length=20)
-    # password = models.CharField(max_length=20)
-    # can use Pointfield to store location coordinates
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE,
-                                    blank=True, null=True)
-    subscription = JSONField(blank=True, null=True)
-
-    def __str__(self):
-        return self.user.username
-
 class Question(models.Model):
     """
     Question model
@@ -51,6 +35,24 @@ class Question(models.Model):
 
     class Meta:
         ordering = ('publish_date_time',)
+
+class Profile(models.Model):
+    """
+    Profile model that extends django user model
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # id = models.AutoField(primary_key=True)
+    # username = models.CharField(max_length=20)
+    # password = models.CharField(max_length=20)
+    # can use Pointfield to store location coordinates
+    location_id = models.ForeignKey(Location, on_delete=models.CASCADE,
+                                    blank=True, null=True)
+    subscription = JSONField(blank=True, null=True)
+    follows = models.ManyToManyField(Question, related_name='followers')
+
+    def __str__(self):
+        return self.user.username
+
 
 class Answer(models.Model):
     """
