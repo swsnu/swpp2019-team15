@@ -11,4 +11,16 @@ describe('<Question/>', () => {
     expect(wrapper.length).toBe(1);
   });
 
+  it('renders without errros', () => {
+    const component = shallow(<Question is_answered={false}/>);
+    const wrapper = component.find(".Question");
+    expect(wrapper.length).toBe(1);
+  });
+
+  it('renders without errros', () => {
+    const component = shallow(<Question is_answered={true}/>);
+    const wrapper = component.find(".Question");
+    expect(wrapper.length).toBe(1);
+  });
+
 });

@@ -41,6 +41,10 @@ describe('<Main />', () => {
     );
   })
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  })
+
   it('should render without errors', () => {
     const spySignIn = jest.spyOn(actionCreators, 'getQuestions')
       .mockImplementation(() => { return dispatch => {}; });
@@ -59,7 +63,7 @@ describe('<Main />', () => {
     //button.simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledTimes(1);
     expect(m).toHaveBeenCalledTimes(1);
-    expect(spyHistoryPush).toHaveBeenCalledWith("/reply/1");
+    expect(spyHistoryPush).toHaveBeenCalledWith("/reply/create/1");
   });
 
   it('should go to ask page when clickNewQuestionHandler', () => {
@@ -87,6 +91,33 @@ describe('<Main />', () => {
     let button = wrapper.find('#settings-button');
     button.simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledWith("/settings");
+  });
+
+  it('should go to replies page when clickAnswerHandler', () => {
+    const spyHistoryPush = jest.spyOn(history, 'push')
+      .mockImplementation(path => {});
+    const wrapper = mount(main);
+    const instance = wrapper.find(Main.WrappedComponent).instance();
+    const m = jest.spyOn(instance, 'clickDetailHandler');
+    let button = wrapper.find('Question');
+    wrapper.find('Question').props().clickDetail();
+    //button.simulate('click');
+    expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+    expect(m).toHaveBeenCalledTimes(1);
+    expect(spyHistoryPush).toHaveBeenCalledWith("/replies/1");
+  });
+
+  it('should call onFollow when clickAnswerHandler', () => {
+    const spyFollow = jest.spyOn(actionCreators, 'followQuestion')
+      .mockImplementation(path => {return dispatch => {}});
+    const wrapper = mount(main);
+    const instance = wrapper.find(Main.WrappedComponent).instance();
+    const m = jest.spyOn(instance, 'clickFollowHandler');
+    let button = wrapper.find('Question');
+    wrapper.find('Question').props().clickFollow();
+    //button.simulate('click');
+    expect(m).toHaveBeenCalledTimes(1);
+    expect(spyFollow).toHaveBeenCalledTimes(1);
   });
 
 

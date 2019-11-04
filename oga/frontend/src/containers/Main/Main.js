@@ -7,6 +7,7 @@ import { withRouter } from "react-router";
 import thunk from "redux-thunk";
 
 import * as actionCreators from "../../store/actions/index";
+import PushNotification from "../../components/PushNotification/PushNotification"
 
 class QuestionList extends Component {
   componentDidMount() {
@@ -17,11 +18,18 @@ class QuestionList extends Component {
   }
 
   clickAnswerHandler = qst => {
-    this.props.history.push("/reply/" + qst.id);
+    this.props.history.push("/reply/create/" + qst.id);
+  };
+  clickDetailHandler = qst => {
+    this.props.history.push("/replies/"+qst.id);
   };
 
   clickNewQuestionHandler = () => {
     this.props.history.push("/ask");
+  };
+
+  clickFollowHandler = qst => {
+    this.props.onFollow(qst.id);
   };
 
   click;
@@ -38,7 +46,8 @@ class QuestionList extends Component {
           location={qs.location}
           is_answered={qs.is_answered}
           clickAnswer={() => this.clickAnswerHandler(qs)}
-          // clickDetail={() => this.clickDetailHandler()}
+          clickFollow={() => this.clickFollowHandler(qs)}
+          clickDetail={() => this.clickDetailHandler(qs)}
         />
       );
     });
@@ -68,6 +77,7 @@ class QuestionList extends Component {
           >
             Settings
           </button>
+          <PushNotification/>
         </div>
         {/* <button
                         id="logout-button"
@@ -89,7 +99,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetAll: () => dispatch(actionCreators.getQuestions())
+    onGetAll: () => dispatch(actionCreators.getQuestions()),
+    onFollow: (id) => dispatch(actionCreators.followQuestion(id)),
     //setLogout: () =>
     //dispatch(actionCreators.settingLogout())
   };

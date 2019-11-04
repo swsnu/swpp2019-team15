@@ -10,7 +10,8 @@ import {connect} from 'react-redux';
 import thunk from 'redux-thunk';
 import NewAnswer from './NewAnswer.js';
 import { history } from '../../store/store';
-import * as actionCreators from '../../store/actions/questionActions';
+import * as questionActions from '../../store/actions/questionActions';
+import * as actionCreators from '../../store/actions/answerActions';
 
 const mockGeolocation = {
   getCurrentPosition: jest.fn(),
@@ -18,6 +19,7 @@ const mockGeolocation = {
 };
 
 global.navigator.geolocation = mockGeolocation;
+console.error = jest.fn();
 //jest.mock('../../Map/GoogleMap.js', () => () => 'Map');
 
 const mockStore = configureMockStore([thunk]);
@@ -33,6 +35,8 @@ const store = mockStore({
   },
   router: history
 });
+const spyGetQuestion = jest.spyOn(questionActions, 'getQuestion')
+  .mockImplementation(question => { return dispatch => {}; });
 const state = {content: ''};
 
 describe('<NewAnswer/>', () => {
@@ -48,8 +52,6 @@ describe('<NewAnswer/>', () => {
         </ConnectedRouter>
       </Provider>
     );
-    const spyGetQuestion = jest.spyOn(actionCreators, 'getQuestion')
-      .mockImplementation(question => { return dispatch => {}; });
   })
 
   it('should render without errors', () => {
@@ -59,7 +61,7 @@ describe('<NewAnswer/>', () => {
 
   it('should change answer content ', () => {
     const wrapper = mount(answer);
-    const component = wrapper.find("#question-type");
+    const component = wrapper.find("#answer-choices");
     const answer_data = "NO";
     //component.props.onChange(answer_data);
     component.simulate('change',{target: {value: answer_data}});
@@ -68,16 +70,112 @@ describe('<NewAnswer/>', () => {
     expect(instance.state.answer_content).toBe(answer_data);
   });
 
-  it('should call goBack upon click back', () => {
-    const wrapper = mount(answer);
-    const component = wrapper.find("#question-type");
-    const answer_data = "NO";
-    //component.props.onChange(answer_data);
-    component.simulate('change',{target: {value: answer_data}});
-    const instance = wrapper.find(NewAnswer.WrappedComponent).instance();
-    //wrapper.simulate('change', {target: {value: newuser }});
-    expect(instance.state.answer_content).toBe(answer_data);
+  it('should render chosen question ', () => {
+    let store = mockStore({
+      question: {
+        selectedQuestion: {content:"MANY SEATS",
+                           id: 1,
+                           target_location_name:"HOME"},
+        targetLocation: null,
+        questions: []
+      },
+      location: {
+        targetLocation: {langitude: 1, longitude: 2},
+      },
+      router: history
+    });
+
+    let answer = (
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Switch>
+            <Route path='/' exact component={NewAnswer} />
+          </Switch>
+        </ConnectedRouter>
+      </Provider>
+    );
+    const component = mount(answer);
+    let wrapper = component.find('.AnswerView');
+    //wrapper.simulate('click');
+    wrapper.props.place_name = "HOME";
+    expect(wrapper.props.place_name).toBe("HOME");
   });
 
+  it('should handle goback ', () => {
+    const spyHistoryPush = jest.spyOn(history, 'goBack')
+      .mockImplementation(path => {});
+    const component = mount(answer);
+    let wrapper = component.find('#back-create-answer-button');
+    wrapper.simulate('click');
+    expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not submit answer with no choice ', () => {
+    let store = mockStore({
+      question: {
+        selectedQuestion: {content:"MANY SEATS",
+                           id: 1,
+                           target_location_name:"HOME"},
+        targetLocation: null,
+        questions: []
+      },
+      location: {
+        targetLocation: {langitude: 1, longitude: 2},
+      },
+      router: history
+    });
+
+    let answer = (
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Switch>
+            <Route path='/' exact component={NewAnswer} />
+          </Switch>
+        </ConnectedRouter>
+      </Provider>
+    );
+    const spyCreateAnswer = jest.spyOn(actionCreators, 'createAnswer')
+      .mockImplementation(ans => { return dispatch => {}; });
+    const component = mount(answer);
+    let wrapper = component.find('#confirm-create-answer-button');
+    wrapper.simulate('click');
+    expect(spyCreateAnswer).toHaveBeenCalledTimes(0);
+  });
+
+  it('should submit answer when choice exists', () => {
+    let store = mockStore({
+      question: {
+        selectedQuestion: {content:"MANY SEATS",
+                           id: 1,
+                           target_location_name:"HOME"},
+        targetLocation: null,
+        questions: []
+      },
+      location: {
+        targetLocation: {langitude: 1, longitude: 2},
+      },
+      router: history
+    });
+
+    let answer = (
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Switch>
+            <Route path='/' exact component={NewAnswer} />
+          </Switch>
+        </ConnectedRouter>
+      </Provider>
+    );
+    const spyCreateAnswer = jest.spyOn(actionCreators, 'createAnswer')
+      .mockImplementation(ans => {return dispatch => {}});
+    const component = mount(answer);
+    const choice = component.find("#answer-choices");
+    const answer_data = "NO";
+    //component.props.onChange(answer_data);
+    choice.simulate('change',{target: {value: answer_data}});
+    let wrapper = component.find('#confirm-create-answer-button');
+    wrapper.simulate('click');
+    expect(spyCreateAnswer).toHaveBeenCalledTimes(1);
+  });
 
 });

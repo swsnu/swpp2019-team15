@@ -5,16 +5,21 @@ import { connectRouter, ConnectedRouter } from 'connected-react-router';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import App from './App';
 import Main from './containers/Main/Main';
 import { history } from './store/store';
 import configureMockStore from 'redux-mock-store';
-import * as actionCreators from './store/actions/index';
+import * as actionCreators from './store/actions/authActions';
 import thunk from 'redux-thunk';
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({auth: {authenticated: true}, router:history});
 jest.mock("./containers/Main/Main", () => () => <div></div>);
+
+import App from './App';
+
+
+console.error = jest.fn();
+console.log = jest.fn();
 
 describe('App', () => {
   let app;
@@ -52,5 +57,25 @@ describe('App', () => {
     history.push('/aaa');
     const component = mount(app);
     expect(component.find('h1').text()).toBe("Not Found");
+  });
+
+  it('should register sw.js', () => {
+    history.push('/aaa');
+    const component = mount(app);
+    expect(component.find('h1').text()).toBe("Not Found");
+  });
+
+  it('should render nothing when isloggedin is not finished ', () => {
+    const store = mockStore({auth: {authenticated: null}, router:history});
+    const spyIsLoggedIn = jest.spyOn(actionCreators, 'isLoggedIn')
+      .mockImplementation(() => {return dispatch => {}});
+    app = (
+      <Provider store={store}>
+        <App history={history} auth={null}/>
+      </Provider>
+    )
+    const component = mount(app);
+    expect(spyIsLoggedIn).toHaveBeenCalledTimes(1);
+    expect(component.find('.App').length).toBe(0);
   });
 });

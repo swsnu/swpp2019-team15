@@ -3,6 +3,8 @@ import axios from 'axios';
 import * as actionCreators from './answerActions.js';
 import store from '../store.js';
 
+console.error = jest.mock();
+
 describe('answerActions', () => {
   afterEach(() => {
     jest.clearAllMocks();
