@@ -16,12 +16,13 @@ matrix:
       - yarn install
       script:
       - ./node_modules/.bin/eslint src
-      - yarn test -- --coverage --watchAll=false
+      - yarn test --coverage --watchAll=false
+      - cd ../
       - sonar-scanner
      
     - language: python
       python: 3.6
-      dist: trusty
+      dist: xenial
       addons:
         sonarcloud:
           organization: "swsnu"
@@ -35,4 +36,5 @@ matrix:
       - pylint users
       - pylint oga
       - coverage run --branch --source='./users' manage.py test && coverage report -m
+      - cd../
       - sonar-scanner
