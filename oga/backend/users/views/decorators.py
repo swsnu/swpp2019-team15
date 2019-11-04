@@ -31,7 +31,7 @@ def check_user_owner(views_func):
             return HttpResponseBadRequest()
         else:
             user_name = kwargs["username"]
-            if user_name == request.user.username:
+            if user_name != request.user.username:
                 return HttpResponseForbidden()
             else:
                 return views_func(request, *args, **kwargs)

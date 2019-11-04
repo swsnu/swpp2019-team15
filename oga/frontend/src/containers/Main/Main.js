@@ -4,7 +4,7 @@ import Question from "../../components/Question/Question";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 
 import * as actionCreators from "../../store/actions/index";
 
@@ -20,9 +20,9 @@ class QuestionList extends Component {
     this.props.history.push("/reply/" + qst.id);
   };
 
-    clickNewQuestionHandler = () => {
-        this.props.history.push("/ask");
-    };
+  clickNewQuestionHandler = () => {
+    this.props.history.push("/ask");
+  };
 
   clickFollowHandler = qst => {
     this.props.onFollow(qst.id);
@@ -30,6 +30,7 @@ class QuestionList extends Component {
 
   click;
   render() {
+
     const Questions = this.props.storedQuestions.map(qs => {
       return (
         <Question
@@ -38,9 +39,11 @@ class QuestionList extends Component {
           author={qs.author}
           publish_date_time={qs.publish_date_time}
           content={qs.content}
+          location={qs.location}
           is_answered={qs.is_answered}
           clickAnswer={() => this.clickAnswerHandler(qs)}
           clickFollow={() => this.clickFollowHandler(qs)}
+          clickAnswer={() => this.clickAnswerHandler(qs)}
           // clickDetail={() => this.clickDetailHandler()}
         />
       );
@@ -64,6 +67,12 @@ class QuestionList extends Component {
             onClick={() => this.props.history.goBack()}
           >
             Back
+          </button>
+          <button
+            id="settings-button"
+            onClick={() => this.props.history.push("/settings")}
+          >
+            Settings
           </button>
         </div>
         {/* <button
