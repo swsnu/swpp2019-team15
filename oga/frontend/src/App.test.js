@@ -10,12 +10,12 @@ import { history } from './store/store';
 import configureMockStore from 'redux-mock-store';
 import * as actionCreators from './store/actions/authActions';
 import thunk from 'redux-thunk';
+import App from './App';
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({auth: {authenticated: true}, router:history});
 jest.mock("./containers/Main/Main", () => () => <div></div>);
 
-import App from './App';
 
 
 console.error = jest.fn();

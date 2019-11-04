@@ -131,7 +131,6 @@ describe('<PushNotification/>', () => {
           resolve(result);
           reject(result);
         });
-        done();
       })
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
@@ -156,7 +155,6 @@ describe('<PushNotification/>', () => {
 
   xit('should not register sw.js with bad response ', () => {
     let register = jest.fn((filename) => Promise.resolve( () => {}));
-    set(register)
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
     //console.log(global.navigator.serviceWorker.register);
