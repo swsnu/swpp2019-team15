@@ -27,6 +27,8 @@ import {connect} from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 import API_KEY from '../../const/api_key';
 
+const options = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
+
 class LocationListener extends Component {
   constructor(props) {
     super(props);
@@ -53,39 +55,43 @@ class LocationListener extends Component {
     return haversine(prevCoordinates, newCoordinates, {unit: 'meter'}) || 0;
   };
 
+  setPosition = (position) => {
+    //const { routeCoordinates, totalDistanceMoved } = this.state;
+    const { latitude, longitude } = position.coords;
+    const {previousCoordinates} = this.state;
+    const newCoordinates = {
+      // this is left as a dummy string as of now.
+      // to use reverse geocoding of googlemaps, we have to 
+      // display the map(it's google's policy). 
+      // And if we are to use map, defeats the purpose of a light weight
+      // location tracker
+      name: "userlocation",
+      latitude,
+      longitude
+    };
+
+    //if called the first time, update previousCoordinates no matter what
+    if (previousCoordinates === null) {
+      this.setState({latitude, longitude, previousCoordinates: newCoordinates});
+      this.props.setCurrentCoordinates(newCoordinates);
+      return;
+    }
+
+    const distance = this.distance(previousCoordinates, newCoordinates);
+    if (distance > this.THRESHOLD) {
+      this.setState({latitude, longitude, previousCoordinates: newCoordinates});
+      this.props.setCurrentCoordinates(newCoordinates);
+    }
+  };
+
+  handleError = (error) => {
+    console.log(error);
+  };
+
   componentDidMount() {
+    //TODO: should introduce better error handling
     this.watchID = navigator.geolocation.watchPosition(
-      position => {
-        //const { routeCoordinates, totalDistanceMoved } = this.state;
-        const { latitude, longitude } = position.coords;
-        const {previousCoordinates} = this.state;
-        const newCoordinates = {
-          // this is left as a dummy string as of now.
-          // to use reverse geocoding of googlemaps, we have to 
-          // display the map(it's google's policy). 
-          // And if we are to use map, defeats the purpose of a light weight
-          // location tracker
-          name: "userlocation",
-          latitude,
-          longitude
-        };
-
-        //if called the first time, update previousCoordinates no matter what
-        if (previousCoordinates === null) {
-          this.setState({latitude, longitude, previousCoordinates: newCoordinates});
-          this.props.setCurrentCoordinates(newCoordinates);
-          return;
-        }
-
-        const distance = this.distance(previousCoordinates, newCoordinates);
-        if (distance > this.THRESHOLD) {
-          this.setState({latitude, longitude, previousCoordinates: newCoordinates});
-          this.props.setCurrentCoordinates(newCoordinates);
-        }
-      },
-      error => console.log(error), //TODO: should introduce better handling
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
+      this.setPosition, this.handleError, options);
   }
 
   render() {

@@ -20,8 +20,8 @@ export const createQuestion = question => {
     return dispatch => {
         return axios.post("/api/questions/", question).then(res => {
             dispatch(createQuestion_(question, res.data.id));
-            dispatch(push("/main"));
-        });
+          dispatch(push("/main")); })
+        .catch(err => console.log(err));
     };
 };
 
