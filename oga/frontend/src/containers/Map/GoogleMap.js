@@ -99,6 +99,7 @@ class GoogleMap extends Component {
     let center = null;
 
     //FIXME: BUGGY
+    console.log(this.props.currentCoordinates);
     if (this.props.currentCoordinates && places.length==0) {
       center = {
         lat: this.props.currentCoordinates.latitude,
@@ -107,7 +108,7 @@ class GoogleMap extends Component {
       console.log(center);
     }
     return (
-      <div style= {{ height: '50vh', width: '40%' }}>
+      <div className="Map" style= {{ height: '50vh', width: '40%' }}>
         <LocationListener/>
         {mapApiLoaded && 
           <SearchBox map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />}

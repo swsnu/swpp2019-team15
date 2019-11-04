@@ -3,8 +3,6 @@ import axios from 'axios';
 
 import { push } from 'connected-react-router';
 
-axios.defaults.xsrfCookieName="csrftoken";
-axios.defaults.xsrfHeaderName="X-CSRFTOKEN";
 
 export const createAnswer_ = (answer) => {
   return {

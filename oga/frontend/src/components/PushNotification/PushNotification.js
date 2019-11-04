@@ -9,9 +9,10 @@
  * @since  2019-10-19
  */
 
-import React, { Component } from "react";
-import appServerKey from "../../const/applicationServerPublicKey";
-import axios from "axios";
+import React, { Component } from 'react';
+import * as actionCreators from '../../store/actions/index';
+import appServerKey from '../../const/applicationServerPublicKey';
+import axios from 'axios';
 
 /**
  * urlBase64ToUint8Array
@@ -49,7 +50,7 @@ function askPermission() {
         if (permissionResult !== "granted") {
             throw new Error("We weren't granted permission.");
         }
-    });
+    }).catch(err => console.log("permission not granted"));
 }
 
 function sendSubscriptionToBackEnd(subscription) {
@@ -82,7 +83,7 @@ function subscribeUserToPush() {
             const subscriptionObject = JSON.stringify(pushSubscription);
             sendSubscriptionToBackEnd(pushSubscription);
             return pushSubscription;
-        });
+        }).catch(err => console.log("subscription failed from server"))
 }
 
 function unsubscribeUserToPush() {

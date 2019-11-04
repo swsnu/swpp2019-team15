@@ -10,7 +10,7 @@ const initialState = {
 
 const answerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.CREATE_QUESTION:
+    case actionTypes.CREATE_ANSWER:
       const newAnswer = {
         question_id: action.question_id,
         author_id: action.author_id,
