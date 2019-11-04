@@ -45,22 +45,6 @@ class QuestionList extends Component {
             );
         });
 
-    const Questions = this.props.storedQuestions.map(qs => {
-      return (
-        <Question
-          key={qs.id}
-          id={qs.id}
-          author={qs.author}
-          publish_date_time={qs.publish_date_time}
-          content={qs.content}
-          location={qs.location}
-          is_answered={qs.is_answered}
-          clickAnswer={() => this.clickAnswerHandler(qs)}
-          // clickDetail={() => this.clickDetailHandler()}
-        />
-      );
-    });
-
     return (
       <div className="QuestionList">
         <h1>Question Feed</h1>
