@@ -1,8 +1,15 @@
+
 matrix:
   include:
     - language: node_js
       node_js:
       - '10'
+      dist: trusty
+      addons:
+        sonarcloud:
+          organization: "swsnu"
+        token:
+          secure: "3db741cb98c8f5803c92d71cd925e4c8712a80e5" # encrypted value of your token
       before_install:
       - cd oga/frontend
       install:
@@ -10,9 +17,16 @@ matrix:
       script:
       - ./node_modules/.bin/eslint src
       - yarn test -- --coverage --watchAll=false
+      - sonar-scanner
      
     - language: python
       python: 3.6
+      dist: trusty
+      addons:
+        sonarcloud:
+          organization: "swsnu"
+        token:
+          secure: "3db741cb98c8f5803c92d71cd925e4c8712a80e5" # encrypted value of your token
       before_install:
       - cd oga/backend
       install:
@@ -21,3 +35,4 @@ matrix:
       - pylint users
       - pylint oga
       - coverage run --branch --source='./users' manage.py test && coverage report -m
+      - sonar-scanner
