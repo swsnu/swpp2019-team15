@@ -8,13 +8,13 @@ import Main from "./containers/Main/Main";
 import Map from "./containers/Map/GoogleMap";
 import NewQuestion from "./containers/QuestionList/NewQuestion/NewQuestion.js";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.js";
-
-import NewAnswer from './containers/Answer/NewAnswer';
+import NewAnswer from "./containers/Answer/NewAnswer";
 import AnswerList from './containers/AnswerList/AnswerList';
 import { connect } from "react-redux";
+import PushAnswer from "./containers/Answer/PushAnswer/PushAnswer";
+
 import * as actionCreators from "./store/actions/index";
 import "./App.css";
-import PushAnswer from "./containers/Answer/PushAnswer/PushAnswer";
 import Settings from "./containers/Settings/Settings";
 
 let swRegistration = null;
