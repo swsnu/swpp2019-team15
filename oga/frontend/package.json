@@ -45,5 +45,15 @@
   },
   "devDependencies": {
     "redux-mock-store": "^1.5.3"
+  },
+  "jest": {
+    "collectCoverageFrom" : [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/serviceWorker.js",
+      "!src/containers/QuestionList/RealDetail/RealDetail.js",
+      "!src/containers/QuestionList/QuestionList.js"
+    ]
   }
+
 }

@@ -68,13 +68,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        signup: (username, password) =>
-            dispatch(
-                actionCreators.signUp({
-                    username: username,
-                    password: password
-                })
-            ),
         signin: (username, password) =>
             dispatch(
                 actionCreators.signIn({

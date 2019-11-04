@@ -3,8 +3,6 @@ import axios from "axios";
 
 import { push } from "connected-react-router";
 
-//TODO: build a seperate signup page, and push different link after signup
-
 export const signUp_ = res => {
     return {
         type: actionTypes.SIGN_UP,
@@ -36,7 +34,7 @@ export const signIn_ = res => {
     return {
         type: actionTypes.AUTHENTICATED,
         //userid: res.data.id,
-        auth: true
+        authenticated: true
     };
 };
 
@@ -59,7 +57,7 @@ export const signIn = user => {
 export const isLoggedIn_ = res => {
     return {
         type: actionTypes.AUTHENTICATED,
-        auth: res
+        authenticated: res
     };
 };
 

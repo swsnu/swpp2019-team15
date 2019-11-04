@@ -20,5 +20,4 @@ matrix:
       script:
       - pylint users
       - pylint oga
-      - coverage run --source='./users' manage.py test
-      - coverage run --branch --source='./users' manage.py test
+      - coverage run --branch --source='./users' manage.py test && coverage report -m
