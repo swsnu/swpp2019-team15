@@ -8,26 +8,31 @@ import Main from "./containers/Main/Main";
 import Map from "./containers/Map/GoogleMap";
 import NewQuestion from "./containers/QuestionList/NewQuestion/NewQuestion.js";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.js";
+
 import NewAnswer from './containers/Answer/NewAnswer';
 import AnswerList from './containers/AnswerList/AnswerList';
-import { connect } from "react-redux"; import * as actionCreators from "./store/actions/index"; import "./App.css";
+import { connect } from "react-redux";
+import * as actionCreators from "./store/actions/index";
+import "./App.css";
 import PushAnswer from "./containers/Answer/PushAnswer/PushAnswer";
+import Settings from "./containers/Settings/Settings";
 
 let swRegistration = null;
-if ('serviceWorker' in navigator && 'PushManager' in window) {
-  console.log('Service Worker and Push is supported');
+if ("serviceWorker" in navigator && "PushManager" in window) {
+    console.log("Service Worker and Push is supported");
 
-  navigator.serviceWorker.register('/sw.js')
-    .then(function(swReg) {
-      console.log('Service Worker is registered', swReg);
+    navigator.serviceWorker
+        .register("/sw.js")
+        .then(function(swReg) {
+            console.log("Service Worker is registered", swReg);
 
-      swRegistration = swReg;
-    })
-    .catch(function(error) {
-      console.error('Service Worker Error', error);
-    });
+            swRegistration = swReg;
+        })
+        .catch(function(error) {
+            console.error("Service Worker Error", error);
+        });
 } else {
-  console.warn('Push messaging is not supported');
+    console.warn("Push messaging is not supported");
 }
 
 function App(props) {
@@ -83,17 +88,77 @@ function App(props) {
     console.log("HERE");
     return null;
   }
+    let session = true;
+    props.isLoggedIn(); //sets state's authenticate
+    if (props.auth !== null)
+        return (
+            <ConnectedRouter history={props.history}>
+                <div className="App">
+                    <Switch>
+                        <Route path="/signup" exact component={Signup} />
+                        <Route path="/login" exact component={Login} />
+                        <PrivateRoute
+                          auth={props.auth}
+                          path="/main"
+                          exact
+                          component={Main}
+                        />
+                        <PrivateRoute
+                          auth={props.auth}
+                          path="/settings"
+                          exact
+                          component={Settings}
+                        />
+                        <PrivateRoute
+                          auth={props.auth}
+                          path="/ask"
+                          exact
+                          component={NewQuestion}
+                        />
+                        <PrivateRoute
+                          auth={props.auth}
+                          path="/map"
+                          exact
+                          component={Map}
+                        />
+                        <PrivateRoute
+                          auth={props.auth}
+                          path='/reply/create/:id'
+                          exact
+                          component={NewAnswer} />
+                        <PrivateRoute
+                          auth={props.auth}
+                          path='/replies/:id'
+                          exact
+                          component={AnswerList} />
+                        <PrivateRoute
+                          auth={props.auth}
+                          path='/reply/:id'
+                          exact
+                          component={PushAnswer} />
+                        <Redirect exact from="/" to="/main" />
+                        <Route render={() => <h1>Not Found</h1>} />
+                    </Switch>
+                </div>
+            </ConnectedRouter>
+        );
+    else {
+        console.log("HERE");
+        return null;
+    }
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth.authenticated
+    auth: state.auth.authenticated
 });
 
 const mapDispatchToProps = dispatch => {
-  return {
-    isLoggedIn: () =>
-      dispatch(actionCreators.isLoggedIn())
-  }
+    return {
+        isLoggedIn: () => dispatch(actionCreators.isLoggedIn())
+    };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
