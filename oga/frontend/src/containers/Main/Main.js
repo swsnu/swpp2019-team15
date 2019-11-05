@@ -76,7 +76,6 @@ class QuestionList extends Component {
                         Settings
                     </button>
                 </div>
-                <button>
             </div>
         );
     }
