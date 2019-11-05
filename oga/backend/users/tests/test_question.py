@@ -64,3 +64,16 @@ class QuestionTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()[0]['content'], 'rains?')
         self.assertEqual(response.json()[1]['content'], 'seats?')
+
+    def test_get_question(self):
+        """ test getting single question based on question id """
+        response = self.client.get(reverse('question_detail', args=[1]))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['content'], 'rains?')
+
+    def test_follow_question(self):
+        """ test follow question api """
+        response = self.client.get('/api/follow/1/')
+        question = Question.objects.get(pk=1)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(len(question.followers.all()), 1)
