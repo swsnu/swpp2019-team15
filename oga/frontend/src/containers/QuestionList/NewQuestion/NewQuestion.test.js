@@ -110,4 +110,42 @@ describe('<NewQuestion/>', () => {
     //instance.setState({content: "HI"});
   });
 
+  it(`should goto main when button click`, () => {
+    const spyHistoryPush = jest.spyOn(history, 'push')
+      .mockImplementation(question => { return dispatch => {}; });
+    const component = mount(nq);
+    const wrapper = component.find('#main-button');
+    wrapper.simulate('click');
+    expect(spyHistoryPush).toHaveBeenCalledWith("/main");
+  });
+
+  it(`should set not set location name null`, () => {
+    const store = mockStore({
+      question: {
+        selectedQuestion: null,
+        user_name: null,
+        targetLocation: null,
+        questions: []
+      },
+      location: {
+        targetLocation: null,
+      },
+      router: history
+    });
+    let nq = (
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Switch>
+            <Route path='/' exact component={NewQuestion} />
+          </Switch>
+        </ConnectedRouter>
+      </Provider>
+    );
+
+    const component = mount(nq);
+    const wrapper = component.find('#view');
+    //const instance = component.find(NewQuestion.WrappedComponent).instance();
+    expect(wrapper.text()).toBe("Is it .... in ...?");
+  });
+
 });
