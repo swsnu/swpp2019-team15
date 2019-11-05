@@ -54,8 +54,7 @@ class Settings extends Component {
         return (
             <div className="Settings">
                 <div>
-                    <PushNotification
-                    push_subscribe={this.state.push_subscribe}/>
+                    <PushNotification/>
                 </div>
                 <div>
                     <label>
