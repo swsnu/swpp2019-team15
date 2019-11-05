@@ -10,10 +10,8 @@ import { question_types } from "../../const/question_type";
 //Material design imports
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 
 class NewAnswer extends Component {
@@ -80,20 +78,16 @@ class NewAnswer extends Component {
         }
 
         return (
-            <div
-                className="Answer"
-                style={{ backgroundColor: "#ffe6cc", color: "#000" }}
-            >
+            <div className="Answer">
                 <CssBaseline />
-                <Box pt={15} />
-                <Typography component="h2" variant="h3">
+                <Box pt={10} />
+                <Typography component="h2" variant="h3" color="primary">
                     Answer a Question!
                 </Typography>
                 <Box pt={10} />
                 <Typography component="h3" variant="h5">
                     {gotten_answer_view}
                 </Typography>
-
                 <div>
                     <div
                         id="answer-choices"
@@ -109,7 +103,7 @@ class NewAnswer extends Component {
                 </div>
                 <Box pt={10} />
                 <Button
-                    color="secondary"
+                    color="primary"
                     type="submit"
                     id="confirm-create-answer-button"
                     variant="contained"
@@ -126,7 +120,7 @@ class NewAnswer extends Component {
                 <Grid container justify="center" alignItems="center">
                     <Button
                         id="back-create-answer-button"
-                        color="secondary"
+                        color="primary"
                         onClick={() => this.clickBackHandler()}
                     >
                         Back

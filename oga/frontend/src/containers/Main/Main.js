@@ -41,7 +41,7 @@ class QuestionList extends Component {
 
     render() {
         var len = this.props.storedQuestions.length;
-        var stored_Questions = this.props.storedQuestions.slice(len-10, len)
+        var stored_Questions = this.props.storedQuestions.slice(len - 10, len);
         const Questions = stored_Questions.map(qs => {
             return (
                 <Question
@@ -64,12 +64,12 @@ class QuestionList extends Component {
         return (
             <div
                 className="Main"
-                style={{ backgroundColor: "#ffe6cc", color: "#000" }}
+                // style={{ backgroundColor: "#fff", color: "#000" }}
             >
                 <Container component="main">
                     <CssBaseline />
-                    <Box pt={15} />
-                    <Typography component="h1" variant="h3" color="black">
+                    <Box pt={10} />
+                    <Typography component="h1" variant="h3">
                         Question Feed
                     </Typography>
                     <Box pt={6} />
@@ -83,7 +83,7 @@ class QuestionList extends Component {
                         {Questions}
                     </Grid>
                     <IconButton
-                        color="secondary"
+                        color="primary"
                         id="question-create-button"
                         variant="contained"
                         onClick={() => this.clickNewQuestionHandler()}
@@ -93,23 +93,20 @@ class QuestionList extends Component {
                     <Grid container justify="center" alignItems="center">
                         <Button
                             id="back-button"
-                            color="secondary"
+                            color="primary"
                             onClick={() => this.props.history.goBack()}
                         >
                             Back
                         </Button>
                         <Button
                             id="settings-button"
-                            color="secondary"
+                            color="primary"
                             onClick={() => this.props.history.push("/settings")}
                         >
                             Settings
                         </Button>
                     </Grid>
-
-                    <Button id="push-notifications-button" color="secondary">
-                        <PushNotification />
-                    </Button>
+                    <Box pt={5} />
                 </Container>
             </div>
         );

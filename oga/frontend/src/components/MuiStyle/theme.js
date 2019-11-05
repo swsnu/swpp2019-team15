@@ -25,6 +25,16 @@ export const theme = createMuiTheme({
         useNextVariants: true
     },
     overrides: {
+        MuiCard: {
+            card: {
+                position: "relative",
+                backgroundColor: "light",
+                borderStyle: "solid",
+                borderColor: "primary",
+                boxShadow:
+                    "rgba(255, 0, 0, 0.117647) 0px 1px 6px, rgba(255, 0, 0, 0.117647) 0px 1px 4px"
+            }
+        },
         MuiCardHeader: {
             categoryHeaderText: {
                 fontSize: 15,
