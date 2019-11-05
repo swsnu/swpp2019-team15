@@ -56,18 +56,21 @@ describe('<Settings />', () => {
     expect(wrapper.find(".Settings").length).toBe(1);
   });
 
+
   it('should handle location button clicks', () => {
+    mockClickDone = jest.fn()
     const component = mount(settings);
     let wrapper = component.find('#location-toggle');
     wrapper.simulate('click');
-    expect(mockCurrentPostion).toHaveBeenCalledTimes(1);
+    expect(mockClickDone).toHaveBeenCalledTimes(1);
   });
 
   it('should handle back button clicks', () => {
+    mockClickDone = jest.fn()
     const component = mount(settings);
     let wrapper = component.find('#location-toggle');
     wrapper.simulate('click');
-    expect(mockCurrentPostion).toHaveBeenCalledTimes(1);
+    expect(mockClickDone).toHaveBeenCalledTimes(1);
   });
 
 
