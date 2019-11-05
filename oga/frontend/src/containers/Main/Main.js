@@ -76,12 +76,7 @@ class QuestionList extends Component {
                         Settings
                     </button>
                 </div>
-                
-                        id="logout-button"
-                        onClick={() => this.props.setLogout()}
-                    >
-                        Log-out
-                    </button> */}
+                <button>
             </div>
         );
     }
