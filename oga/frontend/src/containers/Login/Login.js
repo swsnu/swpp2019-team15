@@ -65,7 +65,6 @@ class Login extends Component {
                         label="Password"
                         name="password"
                         autoComplete="password"
-                        autoFocus
                         value={this.state.password}
                         onChange={event =>
                             this.setState({
