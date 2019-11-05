@@ -41,7 +41,7 @@ class QuestionList extends Component {
 
     render() {
         var len = this.props.storedQuestions.length;
-        var stored_Questions = this.props.storedQuestions.slice(len-10, len)
+        var stored_Questions = this.props.storedQuestions.slice(len - 10, len);
         const Questions = stored_Questions.map(qs => {
             return (
                 <Question
@@ -106,10 +106,6 @@ class QuestionList extends Component {
                             Settings
                         </Button>
                     </Grid>
-
-                    <Button id="push-notifications-button" color="primary">
-                        <PushNotification />
-                    </Button>
                 </Container>
             </div>
         );
