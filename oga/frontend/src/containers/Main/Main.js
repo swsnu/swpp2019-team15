@@ -4,6 +4,8 @@ import Question from "../../components/Question/Question";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import moment from "moment";
+
 import * as actionCreators from "../../store/actions/index";
 import PushNotification from "../../components/PushNotification/PushNotification";
 
@@ -47,7 +49,9 @@ class QuestionList extends Component {
                     key={qs.id}
                     id={qs.id}
                     author={qs.author}
-                    publish_date_time={qs.publish_date_time}
+                    publish_date_time={moment(qs.publish_date_time).format(
+                        "MMMM Do YYYY, h:mm:ss a"
+                    )}
                     content={qs.content}
                     location={qs.location}
                     is_answered={qs.is_answered}
