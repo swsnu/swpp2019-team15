@@ -81,7 +81,7 @@ class NewAnswer extends Component {
             <div className="Answer">
                 <CssBaseline />
                 <Box pt={10} />
-                <Typography component="h2" variant="h3">
+                <Typography component="h2" variant="h3" color="primary">
                     Answer a Question!
                 </Typography>
                 <Box pt={10} />
