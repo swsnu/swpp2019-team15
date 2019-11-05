@@ -59,27 +59,7 @@ class NewAnswer extends Component {
       qs_type = this.props.selectedQuestion.content;
       qs_type = question_types[qs_type];
       selected_question_type_list = qs_type.map((val, index) => {
-        return (
-          <div className={"choice"} key={idx++}>
-            <label>
-              {val}
-            </label>
-            <input type="radio" value={val} name="answer" >
-            </input> 
-          </div>
-        ) })
-
-      gotten_answer_view =
-        <React.Fragment>
-          <AnswerView
-            //key={this.props.selectedQuestion.id}
-            id={this.props.selectedQuestion.id}
-            content={this.props.selectedQuestion.content}
-            place_name={this.props.selectedQuestion.target_location_name}
-            is_answered={false}
-          ></AnswerView>
-        </React.Fragment>}
-
+       
     return (
       <div className="Answer">
         <h1>
