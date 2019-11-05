@@ -27,6 +27,10 @@ class Settings extends Component {
         }
     };
 
+    logoutHandler = () => {
+        
+    }
+
     render() {
         var subscribe_to_location = null;
         if (this.state.location_subscribe == false) {
@@ -61,6 +65,16 @@ class Settings extends Component {
                         User Location
                         {subscribe_to_location}
                     </label>
+                </div>
+                <div>
+                    <button
+                        id="logout-button"
+                        onClick={() => {
+                            this.logoutHandler();
+                        }}
+                    >
+                        Logout
+                    </button>
                 </div>
                 <div>
                     <button
