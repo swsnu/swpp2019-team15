@@ -27,13 +27,10 @@ class Login extends Component {
     }
 
     render() {
-        let redirect = null;
-
         return (
             <div className="Login">
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
-                    {redirect}
                     <Box pt={15} />
                     <Typography component="h1" variant="h5">
                         Login

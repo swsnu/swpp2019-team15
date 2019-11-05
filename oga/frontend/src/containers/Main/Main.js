@@ -68,7 +68,7 @@ class QuestionList extends Component {
                 <Container component="main">
                     <CssBaseline />
                     <Box pt={15} />
-                    <Typography component="h1" variant="h3" color="black">
+                    <Typography component="h1" variant="h3">
                         Question Feed
                     </Typography>
                     <Box pt={6} />
