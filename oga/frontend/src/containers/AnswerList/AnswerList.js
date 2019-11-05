@@ -3,11 +3,8 @@ import "./AnswerList.css";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import thunk from "redux-thunk";
 import * as actionCreators from "../../store/actions/";
 
-import { Redirect } from "react-router-dom";
-import { push } from "connected-react-router";
 import moment from "moment";
 import AnswerView from "../../components/AnswerView/AnswerView";
 

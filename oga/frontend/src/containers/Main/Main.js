@@ -5,16 +5,12 @@ import Question from "../../components/Question/Question";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
-import thunk from "redux-thunk";
 
 import * as actionCreators from "../../store/actions/index";
 
 class QuestionList extends Component {
     componentDidMount() {
         this.props.onGetAll();
-        // if (!this.props.log_status) {
-        //   this.props.history.push('/login');
-        // }
     }
 
     clickAnswerHandler = qst => {
@@ -48,9 +44,7 @@ class QuestionList extends Component {
                     is_answered={qs.is_answered}
                     clickAnswer={() => this.clickAnswerHandler(qs)}
                     clickFollow={() => this.clickFollowHandler(qs)}
-                    clickAnswer={() => this.clickAnswerHandler(qs)}
                     clickDetail={() => this.clickDetailHandler(qs)}
-                    // clickDetail={() => this.clickDetailHandler()}
                 />
             );
         });
