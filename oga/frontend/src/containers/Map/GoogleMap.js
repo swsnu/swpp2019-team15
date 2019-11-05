@@ -47,6 +47,17 @@ class GoogleMap extends Component {
       mapInstance: map,
       mapApi: maps,
     });
+    //mock a place object
+    let target = {lat: this.props.target.lat,
+                  lng: this.props.target.lng}
+    if (this.props.viewOnly) {
+      let marker = new maps.Marker(
+        {
+          position: target,
+          map: map,
+          title: "HERE",
+        });
+    }
   };
 
   clickSubmitHandler = () => {
@@ -96,7 +107,7 @@ class GoogleMap extends Component {
     const {
       places, mapApiLoaded, mapInstance, mapApi,
     } = this.state;
-    let center = null;
+    let center = {lat:1, lng: 1};
 
     //FIXME: BUGGY
     console.log(this.props.currentCoordinates);
@@ -110,7 +121,7 @@ class GoogleMap extends Component {
     return (
       <div className="Map" style= {{ height: '50vh', width: '40%' }}>
         <LocationListener/>
-        {mapApiLoaded && 
+        {mapApiLoaded && !this.props.viewOnly &&
           <SearchBox map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />}
           <GoogleMapReact
             defaultZoom={this.props.zoom}
