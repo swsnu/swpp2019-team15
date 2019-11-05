@@ -1,46 +1,43 @@
-import React, { Component } from 'react';
-import './PushAnswer.css';
-import AnswerView from '../../../components/AnswerView/AnswerView'
+import React, { Component } from "react";
+import "./PushAnswer.css";
+import AnswerView from "../../../components/AnswerView/AnswerView";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import thunk from 'redux-thunk';
-import * as actionCreators from '../../../store/actions';
-
-import { Redirect } from 'react-router-dom';
-import { push } from 'connected-react-router';
+import * as actionCreators from "../../../store/actions";
 
 class PushAnswer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: this.props.match.params.id,
-    };
-  }
-
-
-  componentDidMount() {
-    this.props.onGetAnswer(this.state.id);
-  }
-
-  render() {
-    var answer= null;
-    if (this.props.selectedAnswer)
-    {
-      answer =
-        <React.Fragment>
-          <AnswerView
-            key = {this.props.selectedAnswer.id}
-            id = {this.props.selectedAnswer.id}
-            author = {this.props.selectedAnswer.author}
-            content = {this.props.selectedAnswer.question_type}
-            publish_date_time = {this.props.selectedAnswer.publish_date_time}
-            answer_content = {this.props.selectedAnswer.content}
-            place_name = {this.props.selectedAnswer.place_name}
-            is_answered = {true}
-          ></AnswerView>
-        </React.Fragment>
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: this.props.match.params.id
+        };
     }
+
+    componentDidMount() {
+        this.props.onGetAnswer(this.state.id);
+    }
+
+    render() {
+        var answer = null
+        if (this.props.selectedAnswer) {
+            answer = (
+                <React.Fragment>
+                    <AnswerView
+                        key={this.props.selectedAnswer.id}
+                        id={this.props.selectedAnswer.id}
+                        author={this.props.selectedAnswer.author}
+                        content={this.props.selectedAnswer.question_type}
+                        publish_date_time={
+                            this.props.selectedAnswer.publish_date_time
+                        }
+                        answer_content={this.props.selectedAnswer.content}
+                        place_name={this.props.selectedAnswer.place_name}
+                        is_answered={true}
+                   />
+                </React.Fragment>
+            );
+        }
 
     return (
       <div className="PushAnswer">

@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router";
 import PushNotification from "../../components/PushNotification/PushNotification";
 
