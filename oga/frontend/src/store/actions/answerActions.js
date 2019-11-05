@@ -20,7 +20,7 @@ export const createAnswer = (answer, question_id) => {
       .then(res => {
         dispatch(createAnswer_(res.data));
         dispatch(push('/main/'));
-      })
+      }).catch(err => console.error(err));
   }
 }
 
@@ -36,7 +36,7 @@ export const getAnswers = (question_id) => {
     return axios.get('/api/replies/'+question_id+'/')
       .then(res => {
         dispatch(getAnswers_(res.data));
-      })
+      }).catch(err => console.error(err));
   }
 }
 
@@ -52,6 +52,6 @@ export const getAnswer = (answer_id) => {
     return axios.get('/api/reply/'+answer_id+'/')
       .then(res => {
         dispatch(getAnswer_(res.data));
-      })
+      }).catch(err => console.error(err));
   }
 }

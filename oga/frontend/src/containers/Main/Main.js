@@ -7,6 +7,7 @@ import { withRouter } from "react-router";
 import thunk from "redux-thunk";
 
 import * as actionCreators from "../../store/actions/index";
+import PushNotification from "../../components/PushNotification/PushNotification"
 
 class QuestionList extends Component {
   componentDidMount() {
@@ -16,12 +17,12 @@ class QuestionList extends Component {
     // }
   }
 
-    clickAnswerHandler = qst => {
-        this.props.history.push("/reply/create/" + qst.id);
-    };
-    clickDetailHandler = qst => {
-        this.props.history.push("/replies/"+qst.id);
-    };
+  clickAnswerHandler = qst => {
+    this.props.history.push("/reply/create/" + qst.id);
+  };
+  clickDetailHandler = qst => {
+    this.props.history.push("/replies/"+qst.id);
+  };
 
   clickNewQuestionHandler = () => {
     this.props.history.push("/ask");
@@ -46,13 +47,10 @@ class QuestionList extends Component {
           is_answered={qs.is_answered}
           clickAnswer={() => this.clickAnswerHandler(qs)}
           clickFollow={() => this.clickFollowHandler(qs)}
-          clickAnswer={() => this.clickAnswerHandler(qs)}
           clickDetail={() => this.clickDetailHandler(qs)}
-          // clickDetail={() => this.clickDetailHandler()}
         />
       );
     });
-
 
     return (
       <div className="QuestionList">
@@ -79,6 +77,7 @@ class QuestionList extends Component {
           >
             Settings
           </button>
+          <PushNotification/>
         </div>
         {/* <button
                         id="logout-button"

@@ -18,22 +18,24 @@ import "./App.css";
 import Settings from "./containers/Settings/Settings";
 
 let swRegistration = null;
-if ("serviceWorker" in navigator && "PushManager" in window) {
-    console.log("Service Worker and Push is supported");
+console.log("serviceWorker" in navigator);
+console.log("PushManager" in window);
+//if ("serviceWorker" in navigator && "PushManager" in window) {
+    //console.log("Service Worker and Push is supported");
 
-    navigator.serviceWorker
-        .register("/sw.js")
-        .then(function(swReg) {
-            console.log("Service Worker is registered", swReg);
+    //navigator.serviceWorker
+        //.register("/sw.js")
+        //.then(function(swReg) {
+            //console.log("Service Worker is registered", swReg);
 
-            swRegistration = swReg;
-        })
-        .catch(function(error) {
-            console.error("Service Worker Error", error);
-        });
-} else {
-    console.warn("Push messaging is not supported");
-}
+            //swRegistration = swReg;
+        //})
+        //.catch(function(error) {
+            //console.error("Service Worker Error", error);
+        //});
+//} else {
+    //console.warn("Push messaging is not supported");
+//}
 
 function App(props) {
   let session = true;
@@ -85,7 +87,6 @@ function App(props) {
       </ConnectedRouter>
     );
   else {
-    console.log("HERE");
     return null;
   }
 }
