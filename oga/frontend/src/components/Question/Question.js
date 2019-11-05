@@ -3,7 +3,7 @@ import React from "react";
 const Question = props => {
     // TODO: fix ugly date time format
     return (
-        <div className="Question">
+        <div className="Question" onClick={props.clickDetail}>
             <div id="question-id">id: {props.id}</div>
             <div id="question-author">Author: {props.author}</div>
             <div id="question-publish-date-time">
@@ -19,9 +19,6 @@ const Question = props => {
             )}
             <button onClick={props.clickAnswer}>Answer</button>
             <button onClick={props.clickFollow}>Follow</button>
-            <button onClick={props.clickDetail}>Detail</button>
-            {/* <button onClick={props.clickDetail}>{props.title}</button> */}
-
         </div>
     );
 };
