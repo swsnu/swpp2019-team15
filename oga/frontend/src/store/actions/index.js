@@ -5,7 +5,7 @@ import {
     getQuestions,
     followQuestion,
 } from "./questionActions.js";
-import { signUp, signIn, isLoggedIn } from "./authActions.js";
+import { signUp, signIn, isLoggedIn, Logout } from "./authActions.js";
 import { createAnswer, getAnswers, getAnswer } from "./answerActions";
 export {
     setTargetLocation,
@@ -20,4 +20,5 @@ export {
     getAnswers,
     getAnswer,
     followQuestion,
+    Logout,
 };
