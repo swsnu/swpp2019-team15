@@ -1,4 +1,7 @@
-# swpp2019-team15
+# azkat 
+[![Build Status](https://travis-ci.org/swsnu/swpp2019-team15.svg?branch=dev)](https://travis-ci.org/swsnu/swpp2019-team15)
+[![Coverage Status](https://coveralls.io/repos/github/swsnu/swpp2019-team15/badge.svg?branch=dev)](https://coveralls.io/github/swsnu/swpp2019-team15?branch=dev)
+
 Life is Debugging between Coding and Errors
 ```bash
 cd /oga/backend/
