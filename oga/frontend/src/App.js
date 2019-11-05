@@ -18,6 +18,7 @@ import "./App.css";
 import Settings from "./containers/Settings/Settings";
 import { MuiThemeProvider } from "@material-ui/core";
 import { theme } from "./components/MuiStyle/theme";
+import WrappingAppBar from "./components/MuiStyle/WrappingAppBar";
 
 let swRegistration = null;
 console.log("serviceWorker" in navigator);
@@ -40,10 +41,13 @@ console.log("PushManager" in window);
 //}
 
 function App(props) {
+    let session = true;
     props.isLoggedIn(); //sets state's authenticate
     if (props.auth !== null)
         return (
             <MuiThemeProvider theme={theme}>
+                <WrappingAppBar />>
+
                 <ConnectedRouter history={props.history}>
                     <div className="App">
                         <Switch>

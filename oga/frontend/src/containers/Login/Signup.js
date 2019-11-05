@@ -47,7 +47,7 @@ class Signup extends Component {
                         width="30%"
                     />
                     <Typography component="h1" variant="h3" color="primary">
-                        askAT
+                        <b>askAT</b>
                     </Typography>
                     <Box pt={3} />
                     <Typography component="h2" variant="h5">
