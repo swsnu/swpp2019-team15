@@ -2,9 +2,14 @@ import React from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
 
 export const theme = createMuiTheme({
+    root: {
+        height: "100%",
+        width: "100%"
+    },
     palette: {
         background: {
-            default: "#fff"
+            default: "#fff",
+            secondary: "#ffb366"
         },
         primary: {
             light: "#ffe699",
@@ -12,10 +17,11 @@ export const theme = createMuiTheme({
             dark: "#ff9933" //color for button hover
         },
         secondary: {
-            main: "#800000"
+            main: "#003366"
         }
     },
     typography: {
+        fontFamily: "Raleway, Arial",
         useNextVariants: true
     },
     overrides: {

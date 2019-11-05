@@ -7,6 +7,15 @@ import * as actionCreators from "../../store/actions/";
 import AnswerView from "../../components/AnswerView/AnswerView";
 import { question_types } from "../../const/question_type";
 
+//Material design imports
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
+
 class NewAnswer extends Component {
     constructor(props) {
         super(props);
@@ -71,9 +80,20 @@ class NewAnswer extends Component {
         }
 
         return (
-            <div className="Answer">
-                <h1>Answer to a Question!</h1>
-                <h2>{gotten_answer_view}</h2>>
+            <div
+                className="Answer"
+                style={{ backgroundColor: "#ffe6cc", color: "#000" }}
+            >
+                <CssBaseline />
+                <Box pt={15} />
+                <Typography component="h2" variant="h3">
+                    Answer a Question!
+                </Typography>
+                <Box pt={10} />
+                <Typography component="h3" variant="h5">
+                    {gotten_answer_view}
+                </Typography>
+
                 <div>
                     <div
                         id="answer-choices"
@@ -87,14 +107,12 @@ class NewAnswer extends Component {
                         {selected_question_type_list}
                     </div>
                 </div>
-                <button
-                    id="back-create-answer-button"
-                    onClick={() => this.clickBackHandler()}
-                >
-                    Back
-                </button>
-                <button
+                <Box pt={10} />
+                <Button
+                    color="secondary"
+                    type="submit"
                     id="confirm-create-answer-button"
+                    variant="contained"
                     onClick={() =>
                         this.postAnswerHandler(
                             this.props.selectedQuestion.content,
@@ -104,7 +122,16 @@ class NewAnswer extends Component {
                     }
                 >
                     Submit
-                </button>
+                </Button>
+                <Grid container justify="center" alignItems="center">
+                    <Button
+                        id="back-create-answer-button"
+                        color="secondary"
+                        onClick={() => this.clickBackHandler()}
+                    >
+                        Back
+                    </Button>
+                </Grid>
             </div>
         );
     }
