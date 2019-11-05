@@ -63,11 +63,11 @@ class QuestionList extends Component {
         return (
             <div
                 className="Main"
-                style={{ backgroundColor: "#ffe6cc", color: "#000" }}
+                // style={{ backgroundColor: "#fff", color: "#000" }}
             >
                 <Container component="main">
                     <CssBaseline />
-                    <Box pt={15} />
+                    <Box pt={10} />
                     <Typography component="h1" variant="h3">
                         Question Feed
                     </Typography>
@@ -82,7 +82,7 @@ class QuestionList extends Component {
                         {Questions}
                     </Grid>
                     <IconButton
-                        color="secondary"
+                        color="primary"
                         id="question-create-button"
                         variant="contained"
                         onClick={() => this.clickNewQuestionHandler()}
@@ -92,21 +92,21 @@ class QuestionList extends Component {
                     <Grid container justify="center" alignItems="center">
                         <Button
                             id="back-button"
-                            color="secondary"
+                            color="primary"
                             onClick={() => this.props.history.goBack()}
                         >
                             Back
                         </Button>
                         <Button
                             id="settings-button"
-                            color="secondary"
+                            color="primary"
                             onClick={() => this.props.history.push("/settings")}
                         >
                             Settings
                         </Button>
                     </Grid>
 
-                    <Button id="push-notifications-button" color="secondary">
+                    <Button id="push-notifications-button" color="primary">
                         <PushNotification />
                     </Button>
                 </Container>

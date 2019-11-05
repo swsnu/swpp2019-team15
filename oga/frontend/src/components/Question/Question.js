@@ -1,4 +1,7 @@
 import React from "react";
+import moment from "moment";
+
+//Materials UI imports
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,21 +12,33 @@ import Button from "@material-ui/core/Button";
 const Question = props => {
     return (
         <Grid item md={6} key={props.id}>
-            <Card
-                md={3}
-                className="Question"
-                onClick={props.clickDetail}
-            >
+            <Card md={3} className="Question">
                 <CardContent>
-                    <Typography component="body" gutterBottom>
+                    <Typography
+                        component="body"
+                        variant="outlined"
+                        borderStyle="solid"
+                        borderColor="primary"
+                        gutterBottom
+                        onClick={props.clickDetail}
+                    >
                         <div id="question-id">id: {props.id}</div>
                         <div id="question-author">Author: {props.author}</div>
-                        <div id="question-publish-date-time">
-                            Published on: {props.publish_date_time}
-                        </div>
+
                         <div id="question-content">
                             Is it <b>{props.content}</b> in{" "}
                             <b>{props.location}</b> ?
+                        </div>
+                        <div id="question-publish-date-time">
+                            <p>
+                                <i>
+                                    {moment(
+                                        props.publish_date_time,
+                                        "MMMM Do YYYY, h:mm:ss a"
+                                    ).fromNow()}
+                                </i>{" "}
+                                on {props.publish_date_time}
+                            </p>
                         </div>
                         {props.is_answered ? (
                             <div className="answered-mark">&#128525;</div>
@@ -32,7 +47,7 @@ const Question = props => {
                         )}
                     </Typography>
                     <Button
-                        color="secondary"
+                        color="primary"
                         id="create-answer-button"
                         variant="contained"
                         onClick={props.clickAnswer}
@@ -42,7 +57,7 @@ const Question = props => {
                     <Grid container justify="center" alignItems="center">
                         <Button
                             id="follow-button"
-                            color="secondary"
+                            color="primary"
                             onClick={props.clickFollow}
                         >
                             Follow

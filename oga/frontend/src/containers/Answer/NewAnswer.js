@@ -80,12 +80,9 @@ class NewAnswer extends Component {
         }
 
         return (
-            <div
-                className="Answer"
-                style={{ backgroundColor: "#ffe6cc", color: "#000" }}
-            >
+            <div className="Answer">
                 <CssBaseline />
-                <Box pt={15} />
+                <Box pt={10} />
                 <Typography component="h2" variant="h3">
                     Answer a Question!
                 </Typography>
@@ -93,7 +90,6 @@ class NewAnswer extends Component {
                 <Typography component="h3" variant="h5">
                     {gotten_answer_view}
                 </Typography>
-
                 <div>
                     <div
                         id="answer-choices"
@@ -109,7 +105,7 @@ class NewAnswer extends Component {
                 </div>
                 <Box pt={10} />
                 <Button
-                    color="secondary"
+                    color="primary"
                     type="submit"
                     id="confirm-create-answer-button"
                     variant="contained"
@@ -126,7 +122,7 @@ class NewAnswer extends Component {
                 <Grid container justify="center" alignItems="center">
                     <Button
                         id="back-create-answer-button"
-                        color="secondary"
+                        color="primary"
                         onClick={() => this.clickBackHandler()}
                     >
                         Back

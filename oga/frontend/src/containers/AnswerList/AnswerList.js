@@ -8,6 +8,16 @@ import * as actionCreators from "../../store/actions/";
 import moment from "moment";
 import AnswerView from "../../components/AnswerView/AnswerView";
 
+//Material UI imports
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
+import IconButton from "@material-ui/core/IconButton";
+import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
+
 class AnswerList extends Component {
     constructor(props) {
         super(props);
@@ -70,47 +80,76 @@ class AnswerList extends Component {
             });
         }
 
-    return (
-      <div className="AnswerList">
-        <h1>Selected question</h1>
-        {gotten_answer_view}
-        <h1>Answers to this question</h1>
-        {answers}
-        <div>
-          <button
-            id="question-create-button"
-            onClick={() => this.clickNewQuestionHandler()}
-          >
-            +
-          </button>
-        </div>
-        <div>
-          <button
-            id="back-button"
-            onClick={() => this.props.history.goBack()}
-          >
-            Back
-          </button>
-        </div>
-        <div>
-          <button
-            id="reply-create-button"
-            onClick={() => this.clickAnswerHandler(this.state.id)}
-          >
-            Reply to this question!
-          </button>
-        </div>
-      </div>
-    );
-  }
+        return (
+            <div className="AnswerList">
+                <Container component="main">
+                    <CssBaseline />
+                    <Box pt={10} />
+                    <Typography component="h1" variant="h5" color="primary">
+                        Selected question
+                    </Typography>
+                    <Box pt={2} />
+                    <Typography component="h3" variant="h4">
+                        {gotten_answer_view}
+                    </Typography>
+                    <Box pt={5} />
+                    <Typography component="h1" variant="h5" color="primary">
+                        Answers to this question
+                    </Typography>
+                    <Box pt={2} />
+                    <Grid
+                        container
+                        spacing={2}
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        {answers}
+                    </Grid>
+                    <Box pt={3} />
+                    <Grid container justify="center" alignItems="center">
+                        <Button
+                            maxWidth="xs"
+                            variant="contained"
+                            id="reply-create-button"
+                            color="primary"
+                            onClick={() =>
+                                this.clickAnswerHandler(this.state.id)
+                            }
+                        >
+                            Reply to this question!
+                        </Button>
+                    </Grid>
+                    <IconButton
+                        color="primary"
+                        id="question-create-button"
+                        variant="contained"
+                        onClick={() => this.clickNewQuestionHandler()}
+                    >
+                        <AddCircleTwoToneIcon />
+                    </IconButton>
+                    <Grid container justify="center" alignItems="center">
+                        <Button
+                            id="back-button"
+                            color="primary"
+                            onClick={() => this.props.history.goBack()}
+                        >
+                            Back
+                        </Button>
+                    </Grid>
+                    <Box pt={10} />
+                </Container>
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = state => {
-  return {
-    selectedQuestion: state.question.selectedQuestion,
-    selectedAnswers: state.answer.answers
-    //log_status: state.rd.log_status,
-  };
+    return {
+        selectedQuestion: state.question.selectedQuestion,
+        selectedAnswers: state.answer.answers
+        //log_status: state.rd.log_status,
+    };
 };
 
 const mapDispatchToProps = dispatch => {
