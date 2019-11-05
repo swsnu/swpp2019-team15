@@ -16,4 +16,5 @@ urlpatterns = [
     path('replies/<int:question_id>/', views.get_answers, name='get_answers'),
     path('follow/<int:question_id>/', views.follow_question,
          name='follow_question'),
+    path('un-authed/', views.logged_out, name='logged_out'),
 ]

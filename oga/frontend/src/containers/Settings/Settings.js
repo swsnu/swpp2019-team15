@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import PushNotification from "../../components/PushNotification/PushNotification";
+import { connect } from "react-redux";
+import * as actionCreators from "../../store/actions/";
 
 class Settings extends Component {
     constructor(props) {
@@ -26,10 +28,6 @@ class Settings extends Component {
             this.setState({...this.state, location_subscribe: false});
         }
     };
-
-    logoutHandler = () => {
-        
-    }
 
     render() {
         var subscribe_to_location = null;
@@ -70,7 +68,7 @@ class Settings extends Component {
                     <button
                         id="logout-button"
                         onClick={() => {
-                            this.logoutHandler();
+                            this.props.logout();
                         }}
                     >
                         Logout
@@ -91,4 +89,11 @@ class Settings extends Component {
     }
 }
 
-export default withRouter(Settings);
+const mapDispatchToProps = dispatch => {
+    return {
+        logout: () => 
+            dispatch(actionCreators.Logout()),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(Settings));
