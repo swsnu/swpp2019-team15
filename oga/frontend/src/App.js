@@ -46,8 +46,7 @@ function App(props) {
     if (props.auth !== null)
         return (
             <MuiThemeProvider theme={theme}>
-                <WrappingAppBar />>
-
+                <WrappingAppBar />
                 <ConnectedRouter history={props.history}>
                     <div className="App">
                         <Switch>
