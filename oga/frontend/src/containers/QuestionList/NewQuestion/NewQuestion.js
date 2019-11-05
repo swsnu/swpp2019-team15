@@ -6,6 +6,12 @@ import * as actionCreators from "../../../store/actions";
 
 import Map from "../../Map/GoogleMap";
 
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+
 class NewQuestion extends Component {
     state = {
         content: "...."
@@ -49,15 +55,15 @@ class NewQuestion extends Component {
             place_name = this.props.target_location.name;
 
         return (
-            <div className="NewQuestion">
-                <h1>Ask a New Question!</h1>
-                {/* <label>Title</label> */}
-                {/* <input
-          id="question-title-input"
-          type="text"
-          value={this.state.title}
-          onChange={(event) => this.setState({ title: event.target.value })}
-        ></input> */}
+            <div
+                className="NewQuestion"
+                style={{ backgroundColor: "#ffe6cc", color: "#000" }}
+            >
+                <Box pt={15} />
+                <Typography component="h1" variant="h4">
+                    Ask a New Question!{" "}
+                </Typography>
+                <Box pt={5} />
                 <div>
                     <div
                         onChange={event =>

@@ -10,16 +10,14 @@ import * as actionCreators from "../../store/actions/index";
 import PushNotification from "../../components/PushNotification/PushNotification";
 
 //Material UI imports
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
+import IconButton from "@material-ui/core/IconButton";
+import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
 
 class QuestionList extends Component {
     componentDidMount() {
@@ -63,39 +61,56 @@ class QuestionList extends Component {
         });
 
         return (
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box pt={15} />
-                <Typography component="h1" variant="h5">
-                    Question Feed
-                </Typography>
-                <GridList spacing={15} cellHeight={400}>
-                    <GridListTile cols={1}>{Questions}</GridListTile>
-                    <div>
-                        <button
-                            id="question-create-button"
-                            onClick={() => this.clickNewQuestionHandler()}
-                        >
-                            +
-                        </button>
-                    </div>
-                    <div>
-                        <button
+            <div
+                className="Main"
+                style={{ backgroundColor: "#ffe6cc", color: "#000" }}
+            >
+                <Container component="main">
+                    <CssBaseline />
+                    <Box pt={15} />
+                    <Typography component="h1" variant="h3" color="black">
+                        Question Feed
+                    </Typography>
+                    <Box pt={6} />
+                    <Grid
+                        container
+                        spacing={2}
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        {Questions}
+                    </Grid>
+                    <IconButton
+                        color="secondary"
+                        id="question-create-button"
+                        variant="contained"
+                        onClick={() => this.clickNewQuestionHandler()}
+                    >
+                        <AddCircleTwoToneIcon />
+                    </IconButton>
+                    <Grid container justify="center" alignItems="center">
+                        <Button
                             id="back-button"
+                            color="secondary"
                             onClick={() => this.props.history.goBack()}
                         >
                             Back
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                             id="settings-button"
+                            color="secondary"
                             onClick={() => this.props.history.push("/settings")}
                         >
                             Settings
-                        </button>
+                        </Button>
+                    </Grid>
+
+                    <Button id="push-notifications-button" color="secondary">
                         <PushNotification />
-                    </div>
-                </GridList>
-            </Container>
+                    </Button>
+                </Container>
+            </div>
         );
     }
 }
