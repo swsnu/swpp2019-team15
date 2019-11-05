@@ -14,12 +14,14 @@ matrix:
       - cd oga/frontend
       install:
       - yarn install
+      - yarn add coveralls
       script:
       - ./node_modules/.bin/eslint src
       - yarn test --coverage --watchAll=false
-      - cd ../../
-      - sonar-scanner
-     
+      #- cd ../../
+      #- sonar-scanner
+      after_success:
+      - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
     - language: python
       python: 3.6
       dist: xenial
@@ -32,9 +34,12 @@ matrix:
       - cd oga/backend
       install:
       - pip install -r requirements.txt
+      - pip install coveralls
       script:
       - pylint users
       - pylint oga
       - coverage run --branch --source='./users' manage.py test && coverage report -m
-      - cd../../
-      - sonar-scanner
+      #- cd../../
+      #- sonar-scanner
+      after_success:
+      - coveralls

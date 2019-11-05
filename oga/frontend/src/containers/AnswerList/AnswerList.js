@@ -47,7 +47,7 @@ class AnswerList extends Component {
                             this.props.selectedQuestion.target_location_name
                         }
                         is_answered={false}
-                    ></AnswerView>
+                    />
                 </React.Fragment>
             );
             answers = this.props.selectedAnswers.map(ans => {
@@ -65,52 +65,52 @@ class AnswerList extends Component {
                         place_name={
                             this.props.selectedQuestion.target_location_name
                         }
-                    ></AnswerView>
+                    />
                 );
             });
         }
 
-        return (
-            <div className="AnswerList">
-                <h1>Selected question</h1>
-                {gotten_answer_view}
-                <h1>Answers to this question</h1>
-                {answers}
-                <div>
-                    <button
-                        id="question-create-button"
-                        onClick={() => this.clickNewQuestionHandler()}
-                    >
-                        +
-                    </button>
-                </div>
-                <div>
-                    <button
-                        id="back-button"
-                        onClick={() => this.props.history.goBack()}
-                    >
-                        Back
-                    </button>
-                </div>
-                <div>
-                    <button
-                        id="reply-create-button"
-                        onClick={() => this.clickAnswerHandler(this.state.id)}
-                    >
-                        Reply to this question!
-                    </button>
-                </div>
-            </div>
-        );
-    }
+    return (
+      <div className="AnswerList">
+        <h1>Selected question</h1>
+        {gotten_answer_view}
+        <h1>Answers to this question</h1>
+        {answers}
+        <div>
+          <button
+            id="question-create-button"
+            onClick={() => this.clickNewQuestionHandler()}
+          >
+            +
+          </button>
+        </div>
+        <div>
+          <button
+            id="back-button"
+            onClick={() => this.props.history.goBack()}
+          >
+            Back
+          </button>
+        </div>
+        <div>
+          <button
+            id="reply-create-button"
+            onClick={() => this.clickAnswerHandler(this.state.id)}
+          >
+            Reply to this question!
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
-    return {
-        selectedQuestion: state.question.selectedQuestion,
-        selectedAnswers: state.answer.answers
-        //log_status: state.rd.log_status,
-    };
+  return {
+    selectedQuestion: state.question.selectedQuestion,
+    selectedAnswers: state.answer.answers
+    //log_status: state.rd.log_status,
+  };
 };
 
 const mapDispatchToProps = dispatch => {

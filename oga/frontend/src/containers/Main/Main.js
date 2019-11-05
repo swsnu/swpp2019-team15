@@ -7,6 +7,7 @@ import { withRouter } from "react-router";
 import moment from "moment";
 
 import * as actionCreators from "../../store/actions/index";
+import PushNotification from "../../components/PushNotification/PushNotification"
 
 class QuestionList extends Component {
     componentDidMount() {
@@ -75,7 +76,7 @@ class QuestionList extends Component {
                         Settings
                     </button>
                 </div>
-                {/* <button
+                
                         id="logout-button"
                         onClick={() => this.props.setLogout()}
                     >

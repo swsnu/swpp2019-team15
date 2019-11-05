@@ -116,4 +116,40 @@ describe('authActions', () => {
       done();
     });
   });
+
+  it(`should call 'isLoggedIn' `, (done) => {
+    const spy = jest.spyOn(axios, 'get')
+      .mockImplementation(url => {
+        return new Promise((resolve, reject) => {
+          const result = {
+            status: 201,
+            data: {id: 3},
+          };
+          resolve(result);
+        });
+      })
+
+    store.dispatch(actionCreators.isLoggedIn()).then(() => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      done();
+    });
+  });
+
+  it(`should handle error 'isLoggedIn' `, (done) => {
+    const spy = jest.spyOn(axios, 'get')
+      .mockImplementation(url => {
+        return new Promise((resolve, reject) => {
+          const result = {
+            status: 201,
+            data: {id: 3},
+          };
+          reject(result);
+        });
+      })
+
+    store.dispatch(actionCreators.isLoggedIn()).then(() => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      done();
+    });
+  });
 });
