@@ -34,29 +34,10 @@ class PushAnswer extends Component {
                         answer_content={this.props.selectedAnswer.content}
                         place_name={this.props.selectedAnswer.place_name}
                         is_answered={true}
-                    ></AnswerView>
+                   />
                 </React.Fragment>
             );
         }
-
-    render() {
-    var answer= null;
-    if (this.props.selectedAnswer)
-    {
-      answer =
-        <React.Fragment>
-          <AnswerView
-            key = {this.props.selectedAnswer.id}
-            id = {this.props.selectedAnswer.id}
-            author = {this.props.selectedAnswer.author}
-            content = {this.props.selectedAnswer.question_type}
-            publish_date_time = {this.props.selectedAnswer.publish_date_time}
-            answer_content = {this.props.selectedAnswer.content}
-            place_name = {this.props.selectedAnswer.place_name}
-            is_answered = {true}
-          />
-        </React.Fragment>
-    }
 
     return (
       <div className="PushAnswer">
