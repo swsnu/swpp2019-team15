@@ -4,7 +4,7 @@ import json
 # from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import ensure_csrf_cookie
 
@@ -51,3 +51,17 @@ def is_logged_in(request):
     just return a OK response
     """
     return JsonResponse({}, status=201)
+
+@check_login_required
+@ensure_csrf_cookie
+@require_http_methods(["GET"])
+def logged_out(request):
+    """
+    a method that get user to log out.
+    if this function passes the @check_login_required,
+    it means the user is logged in so we can
+    just get user to log out
+    """
+    logout(request)
+    return JsonResponse({}, status=204)
+    

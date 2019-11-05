@@ -39,9 +39,10 @@ class QuestionList extends Component {
         this.props.onFollow(qst.id);
     };
 
-    click;
     render() {
-        const Questions = this.props.storedQuestions.map(qs => {
+        var len = this.props.storedQuestions.length;
+        var stored_Questions = this.props.storedQuestions.slice(len-10, len)
+        const Questions = stored_Questions.map(qs => {
             return (
                 <Question
                     key={qs.id}

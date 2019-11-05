@@ -60,7 +60,9 @@ class AnswerList extends Component {
                     />
                 </React.Fragment>
             );
-            answers = this.props.selectedAnswers.map(ans => {
+            var len = this.props.selectedAnswers.length;
+            var selected_Answers = this.props.selectedAnswers.slice(len-10, len)
+            answers = selected_Answers.map(ans => {
                 return (
                     <AnswerView
                         key={ans.id}
