@@ -64,3 +64,4 @@ def logged_out(request):
     """
     logout(request)
     return JsonResponse({}, status=204)
+    
