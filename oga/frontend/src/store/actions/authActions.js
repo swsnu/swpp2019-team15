@@ -73,3 +73,17 @@ export const isLoggedIn = () => {
             });
     };
 };
+
+export const Logout = () => {
+    return (dispatch) => {
+        return axios
+            .get("/api/un-authed/")
+            .then(res => {
+                dispatch(isLoggedIn_(false));
+                dispatch(push("/login"));
+            })
+            .catch(err => {
+                dispatch(isLoggedIn_(true));
+            });
+    }
+}
