@@ -25,27 +25,29 @@ class WrappingAppBar extends Component {
     //     }
     // };
 
-    render () {
-
-            return (
-                <AppBar auth={this.props.log_status} func={this.props.logout}>
-
-                </AppBar>
-            )
+    render() {
+        return (
+            <AppBar
+                auth={this.props.log_status}
+                func={this.props.logout}
+            ></AppBar>
+        );
     }
 }
 
 const mapStateToProps = state => {
     return {
-        log_status: state.auth.authenticated,
+        log_status: state.auth.authenticated
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        logout: () => 
-            dispatch(actionCreators.Logout()),
-    }
-}
+        logout: () => dispatch(actionCreators.Logout())
+    };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(WrappingAppBar);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(WrappingAppBar);

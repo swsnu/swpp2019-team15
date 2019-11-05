@@ -21,7 +21,7 @@ export const theme = createMuiTheme({
         }
     },
     typography: {
-        fontFamily: "Raleway, Arial",
+        fontFamily: "arial",
         useNextVariants: true
     },
     overrides: {

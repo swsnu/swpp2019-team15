@@ -37,7 +37,7 @@ class Login extends Component {
                         width="35%"
                     />
                     <Typography component="h1" variant="h3" color="primary">
-                        askAT
+                        <b>askAT</b>
                     </Typography>
                     <Box pt={5} />
                     <Typography component="h1" variant="h5">
