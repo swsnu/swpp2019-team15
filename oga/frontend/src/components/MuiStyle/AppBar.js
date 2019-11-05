@@ -1,7 +1,8 @@
-import { connect } from "react-redux";
-import * as actionCreators from "../../store/actions/";
-
 import React from 'react';
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { Redirect } from "react-router-dom";
+
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,29 +15,34 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Box from '@material-ui/core/Box';
+
+import * as actionCreators from "../../store/actions/";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(50),
   },
   title: {
     flexGrow: 1,
+    marginRight: theme.spacing(50),
   },
 }));
 
-function MenuAppBar() {
+export default function MenuAppBar(props) {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+  var auth = props.auth;
+  var func = props.func;
+//   const [setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleChange = event => {
-    setAuth(event.target.checked);
-    
-  };
+//   const handleChange = () => {
+//     () => dispatch(actionCreators.Logout())
+//   };
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -48,19 +54,13 @@ function MenuAppBar() {
 
   return (
     <div className={classes.root}>
-      <FormGroup>
-        <FormControlLabel
-          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Photos
+          <Typography variant="h4" className={classes.title}>
+            askAT
           </Typography>
           {auth && (
             <div>
@@ -73,6 +73,7 @@ function MenuAppBar() {
               >
                 <AccountCircle />
               </IconButton>
+              <FormGroup>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -89,8 +90,13 @@ function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={<Redirect push to='/settings/'/>}>Setting Page</MenuItem>
               </Menu>
+              </FormGroup>
+              <FormControlLabel
+                control={<Switch checked={auth} onChange={() => func()} aria-label="login switch" />}
+                label={auth ? 'Logout' : 'Login'}
+                />
             </div>
           )}
         </Toolbar>
@@ -99,17 +105,11 @@ function MenuAppBar() {
   );
 }
 
-const mapStateToProps = state => ({
-    auth: state.auth.authenticated
-});
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         logout: () => 
+//             dispatch(actionCreators.Logout()),
+//     }
+// }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        isLoggedIn: () => dispatch(actionCreators.isLoggedIn())
-    };
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MenuAppBar);
+// export default connect(null, mapDispatchToProps)(MenuAppBar);

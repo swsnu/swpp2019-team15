@@ -18,7 +18,7 @@ import "./App.css";
 import Settings from "./containers/Settings/Settings";
 import { MuiThemeProvider } from "@material-ui/core";
 import { theme } from "./components/MuiStyle/theme";
-import AppBar from "./components/MuiStyle/AppBar";
+import WrappingAppBar from "./components/MuiStyle/WrappingAppBar";
 
 let swRegistration = null;
 console.log("serviceWorker" in navigator);
@@ -46,8 +46,8 @@ function App(props) {
     if (props.auth !== null)
         return (
             <MuiThemeProvider theme={theme}>
-                <AppBar>
-                </AppBar>
+                <WrappingAppBar>
+                </WrappingAppBar>
                 <ConnectedRouter history={props.history}>
                     <div className="App">
                         <Switch>
