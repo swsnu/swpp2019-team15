@@ -1,5 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
 import * as actionCreators from "../../store/actions/index";
 
@@ -29,35 +42,57 @@ class Signup extends Component {
 
     render() {
         return (
-            <div className="Signup">
-                <h1>Sign up</h1>
-                <div>
-                    <label>Username</label>
-                    <input
-                        type="text"
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className="Signup">
+                    <Box pt={15} />
+                    <Typography component="h1" variant="h5">
+                        Sign up
+                    </Typography>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
                         id="username-input"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
+                        autoFocus
                         value={this.state.username}
                         onChange={event =>
-                            this.setState({ username: event.target.value })
+                            this.setState({
+                                username: event.target.value
+                            })
                         }
                     />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input
+                    <TextField
                         type="password"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
                         id="pw-input"
+                        label="Password"
+                        name="password"
+                        autoComplete="password"
                         value={this.state.password}
                         onChange={event =>
-                            this.setState({ password: event.target.value })
+                            this.setState({
+                                password: event.target.value
+                            })
                         }
                     />
-                </div>
-                <div>
-                    <label>Confirm Password</label>
-                    <input
+                    <TextField
                         type="password"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
                         id="confirm-pw-input"
+                        label="Confirm Password"
+                        name="confirm-password"
+                        autoComplete="confirm-password"
                         value={this.state.confirmPassword}
                         onChange={event =>
                             this.setState({
@@ -65,20 +100,41 @@ class Signup extends Component {
                             })
                         }
                     />
+                    {/* <div>
+                        <label>Confirm Password</label>
+                        <input
+                            type="password"
+                            id="confirm-pw-input"
+                            value={this.state.confirmPassword}
+                            onChange={event =>
+                                this.setState({
+                                    confirmPassword: event.target.value
+                                })
+                            }
+                        />
+                    </div> */}
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        id="signup-button"
+                        onClick={() => this.clickSignUpHandler()}
+                    >
+                        Sign Up
+                    </Button>
+                    <Grid container justify="center" alignItems="center">
+                        <Button
+                            id="login-button"
+                            fullWidth
+                            color="primary"
+                            onClick={() => this.clickLoginHandler()}
+                        >
+                            Already have an account? Login
+                        </Button>
+                    </Grid>
                 </div>
-                <button
-                    id="login-button"
-                    onClick={() => this.clickLoginHandler()}
-                >
-                    Login
-                </button>
-                <button
-                    id="signup-button"
-                    onClick={() => this.clickSignUpHandler()}
-                >
-                    Sign Up
-                </button>
-            </div>
+            </Container>
         );
     }
 }
