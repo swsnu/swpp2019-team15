@@ -57,12 +57,12 @@ export const getQuestion = id => {
     };
 };
 
-export const followQuestion_ = (question) => {
-    return {
-        //type: actionTypes.GET_QUESTION,
-        //selectedQuestion: question
-    };
-};
+//export const followQuestion_ = (question) => {
+    //return {
+        ////type: actionTypes.GET_QUESTION,
+        ////selectedQuestion: question
+    //};
+//};
 
 export const followQuestion = id => {
     return dispatch => {

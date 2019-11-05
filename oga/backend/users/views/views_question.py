@@ -34,7 +34,7 @@ def questions(request):
                          'target_location': location.name}
         return JsonResponse(response_dict, status=201)
 
-    elif request.method == 'GET':
+    else:
         # get question list
         question_list = Question.objects.filter()
         response_dict = [{
@@ -46,9 +46,6 @@ def questions(request):
             'is_answered': question.is_answered,
         } for question in question_list]
         return JsonResponse(response_dict, safe=False)
-
-    else: #shouldn't reach here
-        return -1
 
 @check_login_required
 @check_request
