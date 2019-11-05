@@ -50,7 +50,8 @@ class AnswerList extends Component {
                     />
                 </React.Fragment>
             );
-            var selected_Answers = this.props.selectedAnswers.slice(0, 10)
+            var len = this.props.selectedAnswers.length;
+            var selected_Answers = this.props.selectedAnswers.slice(len-10, len)
             answers = selected_Answers.map(ans => {
                 return (
                     <AnswerView
