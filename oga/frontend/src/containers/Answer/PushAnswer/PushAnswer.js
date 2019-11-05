@@ -19,7 +19,7 @@ class PushAnswer extends Component {
     }
 
     render() {
-        var answer = null;
+        var answer = null
         if (this.props.selectedAnswer) {
             answer = (
                 <React.Fragment>
