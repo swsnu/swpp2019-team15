@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
+//Material UI imports
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -39,8 +41,16 @@ class Signup extends Component {
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <div className="Signup">
-                    <Box pt={15} />
-                    <Typography component="h1" variant="h5">
+                    <Box pt={3} />
+                    <img
+                        src="https://media1.giphy.com/media/xFoV7P0JsHwoZvHXP6/source.gif"
+                        width="30%"
+                    />
+                    <Typography component="h1" variant="h3" color="primary">
+                        askAT
+                    </Typography>
+                    <Box pt={3} />
+                    <Typography component="h2" variant="h5">
                         Sign up
                     </Typography>
                     <TextField

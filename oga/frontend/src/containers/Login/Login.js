@@ -31,7 +31,15 @@ class Login extends Component {
             <div className="Login">
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
-                    <Box pt={15} />
+                    <Box pt={5} />
+                    <img
+                        src="https://media.giphy.com/media/kDNzcJ5HTJjk1YmRDa/giphy.gif"
+                        width="35%"
+                    />
+                    <Typography component="h1" variant="h3" color="primary">
+                        askAT
+                    </Typography>
+                    <Box pt={5} />
                     <Typography component="h1" variant="h5">
                         Login
                     </Typography>
