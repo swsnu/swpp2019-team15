@@ -119,8 +119,8 @@ class PushNotification extends Component {
 
   componentDidMount() {}
 
-  subscribe(bool) {
-    if (bool) {
+  subscribe() {
+    if (!this.state.push_subscribe) {
       askPermission();
       subscribeUserToPush();
       this.setState({push_subscribe: true})
@@ -134,25 +134,14 @@ class PushNotification extends Component {
   //}
 
   render() {
-    var subscribe_to_push = null;
-    if (!this.state.push_subscribe) {
-        subscribe_to_push
-        = <button
-            id="subscribe-button"
-            onClick={() => this.subscribe(true)}
-          >
-            Subscribe
-            </button>
-        
-    } else {
-        subscribe_to_push
-        = <button
-        id="subscribe-button"
-            onClick={() => this.subscribe(false)}
-          >
-            UnSubscribe
-            </button>
-    }
+    var subscribe_content = (this.state.push_subscribe) ? ('UnSubcribe') : ('Subscribe');
+    var subscribe_to_push
+    = <button
+    id="subscribe-button"
+        onClick={() => this.subscribe()}
+      >
+        {subscribe_content}
+        </button>
 
     return (
       <div className="PushNotification">
