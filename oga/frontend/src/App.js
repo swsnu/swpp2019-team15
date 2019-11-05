@@ -80,6 +80,11 @@ function App(props) {
               path='/reply/:id'
               exact
               component={PushAnswer} />
+              <PrivateRoute
+              auth={props.auth}
+              path='/settings'
+              exact
+              component={Settings} />
             <Redirect exact from="/" to="/main" />
             <Route render={() => <h1>Not Found</h1>} />
           </Switch>
