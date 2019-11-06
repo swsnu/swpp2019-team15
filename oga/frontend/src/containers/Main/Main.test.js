@@ -49,7 +49,7 @@ describe('<Main />', () => {
     const spySignIn = jest.spyOn(actionCreators, 'getQuestions')
       .mockImplementation(() => { return dispatch => {}; });
     const wrapper = mount(main);
-    expect(wrapper.find(".QuestionList").length).toBe(1);
+    expect(wrapper.find(".Main").length).toBe(1);
   });
 
   it('should go to reply page when clickAnswerHandler', () => {
@@ -60,7 +60,7 @@ describe('<Main />', () => {
     const m = jest.spyOn(instance, 'clickAnswerHandler');
     let button = wrapper.find('Question');
     wrapper.find('Question').props().clickAnswer();
-    //button.simulate('click');
+    //button.hostNodes().simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledTimes(1);
     expect(m).toHaveBeenCalledTimes(1);
     expect(spyHistoryPush).toHaveBeenCalledWith("/reply/create/1");
@@ -71,7 +71,7 @@ describe('<Main />', () => {
       .mockImplementation(path => {});
     const wrapper = mount(main);
     let button = wrapper.find('#question-create-button');
-    button.simulate('click');
+    button.hostNodes().simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledWith("/ask");
   });
 
@@ -80,7 +80,7 @@ describe('<Main />', () => {
       .mockImplementation(path => {});
     const wrapper = mount(main);
     let button = wrapper.find('#back-button');
-    button.simulate('click');
+    button.hostNodes().simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledTimes(1);
   });
 
@@ -89,7 +89,7 @@ describe('<Main />', () => {
       .mockImplementation(path => {});
     const wrapper = mount(main);
     let button = wrapper.find('#settings-button');
-    button.simulate('click');
+    button.hostNodes().simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledWith("/settings");
   });
 
@@ -101,7 +101,7 @@ describe('<Main />', () => {
     const m = jest.spyOn(instance, 'clickDetailHandler');
     let button = wrapper.find('Question');
     wrapper.find('Question').props().clickDetail();
-    //button.simulate('click');
+    //button.hostNodes().simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledTimes(1);
     expect(m).toHaveBeenCalledTimes(1);
     expect(spyHistoryPush).toHaveBeenCalledWith("/replies/1");
@@ -115,7 +115,7 @@ describe('<Main />', () => {
     const m = jest.spyOn(instance, 'clickFollowHandler');
     let button = wrapper.find('Question');
     wrapper.find('Question').props().clickFollow();
-    //button.simulate('click');
+    //button.hostNodes().simulate('click');
     expect(m).toHaveBeenCalledTimes(1);
     expect(spyFollow).toHaveBeenCalledTimes(1);
   });

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { shallow, mount } from 'enzyme';
 import PushNotification from './PushNotification';
 import axios from 'axios';
+console.error = jest.fn();
+console.log = jest.fn();
 
 describe('<PushNotification/>', () => {
   let box;
@@ -55,7 +57,7 @@ describe('<PushNotification/>', () => {
       })
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(register).toBeCalledWith('/sw.js');
     //FIXME
     //expect(spy).toHaveBeenCalledTimes(1);
@@ -67,7 +69,7 @@ describe('<PushNotification/>', () => {
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
     //console.log(global.navigator.serviceWorker.register);
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(Error).toHaveBeenCalled();
   });
 
@@ -77,7 +79,7 @@ describe('<PushNotification/>', () => {
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
     //console.log(global.navigator.serviceWorker.register);
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(Error).toHaveBeenCalled();
   });
 
@@ -87,7 +89,7 @@ describe('<PushNotification/>', () => {
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
     //console.log(global.navigator.serviceWorker.register);
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(Error).toHaveBeenCalled();
   });
 
@@ -97,7 +99,7 @@ describe('<PushNotification/>', () => {
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
     //console.log(global.navigator.serviceWorker.register);
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(Error).toHaveBeenCalled();
   });
 
@@ -115,7 +117,7 @@ describe('<PushNotification/>', () => {
       })
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(register).toBeCalledWith('/sw.js');
     //FIXME
     //expect(spy).toHaveBeenCalledTimes(1);
@@ -134,7 +136,7 @@ describe('<PushNotification/>', () => {
       })
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(register).toBeCalledWith('/sw.js');
     //FIXME
     //expect(spy).toHaveBeenCalledTimes(1);
@@ -147,7 +149,7 @@ describe('<PushNotification/>', () => {
       })
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(register).toBeCalledWith('/sw.js');
     //FIXME
     //expect(spy).toHaveBeenCalledTimes(1);
@@ -158,7 +160,7 @@ describe('<PushNotification/>', () => {
     const component = mount(box);
     let wrapper = component.find('#subscribe-button');
     //console.log(global.navigator.serviceWorker.register);
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(register).toBeCalledWith('/sw.js');
   });
 

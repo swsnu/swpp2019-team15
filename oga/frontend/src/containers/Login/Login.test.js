@@ -51,7 +51,7 @@ describe('<Login />', () => {
     const newuser = 'newuser';
     const component = mount(login);
     const wrapper = component.find("#username-input");
-    wrapper.simulate('change', {target: {value: newuser }});
+    wrapper.hostNodes().simulate('change', {target: {value: newuser }});
     const loginInstance = component.find(Login.WrappedComponent).instance();
     expect(loginInstance.state.username).toBe(newuser);
   });
@@ -60,7 +60,7 @@ describe('<Login />', () => {
     const password = '1234';
     const component = mount(login);
     const wrapper = component.find("#pw-input");
-    wrapper.simulate('change', {target: {value:password} });
+    wrapper.hostNodes().simulate('change', {target: {value:password} });
     const loginInstance = component.find(Login.WrappedComponent).instance();
     expect(loginInstance.state.password).toBe(password);
   });
@@ -70,7 +70,7 @@ describe('<Login />', () => {
       .mockImplementation(td => { return dispatch => {}; });
     const component = mount(login);
     let wrapper = component.find('#login-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spySignIn).toHaveBeenCalledTimes(1);
   });
 
@@ -79,7 +79,7 @@ describe('<Login />', () => {
       .mockImplementation(path => {});
     const component = mount(login);
     let wrapper = component.find('#signup-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledTimes(1);
   });
 
