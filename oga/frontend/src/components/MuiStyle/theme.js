@@ -1,4 +1,3 @@
-import React from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
 
 export const theme = createMuiTheme({
@@ -21,7 +20,7 @@ export const theme = createMuiTheme({
         }
     },
     typography: {
-        fontFamily: "Raleway, Arial",
+        fontFamily: "arial",
         useNextVariants: true
     },
     overrides: {
@@ -62,9 +61,6 @@ export const theme = createMuiTheme({
                 padding: "10px",
                 color: "#ffe699"
             }
-        },
-        MuiCard: {
-            borderRadius: 0
         },
         MuiToolbar: {
             backgroundColor: "transparent"

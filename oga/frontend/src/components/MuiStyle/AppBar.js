@@ -1,37 +1,33 @@
-import React from 'react';
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import { Redirect } from "react-router-dom";
+import React from "react";
 
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import Box from '@material-ui/core/Box';
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
-import * as actionCreators from "../../store/actions/";
+// import * as actionCreators from "../../store/actions/";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(50),
-  },
-  title: {
-    flexGrow: 1,
-    marginRight: theme.spacing(50),
-  },
+    root: {
+        flexGrow: 1
+    },
+    menuButton: {
+        marginRight: theme.spacing(50)
+    },
+    title: {
+        flexGrow: 1,
+        marginRight: theme.spacing(50)
+    }
 }));
 
+<<<<<<< HEAD
 function MenuAppBar(props) {
   const classes = useStyles();
   var auth = props.auth;
@@ -39,21 +35,31 @@ function MenuAppBar(props) {
 //   const [setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+=======
+export default function MenuAppBar(props) {
+    const classes = useStyles();
+    var auth = props.auth;
+    var func = props.func;
+    //   const [setAuth] = React.useState(true);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+>>>>>>> cd3bb13532ed1e36e3529040f92b2061d0b52f1f
 
-//   const handleChange = () => {
-//     () => dispatch(actionCreators.Logout())
-//   };
+    //   const handleChange = () => {
+    //     () => dispatch(actionCreators.Logout())
+    //   };
 
-  const handleMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
+    const handleMenu = event => {
+        setAnchorEl(event.currentTarget);
+    };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
   return (
     <div className={classes.root}>
+          {auth &&(
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -62,7 +68,7 @@ function MenuAppBar(props) {
           <Typography variant="h4" className={classes.title}>
             askAT
           </Typography>
-          {auth && (
+           (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -98,16 +104,16 @@ function MenuAppBar(props) {
                 label={auth ? 'Logout' : 'Login'}
                 />
             </div>
-          )}
         </Toolbar>
-      </AppBar>
+              </AppBar>
+              )}
     </div>
   );
 }
 
 // const mapDispatchToProps = dispatch => {
 //     return {
-//         logout: () => 
+//         logout: () =>
 //             dispatch(actionCreators.Logout()),
 //     }
 // }

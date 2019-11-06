@@ -20,7 +20,7 @@ class PushAnswer extends Component {
     }
 
     render() {
-        var answer = null
+        var answer = null;
         if (this.props.selectedAnswer) {
             answer = (
                 <React.Fragment>
@@ -40,37 +40,36 @@ class PushAnswer extends Component {
                         answer_content={this.props.selectedAnswer.content}
                         place_name={this.props.selectedAnswer.place_name}
                         is_answered={true}
-                   />
+                    />
                 </React.Fragment>
             );
         }
 
-    return (
-      <div className="PushAnswer">
-        <h1>You got this answer!</h1>
-        {answer}
-      </div>
-    );
-  }
+        return (
+            <div className="PushAnswer">
+                <h1>You got this answer!</h1>
+                {answer}
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = state => {
-  return {
-    selectedAnswer: state.answer.answer
-    //log_status: state.rd.log_status,
-  };
+    return {
+        selectedAnswer: state.answer.answer
+        //log_status: state.rd.log_status,
+    };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-    onGetAnswer: (id) =>
-    dispatch(actionCreators.getAnswer(id)),
-    //setLogout: () =>
-    //dispatch(actionCreators.settingLogout())
-  };
+    return {
+        onGetAnswer: id => dispatch(actionCreators.getAnswer(id))
+        //setLogout: () =>
+        //dispatch(actionCreators.settingLogout())
+    };
 };
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(withRouter(PushAnswer));
