@@ -119,7 +119,8 @@ class GoogleMap extends Component {
             console.log(center);
         }
         return (
-            <div className="Map" style={{ height: "50vh", width: "40%" }}>
+            <div className="Map" style={{ height: "50vh", width: "40%", margin:"auto"}}>
+              <div>
                 <LocationListener />
                 {mapApiLoaded && !this.props.viewOnly && (
                     <SearchBox
@@ -128,6 +129,7 @@ class GoogleMap extends Component {
                         addplace={this.addPlace}
                     />
                 )}
+              </div>
                 <GoogleMapReact
                     defaultZoom={this.props.zoom}
                     center={center}
