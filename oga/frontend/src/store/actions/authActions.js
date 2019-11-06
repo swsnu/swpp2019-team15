@@ -23,7 +23,7 @@ export const signUp = user => {
                 }
             })
             .catch(err => {
-                if (err.status_code !== 201) {
+                if (err.status !== 201) {
                     alert("Username already taken!");
                 }
             });
