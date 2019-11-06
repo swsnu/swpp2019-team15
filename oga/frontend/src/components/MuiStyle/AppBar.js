@@ -1,7 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import { Redirect } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -12,12 +9,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import Box from "@material-ui/core/Box";
 
-import * as actionCreators from "../../store/actions/";
+// import * as actionCreators from "../../store/actions/";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -97,7 +92,6 @@ export default function MenuAppBar(props) {
                                             Profile
                                         </MenuItem>
                                         <MenuItem
-
                                         // onClick={
                                         //     <Redirect push to="/settings/" />
                                         // }

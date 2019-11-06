@@ -2,7 +2,6 @@ import React from "react";
 import moment from "moment";
 
 //Materials UI imports
-import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";

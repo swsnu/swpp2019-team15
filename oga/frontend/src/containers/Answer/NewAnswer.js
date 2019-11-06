@@ -45,7 +45,6 @@ class NewAnswer extends Component {
     };
 
     render() {
-        var selected_question_type = null;
         var selected_question_type_list = null;
         var qs_type = "";
         var idx = 0;
@@ -65,7 +64,7 @@ class NewAnswer extends Component {
             gotten_answer_view = (
                 <React.Fragment>
                     <AnswerView
-                        //key={this.props.selectedQuestion.id}
+                        key={this.props.selectedQuestion.id}
                         id={this.props.selectedQuestion.id}
                         content={this.props.selectedQuestion.content}
                         place_name={

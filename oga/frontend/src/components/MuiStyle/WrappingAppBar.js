@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router";
 import AppBar from "./AppBar";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/";

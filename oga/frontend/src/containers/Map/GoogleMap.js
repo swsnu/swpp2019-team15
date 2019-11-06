@@ -48,14 +48,17 @@ class GoogleMap extends Component {
             mapApi: maps
         });
         //mock a place object
-        // let target = { map.lat, map.lng };
-        // if (this.props.viewOnly) {
-        //     let marker = new maps.Marker({
-        //         position: target,
-        //         map: map,
-        //         title: "HERE"
-        //     });
-        // }
+        let target = {
+            lat: this.props.target.lat,
+            lng: this.props.target.lng
+        };
+        if (this.props.viewOnly) {
+            let marker = new maps.Marker({
+                position: target,
+                map: map,
+                title: "HERE"
+            });
+        }
     };
 
     clickSubmitHandler = () => {
@@ -131,7 +134,6 @@ class GoogleMap extends Component {
                     }}
                     yesIWantToUseGoogleMapApiInternals
                     onChildClick={this.clickSubmitHandler}
-                    // onGoogleApiLoaded={map => this.apiHasLoaded(map)}
                     onGoogleApiLoaded={({ map, maps }) =>
                         this.apiHasLoaded(map, maps)
                     }
