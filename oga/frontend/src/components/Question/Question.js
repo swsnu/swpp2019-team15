@@ -15,10 +15,8 @@ const Question = props => {
             <Card md={3} className="Question">
                 <CardContent>
                     <Typography
-                        component="body"
-                        variant="outlined"
-                        borderStyle="solid"
-                        borderColor="primary"
+                        component="h6"
+                        variant="h6"
                         gutterBottom
                         onClick={props.clickDetail}
                     >

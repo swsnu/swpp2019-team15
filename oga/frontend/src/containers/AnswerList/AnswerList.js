@@ -61,7 +61,10 @@ class AnswerList extends Component {
                 </React.Fragment>
             );
             var len = this.props.selectedAnswers.length;
-            var selected_Answers = this.props.selectedAnswers.slice(len-10, len)
+            var selected_Answers = this.props.selectedAnswers.slice(
+                len - 10,
+                len
+            );
             answers = selected_Answers.map(ans => {
                 return (
                     <AnswerView
@@ -111,7 +114,6 @@ class AnswerList extends Component {
                     <Box pt={3} />
                     <Grid container justify="center" alignItems="center">
                         <Button
-                            maxWidth="xs"
                             variant="contained"
                             id="reply-create-button"
                             color="primary"

@@ -78,33 +78,34 @@ export default function MenuAppBar(props) {
                                     color="inherit"
                                 >
                                     <AccountCircle />
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: "top",
-                                        horizontal: "right"
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: "top",
-                                        horizontal: "right"
-                                    }}
-                                    open={open}
-                                    onClose={handleClose}
-                                >
-                                    <MenuItem onClick={handleClose}>
-                                        Profile
-                                    </MenuItem>
-                                    <MenuItem
-                                        onClick={
-                                            <Redirect push to="/settings/" />
-                                        }
+                                    <Menu
+                                        id="menu-appbar"
+                                        anchorEl={anchorEl}
+                                        anchorOrigin={{
+                                            vertical: "top",
+                                            horizontal: "right"
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: "top",
+                                            horizontal: "right"
+                                        }}
+                                        open={open}
+                                        onClose={handleClose}
                                     >
-                                        Setting Page
-                                    </MenuItem>
-                                </Menu>
-                  </IconButton>
+                                        <MenuItem onClick={handleClose}>
+                                            Profile
+                                        </MenuItem>
+                                        <MenuItem
+
+                                        // onClick={
+                                        //     <Redirect push to="/settings/" />
+                                        // }
+                                        >
+                                            Setting Page
+                                        </MenuItem>
+                                    </Menu>
+                                </IconButton>
 
                                 <FormControlLabel
                                     control={
