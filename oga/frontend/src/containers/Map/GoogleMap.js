@@ -50,14 +50,16 @@ class GoogleMap extends Component {
     //mock a place object
 
     if (this.props.viewOnly) {
-      var target = {lat: this.props.target['lat'],
-                  lng: this.props.target['lng']}
-      let marker = new maps.Marker(
+      if (this.props.target) {
+        var target = {lat: this.props.target['lat'],
+        lng: this.props.target['lng']}
+        let marker = new maps.Marker(
         {
-          position: target,
-          map: map,
-          title: "HERE",
+        position: target,
+        map: map,
+        title: "HERE",
         });
+      }
     }
   };
 
