@@ -48,9 +48,10 @@ class GoogleMap extends Component {
       mapApi: maps,
     });
     //mock a place object
-    let target = {lat: this.props.target.lat,
-                  lng: this.props.target.lng}
+
     if (this.props.viewOnly) {
+      var target = {lat: this.props.target['lat'],
+                  lng: this.props.target['lng']}
       let marker = new maps.Marker(
         {
           position: target,
