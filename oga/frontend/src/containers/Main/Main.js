@@ -68,11 +68,11 @@ class QuestionList extends Component {
             >
                 <Container component="main">
                     <CssBaseline />
-                    <Box pt={10} />
+                    <Box pt={8} />
                     <Typography component="h1" variant="h3">
                         Question Feed
                     </Typography>
-                    <Box pt={6} />
+                    <Box pt={5} />
                     <Grid
                         container
                         spacing={2}

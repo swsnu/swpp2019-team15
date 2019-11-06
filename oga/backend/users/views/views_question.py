@@ -61,6 +61,8 @@ def question_detail(request, question_id):
         'content': question.content,
         'location': question.location_id.name,
         'target_location_name': location.name,
+        'place_lat': question.location_id.latitude,
+        'place_lng': question.location_id.longitude,
         'is_answered': question.is_answered,
     }
     return JsonResponse(response_dict)

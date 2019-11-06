@@ -94,31 +94,6 @@ function subscribeUserToPush() {
         .catch(err => console.log("subscription failed from server"));
 }
 
-//function unsubscribeUserToPush() {
-//navigator.serviceWorker.register("/sw.js").then(function(registration) {
-//registration.pushManager
-//.getSubscription()
-//.then(subscription => {
-//if (!subscription) {
-//return;
-//}
-//subscription.unsubscribe();
-//})
-//.catch(err => console.log(err));
-//});
-//}
-
-//function isSubscribed() {
-//navigator.serviceWorker.register("/sw.js").then(function(registration) {
-//registration.pushManager.getSubscription().then(subscription => {
-//if (!subscription) {
-//return false;
-//}
-//return true;
-//});
-//});
-//}
-
 class PushNotification extends Component {
     constructor(props) {
         super(props);
@@ -163,7 +138,6 @@ class PushNotification extends Component {
                 <Typography component="h4" variant="h5">
                     Push Notifications
                 </Typography>
-
                 {subscribe_to_push}
                 {/* <label>
           Push Notifications

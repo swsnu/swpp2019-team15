@@ -6,10 +6,11 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 from users.views.decorators import check_request, check_login_required
 
+# @csrf_exempt
 @check_request
 @require_http_methods(["POST"])
 def sign_up(request):
@@ -25,6 +26,7 @@ def sign_up(request):
         response_dict = {'id': new_user.id}
         return JsonResponse(response_dict, status=201)
 
+# @csrf_exempt
 @check_request
 @require_http_methods(["POST"])
 def sign_in(request):

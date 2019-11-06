@@ -10,13 +10,14 @@ import Typography from "@material-ui/core/Typography";
 
 const AnswerView = props => {
     return (
-        <div className="AnswerView" key={props.key}>
+        <div className="AnswerView" key={props.id}>
             <Grid item>
                 {props.is_answered ? (
                     <Card>
                         <CardContent>
                             <Typography
-                                component="body"
+                                component="h6"
+                                variant="h6"
                                 gutterBottom
                                 onClick={props.clickDetail}
                             >

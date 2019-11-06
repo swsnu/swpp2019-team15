@@ -44,7 +44,6 @@ class PushAnswer extends Component {
           </React.Fragment>
       );
     }
-
     return (
       <div className="PushAnswer">
         <h1>You got this answer!</h1>
@@ -63,8 +62,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetAnswer: (id) =>
-    dispatch(actionCreators.getAnswer(id)),
+    onGetAnswer: id => dispatch(actionCreators.getAnswer(id))
     //setLogout: () =>
     //dispatch(actionCreators.settingLogout())
   };

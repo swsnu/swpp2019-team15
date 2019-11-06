@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Map from "../../containers/Map/GoogleMap";
 import "./NewAnswer.css";
 
 import { connect } from "react-redux";
@@ -45,12 +46,19 @@ class NewAnswer extends Component {
     };
 
     render() {
-        var selected_question_type = null;
         var selected_question_type_list = null;
         var qs_type = "";
         var idx = 0;
         let gotten_answer_view = null;
+        var map = null;
         if (this.props.selectedQuestion) {
+            map = 
+            <Map
+            viewOnly={true}
+            target={{lat: this.props.selectedQuestion.place_lat,
+                    lng: this.props.selectedQuestion.place_lng}}
+            ></Map>
+
             qs_type = this.props.selectedQuestion.content;
             qs_type = question_types[qs_type];
             selected_question_type_list = qs_type.map((val, index) => {
@@ -65,7 +73,7 @@ class NewAnswer extends Component {
             gotten_answer_view = (
                 <React.Fragment>
                     <AnswerView
-                        //key={this.props.selectedQuestion.id}
+                        key={this.props.selectedQuestion.id}
                         id={this.props.selectedQuestion.id}
                         content={this.props.selectedQuestion.content}
                         place_name={
@@ -84,6 +92,7 @@ class NewAnswer extends Component {
                 <Typography component="h2" variant="h3" color="primary">
                     Answer a Question!
                 </Typography>
+                {map}
                 <Box pt={10} />
                 <Typography component="h3" variant="h5">
                     {gotten_answer_view}

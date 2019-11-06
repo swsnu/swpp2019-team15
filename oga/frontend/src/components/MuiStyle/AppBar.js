@@ -1,115 +1,131 @@
-import React from 'react';
-import { connect } from "react-redux";
+import React from "react";
 import { withRouter } from "react-router";
-import { Redirect } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import Box from '@material-ui/core/Box';
-
-import * as actionCreators from "../../store/actions/";
+// import * as actionCreators from "../../store/actions/";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(50),
-  },
-  title: {
-    flexGrow: 1,
-    marginRight: theme.spacing(50),
-  },
+    root: {
+        flexGrow: 1
+    },
+    menuButton: {
+        marginRight: theme.spacing(50)
+    },
+    title: {
+        flexGrow: 1,
+        marginRight: theme.spacing(50)
+    }
 }));
 
 function MenuAppBar(props) {
-  const classes = useStyles();
-  var auth = props.auth;
-  var func = props.func;
-//   const [setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+    const classes = useStyles();
+    var auth = props.auth;
+    var func = props.func;
+    //   const [setAuth] = React.useState(true);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
 
-//   const handleChange = () => {
-//     () => dispatch(actionCreators.Logout())
-//   };
+    //   const handleChange = () => {
+    //     () => dispatch(actionCreators.Logout())
+    //   };
 
-  const handleMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
+    const handleMenu = event => {
+        setAnchorEl(event.currentTarget);
+    };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h4" className={classes.title}>
-            askAT
-          </Typography>
-          {auth && (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <FormGroup>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={()=>props.history.push("/settings/")}>Setting Page</MenuItem>
-              </Menu>
-              </FormGroup>
-              <FormControlLabel
-                control={<Switch checked={auth} onChange={() => func()} aria-label="login switch" />}
-                label={auth ? 'Logout' : 'Login'}
-                />
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+    return (
+        <div className={classes.root}>
+            {auth && (
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            className={classes.menuButton}
+                            color="light"
+                            aria-label="menu"
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h4" className={classes.title}>
+                            <b>askAT</b>
+                        </Typography>
+                        <div>
+                            <IconButton
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleMenu}
+                                color="light"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                            <FormGroup>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: "top",
+                                        horizontal: "right"
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: "top",
+                                        horizontal: "right"
+                                    }}
+                                    open={open}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={handleClose}>
+                                        Profile
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={() =>
+                                            props.history.push("/settings/")
+                                        }
+                                    >
+                                        Settings Page
+                                    </MenuItem>
+                                </Menu>
+                            </FormGroup>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={auth}
+                                        onChange={() => func()}
+                                        aria-label="login switch"
+                                        color="dark"
+                                    />
+                                }
+                                label={auth ? "Logout" : "Login"}
+                            />
+                        </div>
+                    </Toolbar>
+                </AppBar>
+            )}
+        </div>
+    );
 }
 
 // const mapDispatchToProps = dispatch => {
 //     return {
-//         logout: () => 
+//         logout: () =>
 //             dispatch(actionCreators.Logout()),
 //     }
 // }
 
- export default withRouter(MenuAppBar);
+export default withRouter(MenuAppBar);

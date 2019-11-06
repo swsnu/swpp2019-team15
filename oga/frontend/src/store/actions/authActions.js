@@ -17,13 +17,13 @@ export const signUp = user => {
             .post("/api/signup/", user)
             .then(res => {
                 dispatch(signUp_(res));
-                if (res.status == 201) {
+                if (res.status === 201) {
                     alert("Sign up successful!");
                     dispatch(push("/login/"));
                 }
             })
             .catch(err => {
-                if (err.status != 201) {
+                if (err.status_code !== 201) {
                     alert("Username already taken!");
                 }
             });
@@ -75,7 +75,7 @@ export const isLoggedIn = () => {
 };
 
 export const Logout = () => {
-    return (dispatch) => {
+    return dispatch => {
         return axios
             .get("/api/un-authed/")
             .then(res => {
@@ -85,5 +85,5 @@ export const Logout = () => {
             .catch(err => {
                 dispatch(isLoggedIn_(true));
             });
-    }
-}
+    };
+};

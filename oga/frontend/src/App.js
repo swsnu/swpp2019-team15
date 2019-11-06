@@ -47,8 +47,7 @@ function App(props) {
         return (
             <MuiThemeProvider theme={theme}>
                 <ConnectedRouter history={props.history}>
-                  <WrappingAppBar>
-                  </WrappingAppBar>
+                    <WrappingAppBar />
                     <div className="App">
                         <Switch>
                             <Route path="/signup" exact component={Signup} />
