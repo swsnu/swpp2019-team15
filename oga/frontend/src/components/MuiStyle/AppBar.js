@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MenuAppBar(props) {
+function MenuAppBar(props) {
   const classes = useStyles();
   var auth = props.auth;
   var func = props.func;
@@ -90,7 +90,7 @@ export default function MenuAppBar(props) {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={<Redirect push to='/settings/'/>}>Setting Page</MenuItem>
+                <MenuItem onClick={()=>props.history.push("/settings/")}>Setting Page</MenuItem>
               </Menu>
               </FormGroup>
               <FormControlLabel
@@ -112,4 +112,4 @@ export default function MenuAppBar(props) {
 //     }
 // }
 
-// export default connect(null, mapDispatchToProps)(MenuAppBar);
+ export default withRouter(MenuAppBar);
