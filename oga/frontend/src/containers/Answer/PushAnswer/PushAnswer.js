@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./PushAnswer.css";
 import AnswerView from "../../../components/AnswerView/AnswerView";
+import Map from "../../Map/GoogleMap";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
@@ -23,6 +24,11 @@ class PushAnswer extends Component {
         if (this.props.selectedAnswer) {
             answer = (
                 <React.Fragment>
+                    <Map
+                        viewOnly={true}
+                        target={{lat: this.props.selectedAnswer.place_lat,
+                                 lng: this.props.selectedAnswer.place_lng}}
+                    ></Map>
                     <AnswerView
                         key={this.props.selectedAnswer.id}
                         id={this.props.selectedAnswer.id}
