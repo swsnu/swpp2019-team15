@@ -30,27 +30,8 @@ class GoogleMap extends Component {
         zoom: 14
     };
 
-  apiHasLoaded = (map, maps) => {
-    this.setState({
-      mapApiLoaded: true,
-      mapInstance: map,
-      mapApi: maps,
-    });
-    //mock a place object
-
-    if (this.props.viewOnly) {
-      if (this.props.target) {
-        var target = {lat: this.props.target['lat'],
-        lng: this.props.target['lng']}
-        let marker = new maps.Marker(
-        {
-        position: target,
-        map: map,
-        title: "HERE",
-        });
-      }
-    }
-  };
+    constructor(props) {
+        super(props);
 
         this.state = {
             mapApiLoaded: false,
@@ -67,16 +48,19 @@ class GoogleMap extends Component {
             mapApi: maps
         });
         //mock a place object
-        let target = {
-            lat: this.props.target.lat,
-            lng: this.props.target.lng
-        };
+
         if (this.props.viewOnly) {
-            let marker = new maps.Marker({
-                position: target,
-                map: map,
-                title: "HERE"
-            });
+            if (this.props.target) {
+                var target = {
+                    lat: this.props.target["lat"],
+                    lng: this.props.target["lng"]
+                };
+                let marker = new maps.Marker({
+                    position: target,
+                    map: map,
+                    title: "HERE"
+                });
+            }
         }
     };
 
