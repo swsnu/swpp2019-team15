@@ -34,9 +34,9 @@ class PushAnswer extends Component {
               id={this.props.selectedAnswer.id}
               author={this.props.selectedAnswer.author}
               content={this.props.selectedAnswer.question_type}
-              publish_date_time={
-                this.props.selectedAnswer.publish_date_time
-              }
+              publish_date_time={moment(ans.publish_date_time).format(
+                "MMMM Do YYYY, h:mm:ss a"
+              )}
               answer_content={this.props.selectedAnswer.content}
               place_name={this.props.selectedAnswer.place_name}
               is_answered={true}
