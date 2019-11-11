@@ -1,3 +1,7 @@
+// This codes are originated from
+// https://github.com/mui-org/material-ui/blob/master/docs/src/pages/components/app-bar/MenuAppBar.js
+// and modified.
+
 import React from "react";
 import { withRouter } from "react-router";
 import { makeStyles } from "@material-ui/core/styles";

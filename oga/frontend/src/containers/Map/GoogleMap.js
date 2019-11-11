@@ -27,7 +27,7 @@ const AnyReactComponent = ({ text }) => <div>{text}</div>;
 class GoogleMap extends Component {
     static defaultProps = {
         //somewhere in SNU, but should actually get from user
-        zoom: 14
+        zoom: 14,
     };
 
     constructor(props) {
@@ -107,7 +107,7 @@ class GoogleMap extends Component {
 
     render() {
         const { places, mapApiLoaded, mapInstance, mapApi } = this.state;
-        let center = { lat: 1, lng: 1 };
+        let center = null;
 
         //FIXME: BUGGY
         console.log(this.props.currentCoordinates);
@@ -119,7 +119,7 @@ class GoogleMap extends Component {
             console.log(center);
         }
         return (
-            <div className="Map" style={{ height: "50vh", width: "40%" }}>
+            <div className="Map" style={{ height: "50vh", width: "40%", margin: "auto"}}>
                 <LocationListener />
                 {mapApiLoaded && !this.props.viewOnly && (
                     <SearchBox
