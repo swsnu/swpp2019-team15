@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from users.views.decorators import check_request, check_login_required
 
@@ -66,4 +66,3 @@ def logged_out(request):
     """
     logout(request)
     return JsonResponse({}, status=204)
-    

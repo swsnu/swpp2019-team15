@@ -60,14 +60,14 @@ describe('<Settings />', () => {
   // it('should handle location button clicks', () => {
   //   const component = mount(settings);
   //   let wrapper = component.find('#location-toggle');
-  //   wrapper.simulate('click');
+  //   wrapper.hostNodes().simulate('click');
   //   expect(mockCurrentPostion).toHaveBeenCalledTimes(1);
   // });
 
   // it('should handle back button clicks', () => {
   //   const component = mount(settings);
   //   let wrapper = component.find('#location-toggle');
-  //   wrapper.simulate('click');
+  //   wrapper.hostNodes().simulate('click');
   //   expect(mockCurrentPostion).toHaveBeenCalledTimes(1);
   // });
 
@@ -77,7 +77,7 @@ describe('<Settings />', () => {
       .mockImplementation(path => {});
     const component = mount(settings);
     let wrapper = component.find('#back-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledTimes(1);
   });
 
