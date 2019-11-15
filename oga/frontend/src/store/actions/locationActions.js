@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes.js';
 import axios from 'axios';
 
-import { push } from 'connected-react-router';
 
 
 export const setTargetLocation_ = (target) => {
@@ -33,7 +32,6 @@ export const setCurrentCoordinates = (coordinates) => {
     return axios.post('/api/location/', coordinates)
       .then(res => {
         dispatch(setCurrentCoordinates_(coordinates));
-        //dispatch(push('/main/questions/'));
       }).catch(res => -1);
   }
 }

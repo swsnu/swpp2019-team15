@@ -31,7 +31,7 @@ class Settings extends Component {
 
     render() {
         var subscribe_to_location = null;
-        if (this.state.location_subscribe == false) {
+        if (!this.state.location_subscribe) {
             subscribe_to_location
             = <button
             id="location-toggle"
