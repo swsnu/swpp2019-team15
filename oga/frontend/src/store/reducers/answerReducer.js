@@ -8,7 +8,7 @@ const initialState = {
   answers: []
 }
 
-const answerReducer = (action, state = initialState) => {
+const answerReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CREATE_ANSWER:
       const newAnswer = {

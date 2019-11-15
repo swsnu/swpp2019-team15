@@ -9,7 +9,7 @@ const initialState = {
   //questions: []
 }
 
-const authReducer = (action, state = initialState) => {
+const authReducer = (state=initialState, action) => {
   switch (action.type) {
     case actionTypes.SIGN_UP: //nothing to do, really or show some success message?
       return {...state};
