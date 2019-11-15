@@ -39,7 +39,7 @@ matrix:
       - pylint users
       - pylint oga
       - coverage run --branch --source='./users' manage.py test && coverage report -m
-      - cd../../
+      - cd ../../
       - sonar-scanner
       after_success:
       - coveralls
