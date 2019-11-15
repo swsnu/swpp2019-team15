@@ -27,9 +27,10 @@ def notify_new_question(sender, instance, created, **kwargs):
         data = {'text': instance.content, 'location': qs_l.name, 'id': instance.id, 'tag': 'q'}
         for profile in profiles:
             rc_l = profile.location_id
-            if (instance.author != profile.user) and profile.location_id:
-                if distance(qs_l, rc_l) <= 0.3:
-                    send_push(profile, data)
+            if (instance.author != profile.user and
+                    profile.location_id and
+                    distance(qs_l, rc_l) <= 0.3):
+                send_push(profile, data)
 
 @receiver(post_save, sender=Answer)
 def notify_new_answer(sender, instance, created, **kwargs):
