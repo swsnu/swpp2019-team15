@@ -53,7 +53,7 @@ function MenuAppBar(props) {
     };
 
     return (
-        <div className={classes.root}>
+        <div className="AppBar">
             {auth && (
                 <AppBar position="static">
                     <Toolbar>
@@ -98,6 +98,7 @@ function MenuAppBar(props) {
                                         Profile
                                     </MenuItem>
                                     <MenuItem
+                                        id="settings-button"
                                         onClick={() =>
                                             props.history.push("/settings/")
                                         }
