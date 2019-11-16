@@ -94,7 +94,11 @@ function MenuAppBar(props) {
                                     open={open}
                                     onClose={handleClose}
                                 >
-                                    <MenuItem onClick={handleClose}>
+                                    <MenuItem
+                                        onClick={() =>
+                                            props.history.push("/profile/")
+                                        }
+                                    >
                                         Profile
                                     </MenuItem>
                                     <MenuItem

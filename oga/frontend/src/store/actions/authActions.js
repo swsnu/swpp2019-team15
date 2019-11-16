@@ -87,3 +87,23 @@ export const Logout = () => {
             });
     };
 };
+
+export const getProfile_ = profile => {
+    return {
+        type: actionTypes.GET_PROFILE,
+        id: profile.id,
+        username: profile.username,
+        location: profile.location,
+        latitude: profile.location_lat,
+        longitude: profile.location_long
+    };
+};
+
+export const getProfile = () => {
+    return dispatch => {
+        return axios
+            .get("/api/profile/")
+            .then(res => dispatch(getProfile_(res.data)))
+            .catch(err => console.log(err));
+    };
+};

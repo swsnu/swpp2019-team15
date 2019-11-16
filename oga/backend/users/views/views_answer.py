@@ -32,7 +32,7 @@ def get_or_create_answer(request, question_or_answer_id):
                          'author': answer_author.username,
                          'question_type': answer.question_type,
                          'answer_content': answer.content,
-                        }
+                         }
         return JsonResponse(response_dict, status=200)
     elif request.method == "GET":
         ans = Answer.objects.get(id=question_or_answer_id)
@@ -52,16 +52,37 @@ def get_or_create_answer(request, question_or_answer_id):
         # should not reach here.
         return -1
 
+
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
-@csrf_exempt
+# @csrf_exempt
 def get_answers(request, question_id):
     """function to get answers of question_id
         GET: get_answers api"""
     response_dict = []
     question = Question.objects.get(id=question_id)
     answer_all_list = Answer.objects.filter(question=question)
+    response_dict = [{
+        'id': ans.id,
+        'author': ans.author.user.username,
+        'publish_date_time': ans.publish_date_time,
+        'question_type': ans.question_type,
+        'content': ans.content,
+    } for ans in answer_all_list]
+    return JsonResponse(response_dict, safe=False, status=200)
+
+
+@check_login_required
+@check_request
+@require_http_methods(["GET"])
+def get_user_answers(request):
+    """
+    get list of answers made by user
+    """
+    response_dict = []
+    user = get_user(request)
+    answer_list = Answer.objects.filter(author=user)
     response_dict = [{
         'id': ans.id,
         'author': ans.author.user.username,
