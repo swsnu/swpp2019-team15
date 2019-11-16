@@ -56,7 +56,7 @@ def get_or_create_answer(request, question_or_answer_id):
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
-# @csrf_exempt
+@csrf_exempt
 def get_answers(request, question_id):
     """function to get answers of question_id
         GET: get_answers api"""
@@ -73,6 +73,7 @@ def get_answers(request, question_id):
     return JsonResponse(response_dict, safe=False, status=200)
 
 
+@csrf_exempt
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
@@ -82,12 +83,16 @@ def get_user_answers(request):
     """
     response_dict = []
     user = get_user(request)
-    answer_list = Answer.objects.filter(author=user)
+    profile = Profile.objects.get(user=user)
+    answer_list = Answer.objects.filter(author=profile)
     response_dict = [{
         'id': ans.id,
-        'author': ans.author.user.username,
+        'question_id': ans.question.id,
+        'question_author': ans.question.author.username,
+        'question_publish_date_time': ans.question.publish_date_time,
+        'location': ans.question.location_id.name,
         'publish_date_time': ans.publish_date_time,
         'question_type': ans.question_type,
         'content': ans.content,
-    } for ans in answer_all_list]
+    } for ans in answer_list]
     return JsonResponse(response_dict, safe=False, status=200)

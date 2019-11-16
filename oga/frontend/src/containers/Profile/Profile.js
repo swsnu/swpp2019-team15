@@ -31,8 +31,8 @@ class Profile extends Component {
         this.props.getUserAnswers();
     }
 
-    onClickDetailHandler = qst => {
-        this.props.history.push("/replies/" + qst.id);
+    onClickDetailHandler = id => {
+        this.props.history.push("/replies/" + id);
     };
 
     render() {
@@ -53,16 +53,18 @@ class Profile extends Component {
 
         var questions = this.props.myQuestions;
         const myQuestions = questions.map(qs => {
+            var time = moment(qs.publish_date_time).format(
+                "MMMM Do YYYY, h:mm:ss a"
+            );
             return (
                 <Card className="MyQuestion" key={qs.id}>
                     <CardContent>
                         <Typography
                             align="left"
-                            variant="subtitle"
+                            variant="subtitle1"
                             gutterBottom
-                            onClick={() => this.onClickDetailHandler(qs)}
+                            onClick={() => this.onClickDetailHandler(qs.id)}
                         >
-                            <div id="question-id">id: {qs.id}</div>
                             <div id="question-content">
                                 Is it <b>{qs.content}</b> in{" "}
                                 <b>{qs.location}</b> ?
@@ -71,11 +73,11 @@ class Profile extends Component {
                                 <p>
                                     <i>
                                         {moment(
-                                            qs.publish_date_time,
+                                            time,
                                             "MMMM Do YYYY, h:mm:ss a"
                                         ).fromNow()}
                                     </i>{" "}
-                                    on {qs.publish_date_time}
+                                    on {time}
                                 </p>
                             </div>
                             {qs.is_answered ? (
@@ -91,30 +93,59 @@ class Profile extends Component {
 
         var answers = this.props.myAnswers;
         const myAnswers = answers.map(ans => {
+            var time = moment(ans.publish_date_time).format(
+                "MMMM Do YYYY, h:mm:ss a"
+            );
+
             return (
-                <AnswerView
-                    key={ans.id}
-                    id={ans.id}
-                    author={ans.author}
-                    content={ans.question_type}
-                    publish_date_time={moment(ans.publish_date_time).format(
-                        "MMMM Do YYYY, h:mm:ss a"
-                    )}
-                    answer_content={ans.content}
-                    is_answered={true}
-                    place_name={ans.selectedQuestion.target_location_name}
-                />
+                <Card className="MyAnswer" key={ans.id}>
+                    <CardContent
+                        onClick={() =>
+                            this.onClickDetailHandler(ans.question_id)
+                        }
+                    >
+                        <Typography
+                            color="primary"
+                            align="left"
+                            variant="subtitle1"
+                            gutterBottom
+                        >
+                            <b>{ans.question_author} </b> asked{" "}
+                            <i>
+                                {moment(
+                                    time,
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                ).fromNow()}
+                            </i>{" "}
+                            on {time}
+                        </Typography>
+                        <Typography align="left" variant="h6" gutterBottom>
+                            "For <b>{ans.question_type}</b>, it is{" "}
+                            <b>{ans.content}</b> in <b>{ans.location}</b>!"
+                        </Typography>
+                        <Typography
+                            align="left"
+                            variant="subtitle2"
+                            gutterBottom
+                        >
+                            You replied{" "}
+                            <i>
+                                {moment(
+                                    time,
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                ).fromNow()}
+                            </i>{" "}
+                            on {time}
+                        </Typography>
+                    </CardContent>
+                </Card>
             );
         });
 
         return (
             <div className="Profile">
                 <Grid container direction="column">
-                    <Card
-                        md-content
-                        xs={6}
-                        style={{ height: "100%", position: "fixed" }}
-                    >
+                    <Card xs={6} style={{ height: "100%", position: "fixed" }}>
                         <Box pt={3} />
                         <IconButton>
                             <Avatar
@@ -175,7 +206,7 @@ class Profile extends Component {
                             id="my-question-tab"
                             variant="contained"
                             color="primary"
-                            onClick={event => {
+                            onClick={() => {
                                 this.setState({
                                     isQuestionTab: true
                                 });
@@ -187,7 +218,7 @@ class Profile extends Component {
                             id="my-answer-tab"
                             variant="contained"
                             color="primary"
-                            onClick={event => {
+                            onClick={() => {
                                 this.setState({
                                     isQuestionTab: false
                                 });
@@ -208,8 +239,8 @@ class Profile extends Component {
 const mapStateToProps = state => {
     return {
         userProfile: state.auth.profile,
-        myQuestions: state.question.userQuestions,
-        myAnswers: state.answer.userAnswers
+        myQuestions: state.question.questions,
+        myAnswers: state.answer.answers
     };
 };
 

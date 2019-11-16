@@ -4,8 +4,7 @@ const initialState = {
     selectedQuestion: null,
     user_name: null,
     targetLocation: null,
-    questions: [],
-    userQuestions: []
+    questions: []
 };
 
 const questionReducer = (state = initialState, action) => {
@@ -23,7 +22,7 @@ const questionReducer = (state = initialState, action) => {
         case actionTypes.GET_QUESTION:
             return { ...state, selectedQuestion: action.selectedQuestion };
         case actionTypes.GET_USER_QUESTIONS:
-            return { ...state, userQuestions: action.userQuestions };
+            return { ...state, questions: action.questions };
         default:
             break;
     }

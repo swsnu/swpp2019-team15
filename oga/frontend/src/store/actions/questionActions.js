@@ -63,7 +63,7 @@ export const getQuestion = id => {
 export const getUserQuestions_ = questions => {
     return {
         type: actionTypes.GET_USER_QUESTIONS,
-        userQuestions: questions
+        questions: questions
     };
 };
 

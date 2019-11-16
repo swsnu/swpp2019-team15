@@ -2,8 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     answer: null,
-    answers: [],
-    userAnswers: []
+    answers: []
 };
 
 const answerReducer = (state = initialState, action) => {
@@ -22,7 +21,7 @@ const answerReducer = (state = initialState, action) => {
             console.log(state.a);
             return { ...state, answer: action.answer };
         case actionTypes.GET_USER_ANSWERS:
-            return { ...state, userAnswers: action.userAnswers };
+            return { ...state, answers: action.answers };
         default:
             break;
     }

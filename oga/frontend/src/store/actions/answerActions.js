@@ -46,7 +46,7 @@ export const getAnswers = question_id => {
 export const getUserAnswers_ = answers => {
     return {
         type: actionTypes.GET_USER_ANSWERS,
-        userAnswers: answers
+        answers: answers
     };
 };
 

@@ -75,6 +75,7 @@ def logged_out(request):
     return JsonResponse({}, status=204)
 
 
+@csrf_exempt
 @check_login_required
 @ensure_csrf_cookie
 @require_http_methods(["GET"])
