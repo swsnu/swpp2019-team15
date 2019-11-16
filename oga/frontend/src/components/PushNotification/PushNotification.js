@@ -10,7 +10,6 @@
  */
 
 import React, { Component } from 'react';
-import * as actionCreators from '../../store/actions/index';
 import appServerKey from '../../const/applicationServerPublicKey';
 import axios from 'axios';
 
@@ -78,7 +77,6 @@ function subscribeUserToPush() {
       return registration.pushManager.subscribe(subscribeOptions);
     }).catch(err=>{})
     .then(function(pushSubscription) {
-      const subscriptionObject = JSON.stringify(pushSubscription);
       sendSubscriptionToBackEnd(pushSubscription);
       return pushSubscription;
     }).catch(err => console.log("subscription failed from server"))

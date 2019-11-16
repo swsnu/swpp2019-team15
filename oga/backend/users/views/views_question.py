@@ -74,7 +74,5 @@ def follow_question(request, question_id):
     profile = request.user.profile
 
     profile.follows.add(question)
-    # print(profile.follows.all())
-    # print(question.followers.all())
 
     return JsonResponse({}, status=201)

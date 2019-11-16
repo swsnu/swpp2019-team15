@@ -38,7 +38,6 @@ class NewAnswer extends Component {
     };
 
     render() {
-        var selected_question_type = null;
         var selected_question_type_list = null;
         var qs_type = "";
         var idx = 0;

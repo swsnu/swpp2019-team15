@@ -12,10 +12,8 @@
  * @since  2019-10-18
  */
 import React, { Component } from 'react';
-import isEmpty from 'lodash';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import { NavLink } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import API_KEY from '../../const/api_key';
 import SearchBox from '../../components/MapSearchBox/MapSearchBox';
@@ -39,7 +37,7 @@ class GoogleMap extends Component {
       mapApi: null,
       places: [],
     };
-  };
+  }
 
   apiHasLoaded = (map, maps) => {
     this.setState({
@@ -50,14 +48,6 @@ class GoogleMap extends Component {
     //mock a place object
     let target = {lat: this.props.target.lat,
                   lng: this.props.target.lng}
-    if (this.props.viewOnly) {
-      let marker = new maps.Marker(
-        {
-          position: target,
-          map: map,
-          title: "HERE",
-        });
-    }
   };
 
   clickSubmitHandler = () => {
