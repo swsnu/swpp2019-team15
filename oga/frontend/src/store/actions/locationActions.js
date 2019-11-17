@@ -1,18 +1,12 @@
 import * as actionTypes from "./actionTypes.js";
 import axios from "axios";
 
-export const setTargetLocation = target => {
-    return dispatch => {
-        return dispatch(setTargetLocation_(target));
-    };
-};
-
-export const setCurrentCoordinates_ = coordinates => {
+export const setTargetLocation_ = target => {
     return {
-        type: actionTypes.SET_CURRENT_COORDINATES,
-        //name: "test",
-        latitude: coordinates.latitude,
-        longitude: coordinates.longitude
+        type: actionTypes.SET_TARGET_LOCATION,
+        name: target.name,
+        latitude: target.geometry.location.lat(),
+        longitude: target.geometry.location.lng()
     };
 };
 

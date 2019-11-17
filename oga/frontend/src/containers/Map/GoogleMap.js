@@ -31,17 +31,6 @@ class GoogleMap extends Component {
     constructor(props) {
         super(props);
 
-  apiHasLoaded = (map, maps) => {
-    this.setState({
-      mapApiLoaded: true,
-      mapInstance: map,
-      mapApi: maps,
-    });
-    //mock a place object
-    let target = {lat: this.props.target.lat,
-                  lng: this.props.target.lng}
-  };
-
         this.state = {
             mapApiLoaded: false,
             mapInstance: null,
@@ -56,7 +45,9 @@ class GoogleMap extends Component {
             mapInstance: map,
             mapApi: maps
         });
-        //mock a place object
+        // //mock a place object
+        // let target = {lat: this.props.target.lat,
+        //     lng: this.props.target.lng}
 
         if (this.props.viewOnly) {
             if (this.props.target) {
