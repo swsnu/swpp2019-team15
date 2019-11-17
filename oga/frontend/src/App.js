@@ -41,69 +41,61 @@ console.log("PushManager" in window);
 //}
 
 function App(props) {
-    let session = true;
-    props.isLoggedIn(); //sets state's authenticate
-    if (props.auth !== null)
-        return (
-            <MuiThemeProvider theme={theme}>
-                <ConnectedRouter history={props.history}>
-                    <WrappingAppBar />
-                    <div className="App">
-                        <Switch>
-                            <Route path="/signup" exact component={Signup} />
-                            <Route path="/login" exact component={Login} />
-                            <PrivateRoute
-                                auth={props.auth}
-                                path="/main"
-                                exact
-                                component={Main}
-                            />
-                            <PrivateRoute
-                                auth={props.auth}
-                                path="/ask"
-                                exact
-                                component={NewQuestion}
-                            />
-                            <PrivateRoute
-                                auth={props.auth}
-                                path="/map"
-                                exact
-                                component={Map}
-                            />
-                            <PrivateRoute
-                                auth={props.auth}
-                                path="/reply/create/:id"
-                                exact
-                                component={NewAnswer}
-                            />
-                            <PrivateRoute
-                                auth={props.auth}
-                                path="/replies/:id"
-                                exact
-                                component={AnswerList}
-                            />
-                            <PrivateRoute
-                                auth={props.auth}
-                                path="/reply/:id"
-                                exact
-                                component={PushAnswer}
-                            />
-                            <PrivateRoute
-                                auth={props.auth}
-                                path="/settings"
-                                exact
-                                component={Settings}
-                            />
-                            <Redirect exact from="/" to="/main" />
-                            <Route render={() => <h1>Not Found</h1>} />
-                        </Switch>
-                    </div>
-                </ConnectedRouter>
-            </MuiThemeProvider>
-        );
-    else {
-        return null;
-    }
+  props.isLoggedIn(); //sets state's authenticate
+  if (props.auth !== null)
+    return (
+      <ConnectedRouter history={props.history}>
+        <div className="App">
+          <Switch>
+            <Route path="/signup" exact component={Signup} />
+            <Route path="/login" exact component={Login} />
+            <PrivateRoute
+              auth={props.auth}
+              path="/main"
+              exact
+              component={Main}
+            />
+            <PrivateRoute
+              auth={props.auth}
+              path="/ask"
+              exact
+              component={NewQuestion}
+            />
+            <PrivateRoute
+              auth={props.auth}
+              path="/map"
+              exact
+              component={Map}
+            />
+            <PrivateRoute
+              auth={props.auth}
+              path='/reply/create/:id'
+              exact
+              component={NewAnswer} />
+            <PrivateRoute
+              auth={props.auth}
+              path='/replies/:id'
+              exact
+              component={AnswerList} />
+            <PrivateRoute
+              auth={props.auth}
+              path='/reply/:id'
+              exact
+              component={PushAnswer} />
+              <PrivateRoute
+              auth={props.auth}
+              path='/settings'
+              exact
+              component={Settings} />
+            <Redirect exact from="/" to="/main" />
+            <Route render={() => <h1>Not Found</h1>} />
+          </Switch>
+        </div>
+      </ConnectedRouter>
+    );
+  else {
+    return null;
+  }
 }
 
 const mapStateToProps = state => ({

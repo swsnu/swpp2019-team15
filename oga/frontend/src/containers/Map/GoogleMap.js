@@ -11,16 +11,14 @@
  * @author taehioum
  * @since  2019-10-18
  */
-import React, { Component } from "react";
-import isEmpty from "lodash";
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import { NavLink } from "react-router-dom";
-import GoogleMapReact from "google-map-react";
-import API_KEY from "../../const/api_key";
-import SearchBox from "../../components/MapSearchBox/MapSearchBox";
-import LocationListener from "../../components/LocationListener/LocationListener";
-import * as actionCreators from "../../store/actions/index";
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import GoogleMapReact from 'google-map-react';
+import API_KEY from '../../const/api_key';
+import SearchBox from '../../components/MapSearchBox/MapSearchBox';
+import LocationListener from '../../components/LocationListener/LocationListener';
+import * as actionCreators from '../../store/actions/index';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -32,6 +30,17 @@ class GoogleMap extends Component {
 
     constructor(props) {
         super(props);
+
+  apiHasLoaded = (map, maps) => {
+    this.setState({
+      mapApiLoaded: true,
+      mapInstance: map,
+      mapApi: maps,
+    });
+    //mock a place object
+    let target = {lat: this.props.target.lat,
+                  lng: this.props.target.lng}
+  };
 
         this.state = {
             mapApiLoaded: false,

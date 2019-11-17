@@ -26,7 +26,6 @@ class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(max_length=100, default="LONG LINE")
     publish_date_time = models.DateTimeField(auto_now=True)
-    #content = models.TextField(max_length=100)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
     is_answered = models.BooleanField(default=False)
 
@@ -41,10 +40,6 @@ class Profile(models.Model):
     Profile model that extends django user model
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # id = models.AutoField(primary_key=True)
-    # username = models.CharField(max_length=20)
-    # password = models.CharField(max_length=20)
-    # can use Pointfield to store location coordinates
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE,
                                     blank=True, null=True)
     subscription = JSONField(blank=True, null=True)
