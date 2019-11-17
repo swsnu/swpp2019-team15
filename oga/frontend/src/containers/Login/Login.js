@@ -3,6 +3,7 @@ import React, { Component } from "react";
 //Material design imports
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 
 import HOC from "./HOC";
 
@@ -19,8 +20,7 @@ class Login extends Component {
                     signupPage={false}
                     imgsrc="https://media.giphy.com/media/kDNzcJ5HTJjk1YmRDa/giphy.gif"
                 />
-
-                <Grid container justify="center" alignItems="center">
+                <Container maxWidth="xs">
                     <Button
                         id="signup-button"
                         fullWidth
@@ -29,7 +29,7 @@ class Login extends Component {
                     >
                         Sign Up
                     </Button>
-                </Grid>
+                </Container>
             </div>
         );
     }

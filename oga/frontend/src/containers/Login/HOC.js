@@ -53,11 +53,8 @@ class HOC extends Component {
             <div className={this.props.pageTitle}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
-                    <Box pt={5} />
-                    <img
-                        src="https://media.giphy.com/media/kDNzcJ5HTJjk1YmRDa/giphy.gif"
-                        width="35%"
-                    />
+                    <Box pt={10} />
+                    <img src={this.props.imgsrc} width="35%" />
                     <Typography component="h1" variant="h3" color="primary">
                         <b>askAT</b>
                     </Typography>
