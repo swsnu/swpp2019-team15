@@ -6,18 +6,18 @@ import * as actionTypes from "../actions/actionTypes";
 describe("Auth Reducer", () => {
     it("should return default state", () => {
         const newState = reducer(undefined, {}); // initialize
-        expect(newState).toEqual({ authenticated: null });
+        expect(newState).toEqual({ authenticated: null, profile: null });
     });
 
     it("should return authenticated upon signin", () => {
         const newState = reducer(undefined, {
             type: actionTypes.AUTHENTICATED,
-            authenticated: true
-            //userid: "test",
+            authenticated: true,
+            profile: null
         });
         expect(newState).toEqual({
-            authenticated: true
-            //userid: "test",
+            authenticated: true,
+            profile: null
         });
     });
 
@@ -36,8 +36,8 @@ describe("Auth Reducer", () => {
             type: actionTypes.UNAUTHENTICATED
         });
         expect(newState).toEqual({
-            authenticated: false
-            //userid: null,
+            authenticated: false,
+            profile: null
         });
     });
 });
