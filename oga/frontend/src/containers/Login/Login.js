@@ -1,126 +1,38 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-
-import * as actionCreators from "../../store/actions/index";
 
 //Material design imports
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
+
+import HOC from "./HOC";
 
 class Login extends Component {
-    state = {
-        username: "",
-        password: ""
-    };
-
     clickSignUpHandler() {
         this.props.history.push("/signup");
-    }
-
-    clickSignInHandler() {
-        this.props.signin(this.state.username, this.state.password);
     }
 
     render() {
         return (
             <div className="Login">
-                <Container component="main" maxWidth="xs">
-                    <CssBaseline />
-                    <Box pt={5} />
-                    <img
-                        src="https://media.giphy.com/media/kDNzcJ5HTJjk1YmRDa/giphy.gif"
-                        width="35%"
-                    />
-                    <Typography component="h1" variant="h3" color="primary">
-                        <b>askAT</b>
-                    </Typography>
-                    <Box pt={5} />
-                    <Typography component="h1" variant="h5">
-                        Login
-                    </Typography>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="username-input"
-                        label="Username"
-                        name="username"
-                        autoComplete="username"
-                        autoFocus
-                        value={this.state.username}
-                        onChange={event =>
-                            this.setState({
-                                username: event.target.value
-                            })
-                        }
-                    />
-                    <TextField
-                        type="password"
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="pw-input"
-                        label="Password"
-                        name="password"
-                        autoComplete="password"
-                        value={this.state.password}
-                        onChange={event =>
-                            this.setState({
-                                password: event.target.value
-                            })
-                        }
-                    />
+                <HOC
+                    pageTitle="Login"
+                    signupPage={false}
+                    imgsrc="https://media.giphy.com/media/kDNzcJ5HTJjk1YmRDa/giphy.gif"
+                />
+
+                <Grid container justify="center" alignItems="center">
                     <Button
-                        id="login-button"
+                        id="signup-button"
                         fullWidth
-                        variant="contained"
                         color="primary"
-                        onClick={() => this.clickSignInHandler()}
+                        onClick={() => this.clickSignUpHandler()}
                     >
-                        Login
+                        Sign Up
                     </Button>
-                    <Grid container justify="center" alignItems="center">
-                        <Button
-                            id="signup-button"
-                            fullWidth
-                            color="primary"
-                            onClick={() => this.clickSignUpHandler()}
-                        >
-                            Sign Up
-                        </Button>
-                    </Grid>
-                </Container>
+                </Grid>
             </div>
         );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        authenticated: state.auth.authenticated
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        signin: (username, password) =>
-            dispatch(
-                actionCreators.signIn({
-                    username: username,
-                    password: password
-                })
-            )
-    };
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Login);
+export default Login;
