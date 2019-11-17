@@ -18,10 +18,13 @@ export const createQuestion_ = (question, id) => {
 
 export const createQuestion = question => {
     return dispatch => {
-        return axios.post("/api/questions/", question).then(res => {
-            dispatch(createQuestion_(question, res.data.id));
-          dispatch(push("/main")); })
-        .catch(err => console.log(err));
+        return axios
+            .post("/api/questions/", question)
+            .then(res => {
+                dispatch(createQuestion_(question, res.data.id));
+                dispatch(push("/main"));
+            })
+            .catch(err => console.log(err));
     };
 };
 
@@ -41,7 +44,7 @@ export const getQuestions = () => {
     };
 };
 
-export const getQuestion_ = (question) => {
+export const getQuestion_ = question => {
     return {
         type: actionTypes.GET_QUESTION,
         selectedQuestion: question
@@ -57,12 +60,21 @@ export const getQuestion = id => {
     };
 };
 
-//export const followQuestion_ = (question) => {
-    //return {
-        ////type: actionTypes.GET_QUESTION,
-        ////selectedQuestion: question
-    //};
-//};
+export const getUserQuestions_ = questions => {
+    return {
+        type: actionTypes.GET_USER_QUESTIONS,
+        questions: questions
+    };
+};
+
+export const getUserQuestions = () => {
+    return dispatch => {
+        return axios
+            .get("api/profile/questions/")
+            .then(res => dispatch(getUserQuestions_(res.data)))
+            .catch(err => console.log(err));
+    };
+};
 
 export const followQuestion = id => {
     return dispatch => {

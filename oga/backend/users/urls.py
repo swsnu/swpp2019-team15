@@ -3,6 +3,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('profile/', views.get_profile, name='get_profile'),
+    path('profile/questions/', views.get_user_questions,
+         name='get_user_questions'),
+    path('profile/answers/', views.get_user_answers, name='get_user_answers'),
     path('questions/', views.questions, name='questions'),
     path('question/<int:question_id>/',
          views.question_detail, name='question_detail'),

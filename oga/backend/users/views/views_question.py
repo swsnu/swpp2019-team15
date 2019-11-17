@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
 from users.models import Question, Location
 from users.views.decorators import check_request, check_login_required
+from django.views.decorators.csrf import csrf_exempt
 
 
 @check_login_required
@@ -47,6 +48,26 @@ def questions(request):
         } for question in question_list]
         return JsonResponse(response_dict, safe=False)
 
+
+@csrf_exempt
+@check_login_required
+@check_request
+@require_http_methods(["GET"])
+def get_user_questions(request):
+    """ get list of questions posted by user """
+    user = get_user(request)
+    question_list = Question.objects.filter(author=user)
+    response_dict = [{
+        'id': question.id,
+        'author': question.author.username,
+        'publish_date_time': question.publish_date_time,
+        'content': question.content,
+        'location': question.location_id.name,
+        'is_answered': question.is_answered,
+    } for question in question_list]
+    return JsonResponse(response_dict, safe=False)
+
+
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
@@ -66,6 +87,7 @@ def question_detail(request, question_id):
         'is_answered': question.is_answered,
     }
     return JsonResponse(response_dict)
+
 
 @check_login_required
 @check_request
