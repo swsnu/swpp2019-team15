@@ -2,8 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     authenticated: null,
-    profile: null,
-    follows: []
+    profile: null
 };
 
 const authReducer = (state = initialState, action) => {
