@@ -6,7 +6,7 @@ from .models import Profile, Question, Answer, Location
 
 
 class ProfileInline(admin.StackedInline):
-    """ Display uesr profile inline """
+    """ Display user profile inline """
     model = Profile
     can_delete = True
     verbose_name = 'Profile'

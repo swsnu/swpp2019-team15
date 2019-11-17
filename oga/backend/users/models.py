@@ -5,9 +5,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from .custommodels.json_field import JSONField
 
-from django.dispatch import receiver
-from django.db.models.signals import post_save
-
 
 class Location(models.Model):
     """
