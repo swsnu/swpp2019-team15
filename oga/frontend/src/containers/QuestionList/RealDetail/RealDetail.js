@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import './RealDetail.css';
 
 import { connect } from 'react-redux';
-import * as actionCreators from '../../../store/actions/index';
 
 class RealDetail extends Component {
 
@@ -45,7 +44,7 @@ class RealDetail extends Component {
       </div>
     );
   }
-};
+}
 
 const mapStateToProps = state => {
   return {

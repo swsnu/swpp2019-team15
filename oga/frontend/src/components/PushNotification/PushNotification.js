@@ -75,23 +75,21 @@ function sendSubscriptionToBackEnd(subscription) {
 }
 
 function subscribeUserToPush() {
-    return navigator.serviceWorker
-        .register("/sw.js")
-        .then(function(registration) {
-            const subscribeOptions = {
-                userVisibleOnly: true,
-                applicationServerKey: urlBase64ToUint8Array(appServerKey)
-            };
 
-            return registration.pushManager.subscribe(subscribeOptions);
-        })
-        .catch(err => {})
-        .then(function(pushSubscription) {
-            const subscriptionObject = JSON.stringify(pushSubscription);
-            sendSubscriptionToBackEnd(pushSubscription);
-            return pushSubscription;
-        })
-        .catch(err => console.log("subscription failed from server"));
+  return navigator.serviceWorker
+    .register("/sw.js")
+    .then(function(registration) {
+      const subscribeOptions = {
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(appServerKey)
+      };
+
+      return registration.pushManager.subscribe(subscribeOptions);
+    }).catch(err=>{})
+    .then(function(pushSubscription) {
+      sendSubscriptionToBackEnd(pushSubscription);
+      return pushSubscription;
+    }).catch(err => console.log("subscription failed from server"))
 }
 
 class PushNotification extends Component {
