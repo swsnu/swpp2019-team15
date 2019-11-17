@@ -39,6 +39,7 @@ function MenuAppBar(props) {
     //   const [setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    MenuItem.displayName = "menu_item";
 
     //   const handleChange = () => {
     //     () => dispatch(actionCreators.Logout())
