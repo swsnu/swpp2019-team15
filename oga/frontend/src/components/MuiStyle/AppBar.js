@@ -39,6 +39,7 @@ function MenuAppBar(props) {
     //   const [setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    MenuItem.displayName = "menu_item";
 
     //   const handleChange = () => {
     //     () => dispatch(actionCreators.Logout())
@@ -53,7 +54,7 @@ function MenuAppBar(props) {
     };
 
     return (
-        <div className={classes.root}>
+        <div className="AppBar">
             {auth && (
                 <AppBar position="static">
                     <Toolbar>
@@ -102,6 +103,7 @@ function MenuAppBar(props) {
                                         Profile
                                     </MenuItem>
                                     <MenuItem
+                                        id="settings-button"
                                         onClick={() =>
                                             props.history.push("/settings/")
                                         }
