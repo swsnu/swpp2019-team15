@@ -1,3 +1,7 @@
+// This codes are originated from
+// https://github.com/mui-org/material-ui/blob/master/docs/src/pages/components/app-bar/MenuAppBar.js
+// and modified.
+
 import React from "react";
 import { withRouter } from "react-router";
 import { makeStyles } from "@material-ui/core/styles";
@@ -35,6 +39,7 @@ function MenuAppBar(props) {
     //   const [setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    MenuItem.displayName = "menu_item";
 
     //   const handleChange = () => {
     //     () => dispatch(actionCreators.Logout())
@@ -49,7 +54,7 @@ function MenuAppBar(props) {
     };
 
     return (
-        <div className={classes.root}>
+        <div className="AppBar">
             {auth && (
                 <AppBar position="static">
                     <Toolbar>
@@ -90,10 +95,15 @@ function MenuAppBar(props) {
                                     open={open}
                                     onClose={handleClose}
                                 >
-                                    <MenuItem onClick={handleClose}>
+                                    <MenuItem
+                                        onClick={() =>
+                                            props.history.push("/profile/")
+                                        }
+                                    >
                                         Profile
                                     </MenuItem>
                                     <MenuItem
+                                        id="settings-button"
                                         onClick={() =>
                                             props.history.push("/settings/")
                                         }

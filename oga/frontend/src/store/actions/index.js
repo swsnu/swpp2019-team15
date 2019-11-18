@@ -3,22 +3,37 @@ import {
     createQuestion,
     getQuestion,
     getQuestions,
-    followQuestion,
+    getUserQuestions,
+    followQuestion
 } from "./questionActions.js";
-import { signUp, signIn, isLoggedIn, Logout } from "./authActions.js";
-import { createAnswer, getAnswers, getAnswer } from "./answerActions";
+import {
+    signUp,
+    signIn,
+    isLoggedIn,
+    Logout,
+    getProfile
+} from "./authActions.js";
+import {
+    createAnswer,
+    getAnswers,
+    getAnswer,
+    getUserAnswers
+} from "./answerActions";
 export {
     setTargetLocation,
     setCurrentCoordinates,
     createQuestion,
     getQuestion,
     getQuestions,
+    getUserQuestions,
     signUp,
     signIn,
     isLoggedIn,
     createAnswer,
     getAnswers,
     getAnswer,
+    getUserAnswers,
     followQuestion,
     Logout,
+    getProfile
 };

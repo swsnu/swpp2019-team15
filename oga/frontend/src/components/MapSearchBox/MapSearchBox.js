@@ -30,7 +30,7 @@ class MapSearchBox extends Component {
 
   onPlacesChanged = ({ map, addplace } = this.props) => {
     const selected = this.searchBox.getPlaces();
-    const { 0: place } = selected;
+    //const { 0: place } = selected;
     addplace(selected);
     this.searchInput.blur();
   };

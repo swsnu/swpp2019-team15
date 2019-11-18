@@ -40,19 +40,16 @@ class Settings extends Component {
 
     render() {
         var subscribe_to_location = null;
-        if (this.state.location_subscribe == false) {
-            subscribe_to_location = (
-                <Button
-                    id="location-toggle"
-                    onClick={() => {
-                        this.clickLocationHandler(true);
-                    }}
-                    color="primary"
-                    variant="contained"
-                >
-                    Subscribe
-                </Button>
-            );
+        if (!this.state.location_subscribe) {
+            subscribe_to_location
+            = <button
+            id="location-toggle"
+            onClick={() => {
+                this.clickLocationHandler(true);
+            }}
+        >
+            Subscribe
+              </button>
         } else {
             subscribe_to_location = (
                 <Button
@@ -124,7 +121,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    null,
-    mapDispatchToProps
-)(withRouter(Settings));
+export default connect(null, mapDispatchToProps)(withRouter(Settings));

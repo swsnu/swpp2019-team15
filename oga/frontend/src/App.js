@@ -19,6 +19,7 @@ import Settings from "./containers/Settings/Settings";
 import { MuiThemeProvider } from "@material-ui/core";
 import { theme } from "./components/MuiStyle/theme";
 import WrappingAppBar from "./components/MuiStyle/WrappingAppBar";
+import Profile from "./containers/Profile/Profile";
 
 let swRegistration = null;
 console.log("serviceWorker" in navigator);
@@ -94,6 +95,12 @@ function App(props) {
                                 exact
                                 component={Settings}
                             />
+                            <PrivateRoute
+                                auth={props.auth}
+                                path="/profile"
+                                exact
+                                component={Profile}
+                            />
                             <Redirect exact from="/" to="/main" />
                             <Route render={() => <h1>Not Found</h1>} />
                         </Switch>
@@ -104,7 +111,7 @@ function App(props) {
     else {
         return null;
     }
-}
+  }
 
 const mapStateToProps = state => ({
     auth: state.auth.authenticated
@@ -116,7 +123,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

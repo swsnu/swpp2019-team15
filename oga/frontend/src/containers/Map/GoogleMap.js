@@ -11,23 +11,21 @@
  * @author taehioum
  * @since  2019-10-18
  */
-import React, { Component } from "react";
-import isEmpty from "lodash";
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import { NavLink } from "react-router-dom";
-import GoogleMapReact from "google-map-react";
-import API_KEY from "../../const/api_key";
-import SearchBox from "../../components/MapSearchBox/MapSearchBox";
-import LocationListener from "../../components/LocationListener/LocationListener";
-import * as actionCreators from "../../store/actions/index";
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import GoogleMapReact from 'google-map-react';
+import API_KEY from '../../const/api_key';
+import SearchBox from '../../components/MapSearchBox/MapSearchBox';
+import LocationListener from '../../components/LocationListener/LocationListener';
+import * as actionCreators from '../../store/actions/index';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class GoogleMap extends Component {
     static defaultProps = {
         //somewhere in SNU, but should actually get from user
-        zoom: 14
+        zoom: 14,
     };
 
     constructor(props) {
@@ -47,7 +45,9 @@ class GoogleMap extends Component {
             mapInstance: map,
             mapApi: maps
         });
-        //mock a place object
+        // //mock a place object
+        // let target = {lat: this.props.target.lat,
+        //     lng: this.props.target.lng}
 
         if (this.props.viewOnly) {
             if (this.props.target) {
@@ -107,7 +107,7 @@ class GoogleMap extends Component {
 
     render() {
         const { places, mapApiLoaded, mapInstance, mapApi } = this.state;
-        let center = { lat: 1, lng: 1 };
+        let center = null;
 
         //FIXME: BUGGY
         console.log(this.props.currentCoordinates);
