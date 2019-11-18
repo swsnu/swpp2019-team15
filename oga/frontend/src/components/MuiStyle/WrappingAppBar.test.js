@@ -57,4 +57,10 @@ describe('<WrappingAppBar />', () => {
     expect(component.length).toBe(1);
   });
 
+  xit('call logout ', () => {
+    const component = mount(wrappingAppBar);
+    const spy = jest.spyOn(actionCreators, 'Logout').mockImplementation();
+    const wrapper = component.find()
+    expect(component.length).toBe(1);
+  });
 });

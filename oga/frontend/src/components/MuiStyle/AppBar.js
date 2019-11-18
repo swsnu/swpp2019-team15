@@ -20,115 +20,121 @@ import Menu from "@material-ui/core/Menu";
 // import * as actionCreators from "../../store/actions/";
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1
-    },
-    menuButton: {
-        marginRight: theme.spacing(50)
-    },
-    title: {
-        flexGrow: 1,
-        marginRight: theme.spacing(50)
-    }
+  root: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginRight: theme.spacing(50)
+  },
+  title: {
+    flexGrow: 1,
+    marginRight: theme.spacing(50)
+  }
 }));
 
 function MenuAppBar(props) {
-    const classes = useStyles();
-    var auth = props.auth;
-    var func = props.func;
-    //   const [setAuth] = React.useState(true);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    MenuItem.displayName = "menu_item";
+  const classes = useStyles();
+  var auth = props.auth;
+  console.log("HI");
+  console.log("HI" + auth);
+  console.log("HI" + props.authenticated);
+  console.log("HI");
+  var func = props.func;
+  //   const [setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  MenuItem.displayName = "menu_item";
 
-    //   const handleChange = () => {
-    //     () => dispatch(actionCreators.Logout())
-    //   };
+  //   const handleChange = () => {
+  //     () => dispatch(actionCreators.Logout())
+  //   };
 
-    const handleMenu = event => {
-        setAnchorEl(event.currentTarget);
-    };
+  const handleMenu = event => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-    return (
-        <div className="AppBar">
-            {auth && (
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton
-                            edge="start"
-                            className={classes.menuButton}
-                            color="light"
-                            aria-label="menu"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h4" className={classes.title}>
-                            <b>askAT</b>
-                        </Typography>
-                        <div>
-                            <IconButton
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleMenu}
-                                color="light"
-                            >
-                                <AccountCircle />
-                            </IconButton>
-                            <FormGroup>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: "top",
-                                        horizontal: "right"
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: "top",
-                                        horizontal: "right"
-                                    }}
-                                    open={open}
-                                    onClose={handleClose}
-                                >
-                                    <MenuItem
-                                        onClick={() =>
-                                            props.history.push("/profile/")
-                                        }
-                                    >
-                                        Profile
-                                    </MenuItem>
-                                    <MenuItem
-                                        id="settings-button"
-                                        onClick={() =>
-                                            props.history.push("/settings/")
-                                        }
-                                    >
-                                        Settings Page
-                                    </MenuItem>
-                                </Menu>
-                            </FormGroup>
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={auth}
-                                        onChange={() => func()}
-                                        aria-label="login switch"
-                                        color="dark"
-                                    />
-                                }
-                                label={auth ? "Logout" : "Login"}
-                            />
-                        </div>
-                    </Toolbar>
-                </AppBar>
-            )}
-        </div>
-    );
+  return (
+    <div className="AppBar">
+      {auth && (
+        <AppBar id="app-bar" position="static">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="light"
+              aria-label="menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h4" className={classes.title}>
+              <b>askAT</b>
+            </Typography>
+            <div>
+              <IconButton
+                id="menu-button"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="light"
+              >
+                <AccountCircle />
+              </IconButton>
+              <FormGroup id="menugroup">
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem
+                    id="profile-button"
+                    onClick={() =>
+                        props.history.push("/profile/")
+                    }
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    id="settings-button"
+                    onClick={() =>
+                        props.history.push("/settings/")
+                    }
+                  >
+                    Settings Page
+                  </MenuItem>
+                </Menu>
+              </FormGroup>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={auth}
+                    onChange={() => func()}
+                    aria-label="login switch"
+                    color="dark"
+                  />
+                }
+                label={auth ? "Logout" : "Login"}
+              />
+            </div>
+          </Toolbar>
+        </AppBar>
+      )}
+    </div>
+  );
 }
 
 // const mapDispatchToProps = dispatch => {
