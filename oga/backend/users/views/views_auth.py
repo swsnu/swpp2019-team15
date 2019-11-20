@@ -1,19 +1,16 @@
 """functional views api for the models"""
 import json
-from users.signals import create_user_profile, save_user_profile
 
-# from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout, get_user
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 from users.models import Profile
 
 from users.views.decorators import check_request, check_login_required
 
 
-# @csrf_exempt
 @check_request
 @require_http_methods(["POST"])
 def sign_up(request):
@@ -31,7 +28,6 @@ def sign_up(request):
         return JsonResponse(response_dict, status=201)
 
 
-# @csrf_exempt
 @check_request
 @require_http_methods(["POST"])
 def sign_in(request):
@@ -75,7 +71,6 @@ def logged_out(request):
     return JsonResponse({}, status=204)
 
 
-@csrf_exempt
 @check_login_required
 @ensure_csrf_cookie
 @require_http_methods(["GET"])

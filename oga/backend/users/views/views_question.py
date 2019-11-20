@@ -7,7 +7,6 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
 from users.models import Question, Location
 from users.views.decorators import check_request, check_login_required
-from django.views.decorators.csrf import csrf_exempt
 
 
 @check_login_required
@@ -49,7 +48,6 @@ def questions(request):
         return JsonResponse(response_dict, safe=False)
 
 
-@csrf_exempt
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
