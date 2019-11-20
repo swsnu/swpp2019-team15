@@ -18,7 +18,6 @@ matrix:
       script:
       - ./node_modules/.bin/eslint src
       - yarn test --coverage --watchAll=false
-      - cd ../../
       after_success:
       - sonar-scanner
       - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
@@ -40,7 +39,6 @@ matrix:
       - pylint oga
       - coverage run --branch --source='./users' manage.py test && coverage report -m
       - coverage xml
-      - cd ../../
       after_success:
       - sonar-scanner
       - coveralls
