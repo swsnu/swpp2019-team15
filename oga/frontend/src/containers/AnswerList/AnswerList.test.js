@@ -77,7 +77,7 @@ describe('<AnswerList />', () => {
       .mockImplementation(path => {});
     const component = mount(answerList);
     const wrapper = component.find('#question-create-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryPush).toBeCalledTimes(1);
     expect(spyHistoryPush).toBeCalledWith("/ask");
   });
@@ -89,7 +89,7 @@ describe('<AnswerList />', () => {
     component.setProps({match:{params:{id:1}}});
     console.log(component.props().match.params.id);
     const wrapper = component.find('#reply-create-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryPush).toBeCalledTimes(1);
     //expect(spyHistoryPush).toBeCalledWith("/reply/create/1");
   });
@@ -99,7 +99,7 @@ describe('<AnswerList />', () => {
       .mockImplementation(path => {});
     const component = mount(answerList);
     const wrapper = component.find('#back-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryBack).toBeCalledTimes(1);
     //expect(spyHistoryPush).toBeCalledWith("/reply/create/1");
   });
@@ -132,7 +132,7 @@ describe('<AnswerList />', () => {
       .mockImplementation(path => {});
     const component = mount(answerList);
     const wrapper = component.find('#back-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryBack).toBeCalledTimes(1);
     //expect(spyHistoryPush).toBeCalledWith("/reply/create/1");
   });

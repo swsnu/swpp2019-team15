@@ -7,6 +7,17 @@ import { withRouter } from "react-router";
 import moment from "moment";
 
 import * as actionCreators from "../../store/actions/index";
+import PushNotification from "../../components/PushNotification/PushNotification";
+
+//Material UI imports
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
+import IconButton from "@material-ui/core/IconButton";
+import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
 
 class QuestionList extends Component {
     componentDidMount() {
@@ -30,7 +41,7 @@ class QuestionList extends Component {
 
     render() {
         var len = this.props.storedQuestions.length;
-        var stored_Questions = this.props.storedQuestions.slice(len-10, len)
+        var stored_Questions = this.props.storedQuestions.slice(len - 10, len);
         const Questions = stored_Questions.map(qs => {
             return (
                 <Question
@@ -51,31 +62,52 @@ class QuestionList extends Component {
         });
 
         return (
-            <div className="QuestionList">
-                <h1>Question Feed</h1>
-                {Questions}
-                <div>
-                    <button
+            <div
+                className="Main"
+                // style={{ backgroundColor: "#fff", color: "#000" }}
+            >
+                <Container component="main">
+                    <CssBaseline />
+                    <Box pt={8} />
+                    <Typography component="h1" variant="h3">
+                        Question Feed
+                    </Typography>
+                    <Box pt={5} />
+                    <Grid
+                        container
+                        spacing={2}
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        {Questions}
+                    </Grid>
+                    <IconButton
+                        color="primary"
                         id="question-create-button"
+                        variant="contained"
                         onClick={() => this.clickNewQuestionHandler()}
                     >
-                        +
-                    </button>
-                </div>
-                <div>
-                    <button
-                        id="back-button"
-                        onClick={() => this.props.history.goBack()}
-                    >
-                        Back
-                    </button>
-                    <button
-                        id="settings-button"
-                        onClick={() => this.props.history.push("/settings")}
-                    >
-                        Settings
-                    </button>
-                </div>
+                        <AddCircleTwoToneIcon />
+                    </IconButton>
+                    <Grid container justify="center" alignItems="center">
+                        <Button
+                            id="back-button"
+                            color="primary"
+                            onClick={() => this.props.history.goBack()}
+                        >
+                            Back
+                        </Button>
+                        <Button
+                            id="settings-button"
+                            color="primary"
+                            onClick={() => this.props.history.push("/settings")}
+                        >
+                            Settings
+                        </Button>
+                    </Grid>
+                    <Box pt={5} />
+                </Container>
             </div>
         );
     }

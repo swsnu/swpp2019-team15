@@ -64,7 +64,7 @@ describe('<NewAnswer/>', () => {
     const component = wrapper.find("#answer-choices");
     const answer_data = "NO";
     //component.props.onChange(answer_data);
-    component.simulate('change',{target: {value: answer_data}});
+    component.hostNodes().simulate('change',{target: {value: answer_data}});
     const instance = wrapper.find(NewAnswer.WrappedComponent).instance();
     //wrapper.simulate('change', {target: {value: newuser }});
     expect(instance.state.answer_content).toBe(answer_data);
@@ -106,7 +106,7 @@ describe('<NewAnswer/>', () => {
       .mockImplementation(path => {});
     const component = mount(answer);
     let wrapper = component.find('#back-create-answer-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledTimes(1);
   });
 
@@ -138,7 +138,7 @@ describe('<NewAnswer/>', () => {
       .mockImplementation(ans => { return dispatch => {}; });
     const component = mount(answer);
     let wrapper = component.find('#confirm-create-answer-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyCreateAnswer).toHaveBeenCalledTimes(0);
   });
 
@@ -172,9 +172,9 @@ describe('<NewAnswer/>', () => {
     const choice = component.find("#answer-choices");
     const answer_data = "NO";
     //component.props.onChange(answer_data);
-    choice.simulate('change',{target: {value: answer_data}});
+    choice.hostNodes().simulate('change',{target: {value: answer_data}});
     let wrapper = component.find('#confirm-create-answer-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyCreateAnswer).toHaveBeenCalledTimes(1);
   });
 

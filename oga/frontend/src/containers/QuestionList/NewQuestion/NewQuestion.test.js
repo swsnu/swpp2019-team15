@@ -65,7 +65,7 @@ describe('<NewQuestion/>', () => {
       .mockImplementation(path => {});
     const component = mount(nq);
     const wrapper = component.find('#back-create-question-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryBack).toHaveBeenCalled();
   });
 
@@ -76,7 +76,7 @@ describe('<NewQuestion/>', () => {
     const instance = component.find(NewQuestion.WrappedComponent).instance();
     instance.setState(state);
     const wrapper = component.find('#confirm-create-question-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryBack).toHaveBeenCalledTimes(0);
   });
 
@@ -87,7 +87,7 @@ describe('<NewQuestion/>', () => {
     const instance = component.find(NewQuestion.WrappedComponent).instance();
     instance.setState({content: "HI"});
     const wrapper = component.find('#confirm-create-question-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryBack).toHaveBeenCalledTimes(1);
   });
 
@@ -97,7 +97,7 @@ describe('<NewQuestion/>', () => {
     //instance.setState({content: "HI"});
     const instance = component.find(NewQuestion.WrappedComponent).instance();
     const wrapper = component.find('input');
-    wrapper.at(0).simulate('change');
+    wrapper.at(0).hostNodes().simulate('change');
     expect(instance.state.content).toBe("LONG LINE");
   });
 
@@ -115,7 +115,7 @@ describe('<NewQuestion/>', () => {
       .mockImplementation(question => { return dispatch => {}; });
     const component = mount(nq);
     const wrapper = component.find('#main-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledWith("/main");
   });
 
