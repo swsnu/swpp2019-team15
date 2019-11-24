@@ -89,12 +89,12 @@ class AnswerList extends Component {
             <div className="AnswerList">
                 <Container component="main">
                     <CssBaseline />
-                    <Box pt={10} />
+                    <Box pt={5} />
                     <Typography component="h1" variant="h5" color="primary">
                         Selected question
                     </Typography>
                     <Box pt={2} />
-                    <Typography component="h3" variant="h4">
+                    <Typography component="h3" variant="h4" align="center">
                         {gotten_answer_view}
                     </Typography>
                     <Box pt={5} />
@@ -102,13 +102,7 @@ class AnswerList extends Component {
                         Answers to this question
                     </Typography>
                     <Box pt={2} />
-                    <Grid
-                        container
-                        spacing={2}
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    >
+                    <Grid container spacing={2} direction="row">
                         {answers}
                     </Grid>
                     <Box pt={3} />

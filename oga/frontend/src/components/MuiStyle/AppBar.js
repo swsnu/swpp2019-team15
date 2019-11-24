@@ -289,6 +289,7 @@ function MenuAppBar(props) {
                         >
                             <ListItem
                                 button
+                                id="back-button"
                                 onClick={() => props.history.goBack()}
                             >
                                 <ListItemIcon>

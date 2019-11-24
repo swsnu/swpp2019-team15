@@ -31,12 +31,16 @@ export const theme = createMuiTheme({
     overrides: {
         MuiCard: {
             card: {
+                margin: "auto",
+                transition: "0.3s",
                 position: "relative",
                 backgroundColor: "light",
                 borderStyle: "solid",
                 borderColor: "primary",
-                boxShadow:
-                    "rgba(255, 0, 0, 0.117647) 0px 1px 6px, rgba(255, 0, 0, 0.117647) 0px 1px 4px"
+                boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                "&:hover": {
+                    boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+                }
             }
         },
         MuiCardHeader: {
