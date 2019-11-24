@@ -127,7 +127,7 @@ class AnswerView extends Component {
                                 Is it {this.props.content} in {this.props.place_name}?
                             </div>
                         )}           
-                        </Grid>  
+                    </Grid>  
             </div>
         );
     };
