@@ -120,7 +120,7 @@ function MenuAppBar(props) {
                     <CssBaseline />
                     <AppBar
                         id="app-bar"
-                        position="fixed"
+                        position="static"
                         className={clsx(classes.appBar, {
                             [classes.appBarShift]: open
                         })}
@@ -139,7 +139,7 @@ function MenuAppBar(props) {
                                 <b>askAT</b>
                             </Typography>
                             <div>
-                                <IconButton
+                                {/* <IconButton
                                     id="menu-button"
                                     aria-label="account of current user"
                                     aria-controls="menu-appbar"
@@ -147,7 +147,7 @@ function MenuAppBar(props) {
                                     color="light"
                                 >
                                     <AccountCircle />
-                                </IconButton>
+                                </IconButton> */}
                                 {/* <FormGroup id="menugroup">
                                     <Menu
                                         id="menu-appbar"

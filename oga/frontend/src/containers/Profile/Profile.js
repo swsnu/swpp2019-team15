@@ -61,7 +61,7 @@ class Profile extends Component {
                     <CardContent>
                         <Typography
                             id="detail-button"
-                            align="left"
+                            // align="left"
                             variant="subtitle1"
                             gutterBottom
                             onClick={() => this.onClickDetailHandler(qs.id)}
@@ -107,7 +107,7 @@ class Profile extends Component {
                     >
                         <Typography
                             color="primary"
-                            align="left"
+                            // align="left"
                             variant="subtitle1"
                             gutterBottom
                         >
@@ -120,7 +120,7 @@ class Profile extends Component {
                             </i>{" "}
                             on {time}
                         </Typography>
-                        <Typography align="left" variant="h6" gutterBottom>
+                        <Typography variant="h6" gutterBottom>
                             "For <b>{ans.question_type}</b>, it is{" "}
                             <b>{ans.content}</b> in <b>{ans.location}</b>!"
                         </Typography>
@@ -146,7 +146,7 @@ class Profile extends Component {
         return (
             <div className="Profile">
                 <Grid container direction="column">
-                    <Card xs={6} style={{ height: "100%", position: "fixed" }}>
+                    <Card xs={6} style={{ height: "100%", position: "static" }}>
                         <Box pt={3} />
                         <IconButton>
                             <Avatar
