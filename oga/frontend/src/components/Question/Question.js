@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 
 //Materials UI imports
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
@@ -45,6 +45,7 @@ const useStyles = makeStyles(theme => ({
 
 const Question = props => {
     const classes = useStyles();
+
     return (
         <Grid className="Question" item md={6} key={props.id}>
             <Card md={3} className={classes.card}>
