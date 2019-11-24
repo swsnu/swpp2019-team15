@@ -31,7 +31,7 @@ def check_rating(request, answer_id):
 def rate_up_answer(request, answer_id):
     """function to rate up the answer which corresponding to answer_id
         PUT: rate_up_answer api"""
-    
+
     answer = Answer.objects.get(id=answer_id)
     rate, _ = Rating.objects.get_or_create(connected_answer=answer)
     rate = Rating(is_rated=True, is_up=True)
@@ -49,7 +49,7 @@ def rate_up_answer(request, answer_id):
 def rate_down_answer(request, answer_id):
     """function to rate down the answer which corresponding to answer_id
         PUT: rate_down_answer api"""
-    
+
     answer = Answer.objects.get(id=answer_id)
     rate, _ = Rating.objects.get_or_create(connected_answer=answer)
     rate = Rating(is_rated=True, is_up=False)
