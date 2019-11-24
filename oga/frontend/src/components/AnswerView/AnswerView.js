@@ -57,6 +57,7 @@ class AnswerView extends Component {
     };
 
     render() {
+        console.log(this.props.is_up)
         const { classes } = this.props;
         return (
             <div className="AnswerView" key={this.props.id}>
@@ -120,7 +121,7 @@ class AnswerView extends Component {
                                     </Button>
                                 </div>
                             ) : (
-                                (this.props.isUp) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
+                                (this.props.is_up) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
                             )}
                         </div>
             </div>
