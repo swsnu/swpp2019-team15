@@ -49,10 +49,8 @@ export const theme = createMuiTheme({
             root: {
                 padding: "10px",
                 marginBottom: "10px",
-                marginTop: "10px",
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
+                flexDirection: "column"
             }
         },
         MuiButton: {
