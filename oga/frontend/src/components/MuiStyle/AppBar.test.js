@@ -112,6 +112,16 @@ describe("<AppBar />", () => {
         expect(spyHistoryPush).toHaveBeenCalledTimes(1);
     });
 
+    it("should go to previous page when back button clicked", () => {
+        const spyHistoryPush = jest
+            .spyOn(history, "goBack")
+            .mockImplementation(path => {});
+        const wrapper = mount(appBar);
+        let button = wrapper.find("#back-button");
+        button.hostNodes().simulate("click");
+        expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+    });
+
     it("should handle menu when clicked", () => {
         const component = mount(appBar);
         const instance = component.find(AppBar);
