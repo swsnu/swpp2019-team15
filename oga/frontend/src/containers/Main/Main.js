@@ -70,7 +70,7 @@ class QuestionList extends Component {
                         Question Feed
                     </Typography>
                     <Box pt={5} />
-                    <Grid container spacing={2} direction="row" align="right">
+                    <Grid container spacing={2} direction="row">
                         {Questions}
                     </Grid>
                     <IconButton

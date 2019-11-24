@@ -27,6 +27,8 @@ import Switch from "@material-ui/core/Switch";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SettingsApplications from "@material-ui/icons/SettingsApplications";
+import ArrowBack from "@material-ui/icons/ArrowBack";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
 
 const drawerWidth = 200;
 
@@ -278,6 +280,27 @@ function MenuAppBar(props) {
                                     />
                                 </ListItem>
                             ))}
+                        </List>
+                        <List
+                            style={{
+                                top: "90%",
+                                position: "absolute"
+                            }}
+                        >
+                            <ListItem
+                                button
+                                onClick={() => props.history.goBack()}
+                            >
+                                <ListItemIcon>
+                                    <ChevronLeft color="primary" />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{
+                                        primary: classes.selected
+                                    }}
+                                    primary="Back"
+                                />
+                            </ListItem>
                         </List>
                     </Drawer>
                 </div>

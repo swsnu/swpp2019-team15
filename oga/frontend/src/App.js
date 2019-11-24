@@ -111,7 +111,7 @@ function App(props) {
     else {
         return null;
     }
-  }
+}
 
 const mapStateToProps = state => ({
     auth: state.auth.authenticated
