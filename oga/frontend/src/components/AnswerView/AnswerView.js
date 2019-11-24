@@ -57,8 +57,31 @@ class AnswerView extends Component {
     };
 
     render() {
-        console.log(this.props.is_up)
         const { classes } = this.props;
+        var ratings = (
+                <React.Fragment>
+                    {!this.props.is_rated ? (
+                    <div className="Rating">
+                        <Button
+                            id="thumb_up-button"
+                            color="primary"
+                            onClick={() => this.rateUpHandler(this.props.id)}
+                        >
+                            &#128077;
+                        </Button>
+                        <Button
+                            id="thumb_down-button"
+                            color="primary"
+                            onClick={() => this.rateDownHandler(this.props.id)}
+                        >
+                            &#128078;
+                        </Button>
+                    </div>
+                ) : (
+                    (this.props.is_up) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
+                )}
+            </React.Fragment>
+        )
         return (
             <div className="AnswerView" key={this.props.id}>
                 <Grid item>
@@ -95,39 +118,21 @@ class AnswerView extends Component {
                                     </Typography>
                                     </div>
                                 </CardContent>
+                                <div>
+                                    {ratings}
+                                </div>
                             </Card>
                         ) : (
                             <div>
                                 Is it {this.props.content} in {this.props.place_name}?
                             </div>
-                        )}
-                    </Grid>             
-                        <div>
-                            {!this.props.is_rated ? (
-                                <div className="Rating">
-                                    <Button
-                                        id="thumb_up-button"
-                                        color="primary"
-                                        onClick={() => this.rateUpHandler(this.props.id)}
-                                    >
-                                        &#128077;
-                                    </Button>
-                                    <Button
-                                        id="thumb_down-button"
-                                        color="primary"
-                                        onClick={() => this.rateDownHandler(this.props.id)}
-                                    >
-                                        &#128078;
-                                    </Button>
-                                </div>
-                            ) : (
-                                (this.props.is_up) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
-                            )}
-                        </div>
+                        )}           
+                        </Grid>  
             </div>
         );
     };
 };
+
 
 const mapStateToProps = state => {
     return {
