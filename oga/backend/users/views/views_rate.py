@@ -19,7 +19,9 @@ def check_rating(request, answer_id):
     answer = Answer.objects.get(id=answer_id)
     rate, _ = Rating.objects.get_or_create(connected_answer=answer)
     
-    response_dict = {'is_rated': rate.is_rated,
+    response_dict = {
+                     'answer_id': answer_id,
+                     'is_rated': rate.is_rated,
                      'is_up': rate.is_up,
                     }
     return JsonResponse(response_dict, status=200)
@@ -36,7 +38,9 @@ def rate_up_answer(request, answer_id):
     answer = Answer.objects.get(id=answer_id)
     rate, _ = Rating.objects.get_or_create(connected_answer=answer)
     rate = Rating(is_rated=True, is_up=True)
-    response_dict = {'is_rated': rate.is_rated,
+    response_dict = {
+                     'answer_id': answer_id,
+                     'is_rated': rate.is_rated,
                      'is_up': rate.is_up,
                     }
     return JsonResponse(response_dict, status=201)
@@ -53,7 +57,9 @@ def rate_down_answer(request, answer_id):
     answer = Answer.objects.get(id=answer_id)
     rate, _ = Rating.objects.get_or_create(connected_answer=answer)
     rate = Rating(is_rated=True, is_up=False)
-    response_dict = {'is_rated': rate.is_rated,
+    response_dict = {
+                     'answer_id': answer_id,
+                     'is_rated': rate.is_rated,
                      'is_up': rate.is_up,
                     }
     return JsonResponse(response_dict, status=201)

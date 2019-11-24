@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    answer: null,
+    answer_id: null,
     is_rated: null,
     is_up: null,
 };
@@ -9,11 +9,11 @@ const initialState = {
 const rateReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.CHECK_RATING:
-            return { ...state, is_rated: action.is_rated, is_up: action.is_up};
+            return { ...state, answer_id: action.answer_id, is_rated: action.is_rated, is_up: action.is_up};
         case actionTypes.RATE_UP:
-                return { ...state, is_rated: action.is_rated, is_up: action.is_up};
+            return { ...state, answer_id: action.answer_id, is_rated: action.is_rated, is_up: action.is_up};
         case actionTypes.RATE_DOWN:
-                return { ...state, is_rated: action.is_rated, is_up: action.is_up};
+            return { ...state, answer_id: action.answer_id, is_rated: action.is_rated, is_up: action.is_up};
         default:
             break;
     }

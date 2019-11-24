@@ -43,6 +43,13 @@ const styles = theme => ({
 });
 
 class AnswerView extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            just_rated_answer: null
+        };
+    }
 
     componentDidMount() {
         this.props.onGetAll(this.props.id);
@@ -50,14 +57,18 @@ class AnswerView extends Component {
 
     rateUpHandler = (id) => {
         this.props.rateUp(id);
+        this.setState({just_rated_answer: this.props.id})
     };
 
     rateDownHandler = (id) => {
         this.props.rateDown(id);
+        this.setState({just_rated_answer: this.props.id})
     };
 
     render() {
+        console.log(this.state.just_rated_answer)
         const { classes } = this.props;
+        // var selec = null;
         var ratings = (
                 <React.Fragment>
                     {!this.props.is_rated ? (
@@ -78,8 +89,12 @@ class AnswerView extends Component {
                         </Button>
                     </div>
                 ) : (
-                    (this.props.is_up) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
-                )}
+                    null
+                    // selec = 
+                    // (this.props.is_up) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
+                )
+                }
+        {(this.state.just_rated_answer == this.props.id) ? ((this.props.is_up) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)) : null}
             </React.Fragment>
         )
         return (
@@ -136,6 +151,7 @@ class AnswerView extends Component {
 
 const mapStateToProps = state => {
     return {
+        answer_id: state.rating.answer_id,
         is_rated: state.rating.is_rated,
         is_up: state.rating.is_up,
     };
