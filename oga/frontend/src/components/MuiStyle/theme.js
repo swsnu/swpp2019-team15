@@ -1,9 +1,13 @@
 import { createMuiTheme } from "@material-ui/core/styles";
+import { getThemeProps } from "@material-ui/styles";
 
 export const theme = createMuiTheme({
     root: {
         height: "100%",
         width: "100%"
+    },
+    content: {
+        flexGrow: 1
     },
     palette: {
         background: {
@@ -16,13 +20,14 @@ export const theme = createMuiTheme({
             dark: "#ff9933" //color for button hover
         },
         secondary: {
-            main: "#003366"
+            main: "#ffb366"
         }
     },
     typography: {
         fontFamily: "arial",
         useNextVariants: true
     },
+
     overrides: {
         MuiCard: {
             card: {
@@ -47,7 +52,6 @@ export const theme = createMuiTheme({
         },
         MuiPaper: {
             root: {
-                padding: "10px",
                 marginBottom: "10px",
                 display: "flex",
                 flexDirection: "column"

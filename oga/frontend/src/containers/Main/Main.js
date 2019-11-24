@@ -62,10 +62,7 @@ class QuestionList extends Component {
         });
 
         return (
-            <div
-                className="Main"
-                // style={{ backgroundColor: "#fff", color: "#000" }}
-            >
+            <div className="Main">
                 <Container component="main">
                     <CssBaseline />
                     <Box pt={8} />
@@ -73,13 +70,7 @@ class QuestionList extends Component {
                         Question Feed
                     </Typography>
                     <Box pt={5} />
-                    <Grid
-                        container
-                        spacing={2}
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    >
+                    <Grid container spacing={2} direction="row" align="right">
                         {Questions}
                     </Grid>
                     <IconButton

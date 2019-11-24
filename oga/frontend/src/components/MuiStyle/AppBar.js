@@ -36,11 +36,11 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1
     },
     appBar: {
+        padding: 5,
         zIndex: theme.zIndex.drawer + 1
     },
-
     menuButton: {
-        paddingLeft: 5,
+        paddingLeft: 10,
         marginRight: 25
     },
     hide: {
@@ -71,6 +71,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     paper: {
+        padding: 8,
         background: "#272727"
     },
     toolbar: {
@@ -120,7 +121,7 @@ function MenuAppBar(props) {
                     <CssBaseline />
                     <AppBar
                         id="app-bar"
-                        position="fixed"
+                        position="sticky"
                         className={clsx(classes.appBar, {
                             [classes.appBarShift]: open
                         })}
@@ -197,6 +198,7 @@ function MenuAppBar(props) {
                         </Toolbar>
                     </AppBar>
                     <Drawer
+                        position="sticky"
                         variant="permanent"
                         className={clsx(classes.drawer, {
                             [classes.drawerOpen]: open,
