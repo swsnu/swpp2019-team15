@@ -7,7 +7,7 @@ export const theme = createMuiTheme({
     },
     palette: {
         background: {
-            default: "#fff",
+            default: "#f2f2f2",
             secondary: "#ffb366"
         },
         primary: {
@@ -49,10 +49,8 @@ export const theme = createMuiTheme({
             root: {
                 padding: "10px",
                 marginBottom: "10px",
-                marginTop: "10px",
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
+                flexDirection: "column"
             }
         },
         MuiButton: {

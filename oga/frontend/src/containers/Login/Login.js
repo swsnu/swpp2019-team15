@@ -28,23 +28,18 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="Login">
+            <div
+                className="Login"
+                style={{
+                    position: "absolute",
+                    left: "50%",
+                    top: "50%",
+                    transform: "translate(-50%, -50%)"
+                }}
+            >
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
-<<<<<<< HEAD
-                    {redirect}
-                    <Box pt={15} />
-=======
                     <Box pt={5} />
-                    <img
-                        src="https://media.giphy.com/media/kDNzcJ5HTJjk1YmRDa/giphy.gif"
-                        width="35%"
-                    />
-                    <Typography component="h1" variant="h3" color="primary">
-                        <b>askAT</b>
-                    </Typography>
-                    <Box pt={5} />
->>>>>>> d110547eab652b7eba64e33e65940b48ea03c900
                     <Typography component="h1" variant="h5">
                         Login
                     </Typography>
@@ -125,7 +120,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

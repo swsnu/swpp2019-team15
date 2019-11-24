@@ -1,85 +1,88 @@
-import React from 'react';
-import {shallow, mount} from 'enzyme';
-import {Provider} from 'react-redux';
-import configureMockStore from 'redux-mock-store';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { connectRouter, ConnectedRouter } from 'connected-react-router';
-import { Route, Redirect, Switch } from 'react-router-dom';
-import axios from 'axios';
-import {connect} from 'react-redux';
-import { history } from '../../store/store';
-import * as actionCreators from '../../store/actions/authActions';
-import thunk from 'redux-thunk';
-import Settings from './Settings.js';
+import React from "react";
+import { shallow, mount } from "enzyme";
+import { Provider } from "react-redux";
+import configureMockStore from "redux-mock-store";
+import { BrowserRouter as Router } from "react-router-dom";
+import { connectRouter, ConnectedRouter } from "connected-react-router";
+import { Route, Redirect, Switch } from "react-router-dom";
+import axios from "axios";
+import { connect } from "react-redux";
+import { history } from "../../store/store";
+import * as actionCreators from "../../store/actions/authActions";
+import thunk from "redux-thunk";
+import Settings from "./Settings.js";
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
-  router: history
+    router: history
 });
-const state = {userid: '', passwd: ''};
+const state = { userid: "", passwd: "" };
 const position = jest.mock();
-position.coords = {latitude:1, longitude:1};
+position.coords = { latitude: 1, longitude: 1 };
 const mockCurrentPostion = jest.fn(f => f(position));
 const mockGeolocation = {
-  getCurrentPosition: mockCurrentPostion,
-  watchPosition: jest.fn()
-  .mockImplementationOnce((success) => Promise.resolve(success({
-    coords: {
-      latitude: 51.1,
-      longitude: 45.3
-    }
-  }))),
+    getCurrentPosition: mockCurrentPostion,
+    watchPosition: jest.fn().mockImplementationOnce(success =>
+        Promise.resolve(
+            success({
+                coords: {
+                    latitude: 51.1,
+                    longitude: 45.3
+                }
+            })
+        )
+    )
 };
 global.navigator.geolocation = mockGeolocation;
 
-describe('<Settings />', () => {
-  let settings;
+describe("<Settings />", () => {
+    let settings;
 
-  beforeEach(() => {
-    settings = (
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <Switch>
-            <Route path='/' exact component={Settings} />
-          </Switch>
-        </ConnectedRouter>
-      </Provider>
-    );
-  })
+    beforeEach(() => {
+        settings = (
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                    <Switch>
+                        <Route path="/" exact component={Settings} />
+                    </Switch>
+                </ConnectedRouter>
+            </Provider>
+        );
+    });
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
-  it('should render without errors', () => {
-    const wrapper = mount(settings);
-    expect(wrapper.find(".Settings").length).toBe(1);
-  });
+    it("should render without errors", () => {
+        const wrapper = mount(settings);
+        expect(wrapper.find(".Settings").length).toBe(1);
+    });
 
+    xit("should call clickLocationHandler when location toggle clicked", () => {
+        const component = mount(settings);
+        let wrapper = component.find("#location-toggle");
+        wrapper.hostNodes().simulate("click");
+        expect(mockCurrentPostion).toHaveBeenCalledTimes(1);
+    });
 
-  // it('should handle location button clicks', () => {
-  //   const component = mount(settings);
-  //   let wrapper = component.find('#location-toggle');
-  //   wrapper.hostNodes().simulate('click');
-  //   expect(mockCurrentPostion).toHaveBeenCalledTimes(1);
-  // });
+    it("should handle back button clicks", () => {
+        const spyHistoryPush = jest
+            .spyOn(history, "goBack")
+            .mockImplementation(path => {});
+        const wrapper = mount(settings);
+        let button = wrapper.find("#back-button");
+        button.hostNodes().simulate("click");
+        expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+    });
 
-  // it('should handle back button clicks', () => {
-  //   const component = mount(settings);
-  //   let wrapper = component.find('#location-toggle');
-  //   wrapper.hostNodes().simulate('click');
-  //   expect(mockCurrentPostion).toHaveBeenCalledTimes(1);
-  // });
-
-
-  it('should redirect to signup page', () => {
-    const spyHistoryPush = jest.spyOn(history, 'goBack')
-      .mockImplementation(path => {});
-    const component = mount(settings);
-    let wrapper = component.find('#back-button');
-    wrapper.hostNodes().simulate('click');
-    expect(spyHistoryPush).toHaveBeenCalledTimes(1);
-  });
-
-
+    it("should redirect to signup page", () => {
+        const spyHistoryPush = jest
+            .spyOn(history, "goBack")
+            .mockImplementation(path => {});
+        const component = mount(settings);
+        let wrapper = component.find("#back-button");
+        wrapper.hostNodes().simulate("click");
+        expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+    });
 });

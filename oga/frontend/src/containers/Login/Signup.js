@@ -51,14 +51,17 @@ class Signup extends Component {
 
     render() {
         return (
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <div className="Signup">
-<<<<<<< HEAD
-                    <Box pt={15} />
-                    <Typography component="h1" variant="h5">
-=======
-                    <Box pt={3} />
+            <div
+                className="Signup"
+                style={{
+                    position: "absolute",
+                    left: "50%",
+                    top: "50%",
+                    transform: "translate(-50%, -50%)"
+                }}
+            >
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
                     <img
                         src="https://media1.giphy.com/media/xFoV7P0JsHwoZvHXP6/source.gif"
                         width="30%"
@@ -68,7 +71,6 @@ class Signup extends Component {
                     </Typography>
                     <Box pt={3} />
                     <Typography component="h2" variant="h5">
->>>>>>> d110547eab652b7eba64e33e65940b48ea03c900
                         Sign up
                     </Typography>
                     <TextField
@@ -122,22 +124,6 @@ class Signup extends Component {
                             })
                         }
                     />
-<<<<<<< HEAD
-                    {/* <div>
-                        <label>Confirm Password</label>
-                        <input
-                            type="password"
-                            id="confirm-pw-input"
-                            value={this.state.confirmPassword}
-                            onChange={event =>
-                                this.setState({
-                                    confirmPassword: event.target.value
-                                })
-                            }
-                        />
-                    </div> */}
-=======
->>>>>>> d110547eab652b7eba64e33e65940b48ea03c900
                     <Button
                         type="submit"
                         fullWidth
@@ -158,8 +144,8 @@ class Signup extends Component {
                             Already have an account? Login
                         </Button>
                     </Grid>
-                </div>
-            </Container>
+                </Container>
+            </div>
         );
     }
 }

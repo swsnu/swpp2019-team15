@@ -60,6 +60,7 @@ class Profile extends Component {
                 <Card className="MyQuestion" key={qs.id}>
                     <CardContent>
                         <Typography
+                            id="detail-button"
                             align="left"
                             variant="subtitle1"
                             gutterBottom
