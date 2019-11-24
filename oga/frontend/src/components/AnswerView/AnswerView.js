@@ -151,7 +151,6 @@ class AnswerView extends Component {
 
 const mapStateToProps = state => {
     return {
-        answer_id: state.rating.answer_id,
         is_rated: state.rating.is_rated,
         is_up: state.rating.is_up,
     };

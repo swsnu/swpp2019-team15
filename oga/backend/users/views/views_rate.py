@@ -1,11 +1,9 @@
 """functional views api for the models"""
-import json
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import get_user
 from django.views.decorators.http import require_http_methods
-from users.models import Question, Answer, Profile, Rating
+from users.models import Answer, Rating
 from users.views.decorators import check_request, check_login_required
 
 @check_login_required
@@ -15,12 +13,11 @@ from users.views.decorators import check_request, check_login_required
 def check_rating(request, answer_id):
     """function to check if the answer which corresponding to answer_id was rated
         GET: check_rating api"""
-    
+
     answer = Answer.objects.get(id=answer_id)
     rate, _ = Rating.objects.get_or_create(connected_answer=answer)
-    
-    response_dict = {
-                     'answer_id': answer_id,
+
+    response_dict = {'answer_id': answer_id,
                      'is_rated': rate.is_rated,
                      'is_up': rate.is_up,
                     }
@@ -38,8 +35,7 @@ def rate_up_answer(request, answer_id):
     answer = Answer.objects.get(id=answer_id)
     rate, _ = Rating.objects.get_or_create(connected_answer=answer)
     rate = Rating(is_rated=True, is_up=True)
-    response_dict = {
-                     'answer_id': answer_id,
+    response_dict = {'answer_id': answer_id,
                      'is_rated': rate.is_rated,
                      'is_up': rate.is_up,
                     }
@@ -57,8 +53,7 @@ def rate_down_answer(request, answer_id):
     answer = Answer.objects.get(id=answer_id)
     rate, _ = Rating.objects.get_or_create(connected_answer=answer)
     rate = Rating(is_rated=True, is_up=False)
-    response_dict = {
-                     'answer_id': answer_id,
+    response_dict = {'answer_id': answer_id,
                      'is_rated': rate.is_rated,
                      'is_up': rate.is_up,
                     }

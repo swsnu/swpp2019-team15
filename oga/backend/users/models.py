@@ -75,8 +75,6 @@ class Rating(models.Model):
     """
     # each Rating is related to a single answer
     connected_answer = models.ForeignKey(Answer, null=True, on_delete=models.CASCADE)
-    is_rated = models.BooleanField(default = False)
-    is_up = models.BooleanField(default = True)
-
-    def __str__(self):
-        return self.rating
+    is_rated = models.BooleanField(default=False)
+    is_up = models.BooleanField(default=True)
+    

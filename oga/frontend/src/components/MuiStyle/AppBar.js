@@ -131,6 +131,7 @@ function MenuAppBar(props) {
                         <Toolbar>
                             <IconButton
                                 edge="start"
+                                id="menu-button"
                                 className={classes.menuButton}
                                 color="light"
                                 aria-label="menu"
