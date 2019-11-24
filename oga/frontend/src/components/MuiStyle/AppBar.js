@@ -105,10 +105,6 @@ function MenuAppBar(props) {
         setOpen(!open);
     };
 
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
-
     // const handleMenu = event => {
     //     setAnchorEl(event.currentTarget);
     // };
