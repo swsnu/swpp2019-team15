@@ -27,6 +27,8 @@ import Switch from "@material-ui/core/Switch";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SettingsApplications from "@material-ui/icons/SettingsApplications";
+import ArrowBack from "@material-ui/icons/ArrowBack";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
 
 const drawerWidth = 200;
 
@@ -36,11 +38,11 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1
     },
     appBar: {
+        padding: 5,
         zIndex: theme.zIndex.drawer + 1
     },
-
     menuButton: {
-        paddingLeft: 5,
+        paddingLeft: 10,
         marginRight: 25
     },
     hide: {
@@ -71,6 +73,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     paper: {
+        padding: 8,
         background: "#272727"
     },
     toolbar: {
@@ -120,7 +123,7 @@ function MenuAppBar(props) {
                     <CssBaseline />
                     <AppBar
                         id="app-bar"
-                        position="static"
+                        position="sticky"
                         className={clsx(classes.appBar, {
                             [classes.appBarShift]: open
                         })}
@@ -197,6 +200,7 @@ function MenuAppBar(props) {
                         </Toolbar>
                     </AppBar>
                     <Drawer
+                        position="sticky"
                         variant="permanent"
                         className={clsx(classes.drawer, {
                             [classes.drawerOpen]: open,
@@ -276,6 +280,27 @@ function MenuAppBar(props) {
                                     />
                                 </ListItem>
                             ))}
+                        </List>
+                        <List
+                            style={{
+                                top: "90%",
+                                position: "absolute"
+                            }}
+                        >
+                            <ListItem
+                                button
+                                onClick={() => props.history.goBack()}
+                            >
+                                <ListItemIcon>
+                                    <ChevronLeft color="primary" />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{
+                                        primary: classes.selected
+                                    }}
+                                    primary="Back"
+                                />
+                            </ListItem>
                         </List>
                     </Drawer>
                 </div>

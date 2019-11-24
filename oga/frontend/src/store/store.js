@@ -7,6 +7,7 @@ import locationReducer from "./reducers/locationReducer";
 import questionReducer from "./reducers/questionReducer";
 import authReducer from "./reducers/authReducer";
 import answerReducer from "./reducers/answerReducer";
+import rateReducer from "./reducers/rateReducer";
 
 export const history = createBrowserHistory();
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     question: questionReducer,
     auth: authReducer,
     answer: answerReducer,
+    rating: rateReducer,
     router: connectRouter(history)
 });
 export const middlewares = [thunk, routerMiddleware(history)];

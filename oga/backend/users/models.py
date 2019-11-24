@@ -67,3 +67,16 @@ class Answer(models.Model):
 
     class Meta:
         ordering = ('publish_date_time',)
+
+
+class Rating(models.Model):
+    """
+    Rating model that has onetoone with answer
+    """
+    # each Rating is related to a single answer
+    connected_answer = models.ForeignKey(Answer, null=True, on_delete=models.CASCADE)
+    is_rated = models.BooleanField(default = False)
+    is_up = models.BooleanField(default = False)
+
+    def __str__(self):
+        return self.rating

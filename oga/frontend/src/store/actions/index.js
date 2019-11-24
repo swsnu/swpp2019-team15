@@ -17,8 +17,13 @@ import {
     createAnswer,
     getAnswers,
     getAnswer,
-    getUserAnswers
+    getUserAnswers,
 } from "./answerActions";
+import {
+    checkRating,
+    rateUp,
+    rateDown
+} from "./rateActions";
 export {
     setTargetLocation,
     setCurrentCoordinates,
@@ -35,5 +40,8 @@ export {
     getUserAnswers,
     followQuestion,
     Logout,
-    getProfile
+    getProfile,
+    checkRating,
+    rateUp,
+    rateDown,
 };
