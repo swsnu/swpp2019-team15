@@ -1,14 +1,15 @@
 """functional views api for the models"""
 import json
 
-# from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, get_user
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import ensure_csrf_cookie
+from users.models import Profile
 
 from users.views.decorators import check_request, check_login_required
+
 
 @check_request
 @require_http_methods(["POST"])
@@ -21,9 +22,11 @@ def sign_up(request):
         return JsonResponse({"error": "The username already exists"},
                             status=401)
     else:
-        new_user = User.objects.create_user(username=username, password=password)
+        new_user = User.objects.create_user(
+            username=username, password=password)
         response_dict = {'id': new_user.id}
         return JsonResponse(response_dict, status=201)
+
 
 @check_request
 @require_http_methods(["POST"])
@@ -40,6 +43,7 @@ def sign_in(request):
     else:
         return JsonResponse({}, status=401)
 
+
 @check_login_required
 @ensure_csrf_cookie
 @require_http_methods(["GET"])
@@ -51,6 +55,7 @@ def is_logged_in(request):
     just return a OK response
     """
     return JsonResponse({}, status=201)
+
 
 @check_login_required
 @ensure_csrf_cookie
@@ -64,4 +69,23 @@ def logged_out(request):
     """
     logout(request)
     return JsonResponse({}, status=204)
-    
+
+
+@check_login_required
+@ensure_csrf_cookie
+@require_http_methods(["GET"])
+def get_profile(request):
+    """
+    get profile details of currently logged in user
+    """
+    user = get_user(request)
+    profile = Profile.objects.get(user=user)
+
+    response_dict = {
+        'id': profile.id,
+        'username': profile.user.username,
+        'location': profile.location_id.name,
+        'location_lat': round(profile.location_id.latitude, 2),
+        'location_long': round(profile.location_id.longitude, 2),
+    }
+    return JsonResponse(response_dict)

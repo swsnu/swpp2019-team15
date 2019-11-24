@@ -152,4 +152,40 @@ describe('authActions', () => {
       done();
     });
   });
+
+  it(`should handle 'getProfile' `, (done) => {
+    const spy = jest.spyOn(axios, 'get')
+      .mockImplementation(url => {
+        return new Promise((resolve, reject) => {
+          const result = {
+            status: 201,
+            data: {id: 3},
+          };
+          resolve(result);
+        });
+      })
+
+    store.dispatch(actionCreators.getProfile()).then(() => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      done();
+    });
+  });
+
+  it(`should handle error in 'getProfile' `, (done) => {
+    const spy = jest.spyOn(axios, 'get')
+      .mockImplementation(url => {
+        return new Promise((resolve, reject) => {
+          const result = {
+            status: 201,
+            data: {id: 3},
+          };
+          reject(result);
+        });
+      })
+
+    store.dispatch(actionCreators.getProfile()).then(() => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      done();
+    });
+  });
 });

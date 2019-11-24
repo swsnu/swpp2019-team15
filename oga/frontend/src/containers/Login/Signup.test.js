@@ -52,7 +52,7 @@ describe('<Signup/>', () => {
     const newuser = 'newuser';
     const component = mount(signup);
     const wrapper = component.find("#username-input");
-    wrapper.simulate('change', {target: {value: newuser }});
+    wrapper.hostNodes().simulate('change', {target: {value: newuser }});
     const instance = component.find(Signup.WrappedComponent).instance();
     expect(instance.state.username).toBe(newuser);
   });
@@ -61,7 +61,7 @@ describe('<Signup/>', () => {
     const password = '1234';
     const component = mount(signup);
     const wrapper = component.find("#pw-input");
-    wrapper.simulate('change', {target: {value:password} });
+    wrapper.hostNodes().simulate('change', {target: {value:password} });
     const instance = component.find(Signup.WrappedComponent).instance();
     expect(instance.state.password).toBe(password);
   });
@@ -70,7 +70,7 @@ describe('<Signup/>', () => {
     const password = '1234';
     const component = mount(signup);
     const wrapper = component.find("#confirm-pw-input");
-    wrapper.simulate('change', {target: {value:password} });
+    wrapper.hostNodes().simulate('change', {target: {value:password} });
     const instance = component.find(Signup.WrappedComponent).instance();
     expect(instance.state.confirmPassword).toBe(password);
   });
@@ -80,7 +80,7 @@ describe('<Signup/>', () => {
       .mockImplementation(path => {});
     const component = mount(signup);
     let wrapper = component.find('#login-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(spyHistoryPush).toHaveBeenCalledTimes(1);
   });
 
@@ -88,7 +88,7 @@ describe('<Signup/>', () => {
     const alert = jest.spyOn(window, 'alert').mockImplementation(() => {});
     const component = mount(signup);
     let wrapper = component.find('#signup-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(alert).toHaveBeenCalledTimes(1);
   });
 
@@ -96,9 +96,9 @@ describe('<Signup/>', () => {
     const alert = jest.spyOn(window, 'alert').mockImplementation(() => {});
     const component = mount(signup);
     const usernameinput = component.find("#username-input");
-    usernameinput.simulate('change', {target: {value:"user"} });
+    usernameinput.hostNodes().simulate('change', {target: {value:"user"} });
     let wrapper = component.find('#signup-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(alert).toHaveBeenCalledTimes(1);
   });
 
@@ -106,13 +106,13 @@ describe('<Signup/>', () => {
     const alert = jest.spyOn(window, 'alert').mockImplementation(() => {});
     const component = mount(signup);
     let input_component = component.find("#username-input");
-    input_component.simulate('change', {target: {value:"user"} });
+    input_component.hostNodes().simulate('change', {target: {value:"user"} });
     input_component = component.find("#pw-input");
-    input_component.simulate('change', {target: {value:"123"} });
+    input_component.hostNodes().simulate('change', {target: {value:"123"} });
     input_component = component.find("#confirm-pw-input");
-    input_component.simulate('change', {target: {value:"1234"} });
+    input_component.hostNodes().simulate('change', {target: {value:"1234"} });
     let wrapper = component.find('#signup-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(alert).toHaveBeenCalledTimes(1);
   });
 
@@ -123,13 +123,13 @@ describe('<Signup/>', () => {
     let input_component = component.find("#username-input");
     let username = "user";
     let password = "1234";
-    input_component.simulate('change', {target: {value:"user"} });
+    input_component.hostNodes().simulate('change', {target: {value:"user"} });
     input_component = component.find("#pw-input");
-    input_component.simulate('change', {target: {value:password} });
+    input_component.hostNodes().simulate('change', {target: {value:password} });
     input_component = component.find("#confirm-pw-input");
-    input_component.simulate('change', {target: {value:password} });
+    input_component.hostNodes().simulate('change', {target: {value:password} });
     let wrapper = component.find('#signup-button');
-    wrapper.simulate('click');
+    wrapper.hostNodes().simulate('click');
     expect(alert).toHaveBeenCalledTimes(0);
     expect(spySignup).toHaveBeenCalledTimes(1);
   });

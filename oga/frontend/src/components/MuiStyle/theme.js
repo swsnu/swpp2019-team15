@@ -1,10 +1,14 @@
-import React from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
 
 export const theme = createMuiTheme({
+    root: {
+        height: "100%",
+        width: "100%"
+    },
     palette: {
         background: {
-            default: "#fff"
+            default: "#fff",
+            secondary: "#ffb366"
         },
         primary: {
             light: "#ffe699",
@@ -12,13 +16,24 @@ export const theme = createMuiTheme({
             dark: "#ff9933" //color for button hover
         },
         secondary: {
-            main: "#800000"
+            main: "#003366"
         }
     },
     typography: {
+        fontFamily: "arial",
         useNextVariants: true
     },
     overrides: {
+        MuiCard: {
+            card: {
+                position: "relative",
+                backgroundColor: "light",
+                borderStyle: "solid",
+                borderColor: "primary",
+                boxShadow:
+                    "rgba(255, 0, 0, 0.117647) 0px 1px 6px, rgba(255, 0, 0, 0.117647) 0px 1px 4px"
+            }
+        },
         MuiCardHeader: {
             categoryHeaderText: {
                 fontSize: 15,
@@ -46,9 +61,6 @@ export const theme = createMuiTheme({
                 padding: "10px",
                 color: "#ffe699"
             }
-        },
-        MuiCard: {
-            borderRadius: 0
         },
         MuiToolbar: {
             backgroundColor: "transparent"

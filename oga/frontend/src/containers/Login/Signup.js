@@ -14,6 +14,15 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
+//Material UI imports
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+
 import * as actionCreators from "../../store/actions/index";
 
 class Signup extends Component {
@@ -45,8 +54,21 @@ class Signup extends Component {
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <div className="Signup">
+<<<<<<< HEAD
                     <Box pt={15} />
                     <Typography component="h1" variant="h5">
+=======
+                    <Box pt={3} />
+                    <img
+                        src="https://media1.giphy.com/media/xFoV7P0JsHwoZvHXP6/source.gif"
+                        width="30%"
+                    />
+                    <Typography component="h1" variant="h3" color="primary">
+                        <b>askAT</b>
+                    </Typography>
+                    <Box pt={3} />
+                    <Typography component="h2" variant="h5">
+>>>>>>> d110547eab652b7eba64e33e65940b48ea03c900
                         Sign up
                     </Typography>
                     <TextField
@@ -100,6 +122,7 @@ class Signup extends Component {
                             })
                         }
                     />
+<<<<<<< HEAD
                     {/* <div>
                         <label>Confirm Password</label>
                         <input
@@ -113,6 +136,8 @@ class Signup extends Component {
                             }
                         />
                     </div> */}
+=======
+>>>>>>> d110547eab652b7eba64e33e65940b48ea03c900
                     <Button
                         type="submit"
                         fullWidth

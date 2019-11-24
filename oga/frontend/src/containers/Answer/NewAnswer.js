@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Map from "../../containers/Map/GoogleMap";
 import "./NewAnswer.css";
 
 import { connect } from "react-redux";
@@ -6,6 +7,13 @@ import * as actionCreators from "../../store/actions/";
 
 import AnswerView from "../../components/AnswerView/AnswerView";
 import { question_types } from "../../const/question_type";
+
+//Material design imports
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
 class NewAnswer extends Component {
     constructor(props) {
@@ -38,12 +46,19 @@ class NewAnswer extends Component {
     };
 
     render() {
-        var selected_question_type = null;
         var selected_question_type_list = null;
         var qs_type = "";
         var idx = 0;
         let gotten_answer_view = null;
+        var map = null;
         if (this.props.selectedQuestion) {
+            map = 
+            <Map
+            viewOnly={true}
+            target={{lat: this.props.selectedQuestion.place_lat,
+                    lng: this.props.selectedQuestion.place_lng}}
+            ></Map>
+
             qs_type = this.props.selectedQuestion.content;
             qs_type = question_types[qs_type];
             selected_question_type_list = qs_type.map((val, index) => {
@@ -58,7 +73,7 @@ class NewAnswer extends Component {
             gotten_answer_view = (
                 <React.Fragment>
                     <AnswerView
-                        //key={this.props.selectedQuestion.id}
+                        key={this.props.selectedQuestion.id}
                         id={this.props.selectedQuestion.id}
                         content={this.props.selectedQuestion.content}
                         place_name={
@@ -72,8 +87,16 @@ class NewAnswer extends Component {
 
         return (
             <div className="Answer">
-                <h1>Answer to a Question!</h1>
-                <h2>{gotten_answer_view}</h2>>
+                <CssBaseline />
+                <Box pt={10} />
+                <Typography component="h2" variant="h3" color="primary">
+                    Answer a Question!
+                </Typography>
+                {map}
+                <Box pt={10} />
+                <Typography component="h3" variant="h5">
+                    {gotten_answer_view}
+                </Typography>
                 <div>
                     <div
                         id="answer-choices"
@@ -87,14 +110,12 @@ class NewAnswer extends Component {
                         {selected_question_type_list}
                     </div>
                 </div>
-                <button
-                    id="back-create-answer-button"
-                    onClick={() => this.clickBackHandler()}
-                >
-                    Back
-                </button>
-                <button
+                <Box pt={10} />
+                <Button
+                    color="primary"
+                    type="submit"
                     id="confirm-create-answer-button"
+                    variant="contained"
                     onClick={() =>
                         this.postAnswerHandler(
                             this.props.selectedQuestion.content,
@@ -104,7 +125,16 @@ class NewAnswer extends Component {
                     }
                 >
                     Submit
-                </button>
+                </Button>
+                <Grid container justify="center" alignItems="center">
+                    <Button
+                        id="back-create-answer-button"
+                        color="primary"
+                        onClick={() => this.clickBackHandler()}
+                    >
+                        Back
+                    </Button>
+                </Grid>
             </div>
         );
     }

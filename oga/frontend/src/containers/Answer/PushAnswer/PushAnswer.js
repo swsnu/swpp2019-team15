@@ -1,44 +1,52 @@
 import React, { Component } from "react";
 import "./PushAnswer.css";
 import AnswerView from "../../../components/AnswerView/AnswerView";
+import Map from "../../Map/GoogleMap";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import * as actionCreators from "../../../store/actions";
+import moment from "moment";
 
 class PushAnswer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            id: this.props.match.params.id
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.match.params.id
+    };
+  }
+
+  componentDidMount() {
+    this.props.onGetAnswer(this.state.id);
+  }
+
+  render() {
+    var answer = null;
+    if (this.props.selectedAnswer) {
+      answer = (
+        <React.Fragment>
+          <Map
+            viewOnly={true}
+            target={{
+              lat: this.props.selectedAnswer.place_lat,
+              lng: this.props.selectedAnswer.place_lng
+            }}
+          ></Map>
+          <AnswerView
+            key={this.props.selectedAnswer.id}
+            id={this.props.selectedAnswer.id}
+            author={this.props.selectedAnswer.author}
+            content={this.props.selectedAnswer.question_type}
+            publish_date_time={moment(this.props.publish_date_time).format(
+              "MMMM Do YYYY, h:mm:ss a"
+            )}
+            answer_content={this.props.selectedAnswer.content}
+            place_name={this.props.selectedAnswer.place_name}
+            is_answered={true}
+          />
+        </React.Fragment>
+      );
     }
-
-    componentDidMount() {
-        this.props.onGetAnswer(this.state.id);
-    }
-
-    render() {
-        var answer = null
-        if (this.props.selectedAnswer) {
-            answer = (
-                <React.Fragment>
-                    <AnswerView
-                        key={this.props.selectedAnswer.id}
-                        id={this.props.selectedAnswer.id}
-                        author={this.props.selectedAnswer.author}
-                        content={this.props.selectedAnswer.question_type}
-                        publish_date_time={
-                            this.props.selectedAnswer.publish_date_time
-                        }
-                        answer_content={this.props.selectedAnswer.content}
-                        place_name={this.props.selectedAnswer.place_name}
-                        is_answered={true}
-                   />
-                </React.Fragment>
-            );
-        }
-
     return (
       <div className="PushAnswer">
         <h1>You got this answer!</h1>
@@ -57,8 +65,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetAnswer: (id) =>
-    dispatch(actionCreators.getAnswer(id)),
+    onGetAnswer: id => dispatch(actionCreators.getAnswer(id))
     //setLogout: () =>
     //dispatch(actionCreators.settingLogout())
   };

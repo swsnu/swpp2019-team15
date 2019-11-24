@@ -20,7 +20,7 @@ const mockGeolocation = {
 
 global.navigator.geolocation = mockGeolocation;
 console.error = jest.fn();
-//jest.mock('../../Map/GoogleMap.js', () => () => 'Map');
+jest.mock('../../Map/GoogleMap.js', () => () => 'Map');
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore( {

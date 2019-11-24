@@ -5,7 +5,7 @@ export const question_types = {
         "LONG",
         "MODERATE",
         "SHORT",
-        "LONG LINE"
+        "VERY SHORT"
     ],
     "MANY SEATS":
     [
