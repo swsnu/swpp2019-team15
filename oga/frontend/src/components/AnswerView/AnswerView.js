@@ -12,9 +12,10 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import { withStyles } from '@material-ui/core/styles';
 
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
     card: {
         margin: "auto",
         transition: "0.3s",
@@ -38,8 +39,8 @@ const useStyles = makeStyles(theme => ({
     },
     caption: {
         color: "#585858"
-    }
-}));
+    },
+});
 
 class AnswerView extends Component {
 
@@ -56,69 +57,72 @@ class AnswerView extends Component {
     };
 
     render() {
-
-        const classes = useStyles();
-        
+        const { classes } = this.props;
         return (
             <div className="AnswerView" key={this.props.id}>
                 <Grid item>
                     {this.props.is_answered ? (
-                        <Card>
-                            <CardContent>
-                                <Typography
-                                    component="h6"
-                                    variant="h6"
-                                    gutterBottom
-                                    onClick={this.props.clickDetail}
-                                >
-                                    <div className="answered">
-                                        <h2>{this.props.author} said</h2>
-                                        <h3>
-                                            "For {this.props.content}, it is{" "}
-                                            {this.props.answer_content} in{" "}
-                                            {this.props.place_name}!"
-                                        </h3>
-                                        <p>
-                                            <i>
-                                                {moment(
-                                                    this.props.publish_date_time,
-                                                    "MMMM Do YYYY, h:mm:ss a"
-                                                ).fromNow()}
-                                            </i>{" "}
-                                            on {this.props.publish_date_time}
-                                        </p>
-                                        <div>
-                                            {!this.props.is_rated ? (
-                                                <div className="Rating">
-                                                    <Button
-                                                        id="thumb_up-button"
-                                                        color="primary"
-                                                        onClick={() => this.rateUpHandler(this.props.id)}
-                                                    >
-                                                        &#128077;
-                                                    </Button>
-                                                    <Button
-                                                        id="thumb_down-button"
-                                                        color="primary"
-                                                        onClick={() => this.rateDownHandler(this.props.id)}
-                                                    >
-                                                        &#128078;
-                                                    </Button>
-                                                </div>
-                                            ) : (
-                                                (this.props.isUp) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
-                                            )}
-                                        </div>
+                        <Card md={3} className={classes.card}>
+                            <CardContent className={classes.content}>
+                            <div className="answered">
+                                        <Typography
+                                            className={classes.subheading}
+                                            id="question-author"
+                                            variant="subtitle1"
+                                        >
+                                            {this.props.author}
+                                        </Typography>
+                                        <Typography
+                                            id="question-publish-date-time"
+                                            className={classes.caption}
+                                            variant="caption"
+                                            gutterBottom
+                                        >
+                                            {moment(
+                                            this.props.publish_date_time,
+                                            "MMMM Do YYYY, h:mm:ss a"
+                                        ).fromNow()}{" "}
+                                        &mdash; {this.props.publish_date_time}
+                                        </Typography>
+                                        <Typography
+                                        className={classes.heading}
+                                        variant="h6"
+                                        gutterBottom
+                                    >
+                                        For {this.props.content}, it is{" "}
+                                        {this.props.answer_content} in {this.props.place_name}!
+                                    </Typography>
                                     </div>
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    ) : (
+                                </CardContent>
+                            </Card>
+                        ) : (
+                            <div>
+                                Is it {this.props.content} in {this.props.place_name}?
+                            </div>
+                        )}
+                    </Grid>             
                         <div>
-                            Is it {this.props.content} in {this.props.place_name}?
+                            {!this.props.is_rated ? (
+                                <div className="Rating">
+                                    <Button
+                                        id="thumb_up-button"
+                                        color="primary"
+                                        onClick={() => this.rateUpHandler(this.props.id)}
+                                    >
+                                        &#128077;
+                                    </Button>
+                                    <Button
+                                        id="thumb_down-button"
+                                        color="primary"
+                                        onClick={() => this.rateDownHandler(this.props.id)}
+                                    >
+                                        &#128078;
+                                    </Button>
+                                </div>
+                            ) : (
+                                (this.props.isUp) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
+                            )}
                         </div>
-                    )}
-                </Grid>
             </div>
         );
     };
@@ -191,4 +195,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(AnswerView));
+)(withRouter((withStyles)(styles)(AnswerView)));
