@@ -12,8 +12,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { withStyles } from '@material-ui/core/styles';
-
+import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
     card: {
@@ -26,7 +25,8 @@ const styles = theme => ({
     },
     content: {
         textAlign: "left",
-        padding: theme.spacing.unit * 3
+        paddingTop: theme.spacing(3),
+        paddingBottom: theme.spaceing(3)
     },
     heading: {
         paddingTop: 20,
@@ -39,7 +39,7 @@ const styles = theme => ({
     },
     caption: {
         color: "#585858"
-    },
+    }
 });
 
 class AnswerView extends Component {
@@ -55,23 +55,23 @@ class AnswerView extends Component {
         this.props.onGetAll(this.props.id);
     }
 
-    rateUpHandler = (id) => {
+    rateUpHandler = id => {
         this.props.rateUp(id);
-        this.setState({just_rated_answer: this.props.id})
+        this.setState({ just_rated_answer: this.props.id });
     };
 
-    rateDownHandler = (id) => {
+    rateDownHandler = id => {
         this.props.rateDown(id);
-        this.setState({just_rated_answer: this.props.id})
+        this.setState({ just_rated_answer: this.props.id });
     };
 
     render() {
-        console.log(this.state.just_rated_answer)
+        console.log(this.state.just_rated_answer);
         const { classes } = this.props;
         // var selec = null;
         var ratings = (
-                <React.Fragment>
-                    {!this.props.is_rated ? (
+            <React.Fragment>
+                {!this.props.is_rated ? (
                     <div className="Rating">
                         <Button
                             id="thumb_up-button"
@@ -88,71 +88,74 @@ class AnswerView extends Component {
                             &#128078;
                         </Button>
                     </div>
-                ) : (
-                    null
-                    // selec = 
-                    // (this.props.is_up) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
-                )
+                ) : null
+                // selec =
+                // (this.props.is_up) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
                 }
-        {(this.state.just_rated_answer == this.props.id) ? ((this.props.is_up) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)) : null}
+                {this.state.just_rated_answer == this.props.id ? (
+                    this.props.is_up ? (
+                        <div>&#128077;</div>
+                    ) : (
+                        <div>&#128078;</div>
+                    )
+                ) : null}
             </React.Fragment>
-        )
+        );
         return (
             <div className="AnswerView" key={this.props.id}>
                 <Grid item>
                     {this.props.is_answered ? (
                         <Card md={3} className={classes.card}>
                             <CardContent className={classes.content}>
-                            <div className="answered">
-                                        <Typography
-                                            className={classes.subheading}
-                                            id="question-author"
-                                            variant="subtitle1"
-                                        >
-                                            {this.props.author}
-                                        </Typography>
-                                        <Typography
-                                            id="question-publish-date-time"
-                                            className={classes.caption}
-                                            variant="caption"
-                                            gutterBottom
-                                        >
-                                            {moment(
+                                <div className="answered">
+                                    <Typography
+                                        className={classes.subheading}
+                                        id="question-author"
+                                        variant="subtitle1"
+                                    >
+                                        {this.props.author}
+                                    </Typography>
+                                    <Typography
+                                        id="question-publish-date-time"
+                                        className={classes.caption}
+                                        variant="caption"
+                                        gutterBottom
+                                    >
+                                        {moment(
                                             this.props.publish_date_time,
                                             "MMMM Do YYYY, h:mm:ss a"
                                         ).fromNow()}{" "}
                                         &mdash; {this.props.publish_date_time}
-                                        </Typography>
-                                        <Typography
+                                    </Typography>
+                                    <Typography
                                         className={classes.heading}
                                         variant="h6"
                                         gutterBottom
                                     >
                                         For {this.props.content}, it is{" "}
-                                        {this.props.answer_content} in {this.props.place_name}!
+                                        {this.props.answer_content} in{" "}
+                                        {this.props.place_name}!
                                     </Typography>
-                                    </div>
-                                </CardContent>
-                                <div>
-                                    {ratings}
                                 </div>
-                            </Card>
-                        ) : (
-                            <div>
-                                Is it {this.props.content} in {this.props.place_name}?
-                            </div>
-                        )}           
-                    </Grid>  
+                            </CardContent>
+                            <div>{ratings}</div>
+                        </Card>
+                    ) : (
+                        <div>
+                            Is it {this.props.content} in{" "}
+                            {this.props.place_name}?
+                        </div>
+                    )}
+                </Grid>
             </div>
         );
-    };
-};
-
+    }
+}
 
 const mapStateToProps = state => {
     return {
         is_rated: state.rating.is_rated,
-        is_up: state.rating.is_up,
+        is_up: state.rating.is_up
     };
 };
 
@@ -216,4 +219,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter((withStyles)(styles)(AnswerView)));
+)(withRouter(withStyles(styles)(AnswerView)));

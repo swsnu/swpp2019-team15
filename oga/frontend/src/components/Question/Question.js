@@ -24,10 +24,11 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         textAlign: "left",
-        padding: theme.spacing.unit * 3
+        padding: theme.spacing(3)
     },
     divider: {
-        margin: `${theme.spacing.unit * 3}px 0`
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(1)
     },
     heading: {
         paddingTop: 20,

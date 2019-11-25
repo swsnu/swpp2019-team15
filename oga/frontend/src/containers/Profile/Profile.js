@@ -194,14 +194,13 @@ class Profile extends Component {
                             id="back-button"
                             fullWidth
                             variant="contained"
-                            color="dark"
                             onClick={() => this.props.history.goBack()}
                         >
                             Back
                         </Button>
                     </Card>
                 </Grid>
-                <Grid container direction="column" xs={12}>
+                <Grid container direction="column">
                     <Grid item>
                         <Button
                             id="my-question-tab"
