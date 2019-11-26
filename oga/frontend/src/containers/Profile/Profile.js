@@ -259,8 +259,8 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
     return {
-        userProfile: state.profile.profile,
-        myQuestions: state.profile.questions,
+        userProfile: state.auth.profile,
+        myQuestions: state.question.questions,
         myAnswers: state.answer.answers
     };
 };
