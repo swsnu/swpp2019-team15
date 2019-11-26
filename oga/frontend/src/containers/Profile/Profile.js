@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import moment from "moment";
 import Question from "../../components/Question/Question";
 import * as actionCreators from "../../store/actions/index";
+import rank from "../../const/rank";
 
 //Material UI imports
 import Button from "@material-ui/core/Button";
@@ -161,7 +162,7 @@ class Profile extends Component {
                                         style={{
                                             position: "absolute",
                                             left: "16%",
-                                            top: "34%",
+                                            top: 250,
                                             margin: "8px",
                                             border: "solid",
                                             borderColor: "#fff",
@@ -180,6 +181,18 @@ class Profile extends Component {
                                     >
                                         {username}
                                     </Typography>
+                                    <Typography
+                                        variant="h6"
+                                        style={{
+                                            color: "green",
+                                            paddingBottom: 20
+                                        }}
+                                    >
+                                        {"   "}
+                                        {/* TODO: Rank to be determined based on point system implementation */}
+                                        {rank[10]}
+                                    </Typography>
+
                                     <Typography variant="subtitle1">
                                         <i>
                                             {location}
