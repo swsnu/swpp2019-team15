@@ -26,7 +26,7 @@ const styles = theme => ({
     content: {
         textAlign: "left",
         paddingTop: theme.spacing(3),
-        paddingBottom: theme.spaceing(3)
+        paddingBottom: theme.spacing(3)
     },
     heading: {
         paddingTop: 20,

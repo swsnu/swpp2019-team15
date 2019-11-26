@@ -54,6 +54,7 @@ class QuestionList extends Component {
                     content={qs.content}
                     location={qs.location}
                     is_answered={qs.is_answered}
+                    showButtons={true}
                     clickAnswer={() => this.clickAnswerHandler(qs)}
                     clickFollow={() => this.clickFollowHandler(qs)}
                     clickDetail={() => this.clickDetailHandler(qs)}
@@ -63,7 +64,7 @@ class QuestionList extends Component {
 
         return (
             <div className="Main">
-                <Container component="main">
+                <Container component="main" style={{ marginLeft: 110 }}>
                     <CssBaseline />
                     <Box pt={8} />
                     <Typography component="h1" variant="h3">

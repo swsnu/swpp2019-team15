@@ -49,7 +49,7 @@ const Question = props => {
 
     return (
         <Grid className="Question" item md={6} key={props.id}>
-            <Card md={3} className={classes.card}>
+            <Card className={classes.card}>
                 <CardContent align="left" className={classes.content}>
                     <div onClick={props.clickDetail}>
                         <Typography
@@ -57,7 +57,12 @@ const Question = props => {
                             id="question-author"
                             variant="subtitle1"
                         >
-                            {props.author}
+                            {props.author}{" "}
+                            {props.is_answered ? (
+                                <span>&#128525;</span>
+                            ) : (
+                                <span>&#128591;</span>
+                            )}
                         </Typography>
                         <Typography
                             id="question-publish-date-time"
@@ -71,6 +76,7 @@ const Question = props => {
                             ).fromNow()}{" "}
                             &mdash; {props.publish_date_time}
                         </Typography>
+
                         <Typography
                             className={classes.heading}
                             variant="h6"
@@ -81,30 +87,34 @@ const Question = props => {
                             </div>
                         </Typography>
                     </div>
-                    <Divider className={classes.divider} />
-                    <Grid container justify="center" alignItems="center">
-                        <Button
-                            color="primary"
-                            id="create-answer-button"
-                            variant="contained"
-                            onClick={props.clickAnswer}
-                        >
-                            Answer
-                        </Button>
+                    {props.showButtons && (
+                        <div>
+                            <Divider className={classes.divider} />
 
-                        <Button
-                            id="follow-button"
-                            color="primary"
-                            onClick={props.clickFollow}
-                        >
-                            Follow
-                        </Button>
-                        {props.is_answered ? (
-                            <div className="answered-mark">&#128525;</div>
-                        ) : (
-                            <div>&#128591;</div>
-                        )}
-                    </Grid>
+                            <Grid
+                                container
+                                justify="center"
+                                alignItems="center"
+                            >
+                                <Button
+                                    color="primary"
+                                    id="create-answer-button"
+                                    variant="contained"
+                                    onClick={props.clickAnswer}
+                                >
+                                    Answer
+                                </Button>
+
+                                <Button
+                                    id="follow-button"
+                                    color="primary"
+                                    onClick={props.clickFollow}
+                                >
+                                    Follow
+                                </Button>
+                            </Grid>
+                        </div>
+                    )}
                 </CardContent>
             </Card>
         </Grid>

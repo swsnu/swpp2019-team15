@@ -34,7 +34,6 @@ const drawerWidth = 200;
 
 const useStyles = makeStyles(theme => ({
     root: {
-        display: "flex",
         flexGrow: 1
     },
     appBar: {
@@ -123,7 +122,7 @@ function MenuAppBar(props) {
                     <CssBaseline />
                     <AppBar
                         id="app-bar"
-                        position="sticky"
+                        position="fixed"
                         className={clsx(classes.appBar, {
                             [classes.appBarShift]: open
                         })}
@@ -142,67 +141,27 @@ function MenuAppBar(props) {
                             <Typography variant="h4" className={classes.title}>
                                 <b>askAT</b>
                             </Typography>
-                            <div>
-                                {/* <IconButton
-                                    id="menu-button"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    color="light"
-                                >
-                                    <AccountCircle />
-                                </IconButton> */}
-                                {/* <FormGroup id="menugroup">
-                                    <Menu
-                                        id="menu-appbar"
-                                        anchorEl={anchorEl}
-                                        anchorOrigin={{
-                                            vertical: "top",
-                                            horizontal: "right"
-                                        }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: "top",
-                                            horizontal: "right"
-                                        }}
-                                        open={open}
-                                        onClose={handleDrawerClose}
-                                    >
-                                        <MenuItem
-                                            id="profile-button"
-                                            onClick={() =>
-                                                props.history.push("/profile/")
-                                            }
-                                        >
-                                            Profile
-                                        </MenuItem>
-                                        <MenuItem
-                                            id="settings-button"
-                                            onClick={() =>
-                                                props.history.push("/settings/")
-                                            }
-                                        >
-                                            Settings Page
-                                        </MenuItem>
-                                    </Menu>
-                                </FormGroup> */}
-                                <FormControlLabel
-                                    control={
-                                        <Switch
-                                            checked={auth}
-                                            onChange={() => func()}
-                                            aria-label="login switch"
-                                            color="dark"
-                                        />
-                                    }
-                                    label={auth ? "Logout" : "Login"}
-                                />
-                            </div>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={auth}
+                                        onChange={() => func()}
+                                        aria-label="login switch"
+                                        color="dark"
+                                    />
+                                }
+                                label={auth ? "Logout" : "Login"}
+                            />
                         </Toolbar>
                     </AppBar>
                     <Drawer
                         position="sticky"
                         variant="permanent"
+                        containerStyle={{
+                            marginLeft: "6.5%",
+                            background: "#545454",
+                            position: "fixed"
+                        }}
                         className={clsx(classes.drawer, {
                             [classes.drawerOpen]: open,
                             [classes.drawerClose]: !open

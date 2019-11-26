@@ -39,7 +39,10 @@ class Login extends Component {
             >
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
-                    <Box pt={5} />
+                    <img
+                        src="https://media.giphy.com/media/kDNzcJ5HTJjk1YmRDa/giphy.gif"
+                        width="35%"
+                    />
                     <Typography component="h1" variant="h5">
                         Login
                     </Typography>
