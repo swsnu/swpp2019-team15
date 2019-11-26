@@ -3,9 +3,8 @@ import { mount } from "enzyme";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import { ConnectedRouter } from "connected-react-router";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { history } from "../../store/store";
-import * as actionCreators from "../../store/actions/questionActions";
 import thunk from "redux-thunk";
 import Profile from "./Profile.js";
 
@@ -69,17 +68,7 @@ describe("<Profile />", () => {
 
     it("should render without errors", () => {
         const wrapper = mount(profile);
-        expect(wrapper.find(".Profile").length).toBe(1);
-    });
-
-    it("should go to previous page when BACK clicked", () => {
-        const spyHistoryPush = jest
-            .spyOn(history, "goBack")
-            .mockImplementation(path => {});
-        const wrapper = mount(profile);
-        let button = wrapper.find("#back-button");
-        button.hostNodes().simulate("click");
-        expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+        expect(wrapper.find(".Profile").length).toBe(3);
     });
 
     it("should go to detail page when question clicked", () => {
@@ -87,18 +76,15 @@ describe("<Profile />", () => {
             .spyOn(history, "push")
             .mockImplementation(path => {});
         const wrapper = mount(profile);
-        let button = wrapper.find("#detail-button");
-        button.hostNodes().simulate("click");
+        const instance = wrapper.find(Profile.WrappedComponent).instance();
+        const m = jest.spyOn(instance, "onClickDetailHandler");
+        wrapper
+            .find("Question")
+            .props()
+            .clickDetail();
+        //button.hostNodes().simulate('click');
         expect(spyHistoryPush).toHaveBeenCalledTimes(1);
-    });
-
-    it("should go to settings page when settings button clicked", () => {
-        const spyHistoryPush = jest
-            .spyOn(history, "push")
-            .mockImplementation(path => {});
-        const wrapper = mount(profile);
-        let button = wrapper.find("#settings-button");
-        button.hostNodes().simulate("click");
-        expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+        expect(m).toHaveBeenCalledTimes(1);
+        expect(spyHistoryPush).toHaveBeenCalledWith("/replies/1");
     });
 });
