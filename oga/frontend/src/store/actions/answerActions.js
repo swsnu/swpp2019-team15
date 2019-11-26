@@ -53,7 +53,7 @@ export const getUserAnswers_ = answers => {
 export const getUserAnswers = () => {
     return dispatch => {
         return axios
-            .get("api/profile/answers/")
+            .get("/api/profile/answers/")
             .then(res => {
                 dispatch(getUserAnswers_(res.data));
             })
