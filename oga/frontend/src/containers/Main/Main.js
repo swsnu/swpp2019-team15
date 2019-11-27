@@ -7,7 +7,6 @@ import { withRouter } from "react-router";
 import moment from "moment";
 
 import * as actionCreators from "../../store/actions/index";
-import PushNotification from "../../components/PushNotification/PushNotification";
 
 //Material UI imports
 import Button from "@material-ui/core/Button";
@@ -40,6 +39,8 @@ class QuestionList extends Component {
     };
 
     render() {
+        // const theme = useTheme();
+
         var len = this.props.storedQuestions.length;
         var stored_Questions = this.props.storedQuestions.slice(len - 10, len);
         const Questions = stored_Questions.map(qs => {
@@ -64,7 +65,7 @@ class QuestionList extends Component {
 
         return (
             <div className="Main">
-                <Container component="main" style={{ marginLeft: 110 }}>
+                <Container component="main" justify="center">
                     <CssBaseline />
                     <Box pt={8} />
                     <Typography component="h1" variant="h3">

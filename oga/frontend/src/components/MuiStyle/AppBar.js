@@ -27,7 +27,6 @@ import Switch from "@material-ui/core/Switch";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SettingsApplications from "@material-ui/icons/SettingsApplications";
-import ArrowBack from "@material-ui/icons/ArrowBack";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 
 const drawerWidth = 200;
