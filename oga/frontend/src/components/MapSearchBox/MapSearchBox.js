@@ -8,52 +8,70 @@
  * @author taehioum
  * @since  2019-10-18
  */
- 
+
 /** jshint {inline configuration here} */
-import React, { Component } from 'react';
-import './MapSearchBox.css';
+import React, { Component } from "react";
+import "./MapSearchBox.css";
+
+// Material ui components
+import Close from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
+import Input from "@material-ui/core/Input";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { Button, TextField } from "@material-ui/core";
 
 class MapSearchBox extends Component {
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+        super(props);
+    }
 
-  componentDidMount({ map, mapApi } = this.props) {
-    this.searchBox = new mapApi.places.SearchBox(this.searchInput);
-    this.searchBox.addListener('places_changed', this.onPlacesChanged);
-    this.searchBox.bindTo('bounds', map);
-  }
+    componentDidMount({ map, mapApi } = this.props) {
+        this.searchBox = new mapApi.places.SearchBox(this.searchInput);
+        this.searchBox.addListener("places_changed", this.onPlacesChanged);
+        this.searchBox.bindTo("bounds", map);
+    }
 
-  componentWillUnmount({ mapApi } = this.props) {
-    mapApi.event.clearInstanceListeners(this.searchInput);
-  }
+    componentWillUnmount({ mapApi } = this.props) {
+        mapApi.event.clearInstanceListeners(this.searchInput);
+    }
 
-  onPlacesChanged = ({ map, addplace } = this.props) => {
-    const selected = this.searchBox.getPlaces();
-    //const { 0: place } = selected;
-    addplace(selected);
-    this.searchInput.blur();
-  };
+    onPlacesChanged = ({ map, addplace } = this.props) => {
+        const selected = this.searchBox.getPlaces();
+        //const { 0: place } = selected;
+        addplace(selected);
+        this.searchInput.blur();
+    };
 
-  clearSearchBox = () => {
-    this.searchInput.value = '';
-  };
+    clearSearchBox = () => {
+        this.searchInput.value = "";
+    };
 
-  render() {
-    return (
-      <div className="MapSearchBox">
-        <input
-          id="searchbox"
-          ref={(ref) => {
-            this.searchInput = ref;
-          }}
-          type="text"
-          onFocus={this.clearSearchBox}
-          placeholder="Enter a location"
-        />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="MapSearchBox">
+                <TextField
+                    id="searchbox"
+                    type="text"
+                    inputRef={ref => {
+                        this.searchInput = ref;
+                    }}
+                    fullWidth
+                    variant="outlined"
+                    autoFocus
+                    placeholder="Enter a location"
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment>
+                                <IconButton onClick={this.clearSearchBox}>
+                                    <Close />
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+            </div>
+        );
+    }
 }
 
 export default MapSearchBox;
