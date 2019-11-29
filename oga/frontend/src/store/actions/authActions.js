@@ -107,3 +107,12 @@ export const getProfile = () => {
             .catch(err => console.log(err));
     };
 };
+
+export const getUserProfile = username => {
+    return dispatch => {
+        return axios
+            .get("/api/profile/" + username)
+            .then(res => dispatch(getProfile_(res.data)))
+            .catch(err => console.log(err));
+    };
+};

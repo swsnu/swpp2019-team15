@@ -4,6 +4,7 @@ import {
     getQuestion,
     getQuestions,
     getUserQuestions,
+    getSingleUserQuestions,
     followQuestion
 } from "./questionActions.js";
 import {
@@ -11,19 +12,17 @@ import {
     signIn,
     isLoggedIn,
     Logout,
-    getProfile
+    getProfile,
+    getUserProfile
 } from "./authActions.js";
 import {
     createAnswer,
     getAnswers,
     getAnswer,
     getUserAnswers,
+    getSingleUserAnswers
 } from "./answerActions";
-import {
-    checkRating,
-    rateUp,
-    rateDown
-} from "./rateActions";
+import { checkRating, rateUp, rateDown } from "./rateActions";
 export {
     setTargetLocation,
     setCurrentCoordinates,
@@ -31,6 +30,7 @@ export {
     getQuestion,
     getQuestions,
     getUserQuestions,
+    getSingleUserQuestions,
     signUp,
     signIn,
     isLoggedIn,
@@ -38,10 +38,12 @@ export {
     getAnswers,
     getAnswer,
     getUserAnswers,
+    getSingleUserAnswers,
     followQuestion,
     Logout,
     getProfile,
+    getUserProfile,
     checkRating,
     rateUp,
-    rateDown,
+    rateDown
 };
