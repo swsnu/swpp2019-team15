@@ -22,7 +22,7 @@ class QuestionTestCase(TestCase):
                                            longitude=38.123,
                                            latitude=127.39)
         location.save()
-        question = Question.objects.create(author=self.user, content='rains?',
+        question = Question.objects.create(id=1, author=self.user, content='rains?',
                                            location_id=location)
         question.save()
         profile = Profile.objects.get(user=self.user)

@@ -22,13 +22,15 @@ class QuestionTestCase(TestCase):
                                            longitude=38.123,
                                            latitude=127.39)
         location.save()
-        question = Question.objects.create(author=self.user, content='rains?',
+        question = Question.objects.create(id=1, author=self.user, content='rains?',
                                            location_id=location)
+        question.save()
         profile = Profile.objects.get(user=self.user)
-        answer = Answer.objects.create(question=question,
+        answer = Answer.objects.create(id=1,question=question,
                                        author=profile,
                                        question_type='rain?',
                                        content='no')
+        answer.save()
 
         profile.location = location
 
@@ -51,6 +53,11 @@ class QuestionTestCase(TestCase):
 
     def test_get_answer(self):
         """ test getting an answer """
+        answer = {'question_type': 'rain?', 
+                  'answer_content': 'no'}
+        response = self.client.post('/api/reply/1/',
+                                    json.dumps(answer),
+                                    content_type='application/json')
         response = self.client.get('/api/reply/1/')
 
         self.assertEqual(response.status_code, 200)
