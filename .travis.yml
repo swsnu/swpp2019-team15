@@ -31,6 +31,9 @@ matrix:
             secure: "Q9g0bc6al30cci9wBd8z61BcMWRx2+p7a8YIQabpDRuL3LRVijDO2qGsIUlMK5MeJk0d+Hl2ZYLcLBLBku+eYBsFBX1018tOQGzJFvP0qeNo/P4k4FIeu+lCeoBY95uYj+zgID1eVd87So/6wQVpR+Cnlqj0iQ5OqFdHuU5VBFpuYu1WONUEfYnIzdlt6WTxFZbE6MOGbClGKN7Fv/BU3m78D2eFlCi9zzJZMFwAF2MEeWQC9/xi6Yh0ZpyXSo9hr5H1xcFto9C4m+JDMZUAOAypFAfoMsj16nu6Esfv+TjTecoh5+he4GFP/wtaSK7PkbPezaysfcObC0ifCkqMTPEN+Q1VrmoqJpOiOSa3JGH2j/1iYYfGPPplM4rFiI6v2LKw8gJ3Cmt1MzLNpVH4ZMCx6DmBMFAsNLnxQGLUq+Bx3wW4Fj+vPH6Zo+kMTGmFM3iwESHGhqko4Qxsc/sCyqNmmCHpGdhWAaYeaB82QzfP8RhLoyHJviJ/XclVqUwDyuVAHi56S2Qvv7nq1WjiL3aH9xnWzdUYWDky4pUcaWlxD31cmUJUSTguIsZYdFejq6iOg6ebvQnKovbpCrh8l4VqGrOKE5bi5cMmmjG1L6Li+pC8oiZd+0W8vEyXqBciB7WgMLzh6U6+es4chYwfaVRRMhod23vkCutS4u8ZLyo="
       before_install:
       - cd oga/backend
+      - mysql -e "CREATE DATABASE Askat_DB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;"
+      - mysql -e "CREATE USER 'Askat'@'localhost' IDENTIFIED BY '1234';"
+      - mysql -e "GRANT ALL PRIVILEGES ON Askat_DB.* to 'Askat'@'localhost';"
       install:
       - pip install -r requirements.txt
       - pip install coveralls
