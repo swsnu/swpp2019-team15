@@ -20,9 +20,10 @@ const state = { userid: "", passwd: "" };
 const position = jest.mock();
 position.coords = { latitude: 1, longitude: 1 };
 const mockCurrentPostion = jest.fn(f => f(position));
+const mockWatchPosition = jest.fn();
 const mockGeolocation = {
     getCurrentPosition: mockCurrentPostion,
-    watchPosition: jest.fn().mockImplementationOnce(success =>
+    watchPosition: mockWatchPosition.mockImplementationOnce(success =>
         Promise.resolve(
             success({
                 coords: {
@@ -59,15 +60,26 @@ describe("<Settings />", () => {
         expect(wrapper.find(".Settings").length).toBe(1);
     });
 
-    it("should call clickLocationHandler when location toggle clicked", () => {
+    // it("should clearWatch when location toggle clicked", () => {
+    //     const component = mount(settings);
+    //     const instance = component.find(".Settings").instance();
+
+    //     component
+    //         .find("#location-toggle")
+    //         .hostNodes()
+    //         .simulate("click");
+    //     expect(mockClearWatch).toHaveBeenCalledTimes(1);
+    // });
+
+    it("should watchPosition when location toggle clicked", () => {
         const component = mount(settings);
         const instance = component.find(".Settings").instance();
-        const spyLocationHandler = jest
-            .spyOn(instance, "clickLocationHandler")
-            .mockImplementation(path => {});
 
-        component.find("#location-toggle").simulate("click");
-        expect(spyLocationHandler).toHaveBeenCalledTimes(1);
+        component
+            .find("#location-toggle")
+            .hostNodes()
+            .simulate("click");
+        expect(mockWatchPosition).toHaveBeenCalledTimes(1);
     });
 
     xit("should handle back button clicks", () => {
