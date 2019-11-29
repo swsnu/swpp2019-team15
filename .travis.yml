@@ -24,6 +24,7 @@ matrix:
     - language: python
       python: 3.6
       dist: xenial
+      services: mysql
       addons:
         sonarcloud:
           organization: "swsnu"
