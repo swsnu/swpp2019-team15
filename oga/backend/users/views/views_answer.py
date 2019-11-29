@@ -4,6 +4,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user
+from django.contrib.auth.models import User
 from django.views.decorators.http import require_http_methods
 from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
@@ -78,10 +79,35 @@ def get_answers(request, question_id):
 @require_http_methods(["GET"])
 def get_user_answers(request):
     """
-    get list of answers made by user
+    get list of answers made by currently logged in user
     """
     response_dict = []
     user = get_user(request)
+    profile = Profile.objects.get(user=user)
+    answer_list = Answer.objects.filter(author=profile)
+    response_dict = [{
+        'id': ans.id,
+        'question_id': ans.question.id,
+        'question_author': ans.question.author.username,
+        'question_publish_date_time': ans.question.publish_date_time,
+        'location': ans.question.location_id.name,
+        'publish_date_time': ans.publish_date_time,
+        'question_type': ans.question_type,
+        'content': ans.content,
+    } for ans in answer_list]
+    return JsonResponse(response_dict, safe=False, status=200)
+
+
+@csrf_exempt
+@check_login_required
+@check_request
+@require_http_methods(["GET"])
+def get_single_user_answers(request, username):
+    """
+    get list of answers made by a specific user based on given username
+    """
+    response_dict = []
+    user = User.objects.get(username=username)
     profile = Profile.objects.get(user=user)
     answer_list = Answer.objects.filter(author=profile)
     response_dict = [{
