@@ -41,7 +41,7 @@ matrix:
       - pip install coveralls
       script:
       - pylint users
-      - pylint oga
+      - pylint askat
       - coverage run --branch --source='./users' manage.py test && coverage report -m
       - coverage xml
       after_success:
