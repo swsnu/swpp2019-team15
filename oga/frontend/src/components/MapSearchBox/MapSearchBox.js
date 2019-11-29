@@ -68,6 +68,7 @@ class MapSearchBox extends Component {
                             </InputAdornment>
                         )
                     }}
+                    style={{ backgroundColor: "#fff" }}
                 />
             </div>
         );

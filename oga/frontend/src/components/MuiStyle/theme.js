@@ -6,9 +6,6 @@ export const theme = createMuiTheme({
         height: "100%",
         width: "100%"
     },
-    content: {
-        flexGrow: 1
-    },
     palette: {
         background: {
             default: "#f2f2f2",

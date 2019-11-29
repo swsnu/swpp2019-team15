@@ -23,11 +23,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LiveHelp from "@material-ui/icons/LiveHelp";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import Switch from "@material-ui/core/Switch";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import SettingsApplications from "@material-ui/icons/SettingsApplications";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import Button from "@material-ui/core/Button";
+import ExitToApp from "@material-ui/icons/ExitToApp";
 
 const drawerWidth = 200;
 
@@ -36,7 +37,7 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1
     },
     appBar: {
-        padding: 5,
+        // padding: 5,
         zIndex: theme.zIndex.drawer + 1
     },
     menuButton: {
@@ -47,7 +48,7 @@ const useStyles = makeStyles(theme => ({
         display: "none"
     },
     drawer: {
-        paddingTop: 56,
+        paddingTop: 50,
         width: drawerWidth,
         flexShrink: 0,
         whiteSpace: "nowrap"
@@ -142,19 +143,19 @@ function MenuAppBar(props) {
                             </Typography>
                             <FormControlLabel
                                 control={
-                                    <Switch
+                                    <Button
                                         checked={auth}
-                                        onChange={() => func()}
-                                        aria-label="login switch"
-                                        color="dark"
-                                    />
+                                        onClick={() => func()}
+                                        aria-label="logout-button"
+                                    >
+                                        <ExitToApp />
+                                        Logout
+                                    </Button>
                                 }
-                                label={auth ? "Logout" : "Login"}
                             />
                         </Toolbar>
                     </AppBar>
                     <Drawer
-                        position="sticky"
                         variant="permanent"
                         containerStyle={{
                             marginLeft: "6.5%",

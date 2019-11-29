@@ -131,13 +131,14 @@ class Profile extends Component {
                 className="Profile"
                 justify="center"
                 style={{ marginTop: 50 }}
+                direction="row"
             >
-                <Grid item md={10} xs={10} sd={10}>
-                    <Card>
+                <Grid item md={6} xs={6} direction="column" align="center">
+                    <Card style={{ maxWidth: "90%" }}>
                         <CardMedia
                             style={{
-                                maxWidth: "100%",
-                                height: 250,
+                                width: "100%",
+                                height: 320,
                                 objectFit: "cover"
                             }}
                             src={
@@ -151,7 +152,7 @@ class Profile extends Component {
                                     item
                                     xs={4}
                                     direction="column"
-                                    style={{ padding: 20 }}
+                                    style={{ padding: 10 }}
                                 >
                                     <Avatar
                                         justify="center"
@@ -161,14 +162,14 @@ class Profile extends Component {
                                         compont="img"
                                         style={{
                                             position: "absolute",
-                                            left: "16%",
-                                            top: 250,
-                                            margin: "8px",
+                                            left: "9%",
+                                            top: 345,
+                                            margin: "6px",
                                             border: "solid",
                                             borderColor: "#fff",
-                                            borderWidth: "6px",
-                                            width: "180px",
-                                            height: "180px"
+                                            borderWidth: "5px",
+                                            width: "150px",
+                                            height: "150px"
                                         }}
                                     />
                                     <Typography
@@ -176,7 +177,7 @@ class Profile extends Component {
                                         variant="h4"
                                         style={{
                                             paddingTop: 50,
-                                            paddingBottom: 20
+                                            paddingBottom: 10
                                         }}
                                     >
                                         {username}
@@ -236,34 +237,37 @@ class Profile extends Component {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid container md={10} xs={10} justify="flex-start">
-                    <Button
-                        id="my-question-tab"
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                            this.setState({
-                                isQuestionTab: true
-                            });
-                        }}
-                    >
-                        My Questions
-                    </Button>
-                    <Button
-                        id="my-answer-tab"
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                            this.setState({
-                                isQuestionTab: false
-                            });
-                        }}
-                    >
-                        My Answers
-                    </Button>
-                </Grid>
-                <Grid item md={10} xs={10}>
-                    {this.state.isQuestionTab ? myQuestions : myAnswers}
+                <Grid item md={6} xs={6} align="left" direction="column">
+                    <Grid style={{ maxWidth: "95%" }}>
+                        <Button
+                            id="my-question-tab"
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                                this.setState({
+                                    isQuestionTab: true
+                                });
+                            }}
+                        >
+                            My Questions
+                        </Button>
+                        <Button
+                            id="my-answer-tab"
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                                this.setState({
+                                    isQuestionTab: false
+                                });
+                            }}
+                        >
+                            My Answers
+                        </Button>
+
+                        <Grid item>
+                            {this.state.isQuestionTab ? myQuestions : myAnswers}
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         );

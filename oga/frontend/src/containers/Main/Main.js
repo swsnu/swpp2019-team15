@@ -45,21 +45,23 @@ class QuestionList extends Component {
         var stored_Questions = this.props.storedQuestions.slice(len - 10, len);
         const Questions = stored_Questions.map(qs => {
             return (
-                <Question
-                    key={qs.id}
-                    id={qs.id}
-                    author={qs.author}
-                    publish_date_time={moment(qs.publish_date_time).format(
-                        "MMMM Do YYYY, h:mm:ss a"
-                    )}
-                    content={qs.content}
-                    location={qs.location}
-                    is_answered={qs.is_answered}
-                    showButtons={true}
-                    clickAnswer={() => this.clickAnswerHandler(qs)}
-                    clickFollow={() => this.clickFollowHandler(qs)}
-                    clickDetail={() => this.clickDetailHandler(qs)}
-                />
+                <Grid item xs={6}>
+                    <Question
+                        key={qs.id}
+                        id={qs.id}
+                        author={qs.author}
+                        publish_date_time={moment(qs.publish_date_time).format(
+                            "MMMM Do YYYY, h:mm:ss a"
+                        )}
+                        content={qs.content}
+                        location={qs.location}
+                        is_answered={qs.is_answered}
+                        showButtons={true}
+                        clickAnswer={() => this.clickAnswerHandler(qs)}
+                        clickFollow={() => this.clickFollowHandler(qs)}
+                        clickDetail={() => this.clickDetailHandler(qs)}
+                    />
+                </Grid>
             );
         });
 

@@ -48,7 +48,7 @@ const Question = props => {
     const classes = useStyles();
 
     return (
-        <Grid className="Question" item md={6} key={props.id}>
+        <Grid className="Question" key={props.id}>
             <Card className={classes.card}>
                 <CardContent align="left" className={classes.content}>
                     <div onClick={props.clickDetail}>
