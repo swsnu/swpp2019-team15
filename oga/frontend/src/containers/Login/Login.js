@@ -31,6 +31,7 @@ class Login extends Component {
             <div
                 className="Login"
                 style={{
+                    backgroundColor: "#fff",
                     position: "absolute",
                     left: "50%",
                     top: "50%",

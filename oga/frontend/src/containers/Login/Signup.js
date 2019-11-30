@@ -47,6 +47,7 @@ class Signup extends Component {
             <div
                 className="Signup"
                 style={{
+                    backgroundColor: "#fff",
                     position: "absolute",
                     left: "50%",
                     top: "50%",

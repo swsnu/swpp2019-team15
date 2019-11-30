@@ -11,21 +11,23 @@
  * @author taehioum
  * @since  2019-10-18
  */
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
-import GoogleMapReact from 'google-map-react';
-import API_KEY from '../../const/api_key';
-import SearchBox from '../../components/MapSearchBox/MapSearchBox';
-import LocationListener from '../../components/LocationListener/LocationListener';
-import * as actionCreators from '../../store/actions/index';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import GoogleMapReact from "google-map-react";
+import API_KEY from "../../const/api_key";
+import SearchBox from "../../components/MapSearchBox/MapSearchBox";
+import LocationListener from "../../components/LocationListener/LocationListener";
+import * as actionCreators from "../../store/actions/index";
+
+import Grid from "@material-ui/core/Grid";
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class GoogleMap extends Component {
     static defaultProps = {
         //somewhere in SNU, but should actually get from user
-        zoom: 14,
+        zoom: 14
     };
 
     constructor(props) {
@@ -119,18 +121,23 @@ class GoogleMap extends Component {
             console.log(center);
         }
         return (
-            <div className="Map" style={{ height: "50vh", width: "40%", margin:"auto"}}>
-              <div>
+            <Grid className="Map">
                 <LocationListener />
                 {mapApiLoaded && !this.props.viewOnly && (
                     <SearchBox
+                        style={{ top: 100 }}
                         map={mapInstance}
                         mapApi={mapApi}
                         addplace={this.addPlace}
                     />
                 )}
-              </div>
                 <GoogleMapReact
+                    style={{
+                        position: "relative",
+                        height: 665,
+                        top: 15,
+                        width: "100%"
+                    }}
                     defaultZoom={this.props.zoom}
                     center={center}
                     bootstrapURLKeys={{
@@ -142,8 +149,8 @@ class GoogleMap extends Component {
                     onGoogleApiLoaded={({ map, maps }) =>
                         this.apiHasLoaded(map, maps)
                     }
-                ></GoogleMapReact>
-            </div>
+                />
+            </Grid>
         );
     }
 }

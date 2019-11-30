@@ -15,6 +15,7 @@ import "./MapSearchBox.css";
 
 // Material ui components
 import Close from "@material-ui/icons/Close";
+import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -48,14 +49,18 @@ class MapSearchBox extends Component {
 
     render() {
         return (
-            <div className="MapSearchBox">
+            <Grid item align="left" className="MapSearchBox">
                 <TextField
+                    style={{
+                        backgroundColor: "#fff",
+                        margin: 30,
+                        zIndex: 1000 // determines layer position for overlaying components
+                    }}
                     id="searchbox"
                     type="text"
                     inputRef={ref => {
                         this.searchInput = ref;
                     }}
-                    fullWidth
                     variant="outlined"
                     autoFocus
                     placeholder="Enter a location"
@@ -68,9 +73,8 @@ class MapSearchBox extends Component {
                             </InputAdornment>
                         )
                     }}
-                    style={{ backgroundColor: "#fff" }}
                 />
-            </div>
+            </Grid>
         );
     }
 }
