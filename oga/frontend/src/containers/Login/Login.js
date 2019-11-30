@@ -10,7 +10,6 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
 
 class Login extends Component {
     state = {
@@ -31,7 +30,6 @@ class Login extends Component {
             <div
                 className="Login"
                 style={{
-                    backgroundColor: "#fff",
                     position: "absolute",
                     left: "50%",
                     top: "50%",

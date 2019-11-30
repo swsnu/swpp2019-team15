@@ -17,9 +17,8 @@ import "./MapSearchBox.css";
 import Close from "@material-ui/icons/Close";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
-import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { Button, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 
 class MapSearchBox extends Component {
     constructor(props) {
