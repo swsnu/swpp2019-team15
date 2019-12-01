@@ -66,7 +66,10 @@ class MapSearchBox extends Component {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment>
-                                <IconButton onClick={this.clearSearchBox}>
+                                <IconButton
+                                    id="clear-search-button"
+                                    onClick={this.clearSearchBox}
+                                >
                                     <Close />
                                 </IconButton>
                             </InputAdornment>

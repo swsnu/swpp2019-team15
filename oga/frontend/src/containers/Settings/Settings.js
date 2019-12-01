@@ -86,31 +86,6 @@ class Settings extends Component {
                     </Typography>
                     <Box />
                     {subscribe_to_location}
-                    <Box pt={5} />
-                    <Grid container justify="center" alignItems="center">
-                        <Button
-                            variation="contained"
-                            color="primary"
-                            id="logout-button"
-                            onClick={() => {
-                                this.props.logout();
-                            }}
-                        >
-                            Logout
-                        </Button>
-                    </Grid>
-                    <Grid container justify="center" alignItems="center">
-                        <Button
-                            variation="contained"
-                            color="primary"
-                            id="back-button"
-                            onClick={() => {
-                                this.props.history.goBack();
-                            }}
-                        >
-                            Back
-                        </Button>
-                    </Grid>
                     <Box pt={10} />
                 </div>
             </Container>
