@@ -24,9 +24,16 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        this.props.getProfile();
-        this.props.getUserQuestions();
-        this.props.getUserAnswers();
+        var username = this.props.match.params.username;
+        if (username) {
+            this.props.getUserProfile(username);
+            this.props.getSingleUserQuestions(username);
+            this.props.getSingleUserAnswers(username);
+        } else {
+            this.props.getProfile();
+            this.props.getUserQuestions();
+            this.props.getUserAnswers();
+        }
     }
 
     onClickDetailHandler = id => {
@@ -38,7 +45,6 @@ class Profile extends Component {
         // let follows = null
         let location = "";
         let coordinates = "";
-
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;
@@ -124,150 +130,170 @@ class Profile extends Component {
         });
 
         return (
-            <Grid
-                container
-                className="Profile"
-                justify="center"
-                style={{ marginTop: 50 }}
-                direction="row"
-            >
-                <Grid item md={6} xs={6} direction="column" align="center">
-                    <Card style={{ maxWidth: "90%" }}>
-                        <CardMedia
-                            style={{
-                                width: "100%",
-                                height: 320,
-                                objectFit: "cover"
-                            }}
-                            src={
-                                "http://englishmajorswithjobs.com/wp-content/uploads/2019/05/Haku-bicycle-1024x536.jpg"
-                            }
-                            component="img"
-                        />
-                        <CardContent align="center">
-                            <Grid container alignItems="center">
-                                <Grid
-                                    item
-                                    xs={4}
-                                    direction="column"
-                                    style={{ padding: 10 }}
-                                >
-                                    <Avatar
-                                        justify="center"
-                                        src={
-                                            "https://image.flaticon.com/icons/png/512/185/185846.png"
-                                        }
-                                        compont="img"
-                                        style={{
-                                            position: "absolute",
-                                            left: "9%",
-                                            top: 345,
-                                            margin: "6px",
-                                            border: "solid",
-                                            borderColor: "#fff",
-                                            borderWidth: "5px",
-                                            width: "150px",
-                                            height: "150px"
-                                        }}
-                                    />
-                                    <Typography
-                                        component="h1"
-                                        variant="h4"
-                                        style={{
-                                            paddingTop: 50,
-                                            paddingBottom: 10
-                                        }}
-                                    >
-                                        {username}
-                                    </Typography>
-                                    <Typography
-                                        variant="h6"
-                                        style={{
-                                            color: "green",
-                                            paddingBottom: 20
-                                        }}
-                                    >
-                                        {"   "}
-                                        {/* TODO: Rank to be determined based on point system implementation */}
-                                        {rank[10]}
-                                    </Typography>
+            <div>
+                {this.props.userProfile ? (
+                    <Grid
+                        container
+                        className="Profile"
+                        justify="center"
+                        style={{ marginTop: 50 }}
+                        direction="row"
+                    >
+                        <Grid
+                            item
+                            md={6}
+                            xs={6}
+                            direction="column"
+                            align="center"
+                        >
+                            <Card style={{ maxWidth: "90%" }}>
+                                <CardMedia
+                                    style={{
+                                        width: "100%",
+                                        height: 320,
+                                        objectFit: "cover"
+                                    }}
+                                    src={
+                                        "http://englishmajorswithjobs.com/wp-content/uploads/2019/05/Haku-bicycle-1024x536.jpg"
+                                    }
+                                    component="img"
+                                />
+                                <CardContent align="center">
+                                    <Grid container alignItems="center">
+                                        <Grid
+                                            item
+                                            xs={4}
+                                            direction="column"
+                                            style={{ padding: 10 }}
+                                        >
+                                            <Avatar
+                                                justify="center"
+                                                src={
+                                                    "https://image.flaticon.com/icons/png/512/185/185846.png"
+                                                }
+                                                compont="img"
+                                                style={{
+                                                    position: "absolute",
+                                                    left: "9%",
+                                                    top: 345,
+                                                    margin: "6px",
+                                                    border: "solid",
+                                                    borderColor: "#fff",
+                                                    borderWidth: "5px",
+                                                    width: "150px",
+                                                    height: "150px"
+                                                }}
+                                            />
+                                            <Typography
+                                                component="h1"
+                                                variant="h4"
+                                                style={{
+                                                    paddingTop: 50,
+                                                    paddingBottom: 10
+                                                }}
+                                            >
+                                                {username}
+                                            </Typography>
+                                            <Typography
+                                                variant="h6"
+                                                style={{
+                                                    color: "green",
+                                                    paddingBottom: 20
+                                                }}
+                                            >
+                                                {"   "}
+                                                {/* TODO: Rank to be determined based on point system implementation */}
+                                                {rank[10]}
+                                            </Typography>
 
-                                    <Typography variant="subtitle1">
-                                        <i>
-                                            {location}
-                                            <br />
-                                            {coordinates}
-                                        </i>
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <Typography
-                                        style={{
-                                            fontWeight: "bold",
-                                            fontSize: 50
-                                        }}
-                                    >
-                                        {questionCount}
-                                    </Typography>
-                                    <Typography variant="caption">
-                                        Questions Asked
-                                    </Typography>
-                                </Grid>
-                                <Grid
-                                    item
-                                    xs={4}
-                                    direction="column"
-                                    align="center"
+                                            <Typography variant="subtitle1">
+                                                <i>
+                                                    {location}
+                                                    <br />
+                                                    {coordinates}
+                                                </i>
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <Typography
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    fontSize: 50
+                                                }}
+                                            >
+                                                {questionCount}
+                                            </Typography>
+                                            <Typography variant="caption">
+                                                Questions Asked
+                                            </Typography>
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={4}
+                                            direction="column"
+                                            align="center"
+                                        >
+                                            <Typography
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    fontSize: 50
+                                                }}
+                                            >
+                                                {answerCount}
+                                            </Typography>
+                                            <Typography variant="caption">
+                                                Answers
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Grid
+                            item
+                            md={6}
+                            xs={6}
+                            align="left"
+                            direction="column"
+                        >
+                            <Grid style={{ maxWidth: "95%" }}>
+                                <Button
+                                    id="my-question-tab"
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => {
+                                        this.setState({
+                                            isQuestionTab: true
+                                        });
+                                    }}
                                 >
-                                    <Typography
-                                        style={{
-                                            fontWeight: "bold",
-                                            fontSize: 50
-                                        }}
-                                    >
-                                        {answerCount}
-                                    </Typography>
-                                    <Typography variant="caption">
-                                        Answers
-                                    </Typography>
+                                    My Questions
+                                </Button>
+                                <Button
+                                    id="my-answer-tab"
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => {
+                                        this.setState({
+                                            isQuestionTab: false
+                                        });
+                                    }}
+                                >
+                                    My Answers
+                                </Button>
+
+                                <Grid item>
+                                    {this.state.isQuestionTab
+                                        ? myQuestions
+                                        : myAnswers}
                                 </Grid>
                             </Grid>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item md={6} xs={6} align="left" direction="column">
-                    <Grid style={{ maxWidth: "95%" }}>
-                        <Button
-                            id="my-question-tab"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                                this.setState({
-                                    isQuestionTab: true
-                                });
-                            }}
-                        >
-                            My Questions
-                        </Button>
-                        <Button
-                            id="my-answer-tab"
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                                this.setState({
-                                    isQuestionTab: false
-                                });
-                            }}
-                        >
-                            My Answers
-                        </Button>
-
-                        <Grid item>
-                            {this.state.isQuestionTab ? myQuestions : myAnswers}
                         </Grid>
                     </Grid>
-                </Grid>
-            </Grid>
+                ) : (
+                    <h1>User "{this.props.match.params.username}" Not Found</h1>
+                )}
+            </div>
         );
     }
 }
@@ -285,8 +311,14 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getProfile: () => dispatch(actionCreators.getProfile()),
+        getUserProfile: username =>
+            dispatch(actionCreators.getUserProfile(username)),
         getUserQuestions: () => dispatch(actionCreators.getUserQuestions()),
-        getUserAnswers: () => dispatch(actionCreators.getUserAnswers())
+        getSingleUserQuestions: username =>
+            dispatch(actionCreators.getSingleUserQuestions(username)),
+        getUserAnswers: () => dispatch(actionCreators.getUserAnswers()),
+        getSingleUserAnswers: username =>
+            dispatch(actionCreators.getSingleUserAnswers(username))
     };
 };
 

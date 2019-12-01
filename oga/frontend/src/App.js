@@ -109,6 +109,12 @@ function App(props) {
                                 exact
                                 component={Profile}
                             />
+                            <PrivateRoute
+                                auth={props.auth}
+                                path="/profile/:username"
+                                exact
+                                component={Profile}
+                            />
                             <Redirect exact from="/" to="/main" />
                             <Route render={() => <h1>Not Found</h1>} />
                         </Switch>

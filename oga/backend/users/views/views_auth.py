@@ -7,7 +7,6 @@ from django.contrib.auth import login, authenticate, logout, get_user
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from users.models import Profile
-
 from users.views.decorators import check_request, check_login_required
 
 
@@ -92,5 +91,24 @@ def get_profile(request):
         'username': profile.user.username,
         'location': location_name,
         'coordinates': coordinates
+    }
+    return JsonResponse(response_dict)
+
+
+@check_login_required
+@ensure_csrf_cookie
+@require_http_methods(["GET"])
+def get_user_profile(request, username):
+    """
+    get profile details of specific user based on username
+    """
+    user = User.objects.get(username=username)
+    profile = Profile.objects.get(user=user)
+    response_dict = {
+        'id': profile.id,
+        'username': profile.user.username,
+        'location': profile.location_id.name,
+        'location_lat': round(profile.location_id.latitude, 2),
+        'location_long': round(profile.location_id.longitude, 2),
     }
     return JsonResponse(response_dict)

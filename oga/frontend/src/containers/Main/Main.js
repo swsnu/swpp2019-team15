@@ -40,9 +40,8 @@ class QuestionList extends Component {
 
     render() {
         // const theme = useTheme();
-
         var len = this.props.storedQuestions.length;
-        var stored_Questions = this.props.storedQuestions.slice(len - 10, len);
+        var stored_Questions = this.props.storedQuestions.slice(0, 20);
         const Questions = stored_Questions.map(qs => {
             return (
                 <Grid item xs={6}>
