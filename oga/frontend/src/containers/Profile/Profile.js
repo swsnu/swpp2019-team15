@@ -278,7 +278,9 @@ const mapStateToProps = state => {
     return {
         userProfile: state.auth.profile,
         myQuestions: state.question.questions,
-        myAnswers: state.answer.answers
+        myAnswers: state.answer.answers,
+        counts_rating_up: state.rating.rating_up,
+        counts_rating_down: state.rating.rating_down,
     };
 };
 

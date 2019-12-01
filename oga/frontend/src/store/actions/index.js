@@ -18,12 +18,15 @@ import {
     getAnswers,
     getAnswer,
     getUserAnswers,
-} from "./answerActions";
-import {
     checkRating,
     rateUp,
     rateDown
-} from "./rateActions";
+} from "./answerActions";
+// import {
+//     checkRating,
+//     rateUp,
+//     rateDown
+// } from "./rateActions";
 export {
     setTargetLocation,
     setCurrentCoordinates,

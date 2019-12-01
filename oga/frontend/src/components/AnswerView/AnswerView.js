@@ -45,62 +45,50 @@ const styles = theme => ({
 class AnswerView extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            just_rated_answer: null
-        };
-    }
-
-    componentDidMount() {
-        this.props.onGetAll(this.props.id);
     }
 
     rateUpHandler = id => {
         this.props.rateUp(id);
-        this.setState({ just_rated_answer: this.props.id });
     };
 
     rateDownHandler = id => {
         this.props.rateDown(id);
-        this.setState({ just_rated_answer: this.props.id });
     };
 
     render() {
-        console.log(this.state.just_rated_answer);
         const { classes } = this.props;
-        // var selec = null;
-        var ratings = (
-            <React.Fragment>
-                {!this.props.is_rated ? (
-                    <div className="Rating">
-                        <Button
-                            id="thumb_up-button"
-                            color="primary"
-                            onClick={() => this.rateUpHandler(this.props.id)}
-                        >
-                            &#128077;
-                        </Button>
-                        <Button
-                            id="thumb_down-button"
-                            color="primary"
-                            onClick={() => this.rateDownHandler(this.props.id)}
-                        >
-                            &#128078;
-                        </Button>
-                    </div>
-                ) : null
-                // selec =
-                // (this.props.is_up) ? (<div>&#128077;</div>) : (<div>&#128078;</div>)
-                }
-                {this.state.just_rated_answer == this.props.id ? (
-                    this.props.is_up ? (
-                        <div>&#128077;</div>
-                    ) : (
-                        <div>&#128078;</div>
-                    )
-                ) : null}
-            </React.Fragment>
-        );
+        var selec = null;
+        if (this.props.is_answered && this.props.is_rated)
+        {
+            if (this.props.is_up)
+            {
+                selec = <React.Fragment>&#128077;</React.Fragment>
+            } else {
+                selec = <React.Fragment>&#128078;</React.Fragment>
+            }
+        }
+        // var ratings = (
+        //     <React.Fragment>
+        //         {!this.props.is_rated ? (
+        //             <div className="Rating">
+        //                 <Button
+        //                     id="thumb_up-button"
+        //                     color="primary"
+        //                     onClick={() => this.rateUpHandler(this.props.id)}
+        //                 >
+        //                     &#128077;
+        //                 </Button>
+        //                 <Button
+        //                     id="thumb_down-button"
+        //                     color="primary"
+        //                     onClick={() => this.rateDownHandler(this.props.id)}
+        //                 >
+        //                     &#128078;
+        //                 </Button>
+        //             </div>
+        //         ) : null}
+        //     </React.Fragment>
+        // );
         return (
             <div className="AnswerView" key={this.props.id}>
                 <Grid item>
@@ -138,7 +126,7 @@ class AnswerView extends Component {
                                     </Typography>
                                 </div>
                             </CardContent>
-                            <div>{ratings}</div>
+                            <div>{this.props.ratings}{selec}</div>
                         </Card>
                     ) : (
                         <div>
@@ -152,20 +140,22 @@ class AnswerView extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        is_rated: state.rating.is_rated,
-        is_up: state.rating.is_up
-    };
-};
+// const mapStateToProps = state => {
+//     return {
+//         is_rated: state.rating.is_rated,
+//         is_up: state.rating.is_up,
+//         rate_up: state.rating.rate_up,
+//         rate_down: state.rating.rate_down,
+//     };
+// };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onGetAll: id => dispatch(actionCreators.checkRating(id)),
-        rateUp: id => dispatch(actionCreators.rateUp(id)),
-        rateDown: id => dispatch(actionCreators.rateDown(id))
-    };
-};
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         // onGetAll: id => dispatch(actionCreators.checkRating(id)),
+//         rateUp: id => dispatch(actionCreators.rateUp(id)),
+//         rateDown: id => dispatch(actionCreators.rateDown(id))
+//     };
+// };
 
 // const AnswerView = props => {
 //     const classes = useStyles();
@@ -217,6 +207,4 @@ const mapDispatchToProps = dispatch => {
 // };
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
 )(withRouter(withStyles(styles)(AnswerView)));
