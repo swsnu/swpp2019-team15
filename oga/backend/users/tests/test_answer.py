@@ -117,3 +117,21 @@ class AnswerTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]['content'], 'many')
+
+    def test_if_initial_answer_is_rated(self):
+        """ test if initial answer is rated """
+        # Answer initially unrated
+        response = self.client.get('/api/rate/is_rated/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['is_rated'], False)
+
+    def test_when_answer_is_rated(self):
+        """ test when answer has been rated """
+        # Rate answer
+        response = self.client.put('/api/rate/up/1/')
+        self.assertEqual(response.status_code, 201)
+
+        # Answer should be rated
+        response = self.client.get('/api/rate/is_rated/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['is_rated'], True)
