@@ -36,7 +36,7 @@ class Profile extends Component {
     render() {
         let username = "";
         // let follows = null
-        let location = "Location unknown";
+        let location = "";
         let coordinates = "";
 
         if (this.props.userProfile) {
@@ -44,10 +44,8 @@ class Profile extends Component {
             username = profile.username;
             // follows = profile.follows;
 
-            if (this.props.userProfile.location) {
-                location = `${profile.location}`;
-                coordinates = `(${profile.latitude}, ${profile.longitude})`;
-            }
+            location = `${profile.location}`;
+            coordinates = profile.coordinates;
         }
 
         var questions = this.props.myQuestions;
@@ -278,9 +276,9 @@ const mapStateToProps = state => {
     return {
         userProfile: state.auth.profile,
         myQuestions: state.question.questions,
-        myAnswers: state.answer.answers,
-        counts_rating_up: state.rating.rating_up,
-        counts_rating_down: state.rating.rating_down,
+        myAnswers: state.answer.answers
+        // counts_rating_up: state.rating.rating_up,
+        // counts_rating_down: state.rating.rating_down,
     };
 };
 
