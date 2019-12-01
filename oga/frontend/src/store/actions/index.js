@@ -19,14 +19,15 @@ import {
 } from "./authActions.js";
 
 import {
+    checkRating,
     createAnswer,
     getAnswers,
     getAnswer,
     getUserAnswers,
-    getSingleUserAnswers
+    getSingleUserAnswers,
+    rateUp,
+    rateDown
 } from "./answerActions";
-
-import { checkRating, rateUp, rateDown } from "./rateActions";
 
 export {
     setTargetLocation,

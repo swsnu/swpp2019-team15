@@ -99,6 +99,7 @@ def get_user_answers(request):
     } for ans in answer_list]
     return JsonResponse(response_dict, safe=False, status=200)
 
+
 @csrf_exempt
 @check_login_required
 @check_request
@@ -121,6 +122,8 @@ def get_single_user_answers(request, username):
         'question_type': ans.question_type,
         'content': ans.content,
     } for ans in answer_list]
+    return JsonResponse(response_dict, safe=False, status=200)
+
 
 @check_login_required
 @check_request

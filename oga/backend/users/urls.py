@@ -29,7 +29,7 @@ urlpatterns = [
          name='follow_question'),
     path('un-authed/', views.logged_out, name='logged_out'),
     path('rate/is_rated/<int:answer_id>/',
-         views.check_rating, name='check_rating'),
+         views.check_is_rated, name='check_is_rated'),
     path('rate/up/<int:answer_id>/', views.rate_up_answer, name='rate_up'),
     path('rate/down/<int:answer_id>/', views.rate_down_answer, name='rate_down'),
 ]

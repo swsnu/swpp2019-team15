@@ -18,15 +18,15 @@ class AnswerTestCase(TestCase):
         user = get_user_model()
         self.user = user.objects.create_user(username='test', password='1234')
         self.user.save()
-        location = Location.objects.create(name='home',
-                                           longitude=38.123,
-                                           latitude=127.39)
-        location.save()
+        self.location = Location.objects.create(name='home',
+                                                longitude=38.123,
+                                                latitude=127.39)
+        self.location.save()
         self.question = Question.objects.create(author=self.user, content='rains?',
-                                                location_id=location)
+                                                location_id=self.location)
         self.question.save()
         profile = Profile.objects.get(user=self.user)
-        profile.location_id = location
+        profile.location_id = self.location
         profile.save()
         answer = Answer.objects.create(question=self.question,
                                        author=profile,
@@ -74,7 +74,7 @@ class AnswerTestCase(TestCase):
         other_user.save()
         # create other user profile
         profile = Profile.objects.get(user=other_user)
-
+        profile.save()
         # New answer created by another user
         other_answer = Answer(
             author=profile, content='many', question=self.question)
@@ -86,31 +86,33 @@ class AnswerTestCase(TestCase):
         # should omit answers made by other users
         self.assertEqual(len(response.json()), 1)
 
-    def test_get_single_users_question_list(self):
+    def test_get_single_users_answer_list(self):
         """ 
         Test getting answer list of another user's profile.
         """
         # create another user
-        other_user = get_user_model()
-        other_user = other_user.objects.create_user(
-            username='other_user', password='1234')
-        other_user.save()
+        new_user = get_user_model()
+        new_user = new_user.objects.create_user(
+            username='new_user', password='1234')
+        new_user.save()
         # create other user profile
-        profile = Profile.objects.get(user=other_user)
+        profile = Profile.objects.get(user=new_user)
+        profile.location_id = self.location
+        profile.save()
 
         """ List should be empty before other user posts an answer """
-        response = self.client.get('/api/profile/answers/other_user/')
+        response = self.client.get('/api/profile/answers/new_user/')
         self.assertEqual(response.status_code, 200)
         # question list should be empty
         self.assertEqual(len(response.json()), 0)
 
-        """ Should retrieve answer list made by other_user only """
+        """ Should retrieve answer list made by new_user only """
         # Other user creates new answer
         other_answer = Answer(
             author=profile, content='many', question=self.question)
         other_answer.save()
         # fetch question list of "other_user"
-        response = self.client.get('/api/profile/answers/other_user/')
+        response = self.client.get('/api/profile/answers/new_user/')
         # question list should contain new question
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 1)
