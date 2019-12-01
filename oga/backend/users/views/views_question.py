@@ -103,7 +103,7 @@ def question_detail(request, question_id):
         'place_lng': question.location_id.longitude,
         'is_answered': question.is_answered,
     }
-    return JsonResponse(response_dict, status=200)
+    return JsonResponse(response_dict)
 
 
 @check_login_required
