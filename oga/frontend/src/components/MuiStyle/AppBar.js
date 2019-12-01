@@ -100,7 +100,6 @@ function MenuAppBar(props) {
     // const open = Boolean(anchorEl);
     MenuItem.displayName = "menu_item";
 
-    const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
     const handleDrawer = () => {

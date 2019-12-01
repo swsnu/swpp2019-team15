@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import moment from "moment";
-import { withRouter } from "react-router";
 import "./AnswerView.css";
 
 //Materials UI imports

@@ -1,5 +1,4 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import { getThemeProps } from "@material-ui/styles";
 
 export const theme = createMuiTheme({
     root: {
