@@ -51,16 +51,13 @@ class Profile extends Component {
             // follows = profile.follows;
 
             location = `${profile.location}`;
-            coordinates = profile.coordinates;
+            coordinates = `${profile.coordinates}`;
         }
 
         var questions = this.props.myQuestions;
         let questionCount = questions.length;
 
         const myQuestions = questions.map(qs => {
-            var time = moment(qs.publish_date_time).format(
-                "MMMM Do YYYY, h:mm:ss a"
-            );
             return (
                 <div style={{ marginBottom: 5, marginTop: 5 }}>
                     <Question

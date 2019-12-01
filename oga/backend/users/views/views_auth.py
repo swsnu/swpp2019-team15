@@ -81,10 +81,11 @@ def get_profile(request):
     profile = Profile.objects.get(user=user)
     location_name = "Location unknown"
     coordinates = ""
+
     if(profile.location_id):
         location_name = profile.location_id.name
-        coordinates = "(", round(profile.location_id.latitude, 2), ",", round(
-            profile.location_id.longitude, 2), ")"
+        coordinates = "(" + str(round(profile.location_id.latitude, 2)) + \
+            ", " + str(round(profile.location_id.longitude, 2)) + ")"
 
     response_dict = {
         'id': profile.id,
@@ -92,7 +93,7 @@ def get_profile(request):
         'location': location_name,
         'coordinates': coordinates
     }
-    return JsonResponse(response_dict)
+    return JsonResponse(response_dict, status=200)
 
 
 @check_login_required
@@ -104,11 +105,19 @@ def get_user_profile(request, username):
     """
     user = User.objects.get(username=username)
     profile = Profile.objects.get(user=user)
+    location_name = "Location unknown"
+    coordinates = ""
+
+    if(profile.location_id):
+        location_name = profile.location_id.name
+        coordinates = "(" + str(round(profile.location_id.latitude, 2)) + \
+            ", " + str(round(profile.location_id.longitude, 2)) + ")"
+
     response_dict = {
         'id': profile.id,
         'username': profile.user.username,
         'location': profile.location_id.name,
-        'location_lat': round(profile.location_id.latitude, 2),
-        'location_long': round(profile.location_id.longitude, 2),
+        'location': location_name,
+        'coordinates': coordinates
     }
-    return JsonResponse(response_dict)
+    return JsonResponse(response_dict, status=200)

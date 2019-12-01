@@ -94,8 +94,7 @@ export const getProfile_ = profile => {
         id: profile.id,
         username: profile.username,
         location: profile.location,
-        latitude: profile.location_lat,
-        longitude: profile.location_long
+        coordinates: profile.coordinates
     };
 };
 
