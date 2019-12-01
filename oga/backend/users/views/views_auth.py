@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout, get_user
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 from users.models import Profile
 from users.views.decorators import check_request, check_login_required
 
@@ -82,7 +82,7 @@ def get_profile(request):
     location_name = "Location unknown"
     coordinates = ""
 
-    if(profile.location_id):
+    if profile.location_id:
         location_name = profile.location_id.name
         coordinates = "(" + str(round(profile.location_id.latitude, 2)) + \
             ", " + str(round(profile.location_id.longitude, 2)) + ")"
@@ -108,7 +108,7 @@ def get_user_profile(request, username):
     location_name = "Location unknown"
     coordinates = ""
 
-    if(profile.location_id):
+    if profile.location_id:
         location_name = profile.location_id.name
         coordinates = "(" + str(round(profile.location_id.latitude, 2)) + \
             ", " + str(round(profile.location_id.longitude, 2)) + ")"
@@ -116,7 +116,6 @@ def get_user_profile(request, username):
     response_dict = {
         'id': profile.id,
         'username': profile.user.username,
-        'location': profile.location_id.name,
         'location': location_name,
         'coordinates': coordinates
     }

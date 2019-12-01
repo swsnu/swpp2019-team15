@@ -14,10 +14,9 @@ from ..views.decorators import check_request, check_login_required
 @csrf_exempt
 def rate_up_answer(request, answer_id):
     """
-    function to rate up the answer which corresponding to answer_id 
+    function to rate up the answer which corresponding to answer_id
     PUT: rate_up_answer api
     """
-
     answer = Answer.objects.get(id=answer_id)
     if answer.is_rated is True:
         return HttpResponse(status=403)
@@ -45,7 +44,6 @@ def rate_down_answer(request, answer_id):
     function to rate down the answer which corresponding to answer_id
     PUT: rate_down_answer api
     """
-
     answer = Answer.objects.get(id=answer_id)
     if answer.is_rated is True:
         return HttpResponse(status=403)
