@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import * as actionCreators from "../../store/actions/";
 
-import moment, { updateLocale } from "moment";
+import moment from "moment";
 import AnswerView from "../../components/AnswerView/AnswerView";
 
 //Material UI imports
@@ -23,7 +23,7 @@ class AnswerList extends Component {
         super(props);
         this.state = {
             id: this.props.match.params.id,
-            render_check: [],
+            render_check: []
         };
     }
 
@@ -74,59 +74,63 @@ class AnswerList extends Component {
                 len - 10,
                 len
             );
-            if (selected_Answers)
-            {
+            if (selected_Answers) {
                 for (var i = 0; i < selected_Answers.length; i++) {
-                    if (!(this.state.render_check[i])) {
-                        this.props.onGetEachAnswer(selected_Answers[i].id)
-                        this.state.render_check[i] = true
-                        this.forceUpdate()
+                    if (!this.state.render_check[i]) {
+                        this.props.onGetEachAnswer(selected_Answers[i].id);
+                        this.state.render_check[i] = true;
+                        this.forceUpdate();
                     }
                 }
             }
             answers = selected_Answers.map(ans => {
                 return (
-                    <AnswerView
-                        key={ans.id}
-                        id={ans.id}
-                        author={ans.author}
-                        content={ans.question_type}
-                        publish_date_time={moment(ans.publish_date_time).format(
-                            "MMMM Do YYYY, h:mm:ss a"
-                        )}
-                        answer_content={ans.content}
-                        is_answered={true}
-                        place_name={
-                            this.props.selectedQuestion.target_location_name
-                        }
-                        is_rated={ans.is_rated}
-                        is_up={ans.is_up}
-                        ratings={
-                            <React.Fragment>
-                                {!ans.is_rated ? (
-                                    <div className="Rating">
-                                        <Button
-                                            id="thumb_up-button"
-                                            color="primary"
-                                            onClick={() => this.rateUpHandler(ans.id)}
-                                        >
-                                            &#128077;
-                                        </Button>
-                                        <Button
-                                            id="thumb_down-button"
-                                            color="primary"
-                                            onClick={() => this.rateDownHandler(ans.id)}
-                                        >
-                                            &#128078;
-                                        </Button>
-                                    </div>
-                                ) : null}
-                            </React.Fragment>
-                        }
-                    />
+                    <Grid item xs={6} key={ans.id}>
+                        <AnswerView
+                            key={ans.id}
+                            id={ans.id}
+                            author={ans.author}
+                            content={ans.question_type}
+                            publish_date_time={moment(
+                                ans.publish_date_time
+                            ).format("MMMM Do YYYY, h:mm:ss a")}
+                            answer_content={ans.content}
+                            is_answered={true}
+                            place_name={
+                                this.props.selectedQuestion.target_location_name
+                            }
+                            is_rated={ans.is_rated}
+                            is_up={ans.is_up}
+                            ratings={
+                                <React.Fragment>
+                                    {!ans.is_rated ? (
+                                        <div className="Rating">
+                                            <Button
+                                                id="thumb_up-button"
+                                                color="primary"
+                                                onClick={() =>
+                                                    this.rateUpHandler(ans.id)
+                                                }
+                                            >
+                                                &#128077;
+                                            </Button>
+                                            <Button
+                                                id="thumb_down-button"
+                                                color="primary"
+                                                onClick={() =>
+                                                    this.rateDownHandler(ans.id)
+                                                }
+                                            >
+                                                &#128078;
+                                            </Button>
+                                        </div>
+                                    ) : null}
+                                </React.Fragment>
+                            }
+                        />
+                    </Grid>
                 );
             });
-
         }
 
         return (
@@ -194,7 +198,7 @@ const mapStateToProps = state => {
         is_rated: state.answer.is_rated,
         is_up: state.answer.is_up,
         rate_up: state.answer.rate_up,
-        rate_down: state.answer.rate_down,
+        rate_down: state.answer.rate_down
     };
 };
 
@@ -206,7 +210,7 @@ const mapDispatchToProps = dispatch => {
         //setLogout: () =>
         //dispatch(actionCreators.settingLogout())
         rateUp: id => dispatch(actionCreators.rateUp(id)),
-        rateDown: id => dispatch(actionCreators.rateDown(id)),
+        rateDown: id => dispatch(actionCreators.rateDown(id))
     };
 };
 

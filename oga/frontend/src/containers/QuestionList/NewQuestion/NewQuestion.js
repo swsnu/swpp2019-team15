@@ -53,11 +53,12 @@ class NewQuestion extends Component {
                 className="NewQuestion"
                 justify="center"
                 align="center"
+                direction="row"
             >
-                <Grid item xs={6} direction="column">
+                <Grid item xs={6}>
                     <Map />
                 </Grid>
-                <Grid item xs={6} direction="column">
+                <Grid item xs={6}>
                     <Box pt={20} />
                     <Typography component="h1" variant="h4">
                         Ask a New Question!

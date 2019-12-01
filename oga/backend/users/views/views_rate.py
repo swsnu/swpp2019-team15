@@ -1,20 +1,22 @@
 """functional views api for the models"""
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from users.models import Answer, User, Profile
-from users.views.decorators import check_request, check_login_required
-from django.http import JsonResponse, HttpResponse
+from ..models import Answer, Profile
+from ..views.decorators import check_request, check_login_required
+
 
 @check_login_required
 @check_request
 @require_http_methods(["PUT"])
 @csrf_exempt
 def rate_up_answer(request, answer_id):
-    """function to rate up the answer which corresponding to answer_id
-        PUT: rate_up_answer api"""
+    """
+    function to rate up the answer which corresponding to answer_id 
+    PUT: rate_up_answer api
+    """
 
     answer = Answer.objects.get(id=answer_id)
     if answer.is_rated is True:
@@ -27,10 +29,10 @@ def rate_up_answer(request, answer_id):
     profile.rate_up += 1
     profile.save()
     response_dict = {
-                    'answer_id': answer_id,
-                    'rate_up': profile.rate_up,
-                    'rate_down': profile.rate_down
-                    }
+        'answer_id': answer_id,
+        'rate_up': profile.rate_up,
+        'rate_down': profile.rate_down
+    }
     return JsonResponse(response_dict, status=201)
 
 
@@ -39,8 +41,10 @@ def rate_up_answer(request, answer_id):
 @require_http_methods(["PUT"])
 @csrf_exempt
 def rate_down_answer(request, answer_id):
-    """function to rate down the answer which corresponding to answer_id
-        PUT: rate_down_answer api"""
+    """
+    function to rate down the answer which corresponding to answer_id
+    PUT: rate_down_answer api
+    """
 
     answer = Answer.objects.get(id=answer_id)
     if answer.is_rated is True:
@@ -53,8 +57,8 @@ def rate_down_answer(request, answer_id):
     profile.rate_down += 1
     profile.save()
     response_dict = {
-                    'answer_id': answer_id,
-                    'rate_up': profile.rate_up,
-                    'rate_down': profile.rate_down
-                    }
+        'answer_id': answer_id,
+        'rate_up': profile.rate_up,
+        'rate_down': profile.rate_down
+    }
     return JsonResponse(response_dict, status=201)

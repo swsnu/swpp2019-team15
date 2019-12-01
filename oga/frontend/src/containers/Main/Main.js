@@ -44,7 +44,7 @@ class QuestionList extends Component {
         var stored_Questions = this.props.storedQuestions.slice(0, 20);
         const Questions = stored_Questions.map(qs => {
             return (
-                <Grid item xs={6}>
+                <Grid item xs={6} key={qs.id}>
                     <Question
                         key={qs.id}
                         id={qs.id}

@@ -1,18 +1,15 @@
 import React, { Component } from "react";
-import "./AnswerView.css";
 import moment from "moment";
-import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import * as actionCreators from "../../store/actions/";
+import "./AnswerView.css";
 
 //Materials UI imports
-import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+import { Divider } from "@material-ui/core";
 
 const styles = theme => ({
     card: {
@@ -25,11 +22,13 @@ const styles = theme => ({
     },
     content: {
         textAlign: "left",
-        paddingTop: theme.spacing(3),
-        paddingBottom: theme.spacing(3)
+        padding: theme.spacing(3)
+    },
+    divider: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2)
     },
     heading: {
-        paddingTop: 20,
         fontWeight: "bold"
     },
     subheading: {
@@ -57,85 +56,62 @@ class AnswerView extends Component {
 
     render() {
         const { classes } = this.props;
+
         var selec = null;
-        if (this.props.is_answered && this.props.is_rated)
-        {
-            if (this.props.is_up)
-            {
-                selec = <React.Fragment>&#128077;</React.Fragment>
+        if (this.props.is_answered && this.props.is_rated) {
+            if (this.props.is_up) {
+                selec = <React.Fragment>&#128077;</React.Fragment>;
             } else {
-                selec = <React.Fragment>&#128078;</React.Fragment>
+                selec = <React.Fragment>&#128078;</React.Fragment>;
             }
         }
-        // var ratings = (
-        //     <React.Fragment>
-        //         {!this.props.is_rated ? (
-        //             <div className="Rating">
-        //                 <Button
-        //                     id="thumb_up-button"
-        //                     color="primary"
-        //                     onClick={() => this.rateUpHandler(this.props.id)}
-        //                 >
-        //                     &#128077;
-        //                 </Button>
-        //                 <Button
-        //                     id="thumb_down-button"
-        //                     color="primary"
-        //                     onClick={() => this.rateDownHandler(this.props.id)}
-        //                 >
-        //                     &#128078;
-        //                 </Button>
-        //             </div>
-        //         ) : null}
-        //     </React.Fragment>
-        // );
+
         return (
-            <div className="AnswerView" key={this.props.id}>
-                <Grid item>
-                    {this.props.is_answered ? (
-                        <Card md={3} className={classes.card}>
-                            <CardContent className={classes.content}>
-                                <div className="answered">
-                                    <Typography
-                                        className={classes.subheading}
-                                        id="question-author"
-                                        variant="subtitle1"
-                                    >
-                                        {this.props.author}
-                                    </Typography>
-                                    <Typography
-                                        id="question-publish-date-time"
-                                        className={classes.caption}
-                                        variant="caption"
-                                        gutterBottom
-                                    >
-                                        {moment(
-                                            this.props.publish_date_time,
-                                            "MMMM Do YYYY, h:mm:ss a"
-                                        ).fromNow()}{" "}
-                                        &mdash; {this.props.publish_date_time}
-                                    </Typography>
-                                    <Typography
-                                        className={classes.heading}
-                                        variant="h6"
-                                        gutterBottom
-                                    >
-                                        For {this.props.content}, it is{" "}
-                                        {this.props.answer_content} in{" "}
-                                        {this.props.place_name}!
-                                    </Typography>
-                                </div>
-                            </CardContent>
-                            <div>{this.props.ratings}{selec}</div>
-                        </Card>
-                    ) : (
-                        <div>
-                            Is it {this.props.content} in{" "}
-                            {this.props.place_name}?
-                        </div>
-                    )}
-                </Grid>
-            </div>
+            <Grid className="AnswerView" key={this.props.id}>
+                {this.props.is_answered ? (
+                    <Card md={3} className={classes.card}>
+                        <CardContent className={classes.content}>
+                            <Typography
+                                className={classes.subheading}
+                                id="question-author"
+                                variant="subtitle1"
+                            >
+                                {this.props.author}
+                            </Typography>
+                            <Typography
+                                id="question-publish-date-time"
+                                className={classes.caption}
+                                variant="caption"
+                                gutterBottom
+                            >
+                                {moment(
+                                    this.props.publish_date_time,
+                                    "MMMM Do YYYY, h:mm:ss a"
+                                ).fromNow()}{" "}
+                                &mdash; {this.props.publish_date_time}
+                            </Typography>
+                            <Typography
+                                className={classes.heading}
+                                variant="h6"
+                                gutterBottom
+                            >
+                                For {this.props.content}, it is{" "}
+                                {this.props.answer_content} in{" "}
+                                {this.props.place_name}!
+                            </Typography>
+                            <Divider className={classes.divider} />
+                            <Grid align="center">
+                                {this.props.ratings}
+                                {selec}
+                            </Grid>
+                        </CardContent>
+                    </Card>
+                ) : (
+                    <div>
+                        Is it {this.props.content} in {this.props.place_name}?
+                    </div>
+                )}
+            </Grid>
         );
     }
 }
@@ -203,8 +179,6 @@ class AnswerView extends Component {
 //             )}
 //         </Grid>
 //     );
-// >>>>>>> 0c32078ce71d899cdd70cb899d42128d5609e2ee
 // };
 
-export default connect(
-)(withRouter(withStyles(styles)(AnswerView)));
+export default withStyles(styles)(AnswerView);

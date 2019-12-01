@@ -59,7 +59,7 @@ class Profile extends Component {
 
         const myQuestions = questions.map(qs => {
             return (
-                <div style={{ marginBottom: 5, marginTop: 5 }}>
+                <div style={{ marginBottom: 5, marginTop: 5 }} key={qs.id}>
                     <Question
                         key={qs.id}
                         id={qs.id}
@@ -136,13 +136,7 @@ class Profile extends Component {
                         style={{ marginTop: 50 }}
                         direction="row"
                     >
-                        <Grid
-                            item
-                            md={6}
-                            xs={6}
-                            direction="column"
-                            align="center"
-                        >
+                        <Grid item md={6} xs={6} align="center">
                             <Card style={{ maxWidth: "90%" }}>
                                 <CardMedia
                                     style={{
@@ -156,11 +150,14 @@ class Profile extends Component {
                                     component="img"
                                 />
                                 <CardContent align="center">
-                                    <Grid container alignItems="center">
+                                    <Grid
+                                        container
+                                        alignItems="center"
+                                        direction="row"
+                                    >
                                         <Grid
                                             item
                                             xs={4}
-                                            direction="column"
                                             style={{ padding: 10 }}
                                         >
                                             <Avatar
@@ -224,12 +221,7 @@ class Profile extends Component {
                                                 Questions Asked
                                             </Typography>
                                         </Grid>
-                                        <Grid
-                                            item
-                                            xs={4}
-                                            direction="column"
-                                            align="center"
-                                        >
+                                        <Grid item xs={4} align="center">
                                             <Typography
                                                 style={{
                                                     fontWeight: "bold",
@@ -246,13 +238,7 @@ class Profile extends Component {
                                 </CardContent>
                             </Card>
                         </Grid>
-                        <Grid
-                            item
-                            md={6}
-                            xs={6}
-                            align="left"
-                            direction="column"
-                        >
+                        <Grid item md={6} xs={6} align="left">
                             <Grid style={{ maxWidth: "95%" }}>
                                 <Button
                                     id="my-question-tab"

@@ -90,7 +90,6 @@ const Question = props => {
                     {props.showButtons && (
                         <div>
                             <Divider className={classes.divider} />
-
                             <Grid
                                 container
                                 justify="center"

@@ -6,8 +6,8 @@ from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
-from users.models import Question, Location
-from users.views.decorators import check_request, check_login_required
+from ..models import Question, Location
+from ..views.decorators import check_request, check_login_required
 
 
 @check_login_required
