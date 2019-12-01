@@ -64,7 +64,7 @@ export const getUserAnswers = () => {
 export const getSingleUserAnswers = username => {
     return dispatch => {
         return axios
-            .get("/api/profile/answers/" + username)
+            .get("/api/profile/answers/" + username + "/")
             .then(res => {
                 dispatch(getUserAnswers_(res.data));
             })

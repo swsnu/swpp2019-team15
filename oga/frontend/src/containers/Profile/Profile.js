@@ -293,9 +293,7 @@ class Profile extends Component {
                         </Grid>
                     </Grid>
                 ) : (
-                    <h1>
-                        User "{this.props.match.params.username}"" Not Found
-                    </h1>
+                    <h1>User "{this.props.match.params.username}" Not Found</h1>
                 )}
             </div>
         );

@@ -8,8 +8,8 @@ from django.urls import reverse
 from ..models import Location, Profile, Question, Answer
 
 
-class QuestionTestCase(TestCase):
-    """ tests regarding question creation """
+class AnswerTestCase(TestCase):
+    """ tests regarding answer creation """
     csrftoken = 0
     sessionid = 0
     client = Client()
@@ -22,15 +22,17 @@ class QuestionTestCase(TestCase):
                                            longitude=38.123,
                                            latitude=127.39)
         location.save()
-        question = Question.objects.create(author=self.user, content='rains?',
-                                           location_id=location)
+        self.question = Question.objects.create(author=self.user, content='rains?',
+                                                location_id=location)
+        self.question.save()
         profile = Profile.objects.get(user=self.user)
-        answer = Answer.objects.create(question=question,
+        profile.location_id = location
+        profile.save()
+        answer = Answer.objects.create(question=self.question,
                                        author=profile,
                                        question_type='rain?',
                                        content='no')
-
-        profile.location = location
+        answer.save()
 
         self.client.login(username='test', password='1234')
 
@@ -41,7 +43,7 @@ class QuestionTestCase(TestCase):
 
     def test_add_answers(self):
         """ test posting answers """
-        answer = {'question_type': 'rain?', 
+        answer = {'question_type': 'rain?',
                   'answer_content': 'no'}
         response = self.client.post('/api/reply/1/',
                                     json.dumps(answer),
@@ -62,3 +64,54 @@ class QuestionTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()[0]['content'], 'no')
+
+    def test_get_user_answer_list(self):
+        """ test getting answer list of currently logged in user """
+        # create a second user
+        other_user = get_user_model()
+        other_user = other_user.objects.create_user(
+            username='other_user', password='1234')
+        other_user.save()
+        # create other user profile
+        profile = Profile.objects.get(user=other_user)
+
+        # New answer created by another user
+        other_answer = Answer(
+            author=profile, content='many', question=self.question)
+        other_answer.save()
+
+        # fetch answer list of currently logged in user
+        response = self.client.get('/api/profile/answers/')
+        self.assertEqual(response.status_code, 200)
+        # should omit answers made by other users
+        self.assertEqual(len(response.json()), 1)
+
+    def test_get_single_users_question_list(self):
+        """ 
+        Test getting answer list of another user's profile.
+        """
+        # create another user
+        other_user = get_user_model()
+        other_user = other_user.objects.create_user(
+            username='other_user', password='1234')
+        other_user.save()
+        # create other user profile
+        profile = Profile.objects.get(user=other_user)
+
+        """ List should be empty before other user posts an answer """
+        response = self.client.get('/api/profile/answers/other_user/')
+        self.assertEqual(response.status_code, 200)
+        # question list should be empty
+        self.assertEqual(len(response.json()), 0)
+
+        """ Should retrieve answer list made by other_user only """
+        # Other user creates new answer
+        other_answer = Answer(
+            author=profile, content='many', question=self.question)
+        other_answer.save()
+        # fetch question list of "other_user"
+        response = self.client.get('/api/profile/answers/other_user/')
+        # question list should contain new question
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 1)
+        self.assertEqual(response.json()[0]['content'], 'many')

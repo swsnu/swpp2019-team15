@@ -9,7 +9,7 @@ urlpatterns = [
     path('profile/questions/<str:username>/', views.get_single_user_questions,
          name='get_single_user_questions'),
     path('profile/answers/', views.get_user_answers, name='get_user_answers'),
-    path('profile/answers/<str:username>',
+    path('profile/answers/<str:username>/',
          views.get_single_user_answers, name='get_single_user_answers'),
     path('profile/<str:username>/',
          views.get_user_profile, name='get_user_profile'),
