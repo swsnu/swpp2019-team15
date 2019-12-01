@@ -46,6 +46,8 @@ class Profile(models.Model):
                                     blank=True, null=True)
     subscription = JSONField(blank=True, null=True)
     follows = models.ManyToManyField(Question, related_name='followers')
+    rate_up = models.PositiveSmallIntegerField(default=0)
+    rate_down = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return self.user.username
@@ -61,20 +63,11 @@ class Answer(models.Model):
     question_type = models.TextField(max_length=100, default="LINE")
     publish_date_time = models.DateTimeField(auto_now=True)
     content = models.TextField(max_length=100)
+    is_rated = models.BooleanField(default=False)
+    is_up = models.BooleanField(default=False)
 
     def __str__(self):
         return self.content
 
     class Meta:
         ordering = ('publish_date_time',)
-
-
-class Rating(models.Model):
-    """
-    Rating model that has onetoone with answer
-    """
-    # each Rating is related to a single answer
-    connected_answer = models.ForeignKey(Answer, null=True, on_delete=models.CASCADE)
-    is_rated = models.BooleanField(default=False)
-    is_up = models.BooleanField(default=True)
-    

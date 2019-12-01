@@ -69,6 +69,8 @@ def get_answers(request, question_id):
         'publish_date_time': ans.publish_date_time,
         'question_type': ans.question_type,
         'content': ans.content,
+        'is_rated': ans.is_rated,
+        'is_up': ans.is_up
     } for ans in answer_all_list]
     return JsonResponse(response_dict, safe=False, status=200)
 
@@ -97,7 +99,6 @@ def get_user_answers(request):
     } for ans in answer_list]
     return JsonResponse(response_dict, safe=False, status=200)
 
-
 @csrf_exempt
 @check_login_required
 @check_request
@@ -120,4 +121,15 @@ def get_single_user_answers(request, username):
         'question_type': ans.question_type,
         'content': ans.content,
     } for ans in answer_list]
+
+@check_login_required
+@check_request
+@require_http_methods(["GET"])
+@csrf_exempt
+def check_is_rated(request, answer_id):
+    """function to check if the answer which corresponding to answer_id was rated
+        GET: check_rating api"""
+
+    ans = Answer.objects.get(id=answer_id)
+    response_dict = {'is_rated': ans.is_rated}
     return JsonResponse(response_dict, safe=False, status=200)

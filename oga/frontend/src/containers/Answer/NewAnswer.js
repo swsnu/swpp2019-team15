@@ -10,7 +10,6 @@ import { question_types } from "../../const/question_type";
 
 //Material design imports
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -52,12 +51,15 @@ class NewAnswer extends Component {
         let gotten_answer_view = null;
         var map = null;
         if (this.props.selectedQuestion) {
-            map = 
-            <Map
-            viewOnly={true}
-            target={{lat: this.props.selectedQuestion.place_lat,
-                    lng: this.props.selectedQuestion.place_lng}}
-            ></Map>
+            map = (
+                <Map
+                    viewOnly={true}
+                    target={{
+                        lat: this.props.selectedQuestion.place_lat,
+                        lng: this.props.selectedQuestion.place_lng
+                    }}
+                ></Map>
+            );
 
             qs_type = this.props.selectedQuestion.content;
             qs_type = question_types[qs_type];
@@ -86,56 +88,58 @@ class NewAnswer extends Component {
         }
 
         return (
-            <div className="Answer">
-                <CssBaseline />
-                <Box pt={10} />
-                <Typography component="h2" variant="h3" color="primary">
-                    Answer a Question!
-                </Typography>
-                {map}
-                <Box pt={10} />
-                <Typography component="h3" variant="h5">
-                    {gotten_answer_view}
-                </Typography>
-                <div>
-                    <div
-                        id="answer-choices"
-                        onChange={event =>
-                            this.setState({
-                                answer_content: event.target.value,
-                                answered: true
-                            })
+            <Grid container className="Answer" direction="row">
+                <Grid item md={6} direction="column">
+                    {map}
+                </Grid>
+                <Grid item md={6} direction="column">
+                    <Box pt={20} />
+                    <Typography component="h2" variant="h3" color="primary">
+                        Answer a Question!
+                    </Typography>
+                    <Typography component="h3" variant="h5">
+                        {gotten_answer_view}
+                    </Typography>
+                    <div>
+                        <div
+                            id="answer-choices"
+                            onChange={event =>
+                                this.setState({
+                                    answer_content: event.target.value,
+                                    answered: true
+                                })
+                            }
+                        >
+                            {selected_question_type_list}
+                        </div>
+                    </div>
+                    <Box pt={10} />
+                    <Button
+                        color="primary"
+                        type="submit"
+                        id="confirm-create-answer-button"
+                        variant="contained"
+                        onClick={() =>
+                            this.postAnswerHandler(
+                                this.props.selectedQuestion.content,
+                                this.state.answer_content,
+                                this.props.match.params.id
+                            )
                         }
                     >
-                        {selected_question_type_list}
-                    </div>
-                </div>
-                <Box pt={10} />
-                <Button
-                    color="primary"
-                    type="submit"
-                    id="confirm-create-answer-button"
-                    variant="contained"
-                    onClick={() =>
-                        this.postAnswerHandler(
-                            this.props.selectedQuestion.content,
-                            this.state.answer_content,
-                            this.props.match.params.id
-                        )
-                    }
-                >
-                    Submit
-                </Button>
-                <Grid container justify="center" alignItems="center">
-                    <Button
-                        id="back-create-answer-button"
-                        color="primary"
-                        onClick={() => this.clickBackHandler()}
-                    >
-                        Back
+                        Submit
                     </Button>
+                    <Grid container justify="center" alignItems="center">
+                        <Button
+                            id="back-create-answer-button"
+                            color="primary"
+                            onClick={() => this.clickBackHandler()}
+                        >
+                            Back
+                        </Button>
+                    </Grid>
                 </Grid>
-            </div>
+            </Grid>
         );
     }
 }
@@ -162,7 +166,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(NewAnswer);
+export default connect(mapStateToProps, mapDispatchToProps)(NewAnswer);

@@ -1,4 +1,5 @@
 import { setTargetLocation, setCurrentCoordinates } from "./locationActions.js";
+
 import {
     createQuestion,
     getQuestion,
@@ -7,6 +8,7 @@ import {
     getSingleUserQuestions,
     followQuestion
 } from "./questionActions.js";
+
 import {
     signUp,
     signIn,
@@ -15,6 +17,7 @@ import {
     getProfile,
     getUserProfile
 } from "./authActions.js";
+
 import {
     createAnswer,
     getAnswers,
@@ -22,7 +25,9 @@ import {
     getUserAnswers,
     getSingleUserAnswers
 } from "./answerActions";
+
 import { checkRating, rateUp, rateDown } from "./rateActions";
+
 export {
     setTargetLocation,
     setCurrentCoordinates,
