@@ -156,6 +156,23 @@ describe("questionActions", () => {
         });
     });
 
+    // Test getting question list of a specific user
+    it(`'getUserQuestions' should be called correctly`, done => {
+        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
+            return new Promise((resolve, reject) => {
+                const result = {
+                    status: 200,
+                    data: { username: "test" }
+                };
+                resolve(result);
+            });
+        });
+        store.dispatch(actionCreators.getUserQuestions("test")).then(() => {
+            expect(spy).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
     it(`'getUserQuestions' should handle errors correctly`, done => {
         const spy = jest.spyOn(axios, "get").mockImplementation(url => {
             return new Promise((resolve, reject) => {
@@ -169,43 +186,6 @@ describe("questionActions", () => {
             expect(console.log).toHaveBeenCalledTimes(1);
             done();
         });
-    });
-
-    // Test getting question list of a specific user
-    it(`'getSingleUserQuestions' should be called correctly`, done => {
-        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
-            return new Promise((resolve, reject) => {
-                const result = {
-                    status: 200,
-                    data: { username: "test" }
-                };
-                resolve(result);
-            });
-        });
-        store
-            .dispatch(actionCreators.getSingleUserQuestions("test"))
-            .then(() => {
-                expect(spy).toHaveBeenCalledTimes(1);
-                done();
-            });
-    });
-
-    it(`'getSingleUserQuestions' should handle errors correctly`, done => {
-        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
-            return new Promise((resolve, reject) => {
-                const result = {
-                    status: 200,
-                    data: { username: "test" }
-                };
-                reject(result);
-            });
-        });
-        store
-            .dispatch(actionCreators.getSingleUserQuestions("test"))
-            .then(() => {
-                expect(console.log).toHaveBeenCalledTimes(1);
-                done();
-            });
     });
 
     // Test subscribing to a question

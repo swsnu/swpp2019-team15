@@ -25,15 +25,9 @@ class Profile extends Component {
 
     componentDidMount() {
         var username = this.props.match.params.username;
-        if (username) {
-            this.props.getUserProfile(username);
-            this.props.getSingleUserQuestions(username);
-            this.props.getSingleUserAnswers(username);
-        } else {
-            this.props.getProfile();
-            this.props.getUserQuestions();
-            this.props.getUserAnswers();
-        }
+        this.props.getProfile(username);
+        this.props.getUserQuestions(username);
+        this.props.getUserAnswers(username);
     }
 
     onClickDetailHandler = id => {
@@ -290,15 +284,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getProfile: () => dispatch(actionCreators.getProfile()),
-        getUserProfile: username =>
-            dispatch(actionCreators.getUserProfile(username)),
-        getUserQuestions: () => dispatch(actionCreators.getUserQuestions()),
-        getSingleUserQuestions: username =>
-            dispatch(actionCreators.getSingleUserQuestions(username)),
-        getUserAnswers: () => dispatch(actionCreators.getUserAnswers()),
-        getSingleUserAnswers: username =>
-            dispatch(actionCreators.getSingleUserAnswers(username))
+        getProfile: username => dispatch(actionCreators.getProfile(username)),
+        getUserQuestions: username =>
+            dispatch(actionCreators.getUserQuestions(username)),
+        getUserAnswers: username =>
+            dispatch(actionCreators.getUserAnswers(username))
     };
 };
 

@@ -5,7 +5,6 @@ import {
     getQuestion,
     getQuestions,
     getUserQuestions,
-    getSingleUserQuestions,
     followQuestion
 } from "./questionActions.js";
 
@@ -14,8 +13,7 @@ import {
     signIn,
     isLoggedIn,
     Logout,
-    getProfile,
-    getUserProfile
+    getProfile
 } from "./authActions.js";
 
 import {
@@ -24,7 +22,6 @@ import {
     getAnswers,
     getAnswer,
     getUserAnswers,
-    getSingleUserAnswers,
     rateUp,
     rateDown
 } from "./answerActions";
@@ -36,7 +33,6 @@ export {
     getQuestion,
     getQuestions,
     getUserQuestions,
-    getSingleUserQuestions,
     signUp,
     signIn,
     isLoggedIn,
@@ -44,11 +40,9 @@ export {
     getAnswers,
     getAnswer,
     getUserAnswers,
-    getSingleUserAnswers,
     followQuestion,
     Logout,
     getProfile,
-    getUserProfile,
     checkRating,
     rateUp,
     rateDown

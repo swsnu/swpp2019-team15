@@ -111,6 +111,24 @@ describe("answerActions", () => {
         });
     });
 
+    // Test getting profile answer list of given user
+    it(`'getUserAnswers' should be called correctly`, done => {
+        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
+            return new Promise((resolve, reject) => {
+                const result = {
+                    status: 200,
+                    data: { username: "test" }
+                };
+                resolve(result);
+            });
+        });
+
+        store.dispatch(actionCreators.getUserAnswers("test")).then(() => {
+            expect(spy).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
     it(`'getUserAnswers' should handle error correctly`, done => {
         const spy = jest.spyOn(axios, "get").mockImplementation(url => {
             return new Promise((resolve, reject) => {
@@ -122,41 +140,6 @@ describe("answerActions", () => {
         });
 
         store.dispatch(actionCreators.getUserAnswers()).then(() => {
-            expect(console.error).toHaveBeenCalledTimes(1);
-            done();
-        });
-    });
-
-    // Test getting profile answer list of given user
-    it(`'getSingleUserAnswers' should be called correctly`, done => {
-        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
-            return new Promise((resolve, reject) => {
-                const result = {
-                    status: 200,
-                    data: { username: "test" }
-                };
-                resolve(result);
-            });
-        });
-
-        store.dispatch(actionCreators.getSingleUserAnswers("test")).then(() => {
-            expect(spy).toHaveBeenCalledTimes(1);
-            done();
-        });
-    });
-
-    it(`'getSingleUserAnswers' should handle error correctly`, done => {
-        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
-            return new Promise((resolve, reject) => {
-                const result = {
-                    status: 200,
-                    data: { username: "test" }
-                };
-                reject(result);
-            });
-        });
-
-        store.dispatch(actionCreators.getSingleUserAnswers("test")).then(() => {
             expect(console.error).toHaveBeenCalledTimes(1);
             done();
         });
