@@ -1,12 +1,16 @@
 import React from "react";
-import { mount } from "enzyme";
 import { Provider } from "react-redux";
+import { mount } from "enzyme";
 import configureMockStore from "redux-mock-store";
 import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch } from "react-router-dom";
 import { history } from "../../store/store";
 import thunk from "redux-thunk";
 import Profile from "./Profile.js";
+
+import * as questionActions from "../../store/actions/questionActions";
+import * as answerActions from "../../store/actions/answerActions";
+import * as authActions from "../../store/actions/authActions";
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
@@ -16,8 +20,7 @@ const store = mockStore({
                 id: 1,
                 username: "",
                 location: "",
-                latitude: 0,
-                longitude: 1
+                coordinates: ""
             }
         ]
     },
@@ -69,6 +72,63 @@ describe("<Profile />", () => {
     it("should render without errors", () => {
         const wrapper = mount(profile);
         expect(wrapper.find(".Profile").length).toBe(3);
+    });
+
+    it("should render profile details without errors", () => {
+        const spyProfileQuestions = jest
+            .spyOn(questionActions, "getUserQuestions")
+            .mockImplementation(() => {
+                return dispatch => {};
+            });
+        const spyProfileAnswers = jest
+            .spyOn(answerActions, "getUserAnswers")
+            .mockImplementation(() => {
+                return dispatch => {};
+            });
+        const spyProfile = jest
+            .spyOn(authActions, "getProfile")
+            .mockImplementation(() => {
+                return dispatch => {};
+            });
+        const wrapper = mount(profile);
+        expect(spyProfile).toHaveBeenCalled();
+        expect(spyProfileQuestions).toHaveBeenCalled();
+        expect(spyProfileAnswers).toHaveBeenCalled();
+    });
+
+    xit("should render profile details without errors", () => {
+        let newProfile = (
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                    <Switch>
+                        <Route exact path="/" component={Profile} />
+                    </Switch>
+                </ConnectedRouter>
+            </Provider>
+        );
+
+        const spyProfileQuestions = jest
+            .spyOn(questionActions, "getSingleUserQuestions")
+            .mockImplementation(username => {
+                return dispatch => {};
+            });
+        const spyProfileAnswers = jest
+            .spyOn(answerActions, "getSingleUserAnswers")
+            .mockImplementation(username => {
+                return dispatch => {};
+            });
+        const spyProfile = jest
+            .spyOn(authActions, "getUserProfile")
+            .mockImplementation(username => {
+                return dispatch => {};
+            });
+
+        const wrapper = mount(newProfile);
+        wrapper.setProps({ match: { params: { username: true } } });
+
+        expect(spyProfile).toHaveBeenCalled();
+        expect(spyProfileQuestions).toHaveBeenCalled();
+        expect(spyProfileAnswers).toHaveBeenCalled();
     });
 
     it("should go to detail page when question clicked", () => {

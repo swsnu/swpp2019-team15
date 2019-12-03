@@ -42,14 +42,11 @@ class Profile extends Component {
 
     render() {
         let username = "";
-        // let follows = null
         let location = "";
         let coordinates = "";
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;
-            // follows = profile.follows;
-
             location = `${profile.location}`;
             coordinates = `${profile.coordinates}`;
         }
