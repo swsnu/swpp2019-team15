@@ -112,4 +112,28 @@ describe("<Profile />", () => {
         expect(m).toHaveBeenCalledTimes(1);
         expect(spyHistoryPush).toHaveBeenCalledWith("/replies/1");
     });
+
+    it("should change tab state when 'My Question' button clicked", () => {
+        const wrapper = mount(profile);
+        wrapper
+            .find("#my-question-tab")
+            .hostNodes()
+            .simulate("click");
+
+        const tab = wrapper.find(Profile.WrappedComponent).state()
+            .isQuestionTab;
+        expect(tab).toBeTruthy();
+    });
+
+    it("should change tab state when 'My Answer' button clicked", () => {
+        const wrapper = mount(profile);
+        wrapper
+            .find("#my-answer-tab")
+            .hostNodes()
+            .simulate("click");
+
+        const tab = wrapper.find(Profile.WrappedComponent).state()
+            .isQuestionTab;
+        expect(tab).toBe(false);
+    });
 });
