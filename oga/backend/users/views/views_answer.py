@@ -79,37 +79,16 @@ def get_answers(request, question_id):
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
-def get_user_answers(request):
+def get_user_answers(request, username=''):
     """
-    get list of answers made by currently logged in user
+    get list of answers made by a user based on given username
     """
-    response_dict = []
-    user = get_user(request)
-    profile = Profile.objects.get(user=user)
-    answer_list = Answer.objects.filter(author=profile)
-    response_dict = [{
-        'id': ans.id,
-        'question_id': ans.question.id,
-        'question_author': ans.question.author.username,
-        'question_publish_date_time': ans.question.publish_date_time,
-        'location': ans.question.location_id.name,
-        'publish_date_time': ans.publish_date_time,
-        'question_type': ans.question_type,
-        'content': ans.content,
-    } for ans in answer_list]
-    return JsonResponse(response_dict, safe=False, status=200)
+    if username == '':
+        # get list of answers made by currently logged in user
+        user = get_user(request)
+    else:
+        user = User.objects.get(username=username)
 
-
-@csrf_exempt
-@check_login_required
-@check_request
-@require_http_methods(["GET"])
-def get_single_user_answers(request, username):
-    """
-    get list of answers made by a specific user based on given username
-    """
-    response_dict = []
-    user = User.objects.get(username=username)
     profile = Profile.objects.get(user=user)
     answer_list = Answer.objects.filter(author=profile)
     response_dict = [{

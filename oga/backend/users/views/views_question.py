@@ -52,27 +52,14 @@ def questions(request):
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
-def get_user_questions(request):
+def get_user_questions(request, username=''):
     """ get list of questions posted by user """
-    user = get_user(request)
-    question_list = Question.objects.filter(author=user)
-    response_dict = [{
-        'id': question.id,
-        'author': question.author.username,
-        'publish_date_time': question.publish_date_time,
-        'content': question.content,
-        'location': question.location_id.name,
-        'is_answered': question.is_answered,
-    } for question in question_list]
-    return JsonResponse(response_dict, safe=False)
+    if username == '':
+        # get list of questions made by currently logged in user
+        user = get_user(request)
+    else:
+        user = User.objects.get(username=username)
 
-
-@check_login_required
-@check_request
-@require_http_methods(["GET"])
-def get_single_user_questions(request, username):
-    """ get list of questions posted by specific user with given username """
-    user = User.objects.get(username=username)
     question_list = Question.objects.filter(author=user)
     response_dict = [{
         'id': question.id,

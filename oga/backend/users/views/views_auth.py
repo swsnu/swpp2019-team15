@@ -75,9 +75,10 @@ def logged_out(request):
 @require_http_methods(["GET"])
 def get_profile(request, username=''):
     """
-    get profile details of specific user based on username
+    get profile details of a user based on username
     """
     if username != "":
+        # get profile details of currently logged in user
         user = User.objects.get(username=username)
     else:
         user = get_user(request)
