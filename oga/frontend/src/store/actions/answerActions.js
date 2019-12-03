@@ -57,7 +57,7 @@ export const getUserAnswers = () => {
             .then(res => {
                 dispatch(getUserAnswers_(res.data));
             })
-            .catch(err => console.log(err));
+            .catch(err => console.error(err));
     };
 };
 
@@ -68,7 +68,7 @@ export const getSingleUserAnswers = username => {
             .then(res => {
                 dispatch(getUserAnswers_(res.data));
             })
-            .catch(err => console.log(err));
+            .catch(err => console.error(err));
     };
 };
 
