@@ -96,41 +96,6 @@ describe("<Profile />", () => {
         expect(spyProfileAnswers).toHaveBeenCalled();
     });
 
-    xit("should render profile details without errors", () => {
-        let newProfile = (
-            <Provider store={store}>
-                <ConnectedRouter history={history}>
-                    <Switch>
-                        <Route exact path="/" component={Profile} />
-                    </Switch>
-                </ConnectedRouter>
-            </Provider>
-        );
-
-        const spyProfileQuestions = jest
-            .spyOn(questionActions, "getSingleUserQuestions")
-            .mockImplementation(username => {
-                return dispatch => {};
-            });
-        const spyProfileAnswers = jest
-            .spyOn(answerActions, "getSingleUserAnswers")
-            .mockImplementation(username => {
-                return dispatch => {};
-            });
-        const spyProfile = jest
-            .spyOn(authActions, "getUserProfile")
-            .mockImplementation(username => {
-                return dispatch => {};
-            });
-
-        const wrapper = mount(newProfile);
-        wrapper.setProps({ match: { params: { username: true } } });
-
-        expect(spyProfile).toHaveBeenCalled();
-        expect(spyProfileQuestions).toHaveBeenCalled();
-        expect(spyProfileAnswers).toHaveBeenCalled();
-    });
-
     it("should go to detail page when question clicked", () => {
         const spyHistoryPush = jest
             .spyOn(history, "push")

@@ -50,18 +50,7 @@ export const getUserAnswers_ = answers => {
     };
 };
 
-export const getUserAnswers = () => {
-    return dispatch => {
-        return axios
-            .get("/api/profile/answers/")
-            .then(res => {
-                dispatch(getUserAnswers_(res.data));
-            })
-            .catch(err => console.error(err));
-    };
-};
-
-export const getSingleUserAnswers = username => {
+export const getUserAnswers = (username = "") => {
     return dispatch => {
         return axios
             .get("/api/profile/answers/" + username + "/")

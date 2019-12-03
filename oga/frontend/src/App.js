@@ -105,13 +105,7 @@ function App(props) {
                             />
                             <PrivateRoute
                                 auth={props.auth}
-                                path="/profile"
-                                exact
-                                component={Profile}
-                            />
-                            <PrivateRoute
-                                auth={props.auth}
-                                path="/profile/:username"
+                                path="/profile/:username?"
                                 exact
                                 component={Profile}
                             />

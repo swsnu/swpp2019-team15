@@ -218,7 +218,7 @@ describe("authActions", () => {
     });
 
     // Test Profile actions for getting profile of another user
-    it(`should handle 'getUserProfile' `, done => {
+    it(`should handle 'getProfile' `, done => {
         const spy = jest.spyOn(axios, "get").mockImplementation(url => {
             return new Promise((resolve, reject) => {
                 const result = {
@@ -229,28 +229,9 @@ describe("authActions", () => {
             });
         });
 
-        store.dispatch(actionCreators.getUserProfile("test")).then(() => {
+        store.dispatch(actionCreators.getProfile("test")).then(() => {
             expect(spy).toHaveBeenCalledTimes(1);
             done();
         });
-    });
-
-    it(`should handle error in 'getProfile' `, done => {
-        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
-            return new Promise((resolve, reject) => {
-                const result = {
-                    status: 201,
-                    data: { username: "invalidUser" }
-                };
-                reject(result);
-            });
-        });
-
-        store
-            .dispatch(actionCreators.getUserProfile("invalidUser"))
-            .then(() => {
-                expect(console.log).toHaveBeenCalledTimes(1);
-                done();
-            });
     });
 });

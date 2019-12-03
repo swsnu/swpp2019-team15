@@ -67,16 +67,7 @@ export const getUserQuestions_ = questions => {
     };
 };
 
-export const getUserQuestions = () => {
-    return dispatch => {
-        return axios
-            .get("/api/profile/questions/")
-            .then(res => dispatch(getUserQuestions_(res.data)))
-            .catch(err => console.log(err));
-    };
-};
-
-export const getSingleUserQuestions = username => {
+export const getUserQuestions = (username = "") => {
     return dispatch => {
         return axios
             .get("/api/profile/questions/" + username)

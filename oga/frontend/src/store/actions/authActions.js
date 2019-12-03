@@ -99,16 +99,7 @@ export const getProfile_ = profile => {
     };
 };
 
-export const getProfile = () => {
-    return dispatch => {
-        return axios
-            .get("/api/profile/")
-            .then(res => dispatch(getProfile_(res.data)))
-            .catch(err => console.log(err));
-    };
-};
-
-export const getUserProfile = username => {
+export const getProfile = (username = "") => {
     return dispatch => {
         return axios
             .get("/api/profile/" + username)
