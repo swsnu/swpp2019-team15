@@ -12,8 +12,7 @@ urlpatterns = [
     path('profile/answers/<str:username>/',
          views.get_single_user_answers, name='get_single_user_answers'),
     path('profile/<str:username>/',
-         views.get_user_profile, name='get_user_profile'),
-
+         views.get_profile, name='get_profile'),
     path('questions/', views.questions, name='questions'),
     path('question/<int:question_id>/',
          views.question_detail, name='question_detail'),
