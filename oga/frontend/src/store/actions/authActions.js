@@ -83,7 +83,8 @@ export const Logout = () => {
                 dispatch(push("/login"));
             })
             .catch(err => {
-                dispatch(isLoggedIn_(true));
+                console.log(err);
+                // dispatch(isLoggedIn_(true));
             });
     };
 };
