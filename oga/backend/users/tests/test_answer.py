@@ -129,7 +129,7 @@ class AnswerTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['is_rated'], False)
 
-    def test_when_answer_is_rated(self):
+    def test_when_answer_is_rated_up(self):
         """ test when answer has been rated """
         # Rate answer
         response = self.client.put('/api/rate/up/1/')
@@ -139,3 +139,34 @@ class AnswerTestCase(TestCase):
         response = self.client.get('/api/rate/is_rated/1/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['is_rated'], True)
+
+    def test_uprating_a_rated_answer(self):
+        """ test when user tries to rate a rated answer"""
+        # Rate answer
+        response = self.client.put('/api/rate/up/1/')
+        self.assertEqual(response.status_code, 201)
+
+        # Answer should be rated
+        response = self.client.put('/api/rate/up/1/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_when_answer_is_rated_down(self):
+        """ test when answer has been rated """
+        # Rate answer
+        response = self.client.put('/api/rate/down/1/')
+        self.assertEqual(response.status_code, 201)
+
+        # Answer should be rated
+        response = self.client.get('/api/rate/is_rated/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['is_rated'], True)
+
+    def test_downrating_a_rated_answer(self):
+        """ test when user tries to rate a rated answer"""
+        # Rate answer
+        response = self.client.put('/api/rate/up/1/')
+        self.assertEqual(response.status_code, 201)
+
+        # Answer should be rated
+        response = self.client.put('/api/rate/down/1/')
+        self.assertEqual(response.status_code, 403)
