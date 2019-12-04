@@ -38,7 +38,9 @@ const useStyles = makeStyles(theme => ({
     },
     appBar: {
         // padding: 5,
-        zIndex: theme.zIndex.drawer + 1
+        elevation: 0,
+      zIndex: theme.zIndex.drawer + 1,
+      boxShadow: "none",
     },
     menuButton: {
         paddingLeft: 10,
@@ -115,7 +117,7 @@ function MenuAppBar(props) {
     // };
 
     return (
-        <div className="AppBar">
+        <div className="AppBar" elevation={0}>
             {auth && (
                 <div className={classes.root}>
                     <CssBaseline />
