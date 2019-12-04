@@ -101,7 +101,7 @@ describe("<Main />", () => {
         expect(spyHistoryPush).toHaveBeenCalledTimes(1);
     });
 
-    it("should go to settings page when clickNewQuestionHandler", () => {
+    xit("should go to settings page when clickNewQuestionHandler", () => {
         const spyHistoryPush = jest
             .spyOn(history, "push")
             .mockImplementation(path => {});

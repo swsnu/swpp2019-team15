@@ -7,12 +7,11 @@ import * as actionCreators from "../../../store/actions";
 import Map from "../../Map/GoogleMap";
 
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import CustomRadio from "../../../components/MuiStyle/CustomRadio";
+import { FormControl, RadioGroup, FormControlLabel } from "@material-ui/core";
 
 class NewQuestion extends Component {
     state = {
@@ -64,41 +63,46 @@ class NewQuestion extends Component {
                         Ask a New Question!
                     </Typography>
                     <Box pt={5} />
-                    <div>
-                        <div
-                            onChange={event =>
-                                this.setState({ content: event.target.value })
-                            }
-                        >
-                            <input
-                                type="radio"
-                                value="LONG LINE"
-                                name="question"
-                            />{" "}
-                            LINES?
-                            <input
-                                type="radio"
-                                value="MANY SEATS"
-                                name="question"
-                            />{" "}
-                            SEATS?
-                            <input
-                                type="radio"
-                                value="RAINING"
-                                name="question"
-                            />{" "}
-                            RAIN?
-                            <input
-                                type="radio"
-                                value="QUIET"
-                                name="question"
-                            />{" "}
-                            QUIET?
-                        </div>
-                    </div>
                     <div id="view">
                         Is it {this.state.content} in {place_name}?
                     </div>
+                    <FormControl>
+                        <RadioGroup
+                            aria-label="question-type"
+                            onChange={event =>
+                                this.setState({
+                                    content: event.target.value
+                                })
+                            }
+                        >
+                            <Grid container direction="rows">
+                                <FormControlLabel
+                                    value="LONG LINE"
+                                    control={<CustomRadio color="primary" />}
+                                    label="LONG LINES"
+                                    labelPlacement="bottom"
+                                />
+                                <FormControlLabel
+                                    value="MANY SEATS"
+                                    control={<CustomRadio color="primary" />}
+                                    label="SEATS"
+                                    labelPlacement="bottom"
+                                />
+                                <FormControlLabel
+                                    value="RAINING"
+                                    control={<CustomRadio color="primary" />}
+                                    label="RAIN"
+                                    labelPlacement="bottom"
+                                />
+                                <FormControlLabel
+                                    value="QUIET"
+                                    control={<CustomRadio color="primary" />}
+                                    label="QUIET"
+                                    labelPlacement="bottom"
+                                />
+                            </Grid>
+                        </RadioGroup>
+                    </FormControl>
                     <Box pt={10} />
                     <Button
                         type="submit"
