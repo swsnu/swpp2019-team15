@@ -83,7 +83,8 @@ export const Logout = () => {
                 dispatch(push("/login"));
             })
             .catch(err => {
-                dispatch(isLoggedIn_(true));
+                console.log(err);
+                // dispatch(isLoggedIn_(true));
             });
     };
 };
@@ -94,15 +95,14 @@ export const getProfile_ = profile => {
         id: profile.id,
         username: profile.username,
         location: profile.location,
-        latitude: profile.location_lat,
-        longitude: profile.location_long
+        coordinates: profile.coordinates
     };
 };
 
-export const getProfile = () => {
+export const getProfile = (username = "") => {
     return dispatch => {
         return axios
-            .get("/api/profile/")
+            .get("/api/profile/" + username)
             .then(res => dispatch(getProfile_(res.data)))
             .catch(err => console.log(err));
     };

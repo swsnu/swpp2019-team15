@@ -41,15 +41,18 @@ class Settings extends Component {
     render() {
         var subscribe_to_location = null;
         if (!this.state.location_subscribe) {
-            subscribe_to_location
-            = <button
-            id="location-toggle"
-            onClick={() => {
-                this.clickLocationHandler(true);
-            }}
-        >
-            Subscribe
-              </button>
+            subscribe_to_location = (
+                <Button
+                    id="location-toggle"
+                    color="primary"
+                    variant="contained"
+                    onClick={() => {
+                        this.clickLocationHandler(true);
+                    }}
+                >
+                    Subscribe
+                </Button>
+            );
         } else {
             subscribe_to_location = (
                 <Button
@@ -83,31 +86,6 @@ class Settings extends Component {
                     </Typography>
                     <Box />
                     {subscribe_to_location}
-                    <Box pt={5} />
-                    <Grid container justify="center" alignItems="center">
-                        <Button
-                            variation="contained"
-                            color="primary"
-                            id="logout-button"
-                            onClick={() => {
-                                this.props.logout();
-                            }}
-                        >
-                            Logout
-                        </Button>
-                    </Grid>
-                    <Grid container justify="center" alignItems="center">
-                        <Button
-                            variation="contained"
-                            color="primary"
-                            id="back-button"
-                            onClick={() => {
-                                this.props.history.goBack();
-                            }}
-                        >
-                            Back
-                        </Button>
-                    </Grid>
                     <Box pt={10} />
                 </div>
             </Container>

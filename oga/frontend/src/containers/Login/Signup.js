@@ -38,10 +38,17 @@ class Signup extends Component {
 
     render() {
         return (
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <div className="Signup">
-                    <Box pt={3} />
+            <div
+                className="Signup"
+                style={{
+                    position: "absolute",
+                    left: "50%",
+                    top: "50%",
+                    transform: "translate(-50%, -50%)"
+                }}
+            >
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
                     <img
                         src="https://media1.giphy.com/media/xFoV7P0JsHwoZvHXP6/source.gif"
                         width="30%"
@@ -124,8 +131,8 @@ class Signup extends Component {
                             Already have an account? Login
                         </Button>
                     </Grid>
-                </div>
-            </Container>
+                </Container>
+            </div>
         );
     }
 }

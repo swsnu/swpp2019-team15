@@ -4,144 +4,269 @@
 
 import React from "react";
 import { withRouter } from "react-router";
+
+// Material UI imports
+import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import AppBar from "@material-ui/core/AppBar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Drawer from "@material-ui/core/Drawer";
+import Divider from "@material-ui/core/Divider";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import IconButton from "@material-ui/core/IconButton";
+import Home from "@material-ui/icons/Home";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import LiveHelp from "@material-ui/icons/LiveHelp";
+import MenuIcon from "@material-ui/icons/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import SettingsApplications from "@material-ui/icons/SettingsApplications";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import Button from "@material-ui/core/Button";
+import ExitToApp from "@material-ui/icons/ExitToApp";
 
-// import * as actionCreators from "../../store/actions/";
+const drawerWidth = 200;
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(50)
-  },
-  title: {
-    flexGrow: 1,
-    marginRight: theme.spacing(50)
-  }
+    root: {
+        flexGrow: 1
+    },
+    appBar: {
+        // padding: 5,
+        zIndex: theme.zIndex.drawer + 1
+    },
+    menuButton: {
+        paddingLeft: 10,
+        marginRight: 25
+    },
+    hide: {
+        display: "none"
+    },
+    drawer: {
+        paddingTop: 50,
+        width: drawerWidth,
+        flexShrink: 0,
+        whiteSpace: "nowrap"
+    },
+    drawerOpen: {
+        width: drawerWidth,
+        transition: theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen
+        })
+    },
+    drawerClose: {
+        transition: theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen
+        }),
+        overflowX: "hidden",
+        width: theme.spacing(7) + 1,
+        [theme.breakpoints.up("sm")]: {
+            width: theme.spacing(9) + 1
+        }
+    },
+    paper: {
+        padding: 8,
+        background: "#272727"
+    },
+    toolbar: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        padding: theme.spacing(0, 1),
+        ...theme.mixins.toolbar
+    },
+    title: {
+        flexGrow: 1
+    },
+    selected: {
+        color: "#fff"
+    }
 }));
 
 function MenuAppBar(props) {
-  const classes = useStyles();
-  var auth = props.auth;
-  console.log("HI");
-  console.log("HI" + auth);
-  console.log("HI" + props.authenticated);
-  console.log("HI");
-  var func = props.func;
-  //   const [setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  MenuItem.displayName = "menu_item";
+    const classes = useStyles();
+    var auth = props.auth;
 
-  //   const handleChange = () => {
-  //     () => dispatch(actionCreators.Logout())
-  //   };
+    var func = props.func;
+    //   const [setAuth] = React.useState(true);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    // const open = Boolean(anchorEl);
+    MenuItem.displayName = "menu_item";
 
-  const handleMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
+    const [open, setOpen] = React.useState(false);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const handleDrawer = () => {
+        setOpen(!open);
+    };
 
-  return (
-    <div className="AppBar">
-      {auth && (
-        <AppBar id="app-bar" position="static">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="light"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h4" className={classes.title}>
-              <b>askAT</b>
-            </Typography>
-            <div>
-              <IconButton
-                id="menu-button"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="light"
-              >
-                <AccountCircle />
-              </IconButton>
-              <FormGroup id="menugroup">
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                  }}
-                  open={open}
-                  onClose={handleClose}
-                >
-                  <MenuItem
-                    id="profile-button"
-                    onClick={() =>
-                        props.history.push("/profile/")
-                    }
-                  >
-                    Profile
-                  </MenuItem>
-                  <MenuItem
-                    id="settings-button"
-                    onClick={() =>
-                        props.history.push("/settings/")
-                    }
-                  >
-                    Settings Page
-                  </MenuItem>
-                </Menu>
-              </FormGroup>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={auth}
-                    onChange={() => func()}
-                    aria-label="login switch"
-                    color="dark"
-                  />
-                }
-                label={auth ? "Logout" : "Login"}
-              />
-            </div>
-          </Toolbar>
-        </AppBar>
-      )}
-    </div>
-  );
+    // const handleMenu = event => {
+    //     setAnchorEl(event.currentTarget);
+    // };
+
+    // const handleClose = () => {
+    //     setAnchorEl(null);
+    // };
+
+    return (
+        <div className="AppBar">
+            {auth && (
+                <div className={classes.root}>
+                    <CssBaseline />
+                    <AppBar
+                        id="app-bar"
+                        position="fixed"
+                        className={clsx(classes.appBar, {
+                            [classes.appBarShift]: open
+                        })}
+                    >
+                        <Toolbar>
+                            <IconButton
+                                edge="start"
+                                id="menu-button"
+                                className={classes.menuButton}
+                                color="light"
+                                aria-label="menu"
+                                onClick={handleDrawer}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography variant="h4" className={classes.title}>
+                                <b>askAT</b>
+                            </Typography>
+                            <FormControlLabel
+                                control={
+                                    <Button
+                                        checked={auth}
+                                        onClick={() => func()}
+                                        aria-label="logout-button"
+                                    >
+                                        <ExitToApp />
+                                        Logout
+                                    </Button>
+                                }
+                            />
+                        </Toolbar>
+                    </AppBar>
+                    <Drawer
+                        variant="permanent"
+                        containerStyle={{
+                            marginLeft: "6.5%",
+                            background: "#545454",
+                            position: "fixed"
+                        }}
+                        className={clsx(classes.drawer, {
+                            [classes.drawerOpen]: open,
+                            [classes.drawerClose]: !open
+                        })}
+                        classes={{
+                            paper: clsx(classes.paper, {
+                                [classes.drawerOpen]: open,
+                                [classes.drawerClose]: !open
+                            })
+                        }}
+                        open={open}
+                    >
+                        <List style={{ paddingTop: 100 }}>
+                            {["Profile", "Settings"].map((text, index) => (
+                                <ListItem button key={text}>
+                                    <ListItemIcon>
+                                        {index % 2 === 0 ? (
+                                            <AccountCircle
+                                                color="primary"
+                                                id="profile-button"
+                                                onClick={() =>
+                                                    props.history.push(
+                                                        "/profile/"
+                                                    )
+                                                }
+                                            />
+                                        ) : (
+                                            <SettingsApplications
+                                                color="primary"
+                                                id="settings-button"
+                                                onClick={() =>
+                                                    props.history.push(
+                                                        "/settings/"
+                                                    )
+                                                }
+                                            />
+                                        )}
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        classes={{
+                                            primary: classes.selected
+                                        }}
+                                        primary={text}
+                                    />
+                                </ListItem>
+                            ))}
+                        </List>
+                        <Divider />
+                        <List>
+                            {["Main", "Ask"].map((text, index) => (
+                                <ListItem button key={text}>
+                                    <ListItemIcon>
+                                        {index % 2 === 0 ? (
+                                            <Home
+                                                color="primary"
+                                                id="home-button"
+                                                onClick={() =>
+                                                    props.history.push("/main/")
+                                                }
+                                            />
+                                        ) : (
+                                            <LiveHelp
+                                                color="primary"
+                                                id="ask-button"
+                                                onClick={() =>
+                                                    props.history.push("/ask/")
+                                                }
+                                            />
+                                        )}
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        classes={{
+                                            primary: classes.selected
+                                        }}
+                                        primary={text}
+                                    />
+                                </ListItem>
+                            ))}
+                        </List>
+                        <List
+                            style={{
+                                top: "90%",
+                                position: "absolute"
+                            }}
+                        >
+                            <ListItem
+                                button
+                                id="back-button"
+                                onClick={() => props.history.goBack()}
+                            >
+                                <ListItemIcon>
+                                    <ChevronLeft color="primary" />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{
+                                        primary: classes.selected
+                                    }}
+                                    primary="Back"
+                                />
+                            </ListItem>
+                        </List>
+                    </Drawer>
+                </div>
+            )}
+        </div>
+    );
 }
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         logout: () =>
-//             dispatch(actionCreators.Logout()),
-//     }
-// }
 
 export default withRouter(MenuAppBar);

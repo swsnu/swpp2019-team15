@@ -48,12 +48,20 @@ class NewQuestion extends Component {
             place_name = this.props.target_location.name;
 
         return (
-            <div className="NewQuestion">
-                <Container component="main" justify="center" align="center">
-                    <CssBaseline />
-                    <Box pt={5} />
+            <Grid
+                container
+                className="NewQuestion"
+                justify="center"
+                align="center"
+                direction="row"
+            >
+                <Grid item xs={6}>
+                    <Map />
+                </Grid>
+                <Grid item xs={6}>
+                    <Box pt={20} />
                     <Typography component="h1" variant="h4">
-                        Ask a New Question!{" "}
+                        Ask a New Question!
                     </Typography>
                     <Box pt={5} />
                     <div>
@@ -91,9 +99,6 @@ class NewQuestion extends Component {
                     <div id="view">
                         Is it {this.state.content} in {place_name}?
                     </div>
-                    <Grid container alignItems="center">
-                        <Map />
-                    </Grid>
                     <Box pt={10} />
                     <Button
                         type="submit"
@@ -104,26 +109,18 @@ class NewQuestion extends Component {
                     >
                         Submit
                     </Button>
-                </Container>
-
-                <Grid container justify="center" alignItems="center">
-                    <Button
-                        id="back-create-question-button"
-                        color="primary"
-                        onClick={() => this.clickBackHandler()}
-                    >
-                        Back
-                    </Button>
-                    <Button
-                        id="main-button"
-                        color="primary"
-                        onClick={() => this.props.history.push("/main")}
-                    >
-                        Main
-                    </Button>
+                    <Grid container justify="center" alignItems="center">
+                        <Button
+                            id="back-create-question-button"
+                            color="primary"
+                            onClick={() => this.clickBackHandler()}
+                        >
+                            Back
+                        </Button>
+                        <Box pt={5} />
+                    </Grid>
                 </Grid>
-                <Box pt={5} />
-            </div>
+            </Grid>
         );
     }
 }
@@ -157,7 +154,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(NewQuestion);
+export default connect(mapStateToProps, mapDispatchToProps)(NewQuestion);

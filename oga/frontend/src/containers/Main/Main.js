@@ -7,7 +7,6 @@ import { withRouter } from "react-router";
 import moment from "moment";
 
 import * as actionCreators from "../../store/actions/index";
-import PushNotification from "../../components/PushNotification/PushNotification";
 
 //Material UI imports
 import Button from "@material-ui/core/Button";
@@ -40,46 +39,41 @@ class QuestionList extends Component {
     };
 
     render() {
+        // const theme = useTheme();
         var len = this.props.storedQuestions.length;
-        var stored_Questions = this.props.storedQuestions.slice(len - 10, len);
+        var stored_Questions = this.props.storedQuestions.slice(0, 20);
         const Questions = stored_Questions.map(qs => {
             return (
-                <Question
-                    key={qs.id}
-                    id={qs.id}
-                    author={qs.author}
-                    publish_date_time={moment(qs.publish_date_time).format(
-                        "MMMM Do YYYY, h:mm:ss a"
-                    )}
-                    content={qs.content}
-                    location={qs.location}
-                    is_answered={qs.is_answered}
-                    clickAnswer={() => this.clickAnswerHandler(qs)}
-                    clickFollow={() => this.clickFollowHandler(qs)}
-                    clickDetail={() => this.clickDetailHandler(qs)}
-                />
+                <Grid item xs={6} key={qs.id}>
+                    <Question
+                        key={qs.id}
+                        id={qs.id}
+                        author={qs.author}
+                        publish_date_time={moment(qs.publish_date_time).format(
+                            "MMMM Do YYYY, h:mm:ss a"
+                        )}
+                        content={qs.content}
+                        location={qs.location}
+                        is_answered={qs.is_answered}
+                        showButtons={true}
+                        clickAnswer={() => this.clickAnswerHandler(qs)}
+                        clickFollow={() => this.clickFollowHandler(qs)}
+                        clickDetail={() => this.clickDetailHandler(qs)}
+                    />
+                </Grid>
             );
         });
 
         return (
-            <div
-                className="Main"
-                // style={{ backgroundColor: "#fff", color: "#000" }}
-            >
-                <Container component="main">
+            <div className="Main">
+                <Container component="main" justify="center">
                     <CssBaseline />
                     <Box pt={8} />
                     <Typography component="h1" variant="h3">
                         Question Feed
                     </Typography>
                     <Box pt={5} />
-                    <Grid
-                        container
-                        spacing={2}
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    >
+                    <Grid container spacing={2} direction="row">
                         {Questions}
                     </Grid>
                     <IconButton

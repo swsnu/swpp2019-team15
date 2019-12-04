@@ -7,7 +7,7 @@ export const theme = createMuiTheme({
     },
     palette: {
         background: {
-            default: "#fff",
+            default: "#f2f2f2",
             secondary: "#ffb366"
         },
         primary: {
@@ -16,22 +16,27 @@ export const theme = createMuiTheme({
             dark: "#ff9933" //color for button hover
         },
         secondary: {
-            main: "#003366"
+            main: "#ffb366"
         }
     },
     typography: {
         fontFamily: "arial",
         useNextVariants: true
     },
+
     overrides: {
         MuiCard: {
             card: {
+                margin: "auto",
+                transition: "0.3s",
                 position: "relative",
                 backgroundColor: "light",
                 borderStyle: "solid",
                 borderColor: "primary",
-                boxShadow:
-                    "rgba(255, 0, 0, 0.117647) 0px 1px 6px, rgba(255, 0, 0, 0.117647) 0px 1px 4px"
+                boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+                "&:hover": {
+                    boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+                }
             }
         },
         MuiCardHeader: {
@@ -47,12 +52,9 @@ export const theme = createMuiTheme({
         },
         MuiPaper: {
             root: {
-                padding: "10px",
                 marginBottom: "10px",
-                marginTop: "10px",
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
+                flexDirection: "column"
             }
         },
         MuiButton: {
