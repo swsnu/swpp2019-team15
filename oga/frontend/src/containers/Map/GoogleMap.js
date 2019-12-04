@@ -174,6 +174,8 @@ class GoogleMap extends Component {
                         key: API_KEY,
                         libraries: ["places", "geometry"]
                     }}
+                    options={{mapTypeControl: true, mapTypeId: "roadmap"}}
+                    onClick={this.onClick}
                     yesIWantToUseGoogleMapApiInternals
                     onChildClick={this.clickSubmitHandler}
                     onGoogleApiLoaded={({ map, maps }) =>
