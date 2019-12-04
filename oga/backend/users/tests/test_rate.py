@@ -28,7 +28,7 @@ class RatingTestCase(TestCase):
         profile = Profile.objects.get(user=self.user)
         profile.location_id = self.location
         profile.save()
-        self.answer = Answer.objects.create(question=self.question,
+        self.answer = Answer.objects.create(id=1, question=self.question,
                                             author=profile,
                                             question_type='rain?',
                                             content='no')
