@@ -4,6 +4,7 @@
 
 import React from "react";
 import { withRouter } from "react-router";
+import MapSearchBox from "../MapSearchBox/SearchBox.js"
 
 // Material UI imports
 import clsx from "clsx";
@@ -15,6 +16,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
+import InputBase from '@material-ui/core/InputBase';
 import Home from "@material-ui/icons/Home";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -140,6 +142,7 @@ function MenuAppBar(props) {
                             <Typography variant="h4" className={classes.title}>
                                 <b>askAT</b>
                             </Typography>
+                            <MapSearchBox position="fixed"/>
                             <FormControlLabel
                                 control={
                                     <Button
