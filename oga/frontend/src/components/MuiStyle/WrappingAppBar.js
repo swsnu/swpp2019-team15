@@ -27,6 +27,7 @@ class WrappingAppBar extends Component {
     render() {
         return (
             <AppBar
+                position="static"
                 auth={this.props.log_status}
                 func={this.props.logout}
             ></AppBar>

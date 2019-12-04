@@ -50,14 +50,14 @@ export const getUserAnswers_ = answers => {
     };
 };
 
-export const getUserAnswers = () => {
+export const getUserAnswers = (username = "") => {
     return dispatch => {
         return axios
-            .get("api/profile/answers/")
+            .get("/api/profile/answers/" + username + "/")
             .then(res => {
                 dispatch(getUserAnswers_(res.data));
             })
-            .catch(err => console.log(err));
+            .catch(err => console.error(err));
     };
 };
 
@@ -74,6 +74,55 @@ export const getAnswer = answer_id => {
             .get("/api/reply/" + answer_id + "/")
             .then(res => {
                 dispatch(getAnswer_(res.data));
+            })
+            .catch(err => console.error(err));
+    };
+};
+
+export const checkRating_ = rate => {
+    return {
+        type: actionTypes.CHECK_RATING,
+        is_rated: rate.is_rated
+    };
+};
+
+export const checkRating = answer_id => {
+    return dispatch => {
+        return axios
+            .get("/api/rate/is_rated/" + answer_id + "/")
+            .then(res => {
+                dispatch(checkRating_(res.data));
+            })
+            .catch(err => console.error(err));
+    };
+};
+
+export const rate_ = rate => {
+    return {
+        type: actionTypes.CHECK_RATING,
+        answer_id: rate.answer_id,
+        rate_up: rate.rate_up,
+        rate_down: rate.rate_down
+    };
+};
+
+export const rateUp = answer_id => {
+    return dispatch => {
+        return axios
+            .put("/api/rate/up/" + answer_id + "/")
+            .then(res => {
+                dispatch(rate_(res.data));
+            })
+            .catch(err => console.error(err));
+    };
+};
+
+export const rateDown = answer_id => {
+    return dispatch => {
+        return axios
+            .put("/api/rate/down/" + answer_id + "/")
+            .then(res => {
+                dispatch(rate_(res.data));
             })
             .catch(err => console.error(err));
     };

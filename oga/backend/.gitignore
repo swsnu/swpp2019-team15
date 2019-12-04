@@ -3,4 +3,6 @@
 __ pycache __
 myvenv
 db.sqlite3
+mysqlclient-1.4.6-cp27-cp27m-macosx_10_14_x86_64.whl
 /static
+.coverage

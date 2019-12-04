@@ -67,15 +67,14 @@ export const getUserQuestions_ = questions => {
     };
 };
 
-export const getUserQuestions = () => {
+export const getUserQuestions = (username = "") => {
     return dispatch => {
         return axios
-            .get("api/profile/questions/")
+            .get("/api/profile/questions/" + username)
             .then(res => dispatch(getUserQuestions_(res.data)))
             .catch(err => console.log(err));
     };
 };
-
 export const followQuestion = id => {
     return dispatch => {
         return axios

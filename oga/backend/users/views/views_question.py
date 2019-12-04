@@ -3,10 +3,11 @@ import json
 
 from django.http import JsonResponse
 from django.contrib.auth import get_user
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
-from users.models import Question, Location
-from users.views.decorators import check_request, check_login_required
+from ..models import Question, Location
+from ..views.decorators import check_request, check_login_required
 
 
 @check_login_required
@@ -51,9 +52,14 @@ def questions(request):
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
-def get_user_questions(request):
+def get_user_questions(request, username=''):
     """ get list of questions posted by user """
-    user = get_user(request)
+    if username == '':
+        # get list of questions made by currently logged in user
+        user = get_user(request)
+    else:
+        user = User.objects.get(username=username)
+
     question_list = Question.objects.filter(author=user)
     response_dict = [{
         'id': question.id,

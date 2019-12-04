@@ -20,8 +20,7 @@ const authReducer = (state = initialState, action) => {
                 id: action.id,
                 username: action.username,
                 location: action.location,
-                latitude: action.latitude,
-                longitude: action.longitude
+                coordinates: action.coordinates
             };
             return { ...state, profile: payload };
         default:

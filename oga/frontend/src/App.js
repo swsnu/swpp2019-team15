@@ -49,7 +49,15 @@ function App(props) {
             <MuiThemeProvider theme={theme}>
                 <ConnectedRouter history={props.history}>
                     <WrappingAppBar />
-                    <div className="App">
+                    <div
+                        className="App"
+                        style={{
+                            marginLeft: theme.spacing(9) + 1,
+                            [theme.breakpoints.up("sm")]: {
+                                width: theme.spacing(9) + 1
+                            }
+                        }}
+                    >
                         <Switch>
                             <Route path="/signup" exact component={Signup} />
                             <Route path="/login" exact component={Login} />
@@ -97,7 +105,7 @@ function App(props) {
                             />
                             <PrivateRoute
                                 auth={props.auth}
-                                path="/profile"
+                                path="/profile/:username?"
                                 exact
                                 component={Profile}
                             />
@@ -111,7 +119,7 @@ function App(props) {
     else {
         return null;
     }
-  }
+}
 
 const mapStateToProps = state => ({
     auth: state.auth.authenticated
