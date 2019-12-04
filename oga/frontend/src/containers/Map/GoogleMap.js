@@ -36,6 +36,8 @@ class GoogleMap extends Component {
       mapApiLoaded: false,
       mapInstance: null,
       mapApi: null,
+      marker: null,
+      infowindow: null,
       places: []
     }
   }
@@ -44,7 +46,9 @@ class GoogleMap extends Component {
     this.setState({
       mapApiLoaded: true,
       mapInstance: map,
-      mapApi: maps
+      mapApi: maps,
+      marker: new maps.Marker({map: map}),
+      infowindow: new maps.InfoWindow(),
     });
     // //mock a place object
     // let target = {lat: this.props.target.lat,
@@ -56,11 +60,8 @@ class GoogleMap extends Component {
           lat: this.props.target["lat"],
           lng: this.props.target["lng"]
         };
-        let marker = new maps.Marker({
-          position: target,
-          map: map,
-          title: "HERE"
-        });
+        var marker = this.state.marker;
+        marker.setPosition(target);
       }
     }
   };
@@ -76,14 +77,14 @@ class GoogleMap extends Component {
   //as of now, use default markers
   //but we can render any component via this library
   renderMarkers = places => {
-    const mapInstance = this.state.mapInstance;
+    const map = this.state.mapInstance;
     const mapApi = this.state.mapApi;
+    const marker = this.state.marker;
+    const infowindow = this.state.infowindow;
     const { 0: place } = places;
-    let marker = new mapApi.Marker({
-      position: place.geometry.location,
-      map: mapInstance,
-      title: place.name
-    });
+    marker.setPosition(place.geometry.location);
+    infowindow.setContent(place.name);
+    infowindow.open(map, marker);
     marker.addListener("click", this.clickSubmitHandler);
   };
 
@@ -99,25 +100,34 @@ class GoogleMap extends Component {
       map.setZoom(20);
     }
   };
+  addPlace = place => {
+    this.setState({ places: place });
+    this.renderMap(place);
+    this.renderMarkers(place);
+  };
 
   onClick = (coord) => {
-    console.log(coord);
     const map = this.state.mapInstance;
     const maps = this.state.mapApi;
-    var geocoder = new maps.Geocoder;
-    var latlng = {lat: coord.lat, lng: coord.lng};
-    var service = new maps.places.PlacesService(map);
-    var placeid = 0;
-    geocoder.geocode({'location': latlng}, function(results, status) {
-      if (status === 'OK') {
+    const marker = this.state.marker;
+    const infowindow = this.state.infowindow;
+    const latlng = {lat: coord.lat, lng: coord.lng};
+    const service = new maps.places.PlacesService(map);
+    var self = this;
+    const request = {'location': latlng, 
+                   //openNow: true,
+                   types: ['point_of_interest', 'establishment','restaurant', 'bus_station', 'cafe'],
+                   language: 'kor',
+                   //radius: 200,}
+                   rankBy: maps.places.RankBy.DISTANCE}
+    service.nearbySearch(request, function(results, status) {
+      if (status === maps.places.PlacesServiceStatus.OK) {
         if (results[0]) {
-          var marker = new maps.Marker({
-            position: latlng,
-            map: map
-          });
-          placeid = results[0].place_id;
-          console.log(results[0]);
-          //infowindow.open(map, marker);
+          marker.setPosition(latlng);
+          //placeid = results[0].place_id;
+          //console.log(results);
+          infowindow.setContent(results[0].name);
+          infowindow.open(map, marker)
         } else {
           window.alert('No results found');
         }
@@ -127,15 +137,6 @@ class GoogleMap extends Component {
     });
   }
 
-  addPlace = place => {
-    this.setState({ places: place });
-    this.renderMap(place);
-    this.renderMarkers(place);
-  };
-
-  test = () => {
-    console.log("clicked");
-  };
 
   render() {
         const { places, mapApiLoaded, mapInstance, mapApi } = this.state;
@@ -174,10 +175,13 @@ class GoogleMap extends Component {
                         key: API_KEY,
                         libraries: ["places", "geometry"]
                     }}
-                    options={{mapTypeControl: true, mapTypeId: "roadmap"}}
+                    //options={{clickableIcons: true, disableDefaultUI:false, 
+                              //styles:[{featureType: "transit", elementType: "labels"}],
+                              //labels: true, mapTypeControl: false, mapTypeId: "roadmap", tilt: 0}}
+                    //layerTypes={['TransitLayer']}
                     onClick={this.onClick}
                     yesIWantToUseGoogleMapApiInternals
-                    onChildClick={this.clickSubmitHandler}
+                    //onChildClick={this.clickSubmitHandler}
                     onGoogleApiLoaded={({ map, maps }) =>
                         this.apiHasLoaded(map, maps)
                     }
