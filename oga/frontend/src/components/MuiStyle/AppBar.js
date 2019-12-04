@@ -38,7 +38,6 @@ const useStyles = makeStyles(theme => ({
     },
     appBar: {
         // padding: 5,
-        elevation: 0,
       zIndex: theme.zIndex.drawer + 1,
       boxShadow: "none",
     },
@@ -117,7 +116,7 @@ function MenuAppBar(props) {
     // };
 
     return (
-        <div className="AppBar" elevation={0}>
+        <div className="AppBar">
             {auth && (
                 <div className={classes.root}>
                     <CssBaseline />
@@ -128,7 +127,7 @@ function MenuAppBar(props) {
                             [classes.appBarShift]: open
                         })}
                     >
-                        <Toolbar>
+                        <Toolbar variant="dense">
                             <IconButton
                                 edge="start"
                                 id="menu-button"
