@@ -30,7 +30,7 @@ import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 
-const drawerWidth = 200;
+const drawerWidth = 180;
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -69,16 +69,17 @@ const useStyles = makeStyles(theme => ({
         overflowX: "hidden",
         width: theme.spacing(7) + 1,
         [theme.breakpoints.up("sm")]: {
-            width: theme.spacing(9) + 1
+            width: theme.spacing(7) + 1,
         }
     },
     paper: {
-        padding: 8,
+        //margin: "auto",
+        //padding: "8",
         background: "#272727"
     },
     toolbar: {
         display: "flex",
-        alignItems: "center",
+        //alignItems: "center",
         justifyContent: "flex-end",
         padding: theme.spacing(0, 1),
         ...theme.mixins.toolbar
@@ -158,9 +159,9 @@ function MenuAppBar(props) {
                     <Drawer
                         variant="permanent"
                         containerStyle={{
-                            marginLeft: "6.5%",
+                            marginLeft: "3.5%",
                             background: "#545454",
-                            position: "fixed"
+                            position: "relative"
                         }}
                         className={clsx(classes.drawer, {
                             [classes.drawerOpen]: open,
