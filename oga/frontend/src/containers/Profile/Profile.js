@@ -55,7 +55,7 @@ class Profile extends Component {
                         key={qs.id}
                         id={qs.id}
                         author={qs.author}
-                        publish_date_time={moment(qs.publish_date_time).format(
+                        publish_date_time={moment().format(
                             "MMMM Do YYYY, h:mm:ss a"
                         )}
                         content={qs.content}
@@ -77,7 +77,7 @@ class Profile extends Component {
             );
 
             return (
-                <div style-={{ marginTop: 5, marginBottom: 5 }}>
+                <div style-={{ marginTop: 5, marginBottom: 5 }} key={ans.id}>
                     <Card className="MyAnswer" key={ans.id} align="left">
                         <CardContent
                             onClick={() =>
