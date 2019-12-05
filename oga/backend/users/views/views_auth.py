@@ -43,9 +43,9 @@ def sign_in(request):
         return JsonResponse({}, status=401)
 
 
-@check_login_required
 @ensure_csrf_cookie
 @require_http_methods(["GET"])
+@check_login_required
 def is_logged_in(request):
     """
     a method that tests if user is logged in or not.
