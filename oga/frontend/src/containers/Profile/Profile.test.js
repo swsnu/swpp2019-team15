@@ -52,7 +52,21 @@ const store = mockStore({
 
 describe("<Profile />", () => {
     let profile;
-
+    const spyProfile = jest
+        .spyOn(authActions, "getProfile")
+        .mockImplementation(() => {
+            return dispatch => {};
+        });
+    const spyProfileQuestions = jest
+        .spyOn(questionActions, "getUserQuestions")
+        .mockImplementation(() => {
+            return dispatch => {};
+        });
+    const spyProfileAnswers = jest
+        .spyOn(answerActions, "getUserAnswers")
+        .mockImplementation(() => {
+            return dispatch => {};
+        });
     beforeEach(() => {
         profile = (
             <Provider store={store}>
@@ -75,21 +89,6 @@ describe("<Profile />", () => {
     });
 
     it("should render profile details without errors", () => {
-        const spyProfileQuestions = jest
-            .spyOn(questionActions, "getUserQuestions")
-            .mockImplementation(() => {
-                return dispatch => {};
-            });
-        const spyProfileAnswers = jest
-            .spyOn(answerActions, "getUserAnswers")
-            .mockImplementation(() => {
-                return dispatch => {};
-            });
-        const spyProfile = jest
-            .spyOn(authActions, "getProfile")
-            .mockImplementation(() => {
-                return dispatch => {};
-            });
         const wrapper = mount(profile);
         expect(spyProfile).toHaveBeenCalled();
         expect(spyProfileQuestions).toHaveBeenCalled();
