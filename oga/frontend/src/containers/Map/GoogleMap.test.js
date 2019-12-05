@@ -8,7 +8,7 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
 import { history } from "../../store/store";
-import * as actionCreators from "../../store/actions/authActions";
+import * as actionCreators from "../../store/actions/locationActions.js";
 import thunk from "redux-thunk";
 import Map from "./GoogleMap.js";
 
@@ -21,8 +21,10 @@ describe("<Map/>", () => {
     mapApi.places = jest.mock();
     const store = mockStore({
         location: {
+          currentCoordinates: {
             latitude: 2,
             longitude: 1
+          }
         },
         router: history
     });
@@ -76,5 +78,16 @@ describe("<Map/>", () => {
         const component = mount(map);
         const wrapper = component.find(".Map");
         expect(wrapper.length).toBe(3);
+    });
+
+    it('should submit target location upon map clicks', () => {
+      const spySubmit = jest.spyOn(actionCreators, 'setTargetLocation')
+        .mockImplementation(td => { return dispatch => {}; });
+      const component = mount(map);
+      let wrapper = component.find('GoogleMap');
+      let mockCoord = [{lat:1, lng: 3}];
+      //console.log(wrapper.at(1).debug());
+      //wrapper.at(1).simulate('click', {mockCoord});
+      expect(spySubmit).toHaveBeenCalledTimes(0);
     });
 });

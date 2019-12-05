@@ -26,7 +26,7 @@ const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class GoogleMap extends Component {
   static defaultProps = {
-    zoom: 14
+    zoom: 16
   };
 
   constructor(props) {
@@ -74,6 +74,14 @@ class GoogleMap extends Component {
     //this.props.history.goBack();
   };
 
+  submitHandler = (place) => {
+    //const { 0: place } = this.state.places;
+    //if (place) {
+      this.props.submitPlace(place);
+    //}
+    //this.props.history.goBack();
+  };
+
   //as of now, use default markers
   //but we can render any component via this library
   renderMarkers = places => {
@@ -107,6 +115,7 @@ class GoogleMap extends Component {
   };
 
   onClick = (coord) => {
+    console.log("im called");
     const map = this.state.mapInstance;
     const maps = this.state.mapApi;
     const marker = this.state.marker;
@@ -124,10 +133,13 @@ class GoogleMap extends Component {
       if (status === maps.places.PlacesServiceStatus.OK) {
         if (results[0]) {
           marker.setPosition(latlng);
+          console.log(results[0]);
           //placeid = results[0].place_id;
           //console.log(results);
           infowindow.setContent(results[0].name);
-          infowindow.open(map, marker)
+          infowindow.open(map, marker);
+          //self.addPlace([results[0]]);
+          self.submitHandler(results[0]);
         } else {
           window.alert('No results found');
         }
@@ -145,6 +157,7 @@ class GoogleMap extends Component {
         //FIXME: BUGGY
         console.log(this.props.currentCoordinates);
         if (this.props.currentCoordinates && places.length == 0) {
+          console.log("HI");
             center = {
                 lat: this.props.currentCoordinates.latitude,
                 lng: this.props.currentCoordinates.longitude
@@ -165,7 +178,7 @@ class GoogleMap extends Component {
                 <GoogleMapReact
                     style={{
                         position: "relative",
-                        height: 665,
+                        height: 500,
                         top: 15,
                         width: "100%"
                     }}
@@ -175,7 +188,7 @@ class GoogleMap extends Component {
                         key: API_KEY,
                         libraries: ["places", "geometry"]
                     }}
-                    //options={{clickableIcons: true, disableDefaultUI:false, 
+                    options={{disableDefaultUI:true}}
                               //styles:[{featureType: "transit", elementType: "labels"}],
                               //labels: true, mapTypeControl: false, mapTypeId: "roadmap", tilt: 0}}
                     //layerTypes={['TransitLayer']}
