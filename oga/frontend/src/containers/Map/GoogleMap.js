@@ -152,7 +152,7 @@ class GoogleMap extends Component {
 
   render() {
         const { places, mapApiLoaded, mapInstance, mapApi } = this.state;
-        let center = {lat: 37.4537, lng: 126.9353};
+        let center = {lat: 37.448134, lng: 126.952427};
 
         //FIXME: BUGGY
         console.log(this.props.currentCoordinates);
