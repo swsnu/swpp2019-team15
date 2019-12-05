@@ -25,95 +25,139 @@ import Grid from "@material-ui/core/Grid";
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class GoogleMap extends Component {
-    static defaultProps = {
-        //somewhere in SNU, but should actually get from user
-        zoom: 14
-    };
+  static defaultProps = {
+    zoom: 16
+  };
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            mapApiLoaded: false,
-            mapInstance: null,
-            mapApi: null,
-            places: []
-        };
+    this.state = {
+      mapApiLoaded: false,
+      mapInstance: null,
+      mapApi: null,
+      marker: null,
+      infowindow: null,
+      places: []
     }
+  }
 
-    apiHasLoaded = (map, maps) => {
-        this.setState({
-            mapApiLoaded: true,
-            mapInstance: map,
-            mapApi: maps
-        });
-        // //mock a place object
-        // let target = {lat: this.props.target.lat,
-        //     lng: this.props.target.lng}
+  apiHasLoaded = (map, maps) => {
+    this.setState({
+      mapApiLoaded: true,
+      mapInstance: map,
+      mapApi: maps,
+      marker: new maps.Marker({map: map}),
+      infowindow: new maps.InfoWindow(),
+    });
+    // //mock a place object
+    // let target = {lat: this.props.target.lat,
+    //     lng: this.props.target.lng}
 
-        if (this.props.viewOnly) {
-            if (this.props.target) {
-                var target = {
-                    lat: this.props.target["lat"],
-                    lng: this.props.target["lng"]
-                };
-                let marker = new maps.Marker({
-                    position: target,
-                    map: map,
-                    title: "HERE"
-                });
-            }
-        }
-    };
+    if (this.props.viewOnly) {
+      if (this.props.target) {
+        var target = {
+          lat: this.props.target["lat"],
+          lng: this.props.target["lng"]
+        };
+        var marker = this.state.marker;
+        marker.setPosition(target);
+      }
+    }
+  };
 
-    clickSubmitHandler = () => {
-        const { 0: place } = this.state.places;
-        if (place) {
-            this.props.submitPlace(place);
-        }
-        //this.props.history.goBack();
-    };
+  clickSubmitHandler = () => {
+    const { 0: place } = this.state.places;
+    if (place) {
+      this.props.submitPlace(place);
+    }
+    //this.props.history.goBack();
+  };
 
-    //as of now, use default markers
-    //but we can render any component via this library
-    renderMarkers = places => {
-        const mapInstance = this.state.mapInstance;
-        const mapApi = this.state.mapApi;
-        const { 0: place } = places;
-        let marker = new mapApi.Marker({
-            position: place.geometry.location,
-            map: mapInstance,
-            title: place.name
-        });
-        marker.addListener("click", this.clickSubmitHandler);
-    };
+  submitHandler = (place) => {
+    //const { 0: place } = this.state.places;
+    //if (place) {
+      this.props.submitPlace(place);
+    //}
+    //this.props.history.goBack();
+  };
 
-    renderMap = places => {
-        const map = this.state.mapInstance;
-        const { 0: place } = places;
+  //as of now, use default markers
+  //but we can render any component via this library
+  renderMarkers = places => {
+    const map = this.state.mapInstance;
+    const mapApi = this.state.mapApi;
+    const marker = this.state.marker;
+    const infowindow = this.state.infowindow;
+    const { 0: place } = places;
+    marker.setPosition(place.geometry.location);
+    infowindow.setContent(place.name);
+    infowindow.open(map, marker);
+    marker.addListener("click", this.clickSubmitHandler);
+  };
 
-        if (!place.geometry) return;
-        if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
+  renderMap = places => {
+    const map = this.state.mapInstance;
+    const { 0: place } = places;
+
+    if (!place.geometry) return;
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(20);
+    }
+  };
+  addPlace = place => {
+    this.setState({ places: place });
+    this.renderMap(place);
+    this.renderMarkers(place);
+  };
+
+  onClick = (coord) => {
+    console.log("im called");
+    const map = this.state.mapInstance;
+    const maps = this.state.mapApi;
+    const marker = this.state.marker;
+    const infowindow = this.state.infowindow;
+    const latlng = {lat: coord.lat, lng: coord.lng};
+    const service = new maps.places.PlacesService(map);
+    var self = this;
+    const request = {'location': latlng, 
+                   //openNow: true,
+                   types: ['point_of_interest', 'establishment','restaurant', 'bus_station', 'cafe'],
+                   language: 'kor',
+                   //radius: 200,}
+                   rankBy: maps.places.RankBy.DISTANCE}
+    service.nearbySearch(request, function(results, status) {
+      if (status === maps.places.PlacesServiceStatus.OK) {
+        if (results[0]) {
+          marker.setPosition(latlng);
+          console.log(results[0]);
+          //placeid = results[0].place_id;
+          //console.log(results);
+          infowindow.setContent(results[0].name);
+          infowindow.open(map, marker);
+          //self.addPlace([results[0]]);
+          self.submitHandler(results[0]);
         } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(20);
+          window.alert('No results found');
         }
-    };
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
 
-    addPlace = place => {
-        this.setState({ places: place });
-        this.renderMap(place);
-        this.renderMarkers(place);
-    };
 
-    render() {
+  render() {
         const { places, mapApiLoaded, mapInstance, mapApi } = this.state;
         let center = null;
 
         //FIXME: BUGGY
         console.log(this.props.currentCoordinates);
         if (this.props.currentCoordinates && places.length == 0) {
+          console.log("HI");
             center = {
                 lat: this.props.currentCoordinates.latitude,
                 lng: this.props.currentCoordinates.longitude
@@ -134,7 +178,7 @@ class GoogleMap extends Component {
                 <GoogleMapReact
                     style={{
                         position: "relative",
-                        height: 665,
+                        height: 500,
                         top: 15,
                         width: "100%"
                     }}
@@ -144,8 +188,13 @@ class GoogleMap extends Component {
                         key: API_KEY,
                         libraries: ["places", "geometry"]
                     }}
+                    options={{disableDefaultUI:true}}
+                              //styles:[{featureType: "transit", elementType: "labels"}],
+                              //labels: true, mapTypeControl: false, mapTypeId: "roadmap", tilt: 0}}
+                    //layerTypes={['TransitLayer']}
+                    onClick={this.onClick}
                     yesIWantToUseGoogleMapApiInternals
-                    onChildClick={this.clickSubmitHandler}
+                    //onChildClick={this.clickSubmitHandler}
                     onGoogleApiLoaded={({ map, maps }) =>
                         this.apiHasLoaded(map, maps)
                     }
@@ -155,19 +204,19 @@ class GoogleMap extends Component {
     }
 }
 const mapStateToProps = state => {
-    return {
-        currentCoordinates: state.location.currentCoordinates
-    };
+  return {
+    currentCoordinates: state.location.currentCoordinates
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        //upon submit, should send name, and coordinates of the location
-        submitPlace: target =>
-            dispatch(actionCreators.setTargetLocation(target))
-    };
+  return {
+    //upon submit, should send name, and coordinates of the location
+    submitPlace: target =>
+    dispatch(actionCreators.setTargetLocation(target))
+  };
 };
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(withRouter(GoogleMap));
