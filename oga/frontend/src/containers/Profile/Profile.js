@@ -77,7 +77,7 @@ class Profile extends Component {
             );
 
             return (
-                <div style-={{ marginTop: 5, marginBottom: 5 }}>
+                <div style-={{ marginTop: 5, marginBottom: 5 }} key={ans.id}>
                     <Card className="MyAnswer" key={ans.id} align="left">
                         <CardContent
                             onClick={() =>
