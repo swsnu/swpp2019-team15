@@ -55,7 +55,7 @@ class Profile extends Component {
                         key={qs.id}
                         id={qs.id}
                         author={qs.author}
-                        publish_date_time={moment().format(
+                        publish_date_time={moment(qs.publish_date_time).format(
                             "MMMM Do YYYY, h:mm:ss a"
                         )}
                         content={qs.content}
