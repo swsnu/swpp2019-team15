@@ -103,6 +103,8 @@ class AnswerList extends Component {
                             }
                             is_rated={ans.is_rated}
                             is_up={ans.is_up}
+                            how_many_liked={this.props.rate_up}
+                            how_many_disliked={this.props.rate_down}
                             ratings={
                                 <React.Fragment>
                                     {!ans.is_rated ? (

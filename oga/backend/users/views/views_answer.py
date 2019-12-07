@@ -63,19 +63,11 @@ def get_answers(request, question_id):
     response_dict = []
     question = Question.objects.get(id=question_id)
     answer_all_list = Answer.objects.filter(question=question)
-    response_dict = [{
-        'id': ans.id,
-        'author': ans.author.user.username,
-        'publish_date_time': ans.publish_date_time,
-        'question_type': ans.question_type,
-        'content': ans.content,
-        'is_rated': ans.is_rated,
-    } for ans in answer_all_list]
 
     ulist = []
     user = get_user(request)
-    is_up_list = Answer.objects.get(users_rated_up_answers)
-    is_down_list = Answer.objects.get(users_rated_down_answers)
+    is_up_list = [Answer.objects.first().users_rated_up_answers.all()]
+    is_down_list = [Answer.objects.first().users_rated_down_answers.all()]
     for ans in response_dict:
         if ans['id'] in is_up_list:
             ulist.add({'is_up': True})
@@ -91,7 +83,16 @@ def get_answers(request, question_id):
     # if users.count() > 1:
     #     return HttpResponse(status=404
 
-    response_dict = dict(response_dict.items() + ulist.items())
+    response_dict = [{
+        'id': ans.id,
+        'author': ans.author.user.username,
+        'publish_date_time': ans.publish_date_time,
+        'question_type': ans.question_type,
+        'content': ans.content,
+        'is_rated': ans.is_rated,
+    } for ans in answer_all_list]
+    for is_up in ulist:
+        response_dict.update(is_up)
     return JsonResponse(response_dict, safe=False, status=200)
 
 
