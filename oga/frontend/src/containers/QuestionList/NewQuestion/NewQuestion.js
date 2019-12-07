@@ -66,7 +66,7 @@ class NewQuestion extends Component {
                     <Typography variant="h6">Ask a New Question!</Typography>
                     <Box pt={8} />
                     <Typography id="view" variant="h4">
-                        {this.state.content} in {place_name} ?
+                        {this.state.content} in {place_name}?
                     </Typography>
                     <Box pt={8} />
                     <FormControl>

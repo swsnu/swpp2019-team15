@@ -2,14 +2,13 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import { BrowserRouter as Router } from "react-router-dom";
-import { connectRouter, ConnectedRouter } from "connected-react-router";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { Route, Switch } from "react-router-dom";
 import axios from "axios";
-import { connect } from "react-redux";
 import thunk from "redux-thunk";
 import NewQuestion from "./NewQuestion.js";
 import { history } from "../../../store/store";
+import Typography from "@material-ui/core/Typography";
 import * as actionCreators from "../../../store/actions/questionActions";
 
 const mockGeolocation = {
@@ -60,7 +59,7 @@ describe("<NewQuestion/>", () => {
         expect(wrapper.find(".NewQuestion").length).toBe(3);
     });
 
-    it(`should call 'clickBack'`, () => {
+    xit(`should call 'clickBack'`, () => {
         const spyHistoryBack = jest
             .spyOn(history, "goBack")
             .mockImplementation(path => {});
@@ -110,11 +109,12 @@ describe("<NewQuestion/>", () => {
             .find(NewQuestion.WrappedComponent)
             .instance();
         const wrapper = component.find("input");
+
         wrapper
             .at(0)
             .hostNodes()
             .simulate("change");
-        expect(instance.state.content).toBe("LONG LINE");
+        expect(instance.state.content).toBe("Are there LONG LINES");
     });
 
     xit(`should show target_location when set `, () => {
@@ -152,8 +152,8 @@ describe("<NewQuestion/>", () => {
         );
 
         const component = mount(nq);
-        const wrapper = component.find("#view");
+        const wrapper = component.find("#view").find(Typography);
         //const instance = component.find(NewQuestion.WrappedComponent).instance();
-        expect(wrapper.text()).toBe("Is it .... in ...?");
+        expect(wrapper.text()).toBe("How is it in ......?");
     });
 });
