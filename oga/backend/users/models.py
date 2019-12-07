@@ -34,14 +34,15 @@ class Question(models.Model):
         return self.content
 
     class Meta:
-        ordering = ('publish_date_time',)
+        ordering = ['-publish_date_time', ]
 
 
 class Profile(models.Model):
     """
     Profile model that extends django user model
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='profile')
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE,
                                     blank=True, null=True)
     subscription = JSONField(blank=True, null=True)
@@ -70,4 +71,4 @@ class Answer(models.Model):
         return self.content
 
     class Meta:
-        ordering = ('publish_date_time',)
+        ordering = ['-publish_date_time', ]
