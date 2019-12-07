@@ -57,15 +57,5 @@ export const theme = createMuiTheme({
                 flexDirection: "column"
             }
         },
-        MuiButton: {
-            raisedPrimary: {
-                margin: "10px",
-                padding: "10px",
-                color: "#ffe699"
-            }
-        },
-        MuiToolbar: {
-            backgroundColor: "transparent"
-        }
     }
 });

@@ -37,10 +37,6 @@ class NewAnswer extends Component {
         }
     };
 
-    clickBackHandler = () => {
-        this.props.history.goBack();
-    };
-
     onChangeHandler = (event, value, answer_list) => {
         this.setState({
             answer_content:

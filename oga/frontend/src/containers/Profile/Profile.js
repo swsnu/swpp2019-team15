@@ -80,6 +80,7 @@ class Profile extends Component {
                 <div style-={{ marginTop: 5, marginBottom: 5 }} key={ans.id}>
                     <Card className="MyAnswer" key={ans.id} align="left">
                         <CardContent
+                            id="my-answers"
                             onClick={() =>
                                 this.onClickDetailHandler(ans.question_id)
                             }

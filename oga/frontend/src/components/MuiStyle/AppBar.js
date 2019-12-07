@@ -56,10 +56,14 @@ const useStyles = makeStyles(theme => ({
         paddingTop: 50,
         width: drawerWidth,
         flexShrink: 0,
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
+        overflowX: "hidden",
+        height: "100%"
     },
     drawerOpen: {
         width: drawerWidth,
+        overflowX: "hidden",
+        height: "100%",
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen
@@ -71,9 +75,11 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.leavingScreen
         }),
         overflowX: "hidden",
+        height: "100%",
         width: theme.spacing(7) + 1,
         [theme.breakpoints.up("sm")]: {
-            width: theme.spacing(9) + 1
+            width: theme.spacing(9) + 1,
+            height: "100%"
         }
     },
     paper: {
@@ -88,21 +94,24 @@ const useStyles = makeStyles(theme => ({
         ...theme.mixins.toolbar
     },
     title: {
-        flexGrow: 1
+        flexGrow: 1,
+        fontWeight: "bold"
     },
     selected: {
         color: "#fff"
+    },
+    listItem: {
+        "&:hover": {
+            backgroundColor: "#665200"
+        }
     }
 }));
 
 function MenuAppBar(props) {
     const classes = useStyles();
     var auth = props.auth;
-
     var func = props.func;
-    //   const [setAuth] = React.useState(true);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    // const open = Boolean(anchorEl);
+    var mouseLeaveTimeout = true;
     MenuItem.displayName = "menu_item";
 
     const [open, setOpen] = React.useState(false);
@@ -115,6 +124,21 @@ function MenuAppBar(props) {
         setOpen(false);
     };
 
+    /**
+     * Add small timeout delay on mouseLeave to prevent
+     * looping open and close animation when hovering in between
+     */
+    const handleDrawerCloseOnMouseLeave = () => {
+        // Clear any existing timeout
+        if (mouseLeaveTimeout) {
+            clearTimeout(mouseLeaveTimeout);
+        }
+
+        mouseLeaveTimeout = setTimeout(() => {
+            setOpen(false);
+            mouseLeaveTimeout = false;
+        }, 200);
+    };
     // const handleMenu = event => {
     //     setAnchorEl(event.currentTarget);
     // };
@@ -151,7 +175,7 @@ function MenuAppBar(props) {
                                     variant="h4"
                                     className={classes.title}
                                 >
-                                    <b>askAT</b>
+                                    askAT
                                 </Typography>
                                 <FormControlLabel
                                     control={
@@ -186,10 +210,11 @@ function MenuAppBar(props) {
                             }}
                             open={open}
                             onMouseEnter={handleDrawer}
-                            onMouseLeave={handleDrawer}
+                            onMouseLeave={handleDrawerCloseOnMouseLeave}
                         >
                             <List style={{ paddingTop: 100 }}>
                                 <ListItem
+                                    className={classes.listItem}
                                     button
                                     key="Profile"
                                     id="profile-button"
@@ -208,6 +233,7 @@ function MenuAppBar(props) {
                                     />
                                 </ListItem>
                                 <ListItem
+                                    className={classes.listItem}
                                     button
                                     key="Settings"
                                     id="settings-button"
@@ -229,6 +255,7 @@ function MenuAppBar(props) {
                             <Divider />
                             <List>
                                 <ListItem
+                                    className={classes.listItem}
                                     button
                                     key="Main"
                                     id="main-button"
@@ -248,6 +275,7 @@ function MenuAppBar(props) {
                                     />
                                 </ListItem>
                                 <ListItem
+                                    className={classes.listItem}
                                     button
                                     key="Ask"
                                     id="ask-button"
@@ -271,6 +299,7 @@ function MenuAppBar(props) {
                                 }}
                             >
                                 <ListItem
+                                    className={classes.listItem}
                                     button
                                     id="back-button"
                                     onClick={() => props.history.goBack()}

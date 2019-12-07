@@ -113,16 +113,6 @@ describe("<NewAnswer/>", () => {
         expect(wrapper.props.place_name).toBe("HOME");
     });
 
-    xit("should handle goback ", () => {
-        const spyHistoryPush = jest
-            .spyOn(history, "goBack")
-            .mockImplementation(path => {});
-        const component = mount(answer);
-        let wrapper = component.find("#back-create-answer-button");
-        wrapper.hostNodes().simulate("click");
-        expect(spyHistoryPush).toHaveBeenCalledTimes(1);
-    });
-
     it("should not submit answer with no choice ", () => {
         let store = mockStore({
             question: {

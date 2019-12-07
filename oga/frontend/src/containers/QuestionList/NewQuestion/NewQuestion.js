@@ -25,9 +25,9 @@ class NewQuestion extends Component {
     componentDidMount() {}
 
     postQuestionHandler = () => {
-        if (this.state.content === "How is it") {
+        if (this.state.content === "" || this.state.content === "How is it") {
             alert("Please select a question");
-        } else if (this.props.target_location === null) {
+        } else if (this.props.target_location == null) {
             alert("Please enter a location");
         } else {
             // for testing purposes, we set type to 0, and pass content as well
@@ -41,13 +41,9 @@ class NewQuestion extends Component {
         }
     };
 
-    clickBackHandler = () => {
-        this.props.history.goBack();
-    };
-
-    clickMapHandler = () => {
-        this.props.history.push("/map");
-    };
+    // clickMapHandler = () => {
+    //     this.props.history.push("/map");
+    // };
 
     render() {
         let place_name = "......";

@@ -70,11 +70,16 @@ describe("<NewQuestion/>", () => {
     });
 
     it(`should not call 'createQuestion' when empty`, () => {
-        const spyHistoryBack = jest
+        const spyCreateQuestion = jest
             .spyOn(actionCreators, "createQuestion")
             .mockImplementation(question => {
                 return dispatch => {};
             });
+        // Should alert when creating a question without question
+        const mockAlert = jest
+            .spyOn(window, "alert")
+            .mockImplementation(() => {});
+
         const component = mount(nq);
         const instance = component
             .find(NewQuestion.WrappedComponent)
@@ -82,11 +87,12 @@ describe("<NewQuestion/>", () => {
         instance.setState(state);
         const wrapper = component.find("#confirm-create-question-button");
         wrapper.hostNodes().simulate("click");
-        expect(spyHistoryBack).toHaveBeenCalledTimes(0);
+        expect(spyCreateQuestion).toHaveBeenCalledTimes(0);
+        expect(mockAlert).toHaveBeenCalledTimes(1);
     });
 
     it(`should call 'createQuestion' with content`, () => {
-        const spyHistoryBack = jest
+        const spyCreateQuestion = jest
             .spyOn(actionCreators, "createQuestion")
             .mockImplementation(question => {
                 return dispatch => {};
@@ -98,7 +104,7 @@ describe("<NewQuestion/>", () => {
         instance.setState({ content: "HI" });
         const wrapper = component.find("#confirm-create-question-button");
         wrapper.hostNodes().simulate("click");
-        expect(spyHistoryBack).toHaveBeenCalledTimes(1);
+        expect(spyCreateQuestion).toHaveBeenCalled();
     });
 
     it(`should update state upon button click`, () => {
@@ -122,13 +128,13 @@ describe("<NewQuestion/>", () => {
         component.setProps({
             question: { target_location: { name: "school" } }
         });
-        const wrapper = component.find("#view");
+        const wrapper = component.find("#view").find(Typography);
         //const instance = component.find(NewQuestion.WrappedComponent).instance();
-        expect(wrapper.text()).toBe("Is it  in ?");
+        expect(wrapper.text()).toBe("How is it in school?");
         //instance.setState({content: "HI"});
     });
 
-    it(`should set not set location name null`, () => {
+    it(`should not set location name null`, () => {
         const store = mockStore({
             question: {
                 selectedQuestion: null,
@@ -152,8 +158,16 @@ describe("<NewQuestion/>", () => {
         );
 
         const component = mount(nq);
-        const wrapper = component.find("#view").find(Typography);
+        let wrapper = component.find("#view").find(Typography);
         //const instance = component.find(NewQuestion.WrappedComponent).instance();
         expect(wrapper.text()).toBe("How is it in ......?");
+
+        // Should alert when creating a question with null location
+        const mockAlert = jest
+            .spyOn(window, "alert")
+            .mockImplementation(() => {});
+        wrapper = component.find("#confirm-create-question-button");
+        wrapper.hostNodes().simulate("click");
+        expect(mockAlert).toHaveBeenCalled();
     });
 });

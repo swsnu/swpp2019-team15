@@ -7,6 +7,8 @@ import { Route, Switch } from "react-router-dom";
 import { history } from "../../store/store";
 import thunk from "redux-thunk";
 import Profile from "./Profile.js";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 import * as questionActions from "../../store/actions/questionActions";
 import * as answerActions from "../../store/actions/answerActions";
@@ -134,5 +136,23 @@ describe("<Profile />", () => {
         const tab = wrapper.find(Profile.WrappedComponent).state()
             .isQuestionTab;
         expect(tab).toBe(false);
+    });
+
+    xit("should go to detail page when answer clicked", () => {
+        const spyHistoryPush = jest
+            .spyOn(history, "push")
+            .mockImplementation(path => {});
+        const wrapper = mount(profile);
+        const instance = wrapper.find(Profile.WrappedComponent).instance();
+        const m = jest.spyOn(instance, "onClickDetailHandler");
+        wrapper
+            .find(Card)
+            .find(".MyAnswer")
+            .find(CardContent)
+            .simulate("click");
+
+            expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+        expect(m).toHaveBeenCalledTimes(1);
+        expect(spyHistoryPush).toHaveBeenCalledWith("/replies/1");
     });
 });
