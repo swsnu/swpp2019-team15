@@ -6,10 +6,10 @@ import * as actionCreators from "../../../store/actions";
 
 import Map from "../../Map/GoogleMap";
 import CustomRadio from "../../../components/MuiStyle/CustomRadio";
-import Card from "@material-ui/core/Card";
 import {
     Box,
     Button,
+    Card,
     FormControl,
     FormControlLabel,
     Grid,
