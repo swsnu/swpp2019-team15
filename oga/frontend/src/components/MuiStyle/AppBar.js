@@ -174,71 +174,76 @@ function MenuAppBar(props) {
                         open={open}
                     >
                         <List style={{ paddingTop: 100 }}>
-                            {["Profile", "Settings"].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>
-                                        {index % 2 === 0 ? (
-                                            <AccountCircle
-                                                color="primary"
-                                                id="profile-button"
-                                                onClick={() =>
-                                                    props.history.push(
-                                                        "/profile/"
-                                                    )
-                                                }
-                                            />
-                                        ) : (
-                                            <SettingsApplications
-                                                color="primary"
-                                                id="settings-button"
-                                                onClick={() =>
-                                                    props.history.push(
-                                                        "/settings/"
-                                                    )
-                                                }
-                                            />
-                                        )}
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        classes={{
-                                            primary: classes.selected
-                                        }}
-                                        primary={text}
+                            <ListItem
+                                button
+                                key="Profile"
+                                id="profile-button"
+                                onClick={() => props.history.push("/profile/")}
+                            >
+                                <ListItemIcon>
+                                    <AccountCircle color="primary" />{" "}
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{
+                                        primary: classes.selected
+                                    }}
+                                    primary="Profile"
+                                />
+                            </ListItem>
+                            <ListItem
+                                button
+                                key="Settings"
+                                id="settings-button"
+                                onClick={() => props.history.push("/settings/")}
+                            >
+                                <ListItemIcon>
+                                    <SettingsApplications
+                                        color="primary"
+                                        id="settings-button"
                                     />
-                                </ListItem>
-                            ))}
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{
+                                        primary: classes.selected
+                                    }}
+                                    primary="Settings"
+                                />
+                            </ListItem>
                         </List>
                         <Divider />
                         <List>
-                            {["Main", "Ask"].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>
-                                        {index % 2 === 0 ? (
-                                            <Home
-                                                color="primary"
-                                                id="home-button"
-                                                onClick={() =>
-                                                    props.history.push("/main/")
-                                                }
-                                            />
-                                        ) : (
-                                            <LiveHelp
-                                                color="primary"
-                                                id="ask-button"
-                                                onClick={() =>
-                                                    props.history.push("/ask/")
-                                                }
-                                            />
-                                        )}
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        classes={{
-                                            primary: classes.selected
-                                        }}
-                                        primary={text}
-                                    />
-                                </ListItem>
-                            ))}
+                            <ListItem
+                                button
+                                key="Main"
+                                id="main-button"
+                                onClick={() => props.history.push("/main/")}
+                            >
+                                <ListItemIcon>
+                                    <Home color="primary" id="home-button" />{" "}
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{
+                                        primary: classes.selected
+                                    }}
+                                    primary="Main"
+                                />
+                            </ListItem>
+                            <ListItem
+                                button
+                                key="Ask"
+                                id="ask-button"
+                                onClick={() => props.history.push("/ask/")}
+                            >
+                                <ListItemIcon>
+                                    <LiveHelp color="primary" id="ask-button" />
+                                </ListItemIcon>
+                                <ListItemText
+                                    classes={{
+                                        primary: classes.selected
+                                    }}
+                                    primary="Ask"
+                                />
+                            </ListItem>
                         </List>
                         <List
                             style={{

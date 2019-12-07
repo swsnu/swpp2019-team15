@@ -48,7 +48,7 @@ export const signIn = user => {
             })
             .catch(err => {
                 alert(
-                    "The username of password is incorrect.\nPlease try again."
+                    "The username or password is incorrect.\nPlease try again."
                 );
             });
     };

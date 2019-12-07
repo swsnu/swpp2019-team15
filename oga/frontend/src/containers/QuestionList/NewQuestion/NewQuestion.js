@@ -5,17 +5,21 @@ import { connect } from "react-redux";
 import * as actionCreators from "../../../store/actions";
 
 import Map from "../../Map/GoogleMap";
-
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 import CustomRadio from "../../../components/MuiStyle/CustomRadio";
-import { FormControl, RadioGroup, FormControlLabel } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import {
+    Box,
+    Button,
+    FormControl,
+    FormControlLabel,
+    Grid,
+    RadioGroup,
+    Typography
+} from "@material-ui/core";
 
 class NewQuestion extends Component {
     state = {
-        content: "...."
+        content: "How is it"
     };
 
     componentDidMount() {}
@@ -42,7 +46,7 @@ class NewQuestion extends Component {
     };
 
     render() {
-        let place_name = "...";
+        let place_name = "......";
         if (this.props.target_location)
             place_name = this.props.target_location.name;
 
@@ -57,15 +61,14 @@ class NewQuestion extends Component {
                 <Grid item xs={6}>
                     <Map />
                 </Grid>
-                <Grid item xs={6}>
-                    <Box pt={20} />
-                    <Typography component="h1" variant="h4">
-                        Ask a New Question!
-                    </Typography>
+                <Grid item xs={6} className="AskQuestion">
                     <Box pt={5} />
-                    <div id="view">
-                        Is it {this.state.content} in {place_name}?
-                    </div>
+                    <Typography variant="h6">Ask a New Question!</Typography>
+                    <Box pt={8} />
+                    <Typography id="view" variant="h4">
+                        {this.state.content} in {place_name} ?
+                    </Typography>
+                    <Box pt={8} />
                     <FormControl>
                         <RadioGroup
                             aria-label="question-type"
@@ -77,33 +80,41 @@ class NewQuestion extends Component {
                         >
                             <Grid container direction="rows">
                                 <FormControlLabel
-                                    value="LONG LINE"
-                                    control={<CustomRadio color="primary" />}
+                                    value="Are there LONG LINES"
+                                    control={
+                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                    }
                                     label="LONG LINES"
                                     labelPlacement="bottom"
                                 />
                                 <FormControlLabel
-                                    value="MANY SEATS"
-                                    control={<CustomRadio color="primary" />}
+                                    value="Are there MANY SEATS"
+                                    control={
+                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                    }
                                     label="SEATS"
                                     labelPlacement="bottom"
                                 />
                                 <FormControlLabel
-                                    value="RAINING"
-                                    control={<CustomRadio color="primary" />}
+                                    value="Is it RAINING"
+                                    control={
+                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                    }
                                     label="RAIN"
                                     labelPlacement="bottom"
                                 />
                                 <FormControlLabel
-                                    value="QUIET"
-                                    control={<CustomRadio color="primary" />}
+                                    value="Is it QUIET"
+                                    control={
+                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                    }
                                     label="QUIET"
                                     labelPlacement="bottom"
                                 />
                             </Grid>
                         </RadioGroup>
                     </FormControl>
-                    <Box pt={10} />
+                    <Box pt={5} />
                     <Button
                         type="submit"
                         variant="contained"
@@ -113,16 +124,6 @@ class NewQuestion extends Component {
                     >
                         Submit
                     </Button>
-                    <Grid container justify="center" alignItems="center">
-                        <Button
-                            id="back-create-question-button"
-                            color="primary"
-                            onClick={() => this.clickBackHandler()}
-                        >
-                            Back
-                        </Button>
-                        <Box pt={5} />
-                    </Grid>
                 </Grid>
             </Grid>
         );
@@ -149,12 +150,6 @@ const mapDispatchToProps = dispatch => {
                     target_location: target_location
                 })
             )
-        //setLogout: () =>
-        //dispatch(actionCreators.settingLogout())
-        // prevQuestion: () =>
-        //     dispatch(actionCreators.toggleToPreview()),
-        // writQuestion: () =>
-        //     dispatch(actionCreators.toggleToWrite()),
     };
 };
 

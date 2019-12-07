@@ -16,8 +16,8 @@ const useStyles = makeStyles({
     },
     icon: {
         borderRadius: "50%",
-        width: 100,
-        height: 100,
+        width: 120,
+        height: 120,
         boxShadow:
             "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
         backgroundColor: "#f5f8fa",
@@ -36,8 +36,8 @@ const useStyles = makeStyles({
         }
     },
     checkedIcon: {
-        width: 100,
-        height: 100,
+        width: 120,
+        height: 120,
         backgroundColor: "#ffb366",
         backgroundImage:
             "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
@@ -66,20 +66,14 @@ export default function StyledRadio(props) {
             checkedIcon={
                 <Avatar
                     className={classes.checkedIcon}
-                    src={
-                        // ADD ME
-                        "https://www.stickpng.com/assets/images/5847f98fcef1014c0b5e48c0.png"
-                    }
+                    src={props.imgsrc}
                     compont="img"
                 />
             }
             icon={
                 <Avatar
                     className={classes.icon}
-                    src={
-                        // ADD ME
-                        "https://www.stickpng.com/assets/images/5847f98fcef1014c0b5e48c0.png"
-                    }
+                    src={props.imgsrc}
                     compont="img"
                 />
             }
