@@ -6,7 +6,6 @@ import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch } from "react-router-dom";
 import thunk from "redux-thunk";
 import NewAnswer from "./NewAnswer.js";
-14;
 import Slider from "@material-ui/core/Slider";
 import { history } from "../../store/store";
 import * as questionActions from "../../store/actions/questionActions";
