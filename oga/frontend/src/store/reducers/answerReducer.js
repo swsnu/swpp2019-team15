@@ -7,7 +7,7 @@ const initialState = {
     is_rated: null,
     rate_up: null,
     rate_down: null,
-    is_up: null,
+    is_up: null
 };
 
 const answerReducer = (state = initialState, action) => {

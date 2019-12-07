@@ -57,15 +57,16 @@ class AnswerView extends Component {
         const { classes } = this.props;
 
         var selec = null;
+        var sel = null;
         if (this.props.is_answered && this.props.is_rated) {
             selec = this.props.how_many_liked
             selec += "peoples liked this answer!"
             selec = this.props.how_many_disliked
             selec += "peoples disliked this answer!"
             if (this.props.is_up) {
-                selec += <React.Fragment>&#128077;</React.Fragment>;
+                sel = <React.Fragment>&#128077;</React.Fragment>;
             } else {
-                selec += <React.Fragment>&#128078;</React.Fragment>;
+                sel = <React.Fragment>&#128078;</React.Fragment>;
             }
         }
 
@@ -106,6 +107,7 @@ class AnswerView extends Component {
                             <Grid align="center">
                                 {this.props.ratings}
                                 {selec}
+                                {sel}
                             </Grid>
                         </CardContent>
                     </Card>

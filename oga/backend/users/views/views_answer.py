@@ -66,12 +66,12 @@ def get_answers(request, question_id):
 
     ulist = []
     user = get_user(request)
-    is_up_list = [Answer.objects.first().users_rated_up_answers.all()]
-    is_down_list = [Answer.objects.first().users_rated_down_answers.all()]
-    for ans in response_dict:
-        if ans['id'] in is_up_list:
+    for answer in answer_all_list:
+        is_up_list = [answer.users_rated_up_answers.all()]
+        is_down_list = [answer.users_rated_down_answers.all()]
+        if user in is_up_list:
             ulist.add({'is_up': True})
-        elif ans['id'] in is_down_list:
+        elif user in is_down_list:
             ulist.add({'is_up': False})
 
     # users = User.objects.get(rated_up_answers__in=user)
@@ -90,6 +90,8 @@ def get_answers(request, question_id):
         'question_type': ans.question_type,
         'content': ans.content,
         'is_rated': ans.is_rated,
+        'numbers_rated_up': ans.numbers_rated_up,
+        'numbers_rated_down': ans.numbers_rated_down
     } for ans in answer_all_list]
     for is_up in ulist:
         response_dict.update(is_up)
