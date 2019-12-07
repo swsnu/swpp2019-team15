@@ -185,6 +185,8 @@ function MenuAppBar(props) {
                                 })
                             }}
                             open={open}
+                            onMouseEnter={handleDrawer}
+                            onMouseLeave={handleDrawer}
                         >
                             <List style={{ paddingTop: 100 }}>
                                 <ListItem
