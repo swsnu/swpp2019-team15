@@ -46,10 +46,12 @@ class AnswerList extends Component {
 
     rateUpHandler = id => {
         this.props.rateUp(id);
+        window.location.reload();
     };
 
     rateDownHandler = id => {
         this.props.rateDown(id);
+        window.location.reload();
     };
 
     render() {
