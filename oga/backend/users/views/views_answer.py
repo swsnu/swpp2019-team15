@@ -70,8 +70,28 @@ def get_answers(request, question_id):
         'question_type': ans.question_type,
         'content': ans.content,
         'is_rated': ans.is_rated,
-        'is_up': ans.is_up
     } for ans in answer_all_list]
+
+    ulist = []
+    user = get_user(request)
+    is_up_list = Answer.objects.get(users_rated_up_answers)
+    is_down_list = Answer.objects.get(users_rated_down_answers)
+    for ans in response_dict:
+        if ans['id'] in is_up_list:
+            ulist.add({'is_up': True})
+        elif ans['id'] in is_down_list:
+            ulist.add({'is_up': False})
+
+    # users = User.objects.get(rated_up_answers__in=user)
+    # if users is null:
+    #     users = User.objects.get(rated_down_answers__in=user)
+    #     is_up = False
+    # else:
+    #     is_up = True
+    # if users.count() > 1:
+    #     return HttpResponse(status=404
+
+    response_dict = dict(response_dict.items() + ulist.items())
     return JsonResponse(response_dict, safe=False, status=200)
 
 

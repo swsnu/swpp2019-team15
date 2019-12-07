@@ -4,6 +4,7 @@ models used in our oga apps: Location, Profile, Question, Answer
 from django.db import models
 from django.contrib.auth.models import User
 from .custommodels.json_field import JSONField
+from django.core.validators import int_list_validator
 
 
 class Location(models.Model):
@@ -65,7 +66,10 @@ class Answer(models.Model):
     publish_date_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=100)
     is_rated = models.BooleanField(default=False)
-    is_up = models.BooleanField(default=False)
+    numbers_rated_up = models.PositiveSmallIntegerField(default=0)
+    numbers_rated_down = models.PositiveSmallIntegerField(default=0)
+    users_rated_up_answers = models.ManyToManyField(User, related_name='rated_up_answers')
+    users_rated_down_answers = models.ManyToManyField(User, related_name='rated_down_answers')
 
     def __str__(self):
         return self.content

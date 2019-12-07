@@ -31,4 +31,5 @@ urlpatterns = [
          views.check_is_rated, name='check_is_rated'),
     path('rate/up/<int:answer_id>/', views.rate_up_answer, name='rate_up'),
     path('rate/down/<int:answer_id>/', views.rate_down_answer, name='rate_down'),
+    path('rate/get_rated_answer/', views.get_rated_answer, name='get_rated_answer'),
 ]
