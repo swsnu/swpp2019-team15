@@ -108,7 +108,7 @@ describe("<NewAnswer/>", () => {
         expect(wrapper.props.place_name).toBe("HOME");
     });
 
-    it("should handle goback ", () => {
+    xit("should handle goback ", () => {
         const spyHistoryPush = jest
             .spyOn(history, "goBack")
             .mockImplementation(path => {});

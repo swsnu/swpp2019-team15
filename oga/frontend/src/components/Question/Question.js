@@ -83,7 +83,7 @@ const Question = props => {
                             gutterBottom
                         >
                             <div id="question-content">
-                                Is it {props.content} in {props.location} ?
+                                {props.content} in {props.location}?
                             </div>
                         </Typography>
                     </div>

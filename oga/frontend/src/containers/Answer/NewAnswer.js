@@ -44,7 +44,7 @@ class NewAnswer extends Component {
     render() {
         var selected_question_type_list = null;
         var qs_type = "";
-        var content_type = "";
+        var answer_list = null;
         var idx = 0;
         let gotten_answer_view = null;
         var map = null;
@@ -59,17 +59,51 @@ class NewAnswer extends Component {
                 ></Map>
             );
 
-            content_type = this.props.selectedQuestion.content;
-            qs_type = question_types[content_type];
+            qs_type = this.props.selectedQuestion.content;
+            answer_list = answer_markers[qs_type];
+            qs_type = question_types[qs_type];
+            console.log(`Answer list is ${answer_list.length} long`);
 
-            selected_question_type_list = qs_type.map((val, index) => {
-                return (
-                    <div className={"choice"} key={idx++}>
-                        <label>{val}</label>
-                        <input type="radio" value={val} name="answer" />
-                    </div>
-                );
-            });
+            selected_question_type_list = (
+                <Slider
+                    style={{
+                        marginTop: 50,
+                        marginBottom: 50,
+                        width: "70%"
+                    }}
+                    defaultValue={0}
+                    getAriaValueText={value => {
+                        return `${value}%`;
+                    }}
+                    aria-labelledby="answer-choices"
+                    track={false}
+                    min={1}
+                    max={answer_list.length}
+                    step={null}
+                    marks={answer_list}
+                    valueLabelDisplay="auto"
+                    onChange={(event, value) =>
+                        this.setState({
+                            answer_content:
+                                answer_list[
+                                    answer_list.findIndex(
+                                        mark => mark.value === value
+                                    )
+                                ].label,
+                            answered: true
+                        })
+                    }
+                />
+            );
+            // selected_question_type_list = qs_type.map((val, index) => {
+            //     return (
+            //         <div className={"choice"} key={idx++}>
+            //             <label>{val}</label>
+            //             <input type="radio" value={val} name="answer" />
+
+            //         </div>
+            //     );
+            // });
 
             gotten_answer_view = (
                 <React.Fragment>
@@ -88,51 +122,17 @@ class NewAnswer extends Component {
 
         return (
             <Grid container className="Answer" direction="row">
-                <Grid item md={6} direction="column">
+                <Grid item md={6}>
                     {map}
                 </Grid>
-                <Grid item md={6} direction="column">
+                <Grid item md={6}>
                     <Box pt={10} />
                     <Typography variant="h5" color="primary">
                         Answer a Question!
                     </Typography>
                     <Box pt={8} />
                     <Typography variant="h5">{gotten_answer_view}</Typography>
-                    <Slider
-                        style={{
-                            marginTop: 50,
-                            marginBottom: 50,
-                            width: "75%"
-                        }}
-                        defaultValue={0}
-                        getAriaValueText={value => {
-                            return `${value}`;
-                        }}
-                        track={false}
-                        aria-labelledby="answer-slider"
-                        step={null}
-                        valueLabelDisplay="auto"
-                        marks={answer_markers[content_type]}
-                        onChange={(event, value) =>
-                            this.setState({
-                                answer_content: value,
-                                answered: true
-                            })
-                        }
-                    />
-                    {/* <div>
-                        <div
-                            id="answer-choices"
-                            onChange={event =>
-                                this.setState({
-                                    answer_content: event.target.value,
-                                    answered: true
-                                })
-                            }
-                        >
-                            {selected_question_type_list}
-                        </div>
-                    </div> */}
+                    {selected_question_type_list}
                     <Box pt={10} />
                     <Button
                         color="primary"

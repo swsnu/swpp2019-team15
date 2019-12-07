@@ -14,69 +14,69 @@ export const question_types = {
 export const answer_markers = {
     "Are there LONG LINES": [
         {
-            value: 100,
+            value: 5,
             label: "VERY LONG"
         },
         {
-            value: 75,
+            value: 4,
             label: "LONG"
         },
         {
-            value: 50,
+            value: 3,
             label: "MODERATE"
         },
         {
-            value: 25,
+            value: 2,
             label: "SHORT"
         },
         {
-            value: 0,
+            value: 1,
             label: "VERY SHORT"
         }
     ],
     "Are there MANY SEATS": [
         {
-            value: 100,
+            value: 3,
             label: "MANY"
         },
         {
-            value: 50,
+            value: 2,
             label: "MODERATE"
         },
         {
-            value: 0,
+            value: 1,
             label: "SMALL"
         }
     ],
     "Is it RAINING": [
         {
-            value: 100,
+            value: 4,
             label: "HEAVY"
         },
         {
-            value: 66,
+            value: 3,
             label: "MODERATE"
         },
         {
-            value: 33,
+            value: 2,
             label: "SMALL"
         },
         {
-            value: 0,
+            value: 1,
             label: "NO"
         }
     ],
     "Is it QUIET": [
         {
-            value: 100,
+            value: 3,
             label: "NOISY"
         },
         {
-            value: 50,
+            value: 2,
             label: "MODERATE"
         },
         {
-            value: 0,
+            value: 1,
             label: "QUIET"
         }
     ]
