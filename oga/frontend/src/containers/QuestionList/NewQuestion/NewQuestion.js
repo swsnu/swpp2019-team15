@@ -25,7 +25,11 @@ class NewQuestion extends Component {
     componentDidMount() {}
 
     postQuestionHandler = () => {
-        if (this.state.content !== "" && this.props.target_location) {
+        if (this.state.content === "How is it") {
+            alert("Please select a question");
+        } else if (this.props.target_location === null) {
+            alert("Please enter a location");
+        } else {
             // for testing purposes, we set type to 0, and pass content as well
             // actually, we only have to store type in questions,
             // as content is fixed based on type
