@@ -7,6 +7,8 @@ import { Route, Switch } from "react-router-dom";
 import { history } from "../../store/store";
 import thunk from "redux-thunk";
 import Profile from "./Profile.js";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 import * as questionActions from "../../store/actions/questionActions";
 import * as answerActions from "../../store/actions/answerActions";
@@ -29,7 +31,7 @@ const store = mockStore({
             {
                 id: 1,
                 author: "firstUser",
-                publish_date_time: "2019",
+                publish_date_time: "2019-01-01 00:00:00",
                 content: "test",
                 location: "home",
                 is_answered: false
@@ -41,8 +43,8 @@ const store = mockStore({
             {
                 id: 1,
                 author: "secondUser",
-                question_type: "MANY SEATS",
-                publish_date_time: "2019",
+                question_type: "Are there MANY SEATS",
+                publish_date_time: "2019-01-01 00:00:00",
                 place_name: "home"
             }
         ]
@@ -134,5 +136,25 @@ describe("<Profile />", () => {
         const tab = wrapper.find(Profile.WrappedComponent).state()
             .isQuestionTab;
         expect(tab).toBe(false);
+    });
+
+    it("should go to detail page when answer clicked", () => {
+        const spyHistoryPush = jest
+            .spyOn(history, "push")
+            .mockImplementation(path => {});
+        const wrapper = mount(profile);
+        const instance = wrapper.find(Profile.WrappedComponent).instance();
+        const m = jest.spyOn(instance, "onClickDetailHandler");
+        wrapper
+            .find(Card)
+            .first()
+            .find(CardContent)
+            .simulate("click");
+
+        setTimeout(() => {
+            expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+            expect(m).toHaveBeenCalledTimes(1);
+            expect(spyHistoryPush).toHaveBeenCalledWith("/replies/1");
+        }, 0);
     });
 });

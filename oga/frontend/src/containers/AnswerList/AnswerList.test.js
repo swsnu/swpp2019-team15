@@ -35,7 +35,7 @@ const store = mockStore({
                 id: 1,
                 author: "me",
                 question_type: "MANY SEATS",
-                publish_date_time: "2019",
+                publish_date_time: "2019-01-01 00:00:00",
                 place_name: "HOME"
             }
         ]
@@ -130,7 +130,7 @@ describe("<AnswerList />", () => {
                         id: 1,
                         author: "me",
                         question_type: "MANY SEATS",
-                        publish_date_time: "2019",
+                        publish_date_time: "2019-01-01 00:00:00",
                         place_name: "HOME"
                     }
                 ]

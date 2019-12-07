@@ -5,24 +5,31 @@ import { connect } from "react-redux";
 import * as actionCreators from "../../../store/actions";
 
 import Map from "../../Map/GoogleMap";
-
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
+import CustomRadio from "../../../components/MuiStyle/CustomRadio";
+import {
+    Box,
+    Button,
+    Card,
+    FormControl,
+    FormControlLabel,
+    Grid,
+    RadioGroup,
+    Typography
+} from "@material-ui/core";
 
 class NewQuestion extends Component {
     state = {
-        content: "...."
+        content: "How is it"
     };
 
     componentDidMount() {}
 
     postQuestionHandler = () => {
-        if (this.state.content !== "" && this.props.target_location) {
+        if (this.state.content === "" || this.state.content === "How is it") {
+            alert("Please select a question");
+        } else if (this.props.target_location == null) {
+            alert("Please enter a location");
+        } else {
             // for testing purposes, we set type to 0, and pass content as well
             // actually, we only have to store type in questions,
             // as content is fixed based on type
@@ -34,16 +41,12 @@ class NewQuestion extends Component {
         }
     };
 
-    clickBackHandler = () => {
-        this.props.history.goBack();
-    };
-
-    clickMapHandler = () => {
-        this.props.history.push("/map");
-    };
+    // clickMapHandler = () => {
+    //     this.props.history.push("/map");
+    // };
 
     render() {
-        let place_name = "...";
+        let place_name = "......";
         if (this.props.target_location)
             place_name = this.props.target_location.name;
 
@@ -58,48 +61,60 @@ class NewQuestion extends Component {
                 <Grid item xs={6}>
                     <Map />
                 </Grid>
-                <Grid item xs={6}>
-                    <Box pt={20} />
-                    <Typography component="h1" variant="h4">
-                        Ask a New Question!
-                    </Typography>
+                <Grid item xs={6} className="AskQuestion">
                     <Box pt={5} />
-                    <div>
-                        <div
+                    <Typography variant="h6">Ask a New Question!</Typography>
+                    <Box pt={8} />
+                    <Typography id="view" variant="h4">
+                        {this.state.content} in {place_name}?
+                    </Typography>
+                    <Box pt={8} />
+                    <FormControl>
+                        <RadioGroup
+                            aria-label="question-type"
                             onChange={event =>
-                                this.setState({ content: event.target.value })
+                                this.setState({
+                                    content: event.target.value
+                                })
                             }
                         >
-                            <input
-                                type="radio"
-                                value="LONG LINE"
-                                name="question"
-                            />{" "}
-                            LINES?
-                            <input
-                                type="radio"
-                                value="MANY SEATS"
-                                name="question"
-                            />{" "}
-                            SEATS?
-                            <input
-                                type="radio"
-                                value="RAINING"
-                                name="question"
-                            />{" "}
-                            RAIN?
-                            <input
-                                type="radio"
-                                value="QUIET"
-                                name="question"
-                            />{" "}
-                            QUIET?
-                        </div>
-                    </div>
-                    <div id="view">
-                        Is it {this.state.content} in {place_name}?
-                    </div>
-                    <Box pt={10} />
+                            <Grid container direction="row">
+                                <FormControlLabel
+                                    value="Are there LONG LINES"
+                                    control={
+                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                    }
+                                    label="LONG LINES"
+                                    labelPlacement="bottom"
+                                />
+                                <FormControlLabel
+                                    value="Are there MANY SEATS"
+                                    control={
+                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                    }
+                                    label="SEATS"
+                                    labelPlacement="bottom"
+                                />
+                                <FormControlLabel
+                                    value="Is it RAINING"
+                                    control={
+                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                    }
+                                    label="RAIN"
+                                    labelPlacement="bottom"
+                                />
+                                <FormControlLabel
+                                    value="Is it QUIET"
+                                    control={
+                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                    }
+                                    label="QUIET"
+                                    labelPlacement="bottom"
+                                />
+                            </Grid>
+                        </RadioGroup>
+                    </FormControl>
+                    <Box pt={5} />
                     <Button
                         type="submit"
                         variant="contained"
@@ -109,16 +124,6 @@ class NewQuestion extends Component {
                     >
                         Submit
                     </Button>
-                    <Grid container justify="center" alignItems="center">
-                        <Button
-                            id="back-create-question-button"
-                            color="primary"
-                            onClick={() => this.clickBackHandler()}
-                        >
-                            Back
-                        </Button>
-                        <Box pt={5} />
-                    </Grid>
                 </Grid>
             </Grid>
         );
@@ -145,12 +150,6 @@ const mapDispatchToProps = dispatch => {
                     target_location: target_location
                 })
             )
-        //setLogout: () =>
-        //dispatch(actionCreators.settingLogout())
-        // prevQuestion: () =>
-        //     dispatch(actionCreators.toggleToPreview()),
-        // writQuestion: () =>
-        //     dispatch(actionCreators.toggleToWrite()),
     };
 };
 

@@ -8,27 +8,32 @@ import { withRouter } from "react-router";
 // Material UI imports
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import IconButton from "@material-ui/core/IconButton";
-import Home from "@material-ui/icons/Home";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import LiveHelp from "@material-ui/icons/LiveHelp";
+import {
+    AccountCircle,
+    Home,
+    LiveHelp,
+    SettingsApplications,
+    ChevronLeft,
+    ExitToApp
+} from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import SettingsApplications from "@material-ui/icons/SettingsApplications";
-import ChevronLeft from "@material-ui/icons/ChevronLeft";
-import Button from "@material-ui/core/Button";
-import ExitToApp from "@material-ui/icons/ExitToApp";
+import {
+    AppBar,
+    Button,
+    ClickAwayListener,
+    CssBaseline,
+    Drawer,
+    Divider,
+    FormControlLabel,
+    IconButton,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    MenuItem,
+    Toolbar,
+    Typography
+} from "@material-ui/core";
 
 const drawerWidth = 200;
 
@@ -51,10 +56,14 @@ const useStyles = makeStyles(theme => ({
         paddingTop: 50,
         width: drawerWidth,
         flexShrink: 0,
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
+        overflowX: "hidden",
+        height: "100%"
     },
     drawerOpen: {
         width: drawerWidth,
+        overflowX: "hidden",
+        height: "100%",
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen
@@ -66,9 +75,11 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.leavingScreen
         }),
         overflowX: "hidden",
+        height: "100%",
         width: theme.spacing(7) + 1,
         [theme.breakpoints.up("sm")]: {
-            width: theme.spacing(9) + 1
+            width: theme.spacing(9) + 1,
+            height: "100%"
         }
     },
     paper: {
@@ -83,21 +94,24 @@ const useStyles = makeStyles(theme => ({
         ...theme.mixins.toolbar
     },
     title: {
-        flexGrow: 1
+        flexGrow: 1,
+        fontWeight: "bold"
     },
     selected: {
         color: "#fff"
+    },
+    listItem: {
+        "&:hover": {
+            backgroundColor: "#665200"
+        }
     }
 }));
 
 function MenuAppBar(props) {
     const classes = useStyles();
     var auth = props.auth;
-
     var func = props.func;
-    //   const [setAuth] = React.useState(true);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    // const open = Boolean(anchorEl);
+    var mouseLeaveTimeout = true;
     MenuItem.displayName = "menu_item";
 
     const [open, setOpen] = React.useState(false);
@@ -106,6 +120,25 @@ function MenuAppBar(props) {
         setOpen(!open);
     };
 
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
+    /**
+     * Add small timeout delay on mouseLeave to prevent
+     * looping open and close animation when hovering in between
+     */
+    const handleDrawerCloseOnMouseLeave = () => {
+        // Clear any existing timeout
+        if (mouseLeaveTimeout) {
+            clearTimeout(mouseLeaveTimeout);
+        }
+
+        mouseLeaveTimeout = setTimeout(() => {
+            setOpen(false);
+            mouseLeaveTimeout = false;
+        }, 200);
+    };
     // const handleMenu = event => {
     //     setAnchorEl(event.currentTarget);
     // };
@@ -117,153 +150,174 @@ function MenuAppBar(props) {
     return (
         <div className="AppBar">
             {auth && (
-                <div className={classes.root}>
-                    <CssBaseline />
-                    <AppBar
-                        id="app-bar"
-                        position="fixed"
-                        className={clsx(classes.appBar, {
-                            [classes.appBarShift]: open
-                        })}
-                    >
-                        <Toolbar>
-                            <IconButton
-                                edge="start"
-                                id="menu-button"
-                                className={classes.menuButton}
-                                color="light"
-                                aria-label="menu"
-                                onClick={handleDrawer}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="h4" className={classes.title}>
-                                <b>askAT</b>
-                            </Typography>
-                            <FormControlLabel
-                                control={
-                                    <Button
-                                        checked={auth}
-                                        onClick={() => func()}
-                                        aria-label="logout-button"
-                                    >
-                                        <ExitToApp />
-                                        Logout
-                                    </Button>
-                                }
-                            />
-                        </Toolbar>
-                    </AppBar>
-                    <Drawer
-                        variant="permanent"
-                        containerStyle={{
-                            marginLeft: "6.5%",
-                            background: "#545454",
-                            position: "fixed"
-                        }}
-                        className={clsx(classes.drawer, {
-                            [classes.drawerOpen]: open,
-                            [classes.drawerClose]: !open
-                        })}
-                        classes={{
-                            paper: clsx(classes.paper, {
+                <ClickAwayListener onClickAway={handleDrawerClose}>
+                    <div className={classes.root}>
+                        <CssBaseline />
+                        <AppBar
+                            id="app-bar"
+                            position="fixed"
+                            className={clsx(classes.appBar, {
+                                [classes.appBarShift]: open
+                            })}
+                        >
+                            <Toolbar>
+                                <IconButton
+                                    edge="start"
+                                    id="menu-button"
+                                    className={classes.menuButton}
+                                    color="light"
+                                    aria-label="menu"
+                                    onClick={handleDrawer}
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                                <Typography
+                                    variant="h4"
+                                    className={classes.title}
+                                >
+                                    askAT
+                                </Typography>
+                                <FormControlLabel
+                                    control={
+                                        <Button
+                                            checked={auth}
+                                            onClick={() => func()}
+                                            aria-label="logout-button"
+                                        >
+                                            <ExitToApp />
+                                            Logout
+                                        </Button>
+                                    }
+                                />
+                            </Toolbar>
+                        </AppBar>
+                        <Drawer
+                            variant="permanent"
+                            containerStyle={{
+                                marginLeft: "6.5%",
+                                background: "#545454",
+                                position: "fixed"
+                            }}
+                            className={clsx(classes.drawer, {
                                 [classes.drawerOpen]: open,
                                 [classes.drawerClose]: !open
-                            })
-                        }}
-                        open={open}
-                    >
-                        <List style={{ paddingTop: 100 }}>
-                            {["Profile", "Settings"].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>
-                                        {index % 2 === 0 ? (
-                                            <AccountCircle
-                                                color="primary"
-                                                id="profile-button"
-                                                onClick={() =>
-                                                    props.history.push(
-                                                        "/profile/"
-                                                    )
-                                                }
-                                            />
-                                        ) : (
-                                            <SettingsApplications
-                                                color="primary"
-                                                id="settings-button"
-                                                onClick={() =>
-                                                    props.history.push(
-                                                        "/settings/"
-                                                    )
-                                                }
-                                            />
-                                        )}
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        classes={{
-                                            primary: classes.selected
-                                        }}
-                                        primary={text}
-                                    />
-                                </ListItem>
-                            ))}
-                        </List>
-                        <Divider />
-                        <List>
-                            {["Main", "Ask"].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>
-                                        {index % 2 === 0 ? (
-                                            <Home
-                                                color="primary"
-                                                id="home-button"
-                                                onClick={() =>
-                                                    props.history.push("/main/")
-                                                }
-                                            />
-                                        ) : (
-                                            <LiveHelp
-                                                color="primary"
-                                                id="ask-button"
-                                                onClick={() =>
-                                                    props.history.push("/ask/")
-                                                }
-                                            />
-                                        )}
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        classes={{
-                                            primary: classes.selected
-                                        }}
-                                        primary={text}
-                                    />
-                                </ListItem>
-                            ))}
-                        </List>
-                        <List
-                            style={{
-                                top: "90%",
-                                position: "absolute"
+                            })}
+                            classes={{
+                                paper: clsx(classes.paper, {
+                                    [classes.drawerOpen]: open,
+                                    [classes.drawerClose]: !open
+                                })
                             }}
+                            open={open}
+                            onMouseEnter={handleDrawer}
+                            onMouseLeave={handleDrawerCloseOnMouseLeave}
                         >
-                            <ListItem
-                                button
-                                id="back-button"
-                                onClick={() => props.history.goBack()}
+                            <List style={{ paddingTop: 100 }}>
+                                <ListItem
+                                    className={classes.listItem}
+                                    button
+                                    key="Profile"
+                                    id="profile-button"
+                                    onClick={() =>
+                                        props.history.push("/profile/")
+                                    }
+                                >
+                                    <ListItemIcon>
+                                        <AccountCircle color="primary" />{" "}
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        classes={{
+                                            primary: classes.selected
+                                        }}
+                                        primary="Profile"
+                                    />
+                                </ListItem>
+                                <ListItem
+                                    className={classes.listItem}
+                                    button
+                                    key="Settings"
+                                    id="settings-button"
+                                    onClick={() =>
+                                        props.history.push("/settings/")
+                                    }
+                                >
+                                    <ListItemIcon>
+                                        <SettingsApplications color="primary" />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        classes={{
+                                            primary: classes.selected
+                                        }}
+                                        primary="Settings"
+                                    />
+                                </ListItem>
+                            </List>
+                            <Divider />
+                            <List>
+                                <ListItem
+                                    className={classes.listItem}
+                                    button
+                                    key="Main"
+                                    id="main-button"
+                                    onClick={() => props.history.push("/main/")}
+                                >
+                                    <ListItemIcon>
+                                        <Home
+                                            color="primary"
+                                            id="home-button"
+                                        />{" "}
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        classes={{
+                                            primary: classes.selected
+                                        }}
+                                        primary="Main"
+                                    />
+                                </ListItem>
+                                <ListItem
+                                    className={classes.listItem}
+                                    button
+                                    key="Ask"
+                                    id="ask-button"
+                                    onClick={() => props.history.push("/ask/")}
+                                >
+                                    <ListItemIcon>
+                                        <LiveHelp color="primary" />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        classes={{
+                                            primary: classes.selected
+                                        }}
+                                        primary="Ask"
+                                    />
+                                </ListItem>
+                            </List>
+                            <List
+                                style={{
+                                    top: "90%",
+                                    position: "absolute"
+                                }}
                             >
-                                <ListItemIcon>
-                                    <ChevronLeft color="primary" />
-                                </ListItemIcon>
-                                <ListItemText
-                                    classes={{
-                                        primary: classes.selected
-                                    }}
-                                    primary="Back"
-                                />
-                            </ListItem>
-                        </List>
-                    </Drawer>
-                </div>
+                                <ListItem
+                                    className={classes.listItem}
+                                    button
+                                    id="back-button"
+                                    onClick={() => props.history.goBack()}
+                                >
+                                    <ListItemIcon>
+                                        <ChevronLeft color="primary" />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        classes={{
+                                            primary: classes.selected
+                                        }}
+                                        primary="Back"
+                                    />
+                                </ListItem>
+                            </List>
+                        </Drawer>
+                    </div>
+                </ClickAwayListener>
             )}
         </div>
     );

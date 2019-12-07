@@ -26,7 +26,7 @@ class Question(models.Model):
     # each Question is related to a single user
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(max_length=100, default="LONG LINE")
-    publish_date_time = models.DateTimeField(auto_now=True)
+    publish_date_time = models.DateTimeField(auto_now_add=True)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
     is_answered = models.BooleanField(default=False)
 
@@ -34,14 +34,15 @@ class Question(models.Model):
         return self.content
 
     class Meta:
-        ordering = ('publish_date_time',)
+        ordering = ['-publish_date_time', ]
 
 
 class Profile(models.Model):
     """
     Profile model that extends django user model
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='profile')
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE,
                                     blank=True, null=True)
     subscription = JSONField(blank=True, null=True)
@@ -61,7 +62,7 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     question_type = models.TextField(max_length=100, default="LINE")
-    publish_date_time = models.DateTimeField(auto_now=True)
+    publish_date_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=100)
     is_rated = models.BooleanField(default=False)
     is_up = models.BooleanField(default=False)
@@ -70,4 +71,4 @@ class Answer(models.Model):
         return self.content
 
     class Meta:
-        ordering = ('publish_date_time',)
+        ordering = ['-publish_date_time', ]

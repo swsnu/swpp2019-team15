@@ -60,8 +60,9 @@ class QuestionTestCase(TestCase):
         second_question.save()
         response = self.client.get('/api/questions/')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()[0]['content'], 'rains?')
-        self.assertEqual(response.json()[1]['content'], 'seats?')
+        # contents sorted in descending order of publish_date_time
+        self.assertEqual(response.json()[1]['content'], 'rains?')
+        self.assertEqual(response.json()[0]['content'], 'seats?')
 
     def test_get_question(self):
         """ test getting single question based on question id """
