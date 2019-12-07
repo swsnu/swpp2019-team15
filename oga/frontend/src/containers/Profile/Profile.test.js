@@ -138,7 +138,7 @@ describe("<Profile />", () => {
         expect(tab).toBe(false);
     });
 
-    xit("should go to detail page when answer clicked", () => {
+    it("should go to detail page when answer clicked", () => {
         const spyHistoryPush = jest
             .spyOn(history, "push")
             .mockImplementation(path => {});
@@ -147,12 +147,14 @@ describe("<Profile />", () => {
         const m = jest.spyOn(instance, "onClickDetailHandler");
         wrapper
             .find(Card)
-            .find(".MyAnswer")
+            .first()
             .find(CardContent)
             .simulate("click");
 
+        setTimeout(() => {
             expect(spyHistoryPush).toHaveBeenCalledTimes(1);
-        expect(m).toHaveBeenCalledTimes(1);
-        expect(spyHistoryPush).toHaveBeenCalledWith("/replies/1");
+            expect(m).toHaveBeenCalledTimes(1);
+            expect(spyHistoryPush).toHaveBeenCalledWith("/replies/1");
+        }, 0);
     });
 });

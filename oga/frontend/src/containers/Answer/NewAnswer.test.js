@@ -6,6 +6,8 @@ import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch } from "react-router-dom";
 import thunk from "redux-thunk";
 import NewAnswer from "./NewAnswer.js";
+14;
+import Slider from "@material-ui/core/Slider";
 import { history } from "../../store/store";
 import * as questionActions from "../../store/actions/questionActions";
 import * as actionCreators from "../../store/actions/answerActions";
@@ -62,11 +64,28 @@ describe("<NewAnswer/>", () => {
     it("should render without errors", () => {
         const wrapper = mount(answer);
         expect(wrapper.find(".Answer").length).toBe(3);
+        expect(spyGetQuestion).toHaveBeenCalled();
     });
 
     it("should change answer content ", () => {
         const wrapper = mount(answer);
         const component = wrapper.find("#answer-choices");
+        const answer_data = "NO";
+        //component.props.onChange(answer_data);
+        component
+            .hostNodes()
+            .simulate("change", { target: { value: answer_data } });
+        const instance = wrapper.find(NewAnswer.WrappedComponent).instance();
+        // Timeout to detect change for async call
+        setTimeout(
+            () => expect(instance.state.answer_content).toBe(answer_data),
+            0
+        );
+    });
+
+    xit("Slider should change answer content ", () => {
+        const wrapper = mount(answer);
+        const component = wrapper.find(Slider);
         const answer_data = "NO";
         //component.props.onChange(answer_data);
         component
