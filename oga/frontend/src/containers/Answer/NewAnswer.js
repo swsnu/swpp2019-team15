@@ -41,6 +41,15 @@ class NewAnswer extends Component {
         this.props.history.goBack();
     };
 
+    onChangeHandler = (event, value, answer_list) => {
+        this.setState({
+            answer_content:
+                answer_list[answer_list.findIndex(mark => mark.value === value)]
+                    .label,
+            answered: true
+        });
+    };
+
     render() {
         var selected_question_type_list = null;
         var qs_type = "";
@@ -62,7 +71,6 @@ class NewAnswer extends Component {
             qs_type = this.props.selectedQuestion.content;
             answer_list = answer_markers[qs_type];
             qs_type = question_types[qs_type];
-            console.log(`Answer list is ${answer_list.length} long`);
 
             selected_question_type_list = (
                 <Slider
@@ -83,15 +91,7 @@ class NewAnswer extends Component {
                     marks={answer_list}
                     valueLabelDisplay="auto"
                     onChange={(event, value) =>
-                        this.setState({
-                            answer_content:
-                                answer_list[
-                                    answer_list.findIndex(
-                                        mark => mark.value === value
-                                    )
-                                ].label,
-                            answered: true
-                        })
+                        this.onChangeHandler(event, value, answer_list)
                     }
                 />
             );
@@ -132,7 +132,7 @@ class NewAnswer extends Component {
                     </Typography>
                     <Box pt={8} />
                     <Typography variant="h5">{gotten_answer_view}</Typography>
-                    {selected_question_type_list}
+                    <div id="answer-choices">{selected_question_type_list}</div>
                     <Box pt={10} />
                     <Button
                         color="primary"

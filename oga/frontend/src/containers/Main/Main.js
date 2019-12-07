@@ -39,9 +39,9 @@ class QuestionList extends Component {
     };
 
     render() {
-        // const theme = useTheme();
         var len = this.props.storedQuestions.length;
-        var stored_Questions = this.props.storedQuestions.slice(0, 20);
+        // Limit to displaying only 50 most recent questions
+        var stored_Questions = this.props.storedQuestions.slice(0, 50);
         const Questions = stored_Questions.map(qs => {
             return (
                 <Grid item xs={6} key={qs.id}>

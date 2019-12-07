@@ -2,11 +2,8 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import { BrowserRouter as Router } from "react-router-dom";
-import { connectRouter, ConnectedRouter } from "connected-react-router";
-import { Route, Redirect, Switch } from "react-router-dom";
-import axios from "axios";
-import { connect } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import { Route, Switch } from "react-router-dom";
 import thunk from "redux-thunk";
 import NewAnswer from "./NewAnswer.js";
 import { history } from "../../store/store";
@@ -50,7 +47,12 @@ describe("<NewAnswer/>", () => {
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <Switch>
-                        <Route path="/" exact component={NewAnswer} />
+                        <Route
+                            path="/"
+                            exact
+                            render={props => <NewAnswer {...props} />}
+                            // component={NewAnswer}
+                        />
                     </Switch>
                 </ConnectedRouter>
             </Provider>
@@ -71,8 +73,11 @@ describe("<NewAnswer/>", () => {
             .hostNodes()
             .simulate("change", { target: { value: answer_data } });
         const instance = wrapper.find(NewAnswer.WrappedComponent).instance();
-        //wrapper.simulate('change', {target: {value: newuser }});
-        expect(instance.state.answer_content).toBe(answer_data);
+        // Timeout to detect change for async call
+        setTimeout(
+            () => expect(instance.state.answer_content).toBe(answer_data),
+            0
+        );
     });
 
     it("should render chosen question ", () => {
@@ -192,9 +197,9 @@ describe("<NewAnswer/>", () => {
         //component.props.onChange(answer_data);
         choice
             .hostNodes()
-            .simulate("change", { target: { value: answer_data } });
+            .simulate("click", { target: { value: answer_data } });
         let wrapper = component.find("#confirm-create-answer-button");
         wrapper.hostNodes().simulate("click");
-        expect(spyCreateAnswer).toHaveBeenCalledTimes(1);
+        setTimeout(() => expect(spyCreateAnswer).toHaveBeenCalledTimes(1), 0);
     });
 });

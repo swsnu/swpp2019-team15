@@ -11,6 +11,10 @@ export const question_types = {
     "Is it QUIET": ["NOISY", "MODERATE", "QUIET"]
 };
 
+/**
+ * Marker values and respective labels
+ * for NewAnswer Slider display
+ */
 export const answer_markers = {
     "Are there LONG LINES": [
         {
