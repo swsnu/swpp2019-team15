@@ -6,13 +6,10 @@ import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/";
 
 import AnswerView from "../../components/AnswerView/AnswerView";
-import { question_types } from "../../const/question_type";
+import { question_types, answer_markers } from "../../const/question_type";
 
 //Material design imports
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import { Box, Button, Grid, Slider, Typography } from "@material-ui/core";
 
 class NewAnswer extends Component {
     constructor(props) {
@@ -47,6 +44,7 @@ class NewAnswer extends Component {
     render() {
         var selected_question_type_list = null;
         var qs_type = "";
+        var content_type = "";
         var idx = 0;
         let gotten_answer_view = null;
         var map = null;
@@ -61,8 +59,9 @@ class NewAnswer extends Component {
                 ></Map>
             );
 
-            qs_type = this.props.selectedQuestion.content;
-            qs_type = question_types[qs_type];
+            content_type = this.props.selectedQuestion.content;
+            qs_type = question_types[content_type];
+
             selected_question_type_list = qs_type.map((val, index) => {
                 return (
                     <div className={"choice"} key={idx++}>
@@ -93,14 +92,35 @@ class NewAnswer extends Component {
                     {map}
                 </Grid>
                 <Grid item md={6} direction="column">
-                    <Box pt={20} />
-                    <Typography component="h2" variant="h3" color="primary">
+                    <Box pt={10} />
+                    <Typography variant="h5" color="primary">
                         Answer a Question!
                     </Typography>
-                    <Typography component="h3" variant="h5">
-                        {gotten_answer_view}
-                    </Typography>
-                    <div>
+                    <Box pt={8} />
+                    <Typography variant="h5">{gotten_answer_view}</Typography>
+                    <Slider
+                        style={{
+                            marginTop: 50,
+                            marginBottom: 50,
+                            width: "75%"
+                        }}
+                        defaultValue={0}
+                        getAriaValueText={value => {
+                            return `${value}`;
+                        }}
+                        track={false}
+                        aria-labelledby="answer-slider"
+                        step={null}
+                        valueLabelDisplay="auto"
+                        marks={answer_markers[content_type]}
+                        onChange={(event, value) =>
+                            this.setState({
+                                answer_content: value,
+                                answered: true
+                            })
+                        }
+                    />
+                    {/* <div>
                         <div
                             id="answer-choices"
                             onChange={event =>
@@ -112,7 +132,7 @@ class NewAnswer extends Component {
                         >
                             {selected_question_type_list}
                         </div>
-                    </div>
+                    </div> */}
                     <Box pt={10} />
                     <Button
                         color="primary"
@@ -129,15 +149,6 @@ class NewAnswer extends Component {
                     >
                         Submit
                     </Button>
-                    <Grid container justify="center" alignItems="center">
-                        <Button
-                            id="back-create-answer-button"
-                            color="primary"
-                            onClick={() => this.clickBackHandler()}
-                        >
-                            Back
-                        </Button>
-                    </Grid>
                 </Grid>
             </Grid>
         );

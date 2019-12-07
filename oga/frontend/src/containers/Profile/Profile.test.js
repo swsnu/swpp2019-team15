@@ -29,7 +29,7 @@ const store = mockStore({
             {
                 id: 1,
                 author: "firstUser",
-                publish_date_time: "2019",
+                publish_date_time: "2019-01-01 00:00:00",
                 content: "test",
                 location: "home",
                 is_answered: false
@@ -41,8 +41,8 @@ const store = mockStore({
             {
                 id: 1,
                 author: "secondUser",
-                question_type: "MANY SEATS",
-                publish_date_time: "2019",
+                question_type: "Are there MANY SEATS",
+                publish_date_time: "2019-01-01 00:00:00",
                 place_name: "home"
             }
         ]

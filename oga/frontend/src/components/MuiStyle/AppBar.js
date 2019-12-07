@@ -197,10 +197,7 @@ function MenuAppBar(props) {
                                 onClick={() => props.history.push("/settings/")}
                             >
                                 <ListItemIcon>
-                                    <SettingsApplications
-                                        color="primary"
-                                        id="settings-button"
-                                    />
+                                    <SettingsApplications color="primary" />
                                 </ListItemIcon>
                                 <ListItemText
                                     classes={{
@@ -235,7 +232,7 @@ function MenuAppBar(props) {
                                 onClick={() => props.history.push("/ask/")}
                             >
                                 <ListItemIcon>
-                                    <LiveHelp color="primary" id="ask-button" />
+                                    <LiveHelp color="primary" />
                                 </ListItemIcon>
                                 <ListItemText
                                     classes={{

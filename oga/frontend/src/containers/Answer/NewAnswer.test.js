@@ -79,7 +79,7 @@ describe("<NewAnswer/>", () => {
         let store = mockStore({
             question: {
                 selectedQuestion: {
-                    content: "MANY SEATS",
+                    content: "Are there MANY SEATS",
                     id: 1,
                     target_location_name: "HOME"
                 },
@@ -122,7 +122,7 @@ describe("<NewAnswer/>", () => {
         let store = mockStore({
             question: {
                 selectedQuestion: {
-                    content: "MANY SEATS",
+                    content: "Are there MANY SEATS",
                     id: 1,
                     target_location_name: "HOME"
                 },
@@ -159,7 +159,7 @@ describe("<NewAnswer/>", () => {
         let store = mockStore({
             question: {
                 selectedQuestion: {
-                    content: "MANY SEATS",
+                    content: "Are there MANY SEATS",
                     id: 1,
                     target_location_name: "HOME"
                 },

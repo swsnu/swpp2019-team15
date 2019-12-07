@@ -107,7 +107,7 @@ class AnswerView extends Component {
                     </Card>
                 ) : (
                     <div>
-                        Is it {this.props.content} in {this.props.place_name}?
+                        {this.props.content} in {this.props.place_name}?
                     </div>
                 )}
             </Grid>

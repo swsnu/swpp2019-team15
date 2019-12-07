@@ -78,7 +78,7 @@ class NewQuestion extends Component {
                                 })
                             }
                         >
-                            <Grid container direction="rows">
+                            <Grid container direction="row">
                                 <FormControlLabel
                                     value="Are there LONG LINES"
                                     control={
