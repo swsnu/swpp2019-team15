@@ -4,7 +4,6 @@ models used in our oga apps: Location, Profile, Question, Answer
 from django.db import models
 from django.contrib.auth.models import User
 from .custommodels.json_field import JSONField
-from django.core.validators import int_list_validator
 
 
 class Location(models.Model):

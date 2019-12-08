@@ -98,7 +98,7 @@ def get_answers(request, question_id):
     i = 0
     for ans in response_dict:
         ans.update(ulist[i])
-        i+=1
+        i += 1
     return JsonResponse(response_dict, safe=False, status=200)
 
 
