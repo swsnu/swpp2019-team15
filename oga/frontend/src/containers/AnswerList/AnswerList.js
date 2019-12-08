@@ -103,8 +103,8 @@ class AnswerList extends Component {
                             }
                             is_rated={ans.is_rated}
                             is_up={ans.is_up}
-                            how_many_liked={this.props.number_rated_up}
-                            how_many_disliked={this.props.number_rate_down}
+                            how_many_liked={this.props.numbers_rated_up}
+                            how_many_disliked={this.props.numbers_rate_down}
                             ratings={
                                 <React.Fragment>
                                     {!ans.is_rated ? (
@@ -203,8 +203,8 @@ const mapStateToProps = state => {
         is_up: state.answer.is_up,
         rate_up: state.answer.rate_up,
         rate_down: state.answer.rate_down,
-        number_rated_up: state.answer.numbers_rated_up,
-        number_rate_down: state.answer.numbers_rate_down,
+        numbers_rated_up: state.answer.numbers_rated_up,
+        numbers_rated_down: state.answer.numbers_rated_down,
     };
 };
 

@@ -21,9 +21,12 @@ const answerReducer = (state = initialState, action) => {
             };
             return { ...state, answer: newAnswer };
         case actionTypes.GET_ANSWERS:
+            console.log(action.answers)
+            for (var i = 0; i < action.answers.length; i++) {
+                console.log(action.answers[i])
+            }
             return { ...state, answers: action.answers };
         case actionTypes.GET_ANSWER:
-            console.log(state.a);
             return { ...state, answer: action.answer };
         case actionTypes.GET_USER_ANSWERS:
             return { ...state, answers: action.answers };

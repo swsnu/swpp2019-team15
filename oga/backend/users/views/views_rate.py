@@ -24,8 +24,7 @@ def rate_up_answer(request, answer_id):
     answer.numbers_rated_up += 1
     answer.users_rated_up_answers.add(user)
     answer.save()
-    user = get_user(request)
-    profile = Profile.objects.get(user=user)
+    profile = Profile.objects.get(user=answer.author)
     profile.rate_up += 1
     profile.save()
     response_dict = {
@@ -52,8 +51,7 @@ def rate_down_answer(request, answer_id):
     answer.numbers_rated_down += 1
     answer.users_rated_down_answers.add(user)
     answer.save()
-    user = get_user(request)
-    profile = Profile.objects.get(user=user)
+    profile = Profile.objects.get(user=answer.author)
     profile.rate_down += 1
     profile.save()
     response_dict = {

@@ -65,7 +65,6 @@ class Answer(models.Model):
     question_type = models.TextField(max_length=100, default="LINE")
     publish_date_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=100)
-    is_rated = models.BooleanField(default=False)
     numbers_rated_up = models.PositiveSmallIntegerField(default=0)
     numbers_rated_down = models.PositiveSmallIntegerField(default=0)
     users_rated_up_answers = models.ManyToManyField(User, related_name='rated_up_answers')

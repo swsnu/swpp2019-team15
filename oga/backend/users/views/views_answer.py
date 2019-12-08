@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.http import require_http_methods
 from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
+from collections import OrderedDict
 
 
 @check_login_required
@@ -69,10 +70,10 @@ def get_answers(request, question_id):
     for answer in answer_all_list:
         is_up_list = [answer.users_rated_up_answers.all()]
         is_down_list = [answer.users_rated_down_answers.all()]
-        if user in is_up_list:
-            ulist.add({'is_up': True})
-        elif user in is_down_list:
-            ulist.add({'is_up': False})
+        if user in (is_up_list or is_down_list):
+            ulist.append({'is_up': True})
+        else:
+            ulist.append({'is_rated': False})
 
     # users = User.objects.get(rated_up_answers__in=user)
     # if users is null:
@@ -83,18 +84,16 @@ def get_answers(request, question_id):
     # if users.count() > 1:
     #     return HttpResponse(status=404
 
-    response_dict = [{
+    Response_dict = [{
         'id': ans.id,
         'author': ans.author.user.username,
         'publish_date_time': ans.publish_date_time,
         'question_type': ans.question_type,
         'content': ans.content,
-        'is_rated': ans.is_rated,
         'numbers_rated_up': ans.numbers_rated_up,
         'numbers_rated_down': ans.numbers_rated_down
     } for ans in answer_all_list]
-    for is_up in ulist:
-        response_dict.update(is_up)
+    response_dict = [list(zip(Response_dict, ulist))]
     return JsonResponse(response_dict, safe=False, status=200)
 
 
@@ -135,6 +134,12 @@ def check_is_rated(request, answer_id):
     """function to check if the answer which corresponding to answer_id was rated
         GET: check_rating api"""
 
-    ans = Answer.objects.get(id=answer_id)
-    response_dict = {'is_rated': ans.is_rated}
+    answer = Answer.objects.get(id=answer_id)
+    is_up_list = [answer.users_rated_up_answers.all()]
+    is_down_list = [answer.users_rated_down_answers.all()]
+    user = get_user(request)
+    if user in (is_up_list or is_down_list):
+        response_dict = ({'is_up': True})
+    else:
+        response_dict = ({'is_rated': False})
     return JsonResponse(response_dict, safe=False, status=200)
