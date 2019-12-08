@@ -5,9 +5,8 @@ const initialState = {
     answers: [],
     answer_id: null,
     is_rated: null,
-    rate_up: null,
-    rate_down: null,
-    is_up: null
+    rated_up: null,
+    rated_down: null,
 };
 
 const answerReducer = (state = initialState, action) => {
@@ -32,9 +31,9 @@ const answerReducer = (state = initialState, action) => {
         case actionTypes.CHECK_RATING:
             return { ...state, is_rated: action.is_rated};
         case actionTypes.RATE_UP:
-            return { ...state, answer_id: action.answer_id, is_rated: true, rate_up: action.rate_up, rate_down: action.rate_down, is_up: true};
+            return { ...state, answer_id: action.answer_id, rated_up: action.rated_up, rated_down: action.rate_down, is_up: true};
         case actionTypes.RATE_DOWN:
-            return { ...state, answer_id: action.answer_id, is_rated: true, rate_up: action.rate_up, rate_down: action.rate_down, is_up: false};
+            return { ...state, answer_id: action.answer_id, rated_up: action.rated_up, rated_down: action.rate_down, is_up: false};
         default:
             break;
     }

@@ -4,6 +4,7 @@ from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from django.shortcuts import get_object_or_404
 from ..models import User, Answer, Profile
 from ..views.decorators import check_request, check_login_required
 
@@ -19,8 +20,8 @@ def rate_up_answer(request, answer_id):
     """
     user = get_user(request)
     answer = get_object_or_404(Answer, id=answer_id)
-    rated_up_list = [answer.users_rated_up_answers.all()]
-    rated_down_list = [answer.users_rated_down_answers.all()]
+    rated_up_list = answer.users_rated_up_answers.all()
+    rated_down_list = answer.users_rated_down_answers.all()
     if user in (rated_up_list or rated_down_list):
         return HttpResponse(status=403)
     answer.numbers_rated_up += 1
@@ -48,8 +49,8 @@ def rate_down_answer(request, answer_id):
     """
     user = get_user(request)
     answer = get_object_or_404(Answer, id=answer_id)
-    rated_up_list = [answer.users_rated_up_answers.all()]
-    rated_down_list = [answer.users_rated_down_answers.all()]
+    rated_up_list = answer.users_rated_up_answers.all()
+    rated_down_list = answer.users_rated_down_answers.all()
     if user in (rated_up_list or rated_down_list):
         return HttpResponse(status=403)
     answer.numbers_rated_down += 1

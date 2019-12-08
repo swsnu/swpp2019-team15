@@ -46,12 +46,12 @@ class AnswerList extends Component {
 
     rateUpHandler = id => {
         this.props.rateUp(id);
-        // window.location.reload();
+        window.location.reload();
     };
 
     rateDownHandler = id => {
         this.props.rateDown(id);
-        // window.location.reload();
+        window.location.reload();
     };
 
     render() {
@@ -72,10 +72,15 @@ class AnswerList extends Component {
                 </React.Fragment>
             );
             var len = this.props.selectedAnswers.length;
-            var selected_Answers = this.props.selectedAnswers.slice(
-                len - 10,
-                len
-            );
+            var selected_Answers = this.props.selectedAnswers
+            // var selected_Answers = this.props.selectedAnswers.slice(
+            //     len - 10,
+            //     len
+            // );
+            for (var i = 0; i < selected_Answers.length; i++)
+            {
+                console.log(selected_Answers[i])
+            }
             if (selected_Answers) {
                 for (var i = 0; i < selected_Answers.length; i++) {
                     if (!this.state.render_check[i]) {
@@ -101,7 +106,7 @@ class AnswerList extends Component {
                             place_name={
                                 this.props.selectedQuestion.target_location_name
                             }
-                            is_up={this.props.is_up}
+                            is_up={ans.is_up}
                             is_rated={ans.is_rated}
                             how_many_liked={ans.numbers_rated_up}
                             how_many_disliked={ans.numbers_rate_down}
@@ -199,8 +204,8 @@ const mapStateToProps = state => {
         selectedQuestion: state.question.selectedQuestion,
         selectedAnswers: state.answer.answers,
         //log_status: state.rd.log_status,
-        is_rated: state.answer.is_rated,
-        is_up: state.answer.is_up,
+        // is_rated: state.answer.is_rated,
+        // is_up: state.answer.is_up,
         rated_up: state.answer.rated_up,
         rated_down: state.answer.rated_down,
         // numbers_rated_up: state.answer.numbers_rated_up,

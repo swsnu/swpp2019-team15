@@ -68,12 +68,14 @@ def get_answers(request, question_id):
     ulist = []
     user = get_user(request)
     for answer in answer_all_list:
-        is_up_list = [answer.users_rated_up_answers.all()]
-        is_down_list = [answer.users_rated_down_answers.all()]
-        if user in (is_up_list or is_down_list):
-            ulist.append({'is_rated': True})
+        is_up_list = answer.users_rated_up_answers.all()
+        is_down_list = answer.users_rated_down_answers.all()
+        if user in is_up_list:
+            ulist.append({'is_rated': True, 'is_up': True})
+        elif user in is_down_list:
+            ulist.append({'is_rated': True, 'is_up': False})
         else:
-            ulist.append({'is_rated': False})
+            ulist.append({'is_rated': False, 'is_up': False})
 
     # users = User.objects.get(rated_up_answers__in=user)
     # if users is null:
@@ -141,9 +143,9 @@ def check_is_rated(request, answer_id):
     is_down_list = [answer.users_rated_down_answers.all()]
     user = get_user(request)
     if user in is_up_list:
-        response_dict = ({'is_rated': True}, {'is_up': True})
+        response_dict = ({'is_rated': True, 'is_up': True})
     elif user in is_down_list:
-        response_dict = ({'is_rated': True}, {'is_up': False})
+        response_dict = ({'is_rated': True, 'is_up': False})
     else:
-        response_dict = ({'is_rated': False})
+        response_dict = ({'is_rated': False, 'is_up': False})
     return JsonResponse(response_dict, safe=False, status=200)
