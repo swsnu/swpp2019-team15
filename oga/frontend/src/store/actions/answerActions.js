@@ -101,8 +101,8 @@ export const rate_ = rate => {
     return {
         type: actionTypes.CHECK_RATING,
         answer_id: rate.answer_id,
-        rate_up: rate.rate_up,
-        rate_down: rate.rate_down
+        rated_up: rate.rated_up,
+        rated_down: rate.rated_down
     };
 };
 

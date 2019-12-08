@@ -46,7 +46,7 @@ class AnswerList extends Component {
 
     rateUpHandler = id => {
         this.props.rateUp(id);
-        window.location.reload();
+        // window.location.reload();
     };
 
     rateDownHandler = id => {
@@ -101,10 +101,10 @@ class AnswerList extends Component {
                             place_name={
                                 this.props.selectedQuestion.target_location_name
                             }
+                            is_up={this.props.is_up}
                             is_rated={ans.is_rated || this.props.is_rated}
-                            is_up={ans.is_up}
-                            how_many_liked={this.props.numbers_rated_up}
-                            how_many_disliked={this.props.numbers_rate_down}
+                            how_many_liked={ans.numbers_rated_up}
+                            how_many_disliked={ans.numbers_rate_down}
                             ratings={
                                 <React.Fragment>
                                     {!(ans.is_rated || this.props.is_rated) ? (
@@ -201,10 +201,10 @@ const mapStateToProps = state => {
         //log_status: state.rd.log_status,
         is_rated: state.answer.is_rated,
         is_up: state.answer.is_up,
-        rate_up: state.answer.rate_up,
-        rate_down: state.answer.rate_down,
-        numbers_rated_up: state.answer.numbers_rated_up,
-        numbers_rated_down: state.answer.numbers_rated_down,
+        rated_up: state.answer.rated_up,
+        rated_down: state.answer.rated_down,
+        // numbers_rated_up: state.answer.numbers_rated_up,
+        // numbers_rated_down: state.answer.numbers_rated_down,
     };
 };
 

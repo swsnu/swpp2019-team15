@@ -4,7 +4,7 @@ from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from ..models import Answer, Profile
+from ..models import User, Answer, Profile
 from ..views.decorators import check_request, check_login_required
 
 
@@ -18,7 +18,7 @@ def rate_up_answer(request, answer_id):
     PUT: rate_up_answer api
     """
     user = get_user(request)
-    answer = Answer.objects.get(id=answer_id)
+    answer = get_object_or_404(Answer, id=answer_id)
     rated_up_list = [answer.users_rated_up_answers.all()]
     rated_down_list = [answer.users_rated_down_answers.all()]
     if user in (rated_up_list or rated_down_list):
@@ -26,15 +26,15 @@ def rate_up_answer(request, answer_id):
     answer.numbers_rated_up += 1
     answer.users_rated_up_answers.add(user)
     answer.save()
-    profile = Profile.objects.get(user=answer.author)
+    profile = answer.author
     profile.rate_up += 1
     profile.save()
     response_dict = {
         'answer_id': answer_id,
-        'rate_up': answer.numbers_rated_up,
-        'rate_down': answer.numbers_rated_down,
+        'rated_up': answer.numbers_rated_up,
+        'rated_down': answer.numbers_rated_down,
     }
-    return JsonResponse(response_dict, status=201)
+    return JsonResponse(response_dict, safe=False, status=201)
 
 
 @check_login_required
@@ -47,7 +47,7 @@ def rate_down_answer(request, answer_id):
     PUT: rate_down_answer api
     """
     user = get_user(request)
-    answer = Answer.objects.get(id=answer_id)
+    answer = get_object_or_404(Answer, id=answer_id)
     rated_up_list = [answer.users_rated_up_answers.all()]
     rated_down_list = [answer.users_rated_down_answers.all()]
     if user in (rated_up_list or rated_down_list):
@@ -55,20 +55,21 @@ def rate_down_answer(request, answer_id):
     answer.numbers_rated_down += 1
     answer.users_rated_down_answers.add(user)
     answer.save()
-    profile = Profile.objects.get(user=answer.author)
+    profile = answer.author
     profile.rate_down += 1
     profile.save()
     response_dict = {
         'answer_id': answer_id,
-        'rate_up': answer.numbers_rated_up,
-        'rate_down': answer.numbers_rated_down
+        'rated_up': answer.numbers_rated_up,
+        'rated_down': answer.numbers_rated_down
     }
-    return JsonResponse(response_dict, status=201)
+    return JsonResponse(response_dict, safe=False, status=201)
 
 
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
+@csrf_exempt
 def get_rated_answer(request):
     """return rated_answers done by the user"""
     user = get_user(request)
@@ -79,4 +80,4 @@ def get_rated_answer(request):
     response_dict = [{
         'users_id_rating': usr.id
     } for usr in users]
-    return JsonResponse(response_dict, status=201)
+    return JsonResponse(response_dict, safe=False, status=201)
