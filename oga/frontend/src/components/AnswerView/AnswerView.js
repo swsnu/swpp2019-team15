@@ -45,24 +45,14 @@ class AnswerView extends Component {
         super(props);
     }
 
-    rateUpHandler = id => {
-        this.props.rateUp(id);
-    };
-
-    rateDownHandler = id => {
-        this.props.rateDown(id);
-    };
-
     render() {
         const { classes } = this.props;
 
         var selec = null;
         var sel = null;
         if (this.props.is_answered && this.props.is_rated) {
-            selec = this.props.how_many_liked
-            selec += "peoples liked this answer!"
-            selec = this.props.how_many_disliked
-            selec += "peoples disliked this answer!"
+            var selec1 = <React.Fragment>{this.props.how_many_liked} peoples liked this answer!</React.Fragment>
+            var selec2 = <React.Fragment>{this.props.how_many_disliked} peoples disliked this answer!</React.Fragment>
             if (this.props.is_up) {
                 sel = <React.Fragment>&#128077;</React.Fragment>;
             } else {
@@ -105,9 +95,12 @@ class AnswerView extends Component {
                             </Typography>
                             <Divider className={classes.divider} />
                             <Grid align="center">
-                                {this.props.ratings}
-                                {selec}
                                 {sel}
+                                <br></br>
+                                {this.props.ratings}
+                                {selec1}
+                                <br></br>
+                                {selec2}
                             </Grid>
                         </CardContent>
                     </Card>

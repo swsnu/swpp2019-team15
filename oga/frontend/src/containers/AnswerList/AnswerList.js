@@ -81,15 +81,15 @@ class AnswerList extends Component {
             {
                 console.log(selected_Answers[i])
             }
-            if (selected_Answers) {
-                for (var i = 0; i < selected_Answers.length; i++) {
-                    if (!this.state.render_check[i]) {
-                        this.props.onGetEachAnswer(selected_Answers[i].id);
-                        this.state.render_check[i] = true;
-                        this.forceUpdate();
-                    }
-                }
-            }
+            // if (selected_Answers) {
+            //     for (var i = 0; i < selected_Answers.length; i++) {
+            //         if (!this.state.render_check[i]) {
+            //             this.props.onGetEachAnswer(selected_Answers[i].id);
+            //             this.state.render_check[i] = true;
+            //             this.forceUpdate();
+            //         }
+            //     }
+            // }
             answers = selected_Answers.map(ans => {
                 return (
                     <Grid item xs={6} key={ans.id}>
@@ -109,7 +109,7 @@ class AnswerList extends Component {
                             is_up={ans.is_up}
                             is_rated={ans.is_rated}
                             how_many_liked={ans.numbers_rated_up}
-                            how_many_disliked={ans.numbers_rate_down}
+                            how_many_disliked={ans.numbers_rated_down}
                             ratings={
                                 <React.Fragment>
                                     {!(ans.is_rated) ? (
@@ -217,7 +217,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onGetQuestion: id => dispatch(actionCreators.getQuestion(id)),
         onGetAnswers: id => dispatch(actionCreators.getAnswers(id)),
-        onGetEachAnswer: id => dispatch(actionCreators.checkRating(id)),
+        // onGetEachAnswer: id => dispatch(actionCreators.checkRating(id)),
         //setLogout: () =>
         //dispatch(actionCreators.settingLogout())
         rateUp: id => dispatch(actionCreators.rateUp(id)),

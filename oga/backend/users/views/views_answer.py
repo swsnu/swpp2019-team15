@@ -95,9 +95,10 @@ def get_answers(request, question_id):
         'numbers_rated_up': ans.numbers_rated_up,
         'numbers_rated_down': ans.numbers_rated_down
     } for ans in answer_all_list]
+    i = 0
     for ans in response_dict:
-        for elem in ulist:
-            ans.update(elem)
+        ans.update(ulist[i])
+        i+=1
     return JsonResponse(response_dict, safe=False, status=200)
 
 
