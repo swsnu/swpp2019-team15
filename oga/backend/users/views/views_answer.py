@@ -71,7 +71,7 @@ def get_answers(request, question_id):
         is_up_list = [answer.users_rated_up_answers.all()]
         is_down_list = [answer.users_rated_down_answers.all()]
         if user in (is_up_list or is_down_list):
-            ulist.append({'is_up': True})
+            ulist.append({'is_rated': True})
         else:
             ulist.append({'is_rated': False})
 

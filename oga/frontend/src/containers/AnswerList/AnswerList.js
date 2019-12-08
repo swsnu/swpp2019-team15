@@ -101,13 +101,13 @@ class AnswerList extends Component {
                             place_name={
                                 this.props.selectedQuestion.target_location_name
                             }
-                            is_rated={ans.is_rated}
+                            is_rated={ans.is_rated || this.props.is_rated}
                             is_up={ans.is_up}
                             how_many_liked={this.props.numbers_rated_up}
                             how_many_disliked={this.props.numbers_rate_down}
                             ratings={
                                 <React.Fragment>
-                                    {!ans.is_rated ? (
+                                    {!(ans.is_rated || this.props.is_rated) ? (
                                         <div className="Rating">
                                             <Button
                                                 id="thumb_up-button"
