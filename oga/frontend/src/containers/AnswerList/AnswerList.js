@@ -51,7 +51,7 @@ class AnswerList extends Component {
 
     rateDownHandler = id => {
         this.props.rateDown(id);
-        window.location.reload();
+        // window.location.reload();
     };
 
     render() {
@@ -102,12 +102,12 @@ class AnswerList extends Component {
                                 this.props.selectedQuestion.target_location_name
                             }
                             is_up={this.props.is_up}
-                            is_rated={ans.is_rated || this.props.is_rated}
+                            is_rated={ans.is_rated}
                             how_many_liked={ans.numbers_rated_up}
                             how_many_disliked={ans.numbers_rate_down}
                             ratings={
                                 <React.Fragment>
-                                    {!(ans.is_rated || this.props.is_rated) ? (
+                                    {!(ans.is_rated) ? (
                                         <div className="Rating">
                                             <Button
                                                 id="thumb_up-button"
