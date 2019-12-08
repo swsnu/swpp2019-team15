@@ -21,7 +21,6 @@ const answerReducer = (state = initialState, action) => {
             };
             return { ...state, answer: newAnswer };
         case actionTypes.GET_ANSWERS:
-            console.log(action.answers)
             for (var i = 0; i < action.answers.length; i++) {
                 console.log(action.answers[i])
             }
