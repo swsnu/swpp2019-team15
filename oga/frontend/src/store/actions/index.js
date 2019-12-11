@@ -19,6 +19,7 @@ import {
 import {
     checkRating,
     createAnswer,
+    getAllAnswers,
     getAnswers,
     getAnswer,
     getUserAnswers,

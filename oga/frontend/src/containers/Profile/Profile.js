@@ -8,13 +8,17 @@ import * as actionCreators from "../../store/actions/index";
 import rank from "../../const/rank";
 
 //Material UI imports
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
+import {
+    Avatar,
+    Button,
+    Card,
+    CardContent,
+    CardMedia,
+    Grid,
+    Link,
+    Typography
+} from "@material-ui/core";
+
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -37,6 +41,16 @@ class Profile extends Component {
 
     onClickAuthorHandler = author => {
         this.props.history.push("/profile/" + author);
+    };
+
+    rateUpHandler = id => {
+        this.props.rateUp(id);
+        // Window reload handled in actionCreators
+    };
+
+    rateDownHandler = id => {
+        this.props.rateDown(id);
+        // Window reload handled in actionCreators
     };
 
     render() {
@@ -81,26 +95,28 @@ class Profile extends Component {
                 "MMMM Do YYYY, h:mm:ss a"
             );
             return (
-                <AnswerView
-                    style-={{ marginTop: 5, marginBottom: 5 }}
-                    className="MyAnswer"
-                    key={ans.id}
-                    align="left"
-                    id={ans.id}
-                    author={username}
-                    content={ans.question_type}
-                    publish_date_time={moment(ans.publish_date_time).format(
-                        "MMMM Do YYYY, h:mm:ss a"
-                    )}
-                    answer_content={ans.content}
-                    is_answered={true}
-                    place_name={ans.place_name}
-                    is_up={ans.is_up}
-                    is_rated={ans.is_rated}
-                    how_many_liked={ans.numbers_rated_up}
-                    how_many_disliked={ans.numbers_rated_down}
-                    clickAuthor={() => this.onClickAuthor(ans.author)}
-                />
+                <div
+                    style={{ marginBottom: 5, marginTop: 5 }}
+                    onClick={() => this.onClickDetailHandler(ans.question_id)}
+                >
+                    <AnswerView
+                        className="MyAnswer"
+                        key={ans.id}
+                        align="left"
+                        id={ans.id}
+                        author={username}
+                        answer_content={ans.content}
+                        place_name={ans.location}
+                        publish_date_time={moment(ans.publish_date_time).format(
+                            "MMMM Do YYYY, h:mm:ss a"
+                        )}
+                        is_answered={true}
+                        is_up={ans.is_up}
+                        is_rated={ans.is_rated}
+                        rateUpCount={ans.numbers_rated_up}
+                        rateDownCount={ans.numbers_rated_down}
+                    />
+                </div>
             );
         });
 

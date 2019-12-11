@@ -4,6 +4,8 @@ import "./AnswerView.css";
 
 //Materials UI imports
 import {
+    Button,
+    ButtonGroup,
     Card,
     CardContent,
     Divider,
@@ -105,9 +107,29 @@ class AnswerView extends Component {
                             <Divider className={classes.divider} />
                             <Grid align="center">
                                 {/* {sel} */}
-                                {this.props.ratings}
+                                {/* {this.props.ratings} */}
                                 {/* {selec1}
                                 {selec2} */}
+                                <div>
+                                    <ButtonGroup className="Rating">
+                                        <Button
+                                            id="thumb_up-button"
+                                            color="primary"
+                                            onClick={this.props.rateUp}
+                                            disabled={this.props.disableLike}
+                                        >
+                                            &#128077; {this.props.rateUpCount}
+                                        </Button>
+                                        <Button
+                                            id="thumb_down-button"
+                                            color="primary"
+                                            onClick={this.props.rateDown}
+                                            disabled={this.props.disableDislike}
+                                        >
+                                            &#128078; {this.props.rateDownCount}
+                                        </Button>
+                                    </ButtonGroup>
+                                </div>
                             </Grid>
                         </CardContent>
                     </Card>

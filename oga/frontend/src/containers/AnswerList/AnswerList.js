@@ -9,15 +9,18 @@ import moment from "moment";
 import AnswerView from "../../components/AnswerView/AnswerView";
 
 //Material UI imports
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import IconButton from "@material-ui/core/IconButton";
 import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
-import { ButtonGroup } from "@material-ui/core";
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    Container,
+    CssBaseline,
+    Divider,
+    Grid,
+    IconButton,
+    Typography
+} from "@material-ui/core";
 
 class AnswerList extends Component {
     constructor(props) {
@@ -112,31 +115,37 @@ class AnswerList extends Component {
                             }
                             is_up={ans.is_up}
                             is_rated={ans.is_rated}
-                            how_many_liked={ans.numbers_rated_up}
-                            how_many_disliked={ans.numbers_rated_down}
                             clickAuthor={() => this.clickAuthor(ans.author)}
-                            ratings={
-                                <ButtonGroup className="Rating">
-                                    <Button
-                                        id="thumb_up-button"
-                                        color="primary"
-                                        onClick={() =>
-                                            this.rateUpHandler(ans.id)
-                                        }
-                                    >
-                                        &#128077; {ans.numbers_rated_up}
-                                    </Button>
-                                    <Button
-                                        id="thumb_down-button"
-                                        color="primary"
-                                        onClick={() =>
-                                            this.rateDownHandler(ans.id)
-                                        }
-                                    >
-                                        &#128078; {ans.numbers_rated_down}
-                                    </Button>
-                                </ButtonGroup>
-                            }
+                            rateUp={() => this.rateUpHandler(ans.id)}
+                            rateDown={() => this.rateDownHandler(ans.id)}
+                            rateUpCount={ans.numbers_rated_up}
+                            rateDownCount={ans.numbers_rated_down}
+                            disableLike={ans.user_liked}
+                            disableDislike={ans.user_disliked}
+                            // ratings={
+                            //     <div>
+                            //         <ButtonGroup className="Rating">
+                            //             <Button
+                            //                 id="thumb_up-button"
+                            //                 color="primary"
+                            //                 onClick={() =>
+                            //                     this.rateUpHandler(ans.id)
+                            //                 }
+                            //             >
+                            //                 &#128077; {ans.numbers_rated_up}
+                            //             </Button>
+                            //             <Button
+                            //                 id="thumb_down-button"
+                            //                 color="primary"
+                            //                 onClick={() =>
+                            //                     this.rateDownHandler(ans.id)
+                            //                 }
+                            //             >
+                            //                 &#128078; {ans.numbers_rated_down}
+                            //             </Button>
+                            //         </ButtonGroup>
+                            //     </div>
+                            // }
                         />
                     </Grid>
                 );

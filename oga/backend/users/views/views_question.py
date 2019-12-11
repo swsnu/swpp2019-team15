@@ -69,6 +69,7 @@ def get_user_questions(request, username=''):
         'content': question.content,
         'location': question.location_id.name,
         'is_answered': question.is_answered,
+        'answer_count': Answer.objects.filter(question=question).count()
     } for question in question_list]
     return JsonResponse(response_dict, safe=False)
 
