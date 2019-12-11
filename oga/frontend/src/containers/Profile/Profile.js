@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
 import Question from "../../components/Question/Question";
+import AnswerView from "../../components/AnswerView/AnswerView";
 import * as actionCreators from "../../store/actions/index";
 import rank from "../../const/rank";
 
@@ -34,6 +35,10 @@ class Profile extends Component {
         this.props.history.push("/replies/" + id);
     };
 
+    onClickAuthorHandler = author => {
+        this.props.history.push("/profile/" + author);
+    };
+
     render() {
         let username = "";
         let location = "";
@@ -54,7 +59,7 @@ class Profile extends Component {
                     <Question
                         key={qs.id}
                         id={qs.id}
-                        author={qs.author}
+                        author={username}
                         publish_date_time={moment(qs.publish_date_time).format(
                             "MMMM Do YYYY, h:mm:ss a"
                         )}
@@ -75,45 +80,27 @@ class Profile extends Component {
             var time = moment(ans.publish_date_time).format(
                 "MMMM Do YYYY, h:mm:ss a"
             );
-
             return (
-                <div style-={{ marginTop: 5, marginBottom: 5 }} key={ans.id}>
-                    <Card className="MyAnswer" key={ans.id} align="left">
-                        <CardContent
-                            onClick={() =>
-                                this.onClickDetailHandler(ans.question_id)
-                            }
-                        >
-                            <Typography
-                                color="primary"
-                                variant="subtitle1"
-                                gutterBottom
-                            >
-                                <b>{ans.question_author} </b> asked{" "}
-                                {moment(
-                                    time,
-                                    "MMMM Do YYYY, h:mm:ss a"
-                                ).fromNow()}{" "}
-                                &mdash; {time}
-                            </Typography>
-                            <Typography variant="h6" gutterBottom>
-                                For <b>{ans.question_type}</b>, it is{" "}
-                                <b>{ans.content}</b> in <b>{ans.location}</b>!
-                            </Typography>
-                            <Typography
-                                align="left"
-                                variant="caption"
-                                gutterBottom
-                            >
-                                {moment(
-                                    time,
-                                    "MMMM Do YYYY, h:mm:ss a"
-                                ).fromNow()}{" "}
-                                &mdash; {time}
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </div>
+                <AnswerView
+                    style-={{ marginTop: 5, marginBottom: 5 }}
+                    className="MyAnswer"
+                    key={ans.id}
+                    align="left"
+                    id={ans.id}
+                    author={username}
+                    content={ans.question_type}
+                    publish_date_time={moment(ans.publish_date_time).format(
+                        "MMMM Do YYYY, h:mm:ss a"
+                    )}
+                    answer_content={ans.content}
+                    is_answered={true}
+                    place_name={ans.place_name}
+                    is_up={ans.is_up}
+                    is_rated={ans.is_rated}
+                    how_many_liked={ans.numbers_rated_up}
+                    how_many_disliked={ans.numbers_rated_down}
+                    clickAuthor={() => this.onClickAuthor(ans.author)}
+                />
             );
         });
 
@@ -190,7 +177,6 @@ class Profile extends Component {
                                                 {/* TODO: Rank to be determined based on point system implementation */}
                                                 {rank[10]}
                                             </Typography>
-
                                             <Typography variant="subtitle1">
                                                 <i>
                                                     {location}

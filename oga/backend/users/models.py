@@ -66,8 +66,10 @@ class Answer(models.Model):
     content = models.TextField(max_length=100)
     numbers_rated_up = models.PositiveSmallIntegerField(default=0)
     numbers_rated_down = models.PositiveSmallIntegerField(default=0)
-    users_rated_up_answers = models.ManyToManyField(User, related_name='rated_up_answers')
-    users_rated_down_answers = models.ManyToManyField(User, related_name='rated_down_answers')
+    users_rated_up_answers = models.ManyToManyField(
+        User, related_name='rated_up_answers')
+    users_rated_down_answers = models.ManyToManyField(
+        User, related_name='rated_down_answers')
 
     def __str__(self):
         return self.content

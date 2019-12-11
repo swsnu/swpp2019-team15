@@ -5,20 +5,28 @@ import Question from "../../components/Question/Question";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
-
+import "./Main.css";
 import * as actionCreators from "../../store/actions/index";
 
 //Material UI imports
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import IconButton from "@material-ui/core/IconButton";
+import {
+    Box,
+    Button,
+    Container,
+    Grid,
+    IconButton,
+    Typography
+} from "@material-ui/core";
 import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
-
 class QuestionList extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isQuestionTab: false
+        };
+    }
+
     componentDidMount() {
         this.props.onGetAll();
     }
@@ -38,6 +46,16 @@ class QuestionList extends Component {
         this.props.onFollow(qst.id);
     };
 
+    clickAuthorHandler = author => {
+        this.props.history.push("/profile/" + author);
+    };
+
+    clickTabHandler = val => {
+        this.setState({
+            isQuestionTab: val
+        });
+    };
+
     render() {
         var len = this.props.storedQuestions.length;
         // Limit to displaying only 50 most recent questions
@@ -53,12 +71,14 @@ class QuestionList extends Component {
                             "MMMM Do YYYY, h:mm:ss a"
                         )}
                         content={qs.content}
+                        answer_count={qs.answer_count}
                         location={qs.location}
                         is_answered={qs.is_answered}
                         showButtons={true}
                         clickAnswer={() => this.clickAnswerHandler(qs)}
                         clickFollow={() => this.clickFollowHandler(qs)}
                         clickDetail={() => this.clickDetailHandler(qs)}
+                        clickAuthor={() => this.clickAuthorHandler(qs.author)}
                     />
                 </Grid>
             );
@@ -66,13 +86,12 @@ class QuestionList extends Component {
 
         return (
             <div className="Main">
+                <Box pt={8} />
+                <Typography component="h1" variant="h3">
+                    Question Feed
+                </Typography>
+                <Box pt={5} />
                 <Container component="main" justify="center">
-                    <CssBaseline />
-                    <Box pt={8} />
-                    <Typography component="h1" variant="h3">
-                        Question Feed
-                    </Typography>
-                    <Box pt={5} />
                     <Grid container spacing={2} direction="row">
                         {Questions}
                     </Grid>

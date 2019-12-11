@@ -6,7 +6,7 @@ from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
-from ..models import Question, Location
+from ..models import Question, Location, Answer
 from ..views.decorators import check_request, check_login_required
 
 
@@ -45,6 +45,7 @@ def questions(request):
             'content': question.content,
             'location': question.location_id.name,
             'is_answered': question.is_answered,
+            'answer_count': Answer.objects.filter(question=question).count()
         } for question in question_list]
         return JsonResponse(response_dict, safe=False)
 

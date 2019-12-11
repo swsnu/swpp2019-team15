@@ -20,13 +20,19 @@ def rate_up_answer(request, answer_id):
     """
     user = get_user(request)
     answer = get_object_or_404(Answer, id=answer_id)
+
+    # Get list of users who upvoted this answer
     rated_up_list = answer.users_rated_up_answers.all()
+    # Get list of users who downvoted this answer
     rated_down_list = answer.users_rated_down_answers.all()
+
     if user in (rated_up_list or rated_down_list):
         return HttpResponse(status=403)
+
     answer.numbers_rated_up += 1
     answer.users_rated_up_answers.add(user)
     answer.save()
+
     profile = answer.author
     profile.rate_up += 1
     profile.save()
@@ -35,7 +41,7 @@ def rate_up_answer(request, answer_id):
         'rated_up': answer.numbers_rated_up,
         'rated_down': answer.numbers_rated_down,
     }
-    return JsonResponse(response_dict, safe=False, status=201)
+    return JsonResponse(response_dict, status=201)
 
 
 @check_login_required
@@ -49,13 +55,20 @@ def rate_down_answer(request, answer_id):
     """
     user = get_user(request)
     answer = get_object_or_404(Answer, id=answer_id)
+
+    # Get list of users who upvoted this answer
     rated_up_list = answer.users_rated_up_answers.all()
+    # Get list of users who downvoted this answer
     rated_down_list = answer.users_rated_down_answers.all()
+
     if user in (rated_up_list or rated_down_list):
         return HttpResponse(status=403)
+
+    # Add user to rated down list
     answer.numbers_rated_down += 1
     answer.users_rated_down_answers.add(user)
     answer.save()
+
     profile = answer.author
     profile.rate_down += 1
     profile.save()
@@ -64,7 +77,7 @@ def rate_down_answer(request, answer_id):
         'rated_up': answer.numbers_rated_up,
         'rated_down': answer.numbers_rated_down
     }
-    return JsonResponse(response_dict, safe=False, status=201)
+    return JsonResponse(response_dict, status=201)
 
 
 @check_login_required

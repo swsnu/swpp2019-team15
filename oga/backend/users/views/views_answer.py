@@ -47,6 +47,8 @@ def get_or_create_answer(request, question_or_answer_id):
             'place_name': question.location_id.name,
             'place_lat': question.location_id.latitude,
             'place_lng': question.location_id.longitude,
+            'upvotes': ans.numbers_rated_up,
+            'downvotes': ans.numbers_rated_down
         }
         return JsonResponse(response_dict, safe=False, status=200)
     else:

@@ -1,15 +1,9 @@
-export const question_types = {
-    "Are there LONG LINES": [
-        "VERY LONG",
-        "LONG",
-        "MODERATE",
-        "SHORT",
-        "VERY SHORT"
-    ],
-    "Are there MANY SEATS": ["MANY", "MODERATE", "SMALL"],
-    "Is it RAINING": ["HEAVY", "MODERATE", "SMALL", "NO"],
-    "Is it QUIET": ["NOISY", "MODERATE", "QUIET"]
-};
+export const question_types = [
+    "Are there LONG LINES",
+    "Are there MANY SEATS",
+    "Is it RAINING",
+    "Is it QUIET"
+];
 
 /**
  * Marker values and respective labels
@@ -19,69 +13,84 @@ export const answer_markers = {
     "Are there LONG LINES": [
         {
             value: 5,
-            label: "VERY LONG"
+            label: "VERY LONG",
+            content: "Lines are VERY LONG"
         },
         {
             value: 4,
-            label: "LONG"
+            label: "LONG",
+            content: "Lines are LONG"
         },
         {
             value: 3,
-            label: "MODERATE"
+            label: "MODERATE",
+            content: "Lines are MODERATE"
         },
         {
             value: 2,
-            label: "SHORT"
+            label: "SHORT",
+            content: "LINES ARE SHORT"
         },
         {
             value: 1,
-            label: "VERY SHORT"
+            label: "NONE",
+            content: "NO LINES"
         }
     ],
     "Are there MANY SEATS": [
         {
             value: 3,
-            label: "MANY"
+            label: "MANY SEATS",
+            content: "There are MANY SEATS"
         },
         {
             value: 2,
-            label: "MODERATE"
+            label: "FEW SEATS",
+            content: "There are a FEW SEATS"
         },
         {
             value: 1,
-            label: "SMALL"
+            label: "NO SEATS",
+            content: "There are NO SEATS"
         }
     ],
     "Is it RAINING": [
         {
             value: 4,
-            label: "HEAVY"
+            label: "HEAVY",
+            content: "It is RAINING HEAVILY"
         },
         {
             value: 3,
-            label: "MODERATE"
+            label: "MODERATE",
+            content: "It is RAINING MODERATELY"
         },
         {
             value: 2,
-            label: "SMALL"
+            label: "DRIZZLING",
+            content: "It is DRIZZLING"
         },
         {
             value: 1,
-            label: "NO"
+            label: "NO RAIN",
+            content: "There is NO RAIN"
         }
     ],
     "Is it QUIET": [
         {
             value: 3,
-            label: "NOISY"
+            label: "NOISY",
+            content: "It is NOISY"
         },
         {
             value: 2,
-            label: "MODERATE"
+            label: "MODERATE",
+            content: "It is MODERATELY QUIET"
         },
         {
             value: 1,
-            label: "QUIET"
+            label: "QUIET",
+            content: "It is QUIET"
         }
     ]
 };

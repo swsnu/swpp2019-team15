@@ -27,6 +27,10 @@ class Login extends Component {
 
     render() {
         return (
+            /**
+             * Prevent user from accessing
+             * login page if already signed in
+             */
             <div
                 className="Login"
                 style={{

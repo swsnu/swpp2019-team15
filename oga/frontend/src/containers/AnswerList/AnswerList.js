@@ -17,6 +17,7 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
 import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
+import { ButtonGroup } from "@material-ui/core";
 
 class AnswerList extends Component {
     constructor(props) {
@@ -40,18 +41,22 @@ class AnswerList extends Component {
         this.props.history.push("/reply/create/" + id);
     };
 
+    clickAuthor = author => {
+        this.props.history.push("/profile/" + author);
+    };
+
     clickBackHandler = () => {
         this.props.history.goBack();
     };
 
     rateUpHandler = id => {
         this.props.rateUp(id);
-        window.location.reload();
+        // Window reload handled in actionCreators
     };
 
     rateDownHandler = id => {
         this.props.rateDown(id);
-        window.location.reload();
+        // Window reload handled in actionCreators
     };
 
     render() {
@@ -72,14 +77,13 @@ class AnswerList extends Component {
                 </React.Fragment>
             );
             var len = this.props.selectedAnswers.length;
-            var selected_Answers = this.props.selectedAnswers
+            var selected_Answers = this.props.selectedAnswers;
             // var selected_Answers = this.props.selectedAnswers.slice(
             //     len - 10,
             //     len
             // );
-            for (var i = 0; i < selected_Answers.length; i++)
-            {
-                console.log(selected_Answers[i])
+            for (var i = 0; i < selected_Answers.length; i++) {
+                console.log(selected_Answers[i]);
             }
             // if (selected_Answers) {
             //     for (var i = 0; i < selected_Answers.length; i++) {
@@ -110,31 +114,28 @@ class AnswerList extends Component {
                             is_rated={ans.is_rated}
                             how_many_liked={ans.numbers_rated_up}
                             how_many_disliked={ans.numbers_rated_down}
+                            clickAuthor={() => this.clickAuthor(ans.author)}
                             ratings={
-                                <React.Fragment>
-                                    {!(ans.is_rated) ? (
-                                        <div className="Rating">
-                                            <Button
-                                                id="thumb_up-button"
-                                                color="primary"
-                                                onClick={() =>
-                                                    this.rateUpHandler(ans.id)
-                                                }
-                                            >
-                                                &#128077;
-                                            </Button>
-                                            <Button
-                                                id="thumb_down-button"
-                                                color="primary"
-                                                onClick={() =>
-                                                    this.rateDownHandler(ans.id)
-                                                }
-                                            >
-                                                &#128078;
-                                            </Button>
-                                        </div>
-                                    ) : null}
-                                </React.Fragment>
+                                <ButtonGroup className="Rating">
+                                    <Button
+                                        id="thumb_up-button"
+                                        color="primary"
+                                        onClick={() =>
+                                            this.rateUpHandler(ans.id)
+                                        }
+                                    >
+                                        &#128077; {ans.numbers_rated_up}
+                                    </Button>
+                                    <Button
+                                        id="thumb_down-button"
+                                        color="primary"
+                                        onClick={() =>
+                                            this.rateDownHandler(ans.id)
+                                        }
+                                    >
+                                        &#128078; {ans.numbers_rated_down}
+                                    </Button>
+                                </ButtonGroup>
                             }
                         />
                     </Grid>
@@ -203,11 +204,8 @@ const mapStateToProps = state => {
     return {
         selectedQuestion: state.question.selectedQuestion,
         selectedAnswers: state.answer.answers,
-        //log_status: state.rd.log_status,
-        // is_rated: state.answer.is_rated,
-        // is_up: state.answer.is_up,
         rated_up: state.answer.rated_up,
-        rated_down: state.answer.rated_down,
+        rated_down: state.answer.rated_down
         // numbers_rated_up: state.answer.numbers_rated_up,
         // numbers_rated_down: state.answer.numbers_rated_down,
     };
@@ -217,9 +215,6 @@ const mapDispatchToProps = dispatch => {
     return {
         onGetQuestion: id => dispatch(actionCreators.getQuestion(id)),
         onGetAnswers: id => dispatch(actionCreators.getAnswers(id)),
-        // onGetEachAnswer: id => dispatch(actionCreators.checkRating(id)),
-        //setLogout: () =>
-        //dispatch(actionCreators.settingLogout())
         rateUp: id => dispatch(actionCreators.rateUp(id)),
         rateDown: id => dispatch(actionCreators.rateDown(id))
     };
