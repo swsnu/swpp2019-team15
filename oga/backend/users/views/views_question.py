@@ -6,7 +6,7 @@ from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
-from ..models import Question, Location, Answer
+from ..models import Question, Location, Answer, Profile
 from ..views.decorators import check_request, check_login_required
 
 
@@ -37,6 +37,8 @@ def questions(request):
 
     else:
         # get question list
+        user = get_user(request)
+        profile = Profile.objects.get(user=user)
         question_list = Question.objects.filter()
         response_dict = [{
             'id': question.id,
@@ -45,7 +47,8 @@ def questions(request):
             'content': question.content,
             'location': question.location_id.name,
             'is_answered': question.is_answered,
-            'answer_count': Answer.objects.filter(question=question).count()
+            'answer_count': Answer.objects.filter(question=question).count(),
+            'follow_count': question.follow_count
         } for question in question_list]
         return JsonResponse(response_dict, safe=False)
 
@@ -103,6 +106,11 @@ def follow_question(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     profile = request.user.profile
 
-    profile.follows.add(question)
+    if question not in profile.follows.all():
+        profile.follows.add(question)
+        question.follow_count += 1
+        question.save()
+        return JsonResponse({}, status=201)
 
-    return JsonResponse({}, status=201)
+    else:
+        return JsonResponse(status=400)

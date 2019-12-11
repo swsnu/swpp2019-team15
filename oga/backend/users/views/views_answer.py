@@ -84,15 +84,6 @@ def get_answers(request, question_id):
         else:
             ulist.append({'is_rated': False, 'is_up': False})
 
-    # users = User.objects.get(rated_up_answers__in=user)
-    # if users is null:
-    #     users = User.objects.get(rated_down_answers__in=user)
-    #     is_up = False
-    # else:
-    #     is_up = True
-    # if users.count() > 1:
-    #     return HttpResponse(status=404
-
     response_dict = [{
         'id': ans.id,
         'author': ans.author.user.username,

@@ -29,6 +29,7 @@ class Question(models.Model):
     publish_date_time = models.DateTimeField(auto_now_add=True)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
     is_answered = models.BooleanField(default=False)
+    follow_count = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return self.content
