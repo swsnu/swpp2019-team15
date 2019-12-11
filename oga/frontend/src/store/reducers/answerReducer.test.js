@@ -1,5 +1,3 @@
-import React from "react";
-
 import reducer from "./answerReducer.js";
 import * as actionTypes from "../actions/actionTypes";
 

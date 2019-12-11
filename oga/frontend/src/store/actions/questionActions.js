@@ -79,7 +79,10 @@ export const followQuestion = id => {
     return dispatch => {
         return axios
             .get("/api/follow/" + id)
-            .then(res => {})
-            .catch(err => console.log(err));
+            .then(res => {
+                alert("Successfully subscribed!");
+                setTimeout(() => window.location.reload(), 0);
+            })
+            .catch(err => alert("You already subscribed to this question!"));
     };
 };

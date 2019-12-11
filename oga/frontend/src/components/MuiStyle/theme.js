@@ -56,6 +56,6 @@ export const theme = createMuiTheme({
                 display: "flex",
                 flexDirection: "column"
             }
-        },
+        }
     }
 });

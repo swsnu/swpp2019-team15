@@ -3,12 +3,17 @@ import moment from "moment";
 import "./AnswerView.css";
 
 //Materials UI imports
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import {
+    Button,
+    ButtonGroup,
+    Card,
+    CardContent,
+    Divider,
+    Grid,
+    Link,
+    Typography
+} from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Divider } from "@material-ui/core";
 
 const styles = theme => ({
     card: {
@@ -47,18 +52,23 @@ class AnswerView extends Component {
 
     render() {
         const { classes } = this.props;
-
-        var selec = null;
-        var sel = null;
-        if (this.props.is_answered && this.props.is_rated) {
-            var selec1 = <React.Fragment>{this.props.how_many_liked} peoples liked this answer!</React.Fragment>
-            var selec2 = <React.Fragment>{this.props.how_many_disliked} peoples disliked this answer!</React.Fragment>
-            if (this.props.is_up) {
-                sel = <React.Fragment>&#128077;</React.Fragment>;
-            } else {
-                sel = <React.Fragment>&#128078;</React.Fragment>;
-            }
-        }
+        // if (this.props.is_answered && this.props.is_rated) {
+        //     var selec1 = (
+        //         <React.Fragment>
+        //             Likes ({this.props.how_many_liked})
+        //         </React.Fragment>
+        //     );
+        //     var selec2 = (
+        //         <React.Fragment>
+        //             Dislikes ({this.props.how_many_disliked})
+        //         </React.Fragment>
+        //     );
+        //     if (this.props.is_up) {
+        //         sel = <span>&#128077;</span>;
+        //     } else {
+        //         sel = <span>&#128078;</span>;
+        //     }
+        // }
 
         return (
             <Grid className="AnswerView" key={this.props.id}>
@@ -70,7 +80,9 @@ class AnswerView extends Component {
                                 id="question-author"
                                 variant="subtitle1"
                             >
-                                {this.props.author}
+                                <Link onClick={this.props.clickAuthor}>
+                                    {this.props.author}
+                                </Link>
                             </Typography>
                             <Typography
                                 id="question-publish-date-time"
@@ -87,20 +99,36 @@ class AnswerView extends Component {
                             <Typography
                                 className={classes.heading}
                                 variant="h6"
-                                gutterBottom
                             >
-                                For {this.props.content}, it is{" "}
                                 {this.props.answer_content} in{" "}
-                                {this.props.place_name}!
+                                {this.props.place_name}
                             </Typography>
                             <Divider className={classes.divider} />
                             <Grid align="center">
-                                {sel}
-                                <br></br>
-                                {this.props.ratings}
-                                {selec1}
-                                <br></br>
-                                {selec2}
+                                {/* {sel} */}
+                                {/* {this.props.ratings} */}
+                                {/* {selec1}
+                                {selec2} */}
+                                <div>
+                                    <ButtonGroup className="Rating">
+                                        <Button
+                                            id="thumb_up-button"
+                                            color="primary"
+                                            onClick={this.props.rateUp}
+                                            disabled={this.props.disableLike}
+                                        >
+                                            &#128077; {this.props.rateUpCount}
+                                        </Button>
+                                        <Button
+                                            id="thumb_down-button"
+                                            color="primary"
+                                            onClick={this.props.rateDown}
+                                            disabled={this.props.disableDislike}
+                                        >
+                                            &#128078; {this.props.rateDownCount}
+                                        </Button>
+                                    </ButtonGroup>
+                                </div>
                             </Grid>
                         </CardContent>
                     </Card>

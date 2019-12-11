@@ -69,6 +69,7 @@ export const isLoggedIn = () => {
                 dispatch(isLoggedIn_(true));
             })
             .catch(err => {
+                console.log(err);
                 dispatch(isLoggedIn_(false));
             });
     };
@@ -84,7 +85,7 @@ export const Logout = () => {
             })
             .catch(err => {
                 console.log(err);
-                // dispatch(isLoggedIn_(true));
+                dispatch(isLoggedIn_(true));
             });
     };
 };

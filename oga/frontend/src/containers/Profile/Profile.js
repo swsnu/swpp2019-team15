@@ -3,17 +3,22 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
 import Question from "../../components/Question/Question";
+import AnswerView from "../../components/AnswerView/AnswerView";
 import * as actionCreators from "../../store/actions/index";
 import rank from "../../const/rank";
 
 //Material UI imports
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
+import {
+    Avatar,
+    Button,
+    Card,
+    CardContent,
+    CardMedia,
+    Grid,
+    Link,
+    Typography
+} from "@material-ui/core";
+
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -32,6 +37,20 @@ class Profile extends Component {
 
     onClickDetailHandler = id => {
         this.props.history.push("/replies/" + id);
+    };
+
+    onClickAuthorHandler = author => {
+        this.props.history.push("/profile/" + author);
+    };
+
+    rateUpHandler = id => {
+        this.props.rateUp(id);
+        // Window reload handled in actionCreators
+    };
+
+    rateDownHandler = id => {
+        this.props.rateDown(id);
+        // Window reload handled in actionCreators
     };
 
     render() {
@@ -54,7 +73,7 @@ class Profile extends Component {
                     <Question
                         key={qs.id}
                         id={qs.id}
-                        author={qs.author}
+                        author={username}
                         publish_date_time={moment(qs.publish_date_time).format(
                             "MMMM Do YYYY, h:mm:ss a"
                         )}
@@ -75,44 +94,28 @@ class Profile extends Component {
             var time = moment(ans.publish_date_time).format(
                 "MMMM Do YYYY, h:mm:ss a"
             );
-
             return (
-                <div style-={{ marginTop: 5, marginBottom: 5 }} key={ans.id}>
-                    <Card className="MyAnswer" key={ans.id} align="left">
-                        <CardContent
-                            onClick={() =>
-                                this.onClickDetailHandler(ans.question_id)
-                            }
-                        >
-                            <Typography
-                                color="primary"
-                                variant="subtitle1"
-                                gutterBottom
-                            >
-                                <b>{ans.question_author} </b> asked{" "}
-                                {moment(
-                                    time,
-                                    "MMMM Do YYYY, h:mm:ss a"
-                                ).fromNow()}{" "}
-                                &mdash; {time}
-                            </Typography>
-                            <Typography variant="h6" gutterBottom>
-                                For <b>{ans.question_type}</b>, it is{" "}
-                                <b>{ans.content}</b> in <b>{ans.location}</b>!
-                            </Typography>
-                            <Typography
-                                align="left"
-                                variant="caption"
-                                gutterBottom
-                            >
-                                {moment(
-                                    time,
-                                    "MMMM Do YYYY, h:mm:ss a"
-                                ).fromNow()}{" "}
-                                &mdash; {time}
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                <div
+                    style={{ marginBottom: 5, marginTop: 5 }}
+                    onClick={() => this.onClickDetailHandler(ans.question_id)}
+                >
+                    <AnswerView
+                        className="MyAnswer"
+                        key={ans.id}
+                        align="left"
+                        id={ans.id}
+                        author={username}
+                        answer_content={ans.content}
+                        place_name={ans.location}
+                        publish_date_time={moment(ans.publish_date_time).format(
+                            "MMMM Do YYYY, h:mm:ss a"
+                        )}
+                        is_answered={true}
+                        is_up={ans.is_up}
+                        is_rated={ans.is_rated}
+                        rateUpCount={ans.numbers_rated_up}
+                        rateDownCount={ans.numbers_rated_down}
+                    />
                 </div>
             );
         });
@@ -190,7 +193,6 @@ class Profile extends Component {
                                                 {/* TODO: Rank to be determined based on point system implementation */}
                                                 {rank[10]}
                                             </Typography>
-
                                             <Typography variant="subtitle1">
                                                 <i>
                                                     {location}

@@ -41,7 +41,7 @@ class NewAnswer extends Component {
         this.setState({
             answer_content:
                 answer_list[answer_list.findIndex(mark => mark.value === value)]
-                    .label,
+                    .content,
             answered: true
         });
     };
@@ -75,10 +75,7 @@ class NewAnswer extends Component {
                         marginBottom: 50,
                         width: "70%"
                     }}
-                    defaultValue={0}
-                    getAriaValueText={value => {
-                        return `${value}%`;
-                    }}
+                    defaultValue={1}
                     aria-labelledby="answer-choices"
                     track={false}
                     min={1}

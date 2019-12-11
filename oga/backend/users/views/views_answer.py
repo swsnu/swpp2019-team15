@@ -47,6 +47,8 @@ def get_or_create_answer(request, question_or_answer_id):
             'place_name': question.location_id.name,
             'place_lat': question.location_id.latitude,
             'place_lng': question.location_id.longitude,
+            'upvotes': ans.numbers_rated_up,
+            'downvotes': ans.numbers_rated_down
         }
         return JsonResponse(response_dict, safe=False, status=200)
     else:
@@ -61,30 +63,26 @@ def get_or_create_answer(request, question_or_answer_id):
 def get_answers(request, question_id):
     """function to get answers of question_id
         GET: get_answers api"""
-    response_dict = []
     question = Question.objects.get(id=question_id)
     answer_all_list = Answer.objects.filter(question=question)
 
     ulist = []
     user = get_user(request)
+    user_rated = False  # True if currently logged in user has rated this answer
+    user_liked = False  # True if currently logged in user liked this answer
+
     for answer in answer_all_list:
         is_up_list = answer.users_rated_up_answers.all()
         is_down_list = answer.users_rated_down_answers.all()
         if user in is_up_list:
+            user_rated = True
+            user_liked = True
             ulist.append({'is_rated': True, 'is_up': True})
         elif user in is_down_list:
+            user_rated = True
             ulist.append({'is_rated': True, 'is_up': False})
         else:
             ulist.append({'is_rated': False, 'is_up': False})
-
-    # users = User.objects.get(rated_up_answers__in=user)
-    # if users is null:
-    #     users = User.objects.get(rated_down_answers__in=user)
-    #     is_up = False
-    # else:
-    #     is_up = True
-    # if users.count() > 1:
-    #     return HttpResponse(status=404
 
     response_dict = [{
         'id': ans.id,
@@ -93,7 +91,9 @@ def get_answers(request, question_id):
         'question_type': ans.question_type,
         'content': ans.content,
         'numbers_rated_up': ans.numbers_rated_up,
-        'numbers_rated_down': ans.numbers_rated_down
+        'numbers_rated_down': ans.numbers_rated_down,
+        'user_disliked': (user in ans.users_rated_down_answers.all()),
+        'user_liked': (user in ans.users_rated_up_answers.all())
     } for ans in answer_all_list]
     i = 0
     for ans in response_dict:
@@ -127,6 +127,8 @@ def get_user_answers(request, username=''):
         'publish_date_time': ans.publish_date_time,
         'question_type': ans.question_type,
         'content': ans.content,
+        'numbers_rated_up': ans.numbers_rated_up,
+        'numbers_rated_down': ans.numbers_rated_down
     } for ans in answer_list]
     return JsonResponse(response_dict, safe=False, status=200)
 

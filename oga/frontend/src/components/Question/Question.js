@@ -3,18 +3,24 @@ import moment from "moment";
 
 //Materials UI imports
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import { Divider } from "@material-ui/core";
+import CommentIcon from "@material-ui/icons/Comment";
+import {
+    Avatar,
+    Card,
+    CardContent,
+    Chip,
+    Divider,
+    Grid,
+    Link,
+    Typography
+} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     card: {
         margin: "auto",
         transition: "0.3s",
-        boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+        // boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+        height: "100%",
         "&:hover": {
             boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
         }
@@ -27,12 +33,15 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(3)
     },
     divider: {
-        marginTop: theme.spacing(3),
-        marginBottom: theme.spacing(1)
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2)
     },
     heading: {
         paddingTop: 20,
         fontWeight: "bold"
+    },
+    icon: {
+        fill: "lightgrey"
     },
     subheading: {
         color: "#ff9933",
@@ -41,6 +50,15 @@ const useStyles = makeStyles(theme => ({
     },
     caption: {
         color: "#585858"
+    },
+    chip: {
+        marginRight: 10,
+        marginLeft: 10,
+        color: "#000"
+    },
+    badge: {
+        marginRight: 10,
+        marginLeft: 10
     }
 }));
 
@@ -48,45 +66,44 @@ const Question = props => {
     const classes = useStyles();
 
     return (
-        <Grid className="Question" key={props.id}>
+        <Grid className="Question" key={props.id} style={{ height: "100%" }}>
             <Card className={classes.card}>
                 <CardContent align="left" className={classes.content}>
-                    <div onClick={props.clickDetail}>
-                        <Typography
-                            className={classes.subheading}
-                            id="question-author"
-                            variant="subtitle1"
-                        >
-                            {props.author}{" "}
-                            {props.is_answered ? (
-                                <span>&#128525;</span>
-                            ) : (
-                                <span>&#128591;</span>
-                            )}
-                        </Typography>
-                        <Typography
-                            id="question-publish-date-time"
-                            className={classes.caption}
-                            variant="caption"
-                            gutterBottom
-                        >
-                            {moment(
-                                props.publish_date_time,
-                                "MMMM Do YYYY, h:mm:ss a"
-                            ).fromNow()}{" "}
-                            &mdash; {props.publish_date_time}
-                        </Typography>
-
+                    <Typography
+                        className={classes.subheading}
+                        id="question-author"
+                        variant="subtitle1"
+                    >
+                        <Link onClick={props.clickAuthor}>{props.author}</Link>
+                        {props.is_answered ? (
+                            <span> &#128525;</span>
+                        ) : (
+                            <span> &#128591;</span>
+                        )}
+                    </Typography>
+                    <Typography
+                        id="question-publish-date-time"
+                        className={classes.caption}
+                        variant="caption"
+                        gutterBottom
+                    >
+                        {moment(
+                            props.publish_date_time,
+                            "MMMM Do YYYY, h:mm:ss a"
+                        ).fromNow()}{" "}
+                        &mdash; {props.publish_date_time}
+                    </Typography>
+                    <Link color="inherit">
                         <Typography
                             className={classes.heading}
                             variant="h6"
                             gutterBottom
+                            id="question-content"
+                            onClick={props.clickDetail}
                         >
-                            <div id="question-content">
-                                {props.content} in {props.location}?
-                            </div>
+                            {props.content} in {props.location}?
                         </Typography>
-                    </div>
+                    </Link>
                     {props.showButtons && (
                         <div>
                             <Divider className={classes.divider} />
@@ -95,22 +112,28 @@ const Question = props => {
                                 justify="center"
                                 alignItems="center"
                             >
-                                <Button
-                                    color="primary"
+                                <Chip
+                                    className={classes.chip}
+                                    avatar={
+                                        <Avatar>{props.answer_count}</Avatar>
+                                    }
                                     id="create-answer-button"
-                                    variant="contained"
+                                    label="Answer"
+                                    clickable
+                                    color="primary"
                                     onClick={props.clickAnswer}
-                                >
-                                    Answer
-                                </Button>
-
-                                <Button
+                                />
+                                <Chip
+                                    className={classes.chip}
+                                    avatar={
+                                        <Avatar>{props.follow_count}</Avatar>
+                                    }
                                     id="follow-button"
+                                    label="Follow"
+                                    clickable
                                     color="primary"
                                     onClick={props.clickFollow}
-                                >
-                                    Follow
-                                </Button>
+                                />
                             </Grid>
                         </div>
                     )}

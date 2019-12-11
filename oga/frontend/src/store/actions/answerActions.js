@@ -19,7 +19,7 @@ export const createAnswer = (answer, question_id) => {
             .post("/api/reply/" + question_id + "/", answer)
             .then(res => {
                 dispatch(createAnswer_(res.data));
-                dispatch(push("/main/"));
+                dispatch(push("/replies/" + question_id + "/"));
             })
             .catch(err => console.error(err));
     };
@@ -112,8 +112,10 @@ export const rateUp = answer_id => {
             .put("/api/rate/up/" + answer_id + "/")
             .then(res => {
                 dispatch(rate_(res.data));
+                // timeout needed due to asynchronous call
+                setTimeout(() => window.location.reload(), 0);
             })
-            .catch(err => console.error(err));
+            .catch(err => alert("You already rated this answer!"));
     };
 };
 
@@ -123,7 +125,9 @@ export const rateDown = answer_id => {
             .put("/api/rate/down/" + answer_id + "/")
             .then(res => {
                 dispatch(rate_(res.data));
+                // timeout needed due to asynchronous call
+                setTimeout(() => window.location.reload(), 0);
             })
-            .catch(err => console.error(err));
+            .catch(err => alert("You already rated this answer!"));
     };
 };
