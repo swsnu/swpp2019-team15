@@ -52,7 +52,6 @@ class AnswerView extends Component {
 
     render() {
         const { classes } = this.props;
-        var sel = null;
         // if (this.props.is_answered && this.props.is_rated) {
         //     var selec1 = (
         //         <React.Fragment>

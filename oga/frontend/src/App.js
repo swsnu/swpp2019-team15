@@ -42,7 +42,7 @@ console.log("PushManager" in window);
 //}
 
 function App(props) {
-    let session = true;
+    // let session = true;
     props.isLoggedIn(); //sets state's authenticate
     if (props.auth !== null)
         return (

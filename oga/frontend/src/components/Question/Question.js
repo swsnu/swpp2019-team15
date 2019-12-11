@@ -6,14 +6,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import CommentIcon from "@material-ui/icons/Comment";
 import {
     Avatar,
-    Badge,
-    Button,
     Card,
     CardContent,
     Chip,
     Divider,
     Grid,
-    IconButton,
     Link,
     Typography
 } from "@material-ui/core";
