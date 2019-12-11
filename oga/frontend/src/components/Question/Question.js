@@ -115,19 +115,6 @@ const Question = props => {
                                 justify="center"
                                 alignItems="center"
                             >
-                                {/* <Chip variant onClick={props.clickDetail}>
-                                    <Badge
-                                        color="primary"
-                                        className={classes.badge}
-                                        badgeContent={props.answer_count}
-                                        anchorOrigin={{
-                                            horizontal: "right",
-                                            vertical: "top"
-                                        }}
-                                    >
-                                        <CommentIcon className={classes.icon} />
-                                    </Badge>
-                                </Chip> */}
                                 <Chip
                                     className={classes.chip}
                                     avatar={
@@ -136,12 +123,14 @@ const Question = props => {
                                     id="create-answer-button"
                                     label="Answer"
                                     clickable
-                                    // variant="outlined"
                                     color="primary"
                                     onClick={props.clickAnswer}
                                 />
                                 <Chip
                                     className={classes.chip}
+                                    avatar={
+                                        <Avatar>{props.follow_count}</Avatar>
+                                    }
                                     id="follow-button"
                                     label="Follow"
                                     clickable

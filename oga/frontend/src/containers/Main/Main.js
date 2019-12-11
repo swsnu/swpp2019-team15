@@ -72,6 +72,7 @@ class QuestionList extends Component {
                         )}
                         content={qs.content}
                         answer_count={qs.answer_count}
+                        follow_count={qs.follow_count}
                         location={qs.location}
                         is_answered={qs.is_answered}
                         showButtons={true}
