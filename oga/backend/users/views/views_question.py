@@ -115,4 +115,4 @@ def follow_question(request, question_id):
         return JsonResponse({}, status=201)
 
     else:
-        return JsonResponse(status=400)
+        return JsonResponse({}, status=400)

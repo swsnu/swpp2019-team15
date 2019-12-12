@@ -27,7 +27,7 @@ def rate_up_answer(request, answer_id):
     rated_down_list = answer.users_rated_down_answers.all()
 
     if user in rated_up_list:
-        return HttpResponse(status=403)
+        return HttpResponse(status=400)
 
     if user in rated_down_list:
         # Remove previous rate down
@@ -67,7 +67,7 @@ def rate_down_answer(request, answer_id):
 
     if user in rated_down_list:
         # User already rated down this answer
-        return HttpResponse(status=403)
+        return HttpResponse(status=400)
 
     if user in rated_up_list:
         # Remove previous rate up
@@ -113,6 +113,6 @@ def get_rated_answer(request):
     if users.count() > 1:
         return HttpResponse(status=404)
     response_dict = [{
-        'users_id_rating': usr.id
-    } for usr in users]
+        'users_id_rating': user.id
+    } for user in users]
     return JsonResponse(response_dict, safe=False, status=201)

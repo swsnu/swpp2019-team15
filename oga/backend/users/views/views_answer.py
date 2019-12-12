@@ -159,8 +159,8 @@ def check_is_rated(request, answer_id):
         GET: check_rating api"""
 
     answer = Answer.objects.get(id=answer_id)
-    is_up_list = [answer.users_rated_up_answers.all()]
-    is_down_list = [answer.users_rated_down_answers.all()]
+    is_up_list = answer.users_rated_up_answers.all()
+    is_down_list = answer.users_rated_down_answers.all()
     user = get_user(request)
     if user in is_up_list:
         response_dict = ({'is_rated': True, 'is_up': True})
