@@ -171,12 +171,18 @@ function MenuAppBar(props) {
                                 >
                                     <MenuIcon />
                                 </IconButton>
-                                <Typography
-                                    variant="h4"
+                                <FormControlLabel
                                     className={classes.title}
-                                >
-                                    askAT
-                                </Typography>
+                                    onClick={() => props.history.push("/")}
+                                    control={
+                                        <Typography
+                                            variant="h4"
+                                            className={classes.title}
+                                        >
+                                            askAT
+                                        </Typography>
+                                    }
+                                />
                                 <FormControlLabel
                                     control={
                                         <Button
