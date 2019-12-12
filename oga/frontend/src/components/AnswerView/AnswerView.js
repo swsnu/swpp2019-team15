@@ -105,30 +105,26 @@ class AnswerView extends Component {
                             </Typography>
                             <Divider className={classes.divider} />
                             <Grid align="center">
-                                {/* {sel} */}
-                                {/* {this.props.ratings} */}
-                                {/* {selec1}
-                                {selec2} */}
-                                <div>
-                                    <ButtonGroup className="Rating">
-                                        <Button
-                                            id="thumb_up-button"
-                                            color="primary"
-                                            onClick={this.props.rateUp}
-                                            disabled={this.props.disableLike}
-                                        >
-                                            &#128077; {this.props.rateUpCount}
-                                        </Button>
-                                        <Button
-                                            id="thumb_down-button"
-                                            color="primary"
-                                            onClick={this.props.rateDown}
-                                            disabled={this.props.disableDislike}
-                                        >
-                                            &#128078; {this.props.rateDownCount}
-                                        </Button>
-                                    </ButtonGroup>
-                                </div>
+                                <ButtonGroup className="Ratings">
+                                    <Button
+                                        className={classes.button}
+                                        id="thumb_up-button"
+                                        color="primary"
+                                        onClick={this.props.rateUp}
+                                        disabled={this.props.disableLike}
+                                    >
+                                        &#128077; {this.props.rateUpCount}
+                                    </Button>
+                                    <Button
+                                        className={classes.button}
+                                        id="thumb_down-button"
+                                        color="primary"
+                                        onClick={this.props.rateDown}
+                                        disabled={this.props.disableDislike}
+                                    >
+                                        &#128078; {this.props.rateDownCount}
+                                    </Button>
+                                </ButtonGroup>
                             </Grid>
                         </CardContent>
                     </Card>

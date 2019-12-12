@@ -36,7 +36,7 @@ class Profile extends Component {
     }
 
     onClickDetailHandler = id => {
-        this.props.history.push("/replies/" + id);
+        this.props.history.push("/reply/" + id);
     };
 
     onClickAuthorHandler = author => {
@@ -97,7 +97,7 @@ class Profile extends Component {
             return (
                 <div
                     style={{ marginBottom: 5, marginTop: 5 }}
-                    onClick={() => this.onClickDetailHandler(ans.question_id)}
+                    onClick={() => this.onClickDetailHandler(ans.id)}
                 >
                     <AnswerView
                         className="MyAnswer"

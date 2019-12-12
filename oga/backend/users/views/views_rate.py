@@ -20,27 +20,31 @@ def rate_up_answer(request, answer_id):
     """
     user = get_user(request)
     answer = get_object_or_404(Answer, id=answer_id)
+    profile = answer.author
 
-    # Get list of users who upvoted this answer
+    # Get list of users who rated this answer
     rated_up_list = answer.users_rated_up_answers.all()
-    # Get list of users who downvoted this answer
     rated_down_list = answer.users_rated_down_answers.all()
 
-    if user in (rated_up_list or rated_down_list):
+    if user in rated_up_list:
         return HttpResponse(status=403)
 
+    if user in rated_down_list:
+        # Remove previous rate down
+        profile.rate_down -= 1
+        answer.numbers_rated_down -= 1
+        answer.users_rated_down_answers.remove(user)
+        answer.save()
+
+    # Add user to rated up list
     answer.numbers_rated_up += 1
     answer.users_rated_up_answers.add(user)
     answer.save()
 
-    profile = answer.author
     profile.rate_up += 1
     profile.save()
-    response_dict = {
-        'answer_id': answer_id,
-        'rated_up': answer.numbers_rated_up,
-        'rated_down': answer.numbers_rated_down,
-    }
+    response_dict = parse_rating(answer)
+
     return JsonResponse(response_dict, status=201)
 
 
@@ -55,29 +59,46 @@ def rate_down_answer(request, answer_id):
     """
     user = get_user(request)
     answer = get_object_or_404(Answer, id=answer_id)
+    profile = answer.author
 
-    # Get list of users who upvoted this answer
+    # Get list of users who rated this answer
     rated_up_list = answer.users_rated_up_answers.all()
-    # Get list of users who downvoted this answer
     rated_down_list = answer.users_rated_down_answers.all()
 
-    if user in (rated_up_list or rated_down_list):
+    if user in rated_down_list:
+        # User already rated down this answer
         return HttpResponse(status=403)
+
+    if user in rated_up_list:
+        # Remove previous rate up
+        profile.rate_up -= 1
+        answer.numbers_rated_up -= 1
+        answer.users_rated_up_answers.remove(user)
+        answer.save()
 
     # Add user to rated down list
     answer.numbers_rated_down += 1
     answer.users_rated_down_answers.add(user)
     answer.save()
 
-    profile = answer.author
     profile.rate_down += 1
     profile.save()
+    response_dict = parse_rating(answer)
+
+    return JsonResponse(response_dict, status=201)
+
+
+def parse_rating(answer):
+    """
+    Single function to parse user rating
+    into Json response dict
+    """
     response_dict = {
-        'answer_id': answer_id,
+        'answer_id': answer.id,
         'rated_up': answer.numbers_rated_up,
         'rated_down': answer.numbers_rated_down
     }
-    return JsonResponse(response_dict, status=201)
+    return response_dict
 
 
 @check_login_required
