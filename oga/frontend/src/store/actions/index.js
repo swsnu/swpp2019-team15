@@ -39,6 +39,7 @@ export {
     isLoggedIn,
     createAnswer,
     getAnswers,
+    getAllAnswers,
     getAnswer,
     getUserAnswers,
     followQuestion,

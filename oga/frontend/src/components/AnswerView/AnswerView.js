@@ -11,17 +11,19 @@ import {
     Divider,
     Grid,
     Link,
-    Typography
+    Typography,
+    Box
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
-const styles = theme => ({
+const useStyles = theme => ({
     card: {
         margin: "auto",
         transition: "0.3s",
-        boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+        width: "100%",
+        // boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
         "&:hover": {
-            boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+            boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)"
         }
     },
     content: {
@@ -29,8 +31,8 @@ const styles = theme => ({
         padding: theme.spacing(3)
     },
     divider: {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2)
+        marginTop: theme.spacing(2)
+        // marginBottom: theme.spacing(2)
     },
     heading: {
         fontWeight: "bold"
@@ -42,6 +44,9 @@ const styles = theme => ({
     },
     caption: {
         color: "#585858"
+    },
+    buttons: {
+        paddingTop: theme.spacing(2)
     }
 });
 
@@ -71,9 +76,15 @@ class AnswerView extends Component {
         // }
 
         return (
-            <Grid className="AnswerView" key={this.props.id}>
+            <Grid
+                // item
+                // xs={6}
+                className="AnswerView"
+                key={this.props.id}
+                style={{ height: "100%", width: "100%" }}
+            >
                 {this.props.is_answered ? (
-                    <Card md={3} className={classes.card}>
+                    <Card className={classes.card}>
                         <CardContent className={classes.content}>
                             <Typography
                                 className={classes.subheading}
@@ -96,18 +107,26 @@ class AnswerView extends Component {
                                 ).fromNow()}{" "}
                                 &mdash; {this.props.publish_date_time}
                             </Typography>
-                            <Typography
-                                className={classes.heading}
-                                variant="h6"
+                            <Box pt={2} />
+                            <Link
+                                color="inherit"
+                                onClick={this.props.clickAnswer}
                             >
-                                {this.props.answer_content} in{" "}
-                                {this.props.place_name}
-                            </Typography>
-                            <Divider className={classes.divider} />
-                            <Grid align="center">
-                                <ButtonGroup className="Ratings">
+                                <Typography
+                                    className={classes.heading}
+                                    variant="h6"
+                                >
+                                    {this.props.answer_content} in{" "}
+                                    {this.props.place_name}
+                                </Typography>
+                            </Link>
+                            {/* prop to hide divider in Profile page view */}
+                            {!this.props.hideDivider && (
+                                <Divider className={classes.divider} />
+                            )}
+                            <Grid align="center" className="Ratings">
+                                <ButtonGroup className={classes.buttons}>
                                     <Button
-                                        className={classes.button}
                                         id="thumb_up-button"
                                         color="primary"
                                         onClick={this.props.rateUp}
@@ -116,7 +135,6 @@ class AnswerView extends Component {
                                         &#128077; {this.props.rateUpCount}
                                     </Button>
                                     <Button
-                                        className={classes.button}
                                         id="thumb_down-button"
                                         color="primary"
                                         onClick={this.props.rateDown}
@@ -203,4 +221,4 @@ class AnswerView extends Component {
 //     );
 // };
 
-export default withStyles(styles)(AnswerView);
+export default withStyles(useStyles)(AnswerView);

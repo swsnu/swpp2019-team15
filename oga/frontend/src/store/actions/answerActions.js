@@ -43,19 +43,30 @@ export const getAnswers = question_id => {
     };
 };
 
-export const getUserAnswers_ = answers => {
-    return {
-        type: actionTypes.GET_USER_ANSWERS,
-        answers: answers
+export const getAllAnswers = () => {
+    return dispatch => {
+        return axios
+            .get("/api/answers/")
+            .then(res => {
+                dispatch(getAnswers_(res.data));
+            })
+            .catch(err => console.error(err));
     };
 };
+
+// export const getUserAnswers_ = answers => {
+//     return {
+//         type: actionTypes.GET_USER_ANSWERS,
+//         answers: answers
+//     };
+// };
 
 export const getUserAnswers = (username = "") => {
     return dispatch => {
         return axios
             .get("/api/profile/answers/" + username + "/")
             .then(res => {
-                dispatch(getUserAnswers_(res.data));
+                dispatch(getAnswers_(res.data));
             })
             .catch(err => console.error(err));
     };

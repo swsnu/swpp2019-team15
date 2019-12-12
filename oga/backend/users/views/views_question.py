@@ -36,10 +36,9 @@ def questions(request):
         return JsonResponse(response_dict, status=201)
 
     else:
-        # get question list
         user = get_user(request)
-        profile = Profile.objects.get(user=user)
-        question_list = Question.objects.filter()
+        # get list of most 100 most recent questions
+        question_list = Question.objects.filter()[:100]
         response_dict = parse_question_list(question_list)
         return JsonResponse(response_dict, safe=False)
 

@@ -115,6 +115,7 @@ class Profile extends Component {
                         is_rated={ans.is_rated}
                         rateUpCount={ans.numbers_rated_up}
                         rateDownCount={ans.numbers_rated_down}
+                        hideDivider={true}
                     />
                 </div>
             );
