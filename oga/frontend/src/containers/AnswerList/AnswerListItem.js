@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import "./AnswerList.css";
 
 import { connect } from "react-redux";
@@ -11,7 +11,7 @@ import AnswerView from "../../components/AnswerView/AnswerView";
 //Material UI imports
 import { Container, Grid } from "@material-ui/core";
 
-class AnswerList extends Component {
+class AnswerListItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -46,6 +46,7 @@ class AnswerList extends Component {
     render() {
         var answers = null;
         var selectedAnswers = this.props.selectedAnswers;
+        console.log(selectedAnswers);
 
         answers = selectedAnswers.map(ans => {
             return (
@@ -53,7 +54,7 @@ class AnswerList extends Component {
                     <AnswerView
                         auth={this.props.auth}
                         key={ans.id}
-                        id={ans.id}
+                        id="answer_item"
                         author={ans.author}
                         content={ans.question_type}
                         place_name={ans.location_name}
@@ -105,4 +106,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(AnswerList));
+)(withRouter(AnswerListItem));

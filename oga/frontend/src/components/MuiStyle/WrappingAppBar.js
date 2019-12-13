@@ -30,7 +30,7 @@ class WrappingAppBar extends Component {
 
     render() {
         var handler = this.props.log_status ? this.props.logout : () => {
-            this.props.history.push("/main")
+            this.props.history.push("/login")
         };
         return (
             <Route>
