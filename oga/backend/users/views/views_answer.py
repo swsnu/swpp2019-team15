@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.views.decorators.http import require_http_methods
 from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
-from collections import OrderedDict
 
 
 @check_login_required
@@ -16,8 +15,8 @@ from collections import OrderedDict
 @require_http_methods(["GET", "POST"])
 @csrf_exempt
 def get_or_create_answer(request, question_or_answer_id):
-    """ 
-    function to post an answer of given question_id  
+    """
+    function to post an answer of given question_id
     or get an answer with given answer_id
     POST: create_answer api
     GET: get_answers api
@@ -54,9 +53,9 @@ def get_or_create_answer(request, question_or_answer_id):
             'downvotes': ans.numbers_rated_down
         }
         return JsonResponse(response_dict, safe=False, status=200)
-    # else:
-    #     # should not reach here.
-    #     return -1
+    else:
+        # should not reach here.
+        return -1
 
 
 @check_login_required
@@ -84,7 +83,7 @@ def get_answers(request, question_id):
     #     else:
     #         ulist.append({'is_rated': False, 'is_up': False})
     response_dict = parse_answer_list(answer_list, user)
-    i = 0
+    # i = 0
     # for ans in response_dict:
     #     ans.update(ulist[i])
     #     i += 1
@@ -97,7 +96,7 @@ def get_answers(request, question_id):
 @csrf_exempt
 def get_all_answers(request):
     """
-    function to get all answers 
+    function to get all answers
     GET: get_all_answers api
     """
     user = get_user(request)
@@ -133,7 +132,7 @@ def parse_answer_list(answer_list, user):
     Single function to parse given answer list
     and return the appropriate Json response dict
     """
-    response_dict = [{
+    answer_dict = [{
         'id': ans.id,
         'question_id': ans.question.id,
         'author': ans.author.user.username,
@@ -147,7 +146,7 @@ def parse_answer_list(answer_list, user):
         'user_liked': (user in ans.users_rated_up_answers.all())
     } for ans in answer_list]
 
-    return response_dict
+    return answer_dict
 
 
 @check_login_required

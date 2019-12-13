@@ -6,9 +6,8 @@ const initialState = {
     answers: [],
     answer_id: null,
     is_rated: null,
-    rate_up: null,
-    rate_down: null,
-    is_up: null
+    rated_up: null,
+    rated_down: null
 };
 
 describe("Answer Reducer", () => {
@@ -80,18 +79,14 @@ describe("Answer Reducer", () => {
         const newState = reducer(undefined, {
             type: actionTypes.RATE_UP,
             answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: true
+            rated_up: 1,
+            rated_down: 0
         });
         expect(newState).toEqual({
             ...initialState,
             answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: true
+            rated_up: 1,
+            rated_down: 0
         });
     });
 
@@ -101,17 +96,15 @@ describe("Answer Reducer", () => {
             type: actionTypes.RATE_DOWN,
             answer_id: 1,
             is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: false
+            rated_up: 1,
+            rated_down: 0
         });
         expect(newState).toEqual({
             ...initialState,
             answer_id: 1,
             is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: false
+            rated_up: 1,
+            rated_down: 0
         });
     });
 });

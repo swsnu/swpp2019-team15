@@ -105,7 +105,7 @@ class Profile extends Component {
                         id={ans.id}
                         author={username}
                         answer_content={ans.content}
-                        place_name={ans.location}
+                        place_name={ans.location_name}
                         publish_date_time={moment(ans.publish_date_time).format(
                             "MMMM Do YYYY, h:mm:ss a"
                         )}
