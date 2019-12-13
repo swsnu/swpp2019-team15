@@ -5,8 +5,8 @@ const initialState = {
     answers: [],
     answer_id: null,
     is_rated: null,
-    rated_up: 0,
-    rated_down: 0,
+    rated_up: null,
+    rated_down: null,
 };
 
 const answerReducer = (state = initialState, action) => {
