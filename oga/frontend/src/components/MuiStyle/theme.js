@@ -7,20 +7,20 @@ export const theme = createMuiTheme({
     },
     palette: {
         background: {
-            default: "#f2f2f2",
-            secondary: "#ffb366"
+            default: "#f4d2d2",
+            secondary: "#f4d2d2"
         },
         primary: {
-            light: "#ffe699",
-            main: "#ffb366",
-            dark: "#ff9933" //color for button hover
+            light: "#cde5f7",
+            main: "#ffd5c2",
+            dark: "#cde5f7" //color for button hover
         },
         secondary: {
-            main: "#ffb366"
+            main: "#c8553d"
         }
     },
     typography: {
-        fontFamily: "arial",
+        fontFamily: "Georgia",
         useNextVariants: true
     },
 
