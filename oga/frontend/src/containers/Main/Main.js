@@ -6,7 +6,7 @@ import "./Main.css";
 import * as actionCreators from "../../store/actions/index";
 import GoogleMap from "../Map/GoogleMap";
 import Question from "../../components/Question/Question";
-import SearchBox from "../../components/MapSearchBox/SearchBox";
+import CustomToggle from "../../components/MuiStyle/CustomToggle";
 
 //Material UI imports
 import {
@@ -77,7 +77,7 @@ class QuestionList extends Component {
     };
 
     render() {
-        console.log(this.props.auth)
+        console.log(this.props.auth);
         var question_len = this.props.storedQuestions.length;
         var answer_len = this.props.storedAnswers.length;
         var title = this.state.isQuestionTab ? "Question" : "Answer";
@@ -162,12 +162,18 @@ class QuestionList extends Component {
             <div className="Main">
                 <GoogleMap viewOnly={true} />
                 <Box pt={8} />
-                <Typography component="h1" variant="h3">
-                    {title} Feed
-                </Typography>
-                <Button onClick={() => this.clickTabHandler()}>Toggle</Button>
+
+                {/* <Button onClick={() => this.clickTabHandler()}>Toggle</Button> */}
                 <Box pt={5} />
                 <Container component="main" justify="center">
+                    <Typography component="h1" variant="h4">
+                        {title} Feed
+                    </Typography>
+                    <CustomToggle
+                        value="Hi"
+                        checked={this.state.isQuestionTab}
+                        onChange={() => this.clickTabHandler()}
+                    />
                     {MyStepper}
                     <Grid container spacing={2} direction="row">
                         {this.state.isQuestionTab ? Questions : Answers}
