@@ -6,9 +6,8 @@ const initialState = {
     answers: [],
     answer_id: null,
     is_rated: null,
-    rate_up: null,
-    rate_down: null,
-    is_up: null
+    rated_up: 0,
+    rated_down: 0,
 };
 
 describe("Answer Reducer", () => {
@@ -75,43 +74,4 @@ describe("Answer Reducer", () => {
         });
     });
 
-    // Test rate up reducer
-    it("CheckRating should return is rated", () => {
-        const newState = reducer(undefined, {
-            type: actionTypes.RATE_UP,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: true
-        });
-        expect(newState).toEqual({
-            ...initialState,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: true
-        });
-    });
-
-    // Test rate down reducer
-    it("CheckRating should return is rated", () => {
-        const newState = reducer(undefined, {
-            type: actionTypes.RATE_DOWN,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: false
-        });
-        expect(newState).toEqual({
-            ...initialState,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: false
-        });
-    });
 });
