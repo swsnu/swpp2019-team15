@@ -69,7 +69,7 @@ class NewAnswer extends Component {
             qs_type = question_types[qs_type];
 
             selected_question_type_list = (
-                <Slider
+                <Slider id="#slider"
                     style={{
                         marginTop: 50,
                         marginBottom: 50,

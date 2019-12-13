@@ -6,10 +6,16 @@ import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch } from "react-router-dom";
 import { history } from "../../store/store";
 import * as actionCreators from "../../store/actions/questionActions";
+import * as answerActions from "../../store/actions/answerActions";
 import thunk from "redux-thunk";
 import Main from "./Main.js";
 
 const mockStore = configureMockStore([thunk]);
+const spyGetAnswer = jest
+    .spyOn(answerActions, "getAllAnswers")
+    .mockImplementation(() => {
+        return dispatch => {};
+    });
 const store = mockStore({
     question: {
         questions: [

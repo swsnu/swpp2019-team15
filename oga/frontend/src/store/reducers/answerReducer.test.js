@@ -73,38 +73,4 @@ describe("Answer Reducer", () => {
             ]
         });
     });
-
-    // Test rate up reducer
-    it("CheckRating should return is rated", () => {
-        const newState = reducer(undefined, {
-            type: actionTypes.RATE_UP,
-            answer_id: 1,
-            rated_up: 1,
-            rated_down: 0
-        });
-        expect(newState).toEqual({
-            ...initialState,
-            answer_id: 1,
-            rated_up: 1,
-            rated_down: 0
-        });
-    });
-
-    // Test rate down reducer
-    it("CheckRating should return is rated", () => {
-        const newState = reducer(undefined, {
-            type: actionTypes.RATE_DOWN,
-            answer_id: 1,
-            is_rated: true,
-            rated_up: 1,
-            rated_down: 0
-        });
-        expect(newState).toEqual({
-            ...initialState,
-            answer_id: 1,
-            is_rated: true,
-            rated_up: 1,
-            rated_down: 0
-        });
-    });
 });

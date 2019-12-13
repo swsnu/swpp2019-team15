@@ -3,10 +3,9 @@ import json
 
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate, logout, get_user
+from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import ensure_csrf_cookie
-from users.models import Profile
 from users.views.decorators import check_request, check_login_required
 
 
