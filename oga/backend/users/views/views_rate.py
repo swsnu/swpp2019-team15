@@ -43,7 +43,7 @@ def rate_up_answer(request, answer_id):
 
     profile.rate_up += 1
     profile.save()
-    response_dict = parse_rating(answer)
+    response_dict = parse_rating(answer, True)
 
     return JsonResponse(response_dict, safe=False, status=201)
 
@@ -83,12 +83,12 @@ def rate_down_answer(request, answer_id):
 
     profile.rate_down += 1
     profile.save()
-    response_dict = parse_rating(answer)
+    response_dict = parse_rating(answer, False)
 
     return JsonResponse(response_dict, safe=False, status=201)
 
 
-def parse_rating(answer):
+def parse_rating(answer, is_up):
     """
     Single function to parse user rating
     into Json response dict
@@ -96,7 +96,8 @@ def parse_rating(answer):
     rating_dict = {
         'answer_id': answer.id,
         'rated_up': answer.numbers_rated_up,
-        'rated_down': answer.numbers_rated_down
+        'rated_down': answer.numbers_rated_down,
+        'is_up': is_up,
     }
     return rating_dict
 

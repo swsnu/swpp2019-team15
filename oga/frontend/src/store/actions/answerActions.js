@@ -114,6 +114,7 @@ export const rate_ = rate => {
         answer_id: rate.answer_id,
         rated_up: rate.rated_up,
         rated_down: rate.rated_down,
+        is_up: rate.is_up,
     };
 };
 
