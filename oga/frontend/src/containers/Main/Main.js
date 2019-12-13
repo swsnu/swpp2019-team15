@@ -123,13 +123,13 @@ class QuestionList extends Component {
         );
 
         var pageCount = this.state.isQuestionTab
-            ? Math.round(question_len / 10, 0)
-            : Math.round(answer_len / 10, 0);
+            ? Math.ceil(question_len / 10, 1)
+            : Math.ceil(answer_len / 10, 1);
 
         // Stepper component for page navigation
         const MyStepper = (
             <MobileStepper
-                steps={pageCount + 1}
+                steps={pageCount}
                 position="static"
                 variant="text"
                 activeStep={this.state.activeStep}
@@ -138,7 +138,7 @@ class QuestionList extends Component {
                         id="stepper-next"
                         size="small"
                         onClick={() => this.handleStepperNext()}
-                        disabled={this.state.activeStep === pageCount}
+                        disabled={this.state.activeStep === pageCount-1}
                     >
                         Next
                         <KeyboardArrowRight />
