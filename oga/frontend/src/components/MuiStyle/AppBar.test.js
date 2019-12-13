@@ -50,24 +50,6 @@ describe("<AppBar />", () => {
         expect(component.find(".AppBar").length).toBe(1);
     });
 
-    it("should not render appbar when auth=false", () => {
-        let noAppBar = (
-            <Provider store={store}>
-                <ConnectedRouter history={history}>
-                    <Switch>
-                        <Route
-                            path="/"
-                            exact
-                            render={props => <AppBar auth={false} />}
-                        />
-                    </Switch>
-                </ConnectedRouter>
-            </Provider>
-        );
-        const component = mount(noAppBar);
-        expect(component.find("#app-bar").length).toBe(0);
-    });
-
     it("should redirect to settings page ", () => {
         const spyHistoryPush = jest
             .spyOn(history, "push")
