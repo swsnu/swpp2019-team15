@@ -10,7 +10,7 @@ from ..models import Question, Location, Answer, Profile
 from ..views.decorators import check_request, check_login_required
 
 
-@check_login_required
+#@check_login_required
 @check_request
 @require_http_methods(["POST", "GET"])
 def questions(request):
@@ -79,7 +79,7 @@ def parse_question_list(question_list):
     return response_dict
 
 
-@check_login_required
+#@check_login_required
 @check_request
 @require_http_methods(["GET"])
 def question_detail(request, question_id):

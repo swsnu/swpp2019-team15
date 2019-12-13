@@ -61,12 +61,7 @@ function App(props) {
                         <Switch>
                             <Route path="/signup" exact component={Signup} />
                             <Route path="/login" exact component={Login} />
-                            <PrivateRoute
-                                auth={props.auth}
-                                path="/main"
-                                exact
-                                component={Main}
-                            />
+                            <Route path="/main" exact component={Main} />
                             <PrivateRoute
                                 auth={props.auth}
                                 path="/ask"
