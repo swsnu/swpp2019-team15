@@ -10,13 +10,15 @@ from ..models import Question, Location, Answer
 from ..views.decorators import check_request, check_login_required
 
 
-@check_login_required
+#@check_login_required
 @check_request
 @require_http_methods(["POST", "GET"])
 def questions(request):
     """api wrapper of POST and GET methods"""
     if request.method == 'POST':
         # create new question
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
         req_data = json.loads(request.body.decode())
         location = req_data['target_location']
         content = req_data['content']

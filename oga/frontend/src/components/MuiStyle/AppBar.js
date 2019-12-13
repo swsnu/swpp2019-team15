@@ -4,6 +4,7 @@
 
 import React from "react";
 import { withRouter } from "react-router";
+import { Route, Redirect } from "react-router-dom";
 
 // Material UI imports
 import clsx from "clsx";
@@ -111,9 +112,10 @@ const useStyles = makeStyles(theme => ({
 function MenuAppBar(props) {
     const classes = useStyles();
     var auth = props.auth;
-    var func = props.func;
+    var func = props.func
     var mouseLeaveTimeout = true;
     MenuItem.displayName = "menu_item";
+    var Log_toggle = auth ? "Log-Out" : "Log-In"
 
     const [open, setOpen] = React.useState(false);
 
@@ -150,7 +152,7 @@ function MenuAppBar(props) {
 
     return (
         <div className="AppBar">
-            {auth && (
+            {(
                 <ClickAwayListener onClickAway={handleDrawerClose}>
                     <div className={classes.root}>
                         <CssBaseline />
@@ -187,12 +189,11 @@ function MenuAppBar(props) {
                                 <FormControlLabel
                                     control={
                                         <Button
-                                            checked={auth}
                                             onClick={() => func()}
                                             aria-label="logout-button"
                                         >
                                             <ExitToApp />
-                                            Logout
+                                            {Log_toggle}
                                         </Button>
                                     }
                                 />

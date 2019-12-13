@@ -130,7 +130,7 @@ class AnswerView extends Component {
                                         id="thumb_up-button"
                                         color="primary"
                                         onClick={this.props.rateUp}
-                                        disabled={this.props.disableLike}
+                                        disabled={!this.props.auth || this.props.disableLike}
                                     >
                                         &#128077; {this.props.rateUpCount}
                                     </Button>
@@ -138,7 +138,7 @@ class AnswerView extends Component {
                                         id="thumb_down-button"
                                         color="primary"
                                         onClick={this.props.rateDown}
-                                        disabled={this.props.disableDislike}
+                                        disabled={!this.props.auth || this.props.disableDislike}
                                     >
                                         &#128078; {this.props.rateDownCount}
                                     </Button>
