@@ -46,6 +46,7 @@ class AnswerListItem extends Component {
     render() {
         var answers = null;
         var selectedAnswers = this.props.selectedAnswers;
+
         answers = selectedAnswers.map(ans => {
             return (
                 <Grid item xs={6} key={ans.id}>
