@@ -31,6 +31,21 @@ class SearchBox extends Component {
         };
     }
 
+    componentDidMount() {
+        window.addEventListener("scroll", this.handleScroll, true);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.handleScroll);
+    }
+
+    handleScroll = () => {
+        console.log("Scrolling");
+        // Close dropdown list on scroll
+        var click = document.getElementById("autocomplete");
+        click.blur();
+    };
+
     handleScriptLoad = () => {
         // Declare Options For Autocomplete
         //const options = {
@@ -69,7 +84,9 @@ class SearchBox extends Component {
     };
 
     onClearSearchBox = () => {
-        this.searchInput = "";
+        // Clear text field value in search box
+        var autocomplete = document.getElementById("autocomplete");
+        autocomplete.value = "";
     };
 
     render() {
@@ -80,48 +97,38 @@ class SearchBox extends Component {
             "&libraries=places";
         return (
             <Grid
-                // style={{ position: "fixed" }}
-                align="right"
+                item
+                id="search-box"
+                justify="flex-end"
                 className="MapSearchBox"
-                // position="fixed"
-                // style={{ zIndex: 5555000 }}
+                position="relative"
             >
                 <TextField
-                    // style={{ width: "70%" }}
-                    // position="fixed"
                     id="autocomplete"
                     type="input"
                     variant="outlined"
                     placeholder="Search for a location"
-                    // Remove textfield border padding
                     inputProps={{
+                        // Remove textfield border padding
                         style: {
-                            padding: 10,
-                            right: 100
+                            padding: 10
                         }
                     }}
                     InputProps={{
                         style: {
-                            // height: "100%",
-                            width: "180%",
+                            width: "65%",
                             backgroundColor: "#fff",
                             height: 40,
-                            // top: -18,
-                            right: "-350%"
-                            // marginRight: 30
+                            marginLeft: "80vh"
                         },
                         endAdornment: (
                             <InputAdornment>
-                                {this.state.city == "" ? (
-                                    <Search />
-                                ) : (
-                                    <IconButton
-                                        id="clear-search-button"
-                                        onClick={() => this.onClearSearchBox()}
-                                    >
-                                        <Close />
-                                    </IconButton>
-                                )}
+                                <IconButton
+                                    id="clear-search-button"
+                                    onClick={() => this.onClearSearchBox()}
+                                >
+                                    <Close />
+                                </IconButton>
                             </InputAdornment>
                         )
                     }}

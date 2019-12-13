@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1
     },
     searchBar: {
-        zIndex: 9999
+        zIndex: 5000
     },
     menuButton: {
         paddingLeft: 10,
@@ -200,8 +200,8 @@ function MenuAppBar(props) {
                                     }
                                 />
                                 <SearchBox
-                                    position="absolute"
-                                    style={{ leftMargin: 1000, zIndex: 9999 }}
+                                    position="relative"
+                                    // style={{ zIndex: 5000 }}
                                     className={classes.searchBar}
                                 />
                                 <FormControlLabel
