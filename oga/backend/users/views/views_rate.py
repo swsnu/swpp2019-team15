@@ -5,7 +5,7 @@ from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
-from ..models import User, Answer, Profile
+from ..models import User, Answer
 from ..views.decorators import check_request, check_login_required
 
 

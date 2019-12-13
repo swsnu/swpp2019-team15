@@ -27,7 +27,7 @@ class QuestionList extends Component {
         super(props);
 
         this.state = {
-            isQuestionTab: false,
+            isQuestionTab: true,
             activeStep: 0
         };
     }

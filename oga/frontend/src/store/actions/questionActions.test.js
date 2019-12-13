@@ -232,7 +232,7 @@ describe("questionActions", () => {
             });
         });
         store.dispatch(actionCreators.followQuestion(1)).then(() => {
-            expect(console.log).toHaveBeenCalledTimes(1);
+            expect(console.alert).toHaveBeenCalledTimes(1);
             done();
         });
     });

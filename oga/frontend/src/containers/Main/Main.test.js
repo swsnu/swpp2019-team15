@@ -23,6 +23,9 @@ const store = mockStore({
             }
         ]
     },
+    answer: {
+        answers: null
+    },
     auth: {
         username: "",
         password: ""
