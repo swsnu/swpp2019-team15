@@ -17,8 +17,6 @@ import {
     SettingsApplications,
     ChevronLeft,
     ExitToApp,
-    Search,
-    Close
 } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import {
@@ -218,7 +216,7 @@ function MenuAppBar(props) {
                                                 aria-label="logout-button"
                                             >
                                                 <ExitToApp />
-                                                Logout
+                                                {Log_toggle}
                                             </Button>
                                         }
                                     />
