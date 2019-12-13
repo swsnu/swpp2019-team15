@@ -43,9 +43,9 @@ class AnswerList extends Component {
         this.props.history.push("/reply/create/" + id);
     };
 
-    clickBackHandler = () => {
-        this.props.history.goBack();
-    };
+    //clickBackHandler = () => {
+        //this.props.history.goBack();
+    //};
 
     render() {
         var gotten_answer_view = this.props.selectedQuestion;
@@ -131,10 +131,6 @@ const mapStateToProps = state => {
     return {
         selectedQuestion: state.question.selectedQuestion,
         selectedAnswers: state.answer.answers,
-        rated_up: state.answer.rated_up,
-        rated_down: state.answer.rated_down
-        // numbers_rated_up: state.answer.numbers_rated_up,
-        // numbers_rated_down: state.answer.numbers_rated_down,
     };
 };
 
@@ -142,8 +138,6 @@ const mapDispatchToProps = dispatch => {
     return {
         onGetQuestion: id => dispatch(actionCreators.getQuestion(id)),
         onGetAnswers: id => dispatch(actionCreators.getAnswers(id)),
-        rateUp: id => dispatch(actionCreators.rateUp(id)),
-        rateDown: id => dispatch(actionCreators.rateDown(id))
     };
 };
 

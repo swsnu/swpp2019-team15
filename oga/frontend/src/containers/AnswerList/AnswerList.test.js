@@ -98,7 +98,6 @@ describe("<AnswerList />", () => {
             .mockImplementation(path => {});
         const component = mount(answerList);
         component.setProps({ match: { params: { id: 1 } } });
-        console.log(component.props().match.params.id);
         const wrapper = component.find("#reply-create-button");
         wrapper.hostNodes().simulate("click");
         expect(spyHistoryPush).toBeCalledTimes(1);
