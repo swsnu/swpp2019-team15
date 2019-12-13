@@ -28,11 +28,11 @@ class AnswerTestCase(TestCase):
         profile = Profile.objects.get(user=self.user)
         profile.location_id = self.location
         profile.save()
-        answer = Answer.objects.create(id=1, question=self.question,
-                                       author=profile,
-                                       question_type='rain?',
-                                       content='no')
-        answer.save()
+        self.answer = Answer.objects.create(id=1, question=self.question,
+                                            author=profile,
+                                            question_type='rain?',
+                                            content='no')
+        self.answer.save()
         self.client.login(username='test', password='1234')
 
     def tearDown(self):
@@ -52,15 +52,31 @@ class AnswerTestCase(TestCase):
 
     def test_get_answer(self):
         """ test getting an answer """
-        answer = {'question_type': 'rain?', 
+        answer = {'question_type': 'rain?',
                   'answer_content': 'no'}
         response = self.client.post('/api/reply/1/',
                                     json.dumps(answer),
                                     content_type='application/json')
         response = self.client.get('/api/reply/1/')
-
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['content'], 'no')
+
+    def test_get_all_answers(self):
+        answer = {'question_type': 'rain?',
+                  'answer_content': 'no'}
+        response = self.client.post('/api/reply/1/',
+                                    json.dumps(answer),
+                                    content_type='application/json')
+        answer = {'question_type': 'seats?',
+                  'answer_content': 'yes'}
+        response = self.client.post('/api/reply/1/',
+                                    json.dumps(answer),
+                                    content_type='application/json')
+        response = self.client.get('/api/answers/')
+        self.assertEqual(response.status_code, 200)
+        # answers sorted in order of most recently published
+        self.assertEqual(response.json()[1]['content'], 'no')
+        self.assertEqual(response.json()[0]['content'], 'yes')
 
     def test_get_answers(self):
         """ test getting every answers for a question"""
@@ -91,7 +107,7 @@ class AnswerTestCase(TestCase):
         self.assertEqual(len(response.json()), 1)
 
     def test_get_single_users_answer_list(self):
-        """ 
+        """
         Test getting answer list of another user's profile.
         """
         # create another user
@@ -119,7 +135,6 @@ class AnswerTestCase(TestCase):
         response = self.client.get('/api/profile/answers/new_user/')
         # question list should contain new question
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]['content'], 'many')
 
     def test_if_initial_answer_is_rated(self):
@@ -127,11 +142,14 @@ class AnswerTestCase(TestCase):
         # Answer initially unrated
         response = self.client.get('/api/rate/is_rated/1/')
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.answer.numbers_rated_up, 0)
+        self.assertEqual(self.answer.numbers_rated_down, 0)
         self.assertEqual(response.json()['is_rated'], False)
 
     def test_when_answer_is_rated_up(self):
         """ test when answer has been rated """
         # Rate answer
+        answer = Answer.objects.get(id=1)
         response = self.client.put('/api/rate/up/1/')
         self.assertEqual(response.status_code, 201)
 
@@ -143,16 +161,18 @@ class AnswerTestCase(TestCase):
     def test_uprating_a_rated_answer(self):
         """ test when user tries to rate a rated answer"""
         # Rate answer
+        answer = Answer.objects.get(id=1)
         response = self.client.put('/api/rate/up/1/')
         self.assertEqual(response.status_code, 201)
 
-        # Answer should be rated
+        # Duplicate answer downvotes should not be allowed
         response = self.client.put('/api/rate/up/1/')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 400)
 
     def test_when_answer_is_rated_down(self):
         """ test when answer has been rated """
         # Rate answer
+        answer = Answer.objects.get(id=1)
         response = self.client.put('/api/rate/down/1/')
         self.assertEqual(response.status_code, 201)
 
@@ -164,9 +184,10 @@ class AnswerTestCase(TestCase):
     def test_downrating_a_rated_answer(self):
         """ test when user tries to rate a rated answer"""
         # Rate answer
-        response = self.client.put('/api/rate/up/1/')
+        answer = Answer.objects.get(id=1)
+        response = self.client.put('/api/rate/down/1/')
         self.assertEqual(response.status_code, 201)
 
-        # Answer should be rated
+        # Duplicate answer downvotes should not be allowed
         response = self.client.put('/api/rate/down/1/')
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 400)

@@ -1,6 +1,7 @@
+import React from "react";
 import * as actionTypes from "./actionTypes.js";
 import axios from "axios";
-
+import { Redirect } from "react-router-dom";
 import { push } from "connected-react-router";
 
 export const signUp_ = res => {
@@ -48,7 +49,7 @@ export const signIn = user => {
             })
             .catch(err => {
                 alert(
-                    "The username of password is incorrect.\nPlease try again."
+                    "The username or password is incorrect.\nPlease try again."
                 );
             });
     };
@@ -69,6 +70,7 @@ export const isLoggedIn = () => {
                 dispatch(isLoggedIn_(true));
             })
             .catch(err => {
+                console.log(err);
                 dispatch(isLoggedIn_(false));
             });
     };
@@ -84,7 +86,7 @@ export const Logout = () => {
             })
             .catch(err => {
                 console.log(err);
-                // dispatch(isLoggedIn_(true));
+                dispatch(isLoggedIn_(true));
             });
     };
 };

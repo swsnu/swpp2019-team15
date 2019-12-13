@@ -1,5 +1,3 @@
-import React from "react";
-
 import reducer from "./answerReducer.js";
 import * as actionTypes from "../actions/actionTypes";
 
@@ -8,9 +6,8 @@ const initialState = {
     answers: [],
     answer_id: null,
     is_rated: null,
-    rate_up: null,
-    rate_down: null,
-    is_up: null
+    rated_up: null,
+    rated_down: null
 };
 
 describe("Answer Reducer", () => {
@@ -74,46 +71,6 @@ describe("Answer Reducer", () => {
                     answer_content: "NO"
                 }
             ]
-        });
-    });
-
-    // Test rate up reducer
-    it("CheckRating should return is rated", () => {
-        const newState = reducer(undefined, {
-            type: actionTypes.RATE_UP,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: true
-        });
-        expect(newState).toEqual({
-            ...initialState,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: true
-        });
-    });
-
-    // Test rate down reducer
-    it("CheckRating should return is rated", () => {
-        const newState = reducer(undefined, {
-            type: actionTypes.RATE_DOWN,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: false
-        });
-        expect(newState).toEqual({
-            ...initialState,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: false
         });
     });
 });

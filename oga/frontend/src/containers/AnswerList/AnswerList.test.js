@@ -35,7 +35,7 @@ const store = mockStore({
                 id: 1,
                 author: "me",
                 question_type: "MANY SEATS",
-                publish_date_time: "2019",
+                publish_date_time: "2019-01-01 00:00:00",
                 place_name: "HOME"
             }
         ]
@@ -76,7 +76,7 @@ describe("<AnswerList />", () => {
     it("should render AnswerList", () => {
         const component = mount(answerList);
         const wrapper = component.find(".spyAnswer");
-        expect(wrapper.length).toBe(2);
+        expect(wrapper.length).toBe(1);
         expect(spyGetAnswers).toBeCalledTimes(1);
         expect(spyGetQuestion).toBeCalledTimes(1);
     });
@@ -98,7 +98,6 @@ describe("<AnswerList />", () => {
             .mockImplementation(path => {});
         const component = mount(answerList);
         component.setProps({ match: { params: { id: 1 } } });
-        console.log(component.props().match.params.id);
         const wrapper = component.find("#reply-create-button");
         wrapper.hostNodes().simulate("click");
         expect(spyHistoryPush).toBeCalledTimes(1);
@@ -130,7 +129,7 @@ describe("<AnswerList />", () => {
                         id: 1,
                         author: "me",
                         question_type: "MANY SEATS",
-                        publish_date_time: "2019",
+                        publish_date_time: "2019-01-01 00:00:00",
                         place_name: "HOME"
                     }
                 ]
