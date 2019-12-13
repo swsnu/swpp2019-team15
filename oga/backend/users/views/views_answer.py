@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.http import require_http_methods
 from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
+from collections import OrderedDict
 
 
 @check_login_required
@@ -15,8 +16,8 @@ from users.views.decorators import check_request, check_login_required
 @require_http_methods(["GET", "POST"])
 @csrf_exempt
 def get_or_create_answer(request, question_or_answer_id):
-    """
-    function to post an answer of given question_id
+    """ 
+    function to post an answer of given question_id  
     or get an answer with given answer_id
     POST: create_answer api
     GET: get_answers api
@@ -49,27 +50,28 @@ def get_or_create_answer(request, question_or_answer_id):
             'place_name': question.location_id.name,
             'place_lat': question.location_id.latitude,
             'place_lng': question.location_id.longitude,
+            'upvotes': ans.numbers_rated_up,
+            'downvotes': ans.numbers_rated_down
         }
         return JsonResponse(response_dict, safe=False, status=200)
-    else:
-        # should not reach here.
-        return -1
+    # else:
+    #     # should not reach here.
+    #     return -1
 
 
-#@check_login_required
+@check_login_required
 @check_request
 @require_http_methods(["GET"])
 @csrf_exempt
 def get_answers(request, question_id):
-    """function to get answers of question_id
-        GET: get_answers api"""
-    response_dict = []
+    """
+    function to get answers of question_id
+    GET: get_answers api
+    """
     question = Question.objects.get(id=question_id)
-    answer_all_list = Answer.objects.filter(question=question)
+    answer_list = Answer.objects.filter(question=question)
 
-    ulist = []
     user = get_user(request)
-
     # ulist = []
     # for answer in answer_list:
     #     is_up_list = answer.users_rated_up_answers.all()
@@ -82,7 +84,7 @@ def get_answers(request, question_id):
     #     else:
     #         ulist.append({'is_rated': False, 'is_up': False})
     response_dict = parse_answer_list(answer_list, user)
-    # i = 0
+    i = 0
     # for ans in response_dict:
     #     ans.update(ulist[i])
     #     i += 1
@@ -95,7 +97,7 @@ def get_answers(request, question_id):
 @csrf_exempt
 def get_all_answers(request):
     """
-    function to get all answers
+    function to get all answers 
     GET: get_all_answers api
     """
     user = get_user(request)
@@ -131,18 +133,21 @@ def parse_answer_list(answer_list, user):
     Single function to parse given answer list
     and return the appropriate Json response dict
     """
-    answer_dict = [{
+    response_dict = [{
         'id': ans.id,
         'question_id': ans.question.id,
-        'question_author': ans.question.author.username,
-        'question_publish_date_time': ans.question.publish_date_time,
-        'location': ans.question.location_id.name,
+        'author': ans.author.user.username,
         'publish_date_time': ans.publish_date_time,
         'question_type': ans.question_type,
         'content': ans.content,
+        'location_name': ans.question.location_id.name,
+        'numbers_rated_up': ans.numbers_rated_up,
+        'numbers_rated_down': ans.numbers_rated_down,
+        'user_disliked': (user in ans.users_rated_down_answers.all()),
+        'user_liked': (user in ans.users_rated_up_answers.all())
     } for ans in answer_list]
 
-    return answer_dict
+    return response_dict
 
 
 @check_login_required
@@ -154,8 +159,8 @@ def check_is_rated(request, answer_id):
         GET: check_rating api"""
 
     answer = Answer.objects.get(id=answer_id)
-    is_up_list = [answer.users_rated_up_answers.all()]
-    is_down_list = [answer.users_rated_down_answers.all()]
+    is_up_list = answer.users_rated_up_answers.all()
+    is_down_list = answer.users_rated_down_answers.all()
     user = get_user(request)
     if user in is_up_list:
         response_dict = ({'is_rated': True, 'is_up': True})
