@@ -45,7 +45,7 @@ def rate_up_answer(request, answer_id):
     profile.save()
     response_dict = parse_rating(answer)
 
-    return JsonResponse(response_dict, status=201)
+    return JsonResponse(response_dict, safe=False, status=201)
 
 
 @check_login_required
@@ -85,7 +85,7 @@ def rate_down_answer(request, answer_id):
     profile.save()
     response_dict = parse_rating(answer)
 
-    return JsonResponse(response_dict, status=201)
+    return JsonResponse(response_dict, safe=False, status=201)
 
 
 def parse_rating(answer):
