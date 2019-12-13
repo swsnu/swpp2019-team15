@@ -29,7 +29,7 @@ const answerReducer = (state = initialState, action) => {
         case actionTypes.GET_USER_ANSWERS:
             return { ...state, answers: action.answers };
         case actionTypes.RATE_UP:
-            return { ...state, answer_id: action.answer_id, rated_up: action.rated_up, rated_down: action.rated_down, is_up: true};
+            return { ...state, rated_up: action.rated_up+1, rated_down: action.rated_down};
         case actionTypes.RATE_DOWN:
             return { ...state, answer_id: action.answer_id, rated_up: action.rated_up, rated_down: action.rated_down, is_up: false};
         default:

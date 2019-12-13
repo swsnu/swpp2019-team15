@@ -29,6 +29,9 @@ class AnswerList extends Component {
     };
 
     rateUpHandler = id => {
+        let n = this.props.answers;
+        console.log(n);
+        //this.setState({state.answers[id].numbers_rated_up: n});
         this.props.rateUp(id);
         // Window reload handled in actionCreators
     };
