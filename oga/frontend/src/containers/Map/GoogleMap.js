@@ -185,8 +185,8 @@ class GoogleMap extends Component {
                 <GoogleMapReact
                     style={{
                         position: "relative",
-                        height: "90vh",
-                        top: 18,
+                        height: "91.5vh",
+                        top: 14,
                         width: "100%"
                     }}
                     defaultZoom={this.props.zoom}

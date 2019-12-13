@@ -14,7 +14,7 @@ import React, { Component } from "react";
 import "./MapSearchBox.css";
 
 // Material ui components
-import Close from "@material-ui/icons/Close";
+import { Close, Search } from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -51,8 +51,9 @@ class MapSearchBox extends Component {
             <Grid item align="left" className="MapSearchBox">
                 <TextField
                     style={{
+                        position: "fixed",
                         margin: 30,
-                        zIndex: 1000 // determines layer position for overlaying components
+                        zIndex: 500 // determines layer position for overlaying components
                     }}
                     id="searchbox"
                     type="text"
@@ -64,7 +65,8 @@ class MapSearchBox extends Component {
                     placeholder="Enter a location"
                     InputProps={{
                         style: {
-                            backgroundColor: "#fff"
+                            backgroundColor: "#fff",
+                            zIndex: 1000 // determines layer position for overlaying components
                         },
                         endAdornment: (
                             <InputAdornment>
