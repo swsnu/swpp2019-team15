@@ -35,6 +35,7 @@ def notify_new_question(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Question)
 def add_question(sender, instance, created, **kwargs):
+    """upon saving a new question, add it to the recommender"""
     if created:
         location = instance.location_id.id
         username = instance.author.username
