@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.views.decorators.http import require_http_methods
 from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
-from collections import OrderedDict
 
 
 #@check_login_required
@@ -16,8 +15,8 @@ from collections import OrderedDict
 @require_http_methods(["GET", "POST"])
 @csrf_exempt
 def get_or_create_answer(request, question_or_answer_id):
-    """ 
-    function to post an answer of given question_id  
+    """
+    function to post an answer of given question_id
     or get an answer with given answer_id
     POST: create_answer api
     GET: get_answers api
@@ -56,9 +55,9 @@ def get_or_create_answer(request, question_or_answer_id):
             'downvotes': ans.numbers_rated_down
         }
         return JsonResponse(response_dict, safe=False, status=200)
-    # else:
-    #     # should not reach here.
-    #     return -1
+    else:
+        # should not reach here.
+        return -1
 
 
 @check_login_required
@@ -99,7 +98,7 @@ def get_answers(request, question_id):
 @csrf_exempt
 def get_all_answers(request):
     """
-    function to get all answers 
+    function to get all answers
     GET: get_all_answers api
     """
     user = get_user(request)
