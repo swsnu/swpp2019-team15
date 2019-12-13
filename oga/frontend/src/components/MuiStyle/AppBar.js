@@ -114,6 +114,7 @@ function MenuAppBar(props) {
     var func = props.func;
     var mouseLeaveTimeout = true;
     MenuItem.displayName = "menu_item";
+    var Log_toggle = auth ? "Log-Out" : "Log-In"
 
     const [open, setOpen] = React.useState(false);
 
@@ -150,7 +151,7 @@ function MenuAppBar(props) {
 
     return (
         <div className="AppBar">
-            {auth && (
+            {(
                 <ClickAwayListener onClickAway={handleDrawerClose}>
                     <div className={classes.root}>
                         <CssBaseline />
@@ -192,7 +193,7 @@ function MenuAppBar(props) {
                                             aria-label="logout-button"
                                         >
                                             <ExitToApp />
-                                            Logout
+                                            {Log_toggle}
                                         </Button>
                                     }
                                 />

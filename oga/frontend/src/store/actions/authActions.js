@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes.js";
 import axios from "axios";
-
+import { Redirect } from "react-router-dom";
 import { push } from "connected-react-router";
 
 export const signUp_ = res => {
@@ -88,6 +88,10 @@ export const Logout = () => {
                 dispatch(isLoggedIn_(true));
             });
     };
+};
+
+export const Login = () => {
+    return dispatch(<Redirect exact from="/" to="/main" />);
 };
 
 export const getProfile_ = profile => {

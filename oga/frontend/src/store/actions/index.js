@@ -44,6 +44,7 @@ export {
     getUserAnswers,
     followQuestion,
     Logout,
+    Login,
     getProfile,
     checkRating,
     rateUp,

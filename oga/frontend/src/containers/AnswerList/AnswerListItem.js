@@ -46,6 +46,7 @@ class AnswerList extends Component {
             return (
                 <Grid item xs={6} key={ans.id}>
                     <AnswerView
+                        auth={this.props.auth}
                         key={ans.id}
                         id={ans.id}
                         author={ans.author}

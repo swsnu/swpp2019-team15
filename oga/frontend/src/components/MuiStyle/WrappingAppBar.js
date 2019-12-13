@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AppBar from "./AppBar";
 import { connect } from "react-redux";
-import * as actionCreators from "../../store/actions/";
+import * as actionCreators from "../../store/actions/actionTypes";
 
 class WrappingAppBar extends Component {
     constructor(props) {
@@ -25,11 +25,17 @@ class WrappingAppBar extends Component {
     // };
 
     render() {
+        var log_toggle
+        if (this.props.log_status) {
+            log_toggle = this.props.logout
+        } else {
+            log_toggle = this.props.login
+        }
         return (
             <AppBar
                 position="static"
                 auth={this.props.log_status}
-                func={this.props.logout}
+                func={log_toggle}
             ></AppBar>
         );
     }
@@ -43,6 +49,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        login: () => dispatch(actionCreators.Login()),
         logout: () => dispatch(actionCreators.Logout())
     };
 };

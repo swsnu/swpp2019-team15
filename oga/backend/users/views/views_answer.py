@@ -86,7 +86,7 @@ def get_answers(request, question_id):
     #     else:
     #         ulist.append({'is_rated': False, 'is_up': False})
     response_dict = parse_answer_list(answer_list, user)
-    i = 0
+    # i = 0
     # for ans in response_dict:
     #     ans.update(ulist[i])
     #     i += 1

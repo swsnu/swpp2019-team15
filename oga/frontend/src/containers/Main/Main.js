@@ -121,6 +121,7 @@ class QuestionList extends Component {
                     this.state.activeStep * 10,
                     (this.state.activeStep + 1) * 10
                 )}
+                auth={this.props.auth}
             />
         );
 

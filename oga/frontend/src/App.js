@@ -61,7 +61,7 @@ function App(props) {
                         <Switch>
                             <Route path="/signup" exact component={Signup} />
                             <Route path="/login" exact component={Login} />
-                            <Route path="/main" exact component={Main} />
+                            <Route auth={props.auth} path="/main" exact component={Main} />
                             <PrivateRoute
                                 auth={props.auth}
                                 path="/ask"
@@ -112,7 +112,24 @@ function App(props) {
             </MuiThemeProvider>
         );
     else {
-        return null;
+        return (
+            <MuiThemeProvider theme={theme}>
+                <ConnectedRouter history={props.history}>
+                    <WrappingAppBar />
+                    <div
+                        className="App"
+                        style={{
+                            marginLeft: theme.spacing(9) + 1,
+                            [theme.breakpoints.up("sm")]: {
+                                width: theme.spacing(9) + 1
+                            }
+                        }}
+                    >
+                    <Redirect exact from="/" to="/main" />
+                </div>
+            </ConnectedRouter>
+        </MuiThemeProvider>
+        );
     }
 }
 
