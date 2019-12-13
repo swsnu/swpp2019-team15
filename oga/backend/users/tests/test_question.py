@@ -76,6 +76,17 @@ class QuestionTestCase(TestCase):
         question = Question.objects.get(pk=1)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(len(question.followers.all()), 1)
+        self.assertEqual(question.follow_count, 1)
+
+    def test_duplicate_follows(self):
+        """ test if duplicate questions follows are not allowed """
+        # follow same question again
+        self.client.get('/api/follow/1/')
+        response = self.client.get('/api/follow/1/')
+        question = Question.objects.get(pk=1)
+        self.assertEqual(response.status_code, 400)
+        # follow count stays at 1
+        self.assertEqual(question.follow_count, 1)
 
     def test_get_user_question_list(self):
         """ test getting question list of currently logged in user """

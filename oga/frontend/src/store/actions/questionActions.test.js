@@ -217,7 +217,7 @@ describe("questionActions", () => {
             });
         });
         store.dispatch(actionCreators.followQuestion(1)).then(() => {
-            expect(alert).toHaveBeenCalledTimes(1);
+            expect(window.alert).toHaveBeenCalledTimes(1);
             expect(spy).toHaveBeenCalledTimes(1);
             done();
         });
@@ -234,7 +234,7 @@ describe("questionActions", () => {
             });
         });
         store.dispatch(actionCreators.followQuestion(1)).then(() => {
-            expect(alert).toHaveBeenCalledTimes(1);
+            expect(window.alert).toHaveBeenCalledTimes(1);
             done();
         });
     });

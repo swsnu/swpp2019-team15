@@ -36,20 +36,10 @@ def questions(request):
         return JsonResponse(response_dict, status=201)
 
     else:
-        # get question list
         user = get_user(request)
-        profile = Profile.objects.get(user=user)
-        question_list = Question.objects.filter()
-        response_dict = [{
-            'id': question.id,
-            'author': question.author.username,
-            'publish_date_time': question.publish_date_time,
-            'content': question.content,
-            'location': question.location_id.name,
-            'is_answered': question.is_answered,
-            'answer_count': Answer.objects.filter(question=question).count(),
-            'follow_count': question.follow_count
-        } for question in question_list]
+        # get list of most 100 most recent questions
+        question_list = Question.objects.filter()[:100]
+        response_dict = parse_question_list(question_list)
         return JsonResponse(response_dict, safe=False)
 
 
@@ -65,6 +55,16 @@ def get_user_questions(request, username=''):
         user = User.objects.get(username=username)
 
     question_list = Question.objects.filter(author=user)
+    response_dict = parse_question_list(question_list)
+
+    return JsonResponse(response_dict, safe=False)
+
+
+def parse_question_list(question_list):
+    """
+    Single function to parse given question list
+    and into an appropriate Json response_dict
+    """
     response_dict = [{
         'id': question.id,
         'author': question.author.username,
@@ -72,9 +72,11 @@ def get_user_questions(request, username=''):
         'content': question.content,
         'location': question.location_id.name,
         'is_answered': question.is_answered,
-        'answer_count': Answer.objects.filter(question=question).count()
+        'answer_count': Answer.objects.filter(question=question).count(),
+        'follow_count': question.follow_count
     } for question in question_list]
-    return JsonResponse(response_dict, safe=False)
+
+    return response_dict
 
 
 @check_login_required
@@ -89,10 +91,10 @@ def question_detail(request, question_id):
         'author': question.author.username,
         'publish_date_time': question.publish_date_time,
         'content': question.content,
-        'location': question.location_id.name,
+        'location': location.name,
         'target_location_name': location.name,
-        'place_lat': question.location_id.latitude,
-        'place_lng': question.location_id.longitude,
+        'place_lat': location.latitude,
+        'place_lng': location.longitude,
         'is_answered': question.is_answered,
     }
     return JsonResponse(response_dict)
@@ -113,4 +115,4 @@ def follow_question(request, question_id):
         return JsonResponse({}, status=201)
 
     else:
-        return JsonResponse(status=400)
+        return JsonResponse({}, status=400)

@@ -15,20 +15,27 @@ import {
     Container,
     Grid,
     IconButton,
+    MobileStepper,
     Typography
 } from "@material-ui/core";
 import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
+import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
+import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import AnswerListItem from "../AnswerList/AnswerListItem";
 class QuestionList extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isQuestionTab: false
+            isQuestionTab: true,
+            activeStep: 0
         };
     }
 
     componentDidMount() {
-        this.props.onGetAll();
+        // Fetch list of Q&A's in a given range based on current page
+        this.props.onGetAllQuestions();
+        this.props.onGetAllAnswers();
     }
 
     clickAnswerHandler = qst => {
@@ -50,16 +57,39 @@ class QuestionList extends Component {
         this.props.history.push("/profile/" + author);
     };
 
-    clickTabHandler = val => {
+    // Switch between Question and Answer tabs
+    clickTabHandler = () => {
         this.setState({
-            isQuestionTab: val
+            isQuestionTab: !this.state.isQuestionTab,
+            // reset to first page
+            activeStep: 0
         });
     };
 
+    // Stepper handlers for controlling page navigation
+    handleStepperNext = () => {
+        this.setState({ activeStep: this.state.activeStep + 1 });
+    };
+
+    handleStepperBack = () => {
+        this.setState({ activeStep: this.state.activeStep - 1 });
+    };
+
+    handleStepperReset = () => {
+        this.setState({ activeStep: 0 });
+    };
+
     render() {
-        var len = this.props.storedQuestions.length;
-        // Limit to displaying only 50 most recent questions
-        var stored_Questions = this.props.storedQuestions.slice(0, 50);
+        var question_len = this.props.storedQuestions.length;
+        var answer_len = this.props.storedAnswers.length;
+        var title = this.state.isQuestionTab ? "Question" : "Answer"
+
+        // Limit to displaying only 10 most recent questions
+        var stored_Questions = this.props.storedQuestions.slice(
+            this.state.activeStep * 10,
+            (this.state.activeStep + 1) * 10
+        );
+
         const Questions = stored_Questions.map(qs => {
             return (
                 <Grid item xs={6} key={qs.id}>
@@ -85,17 +115,65 @@ class QuestionList extends Component {
             );
         });
 
+        const Answers = (
+            <AnswerListItem
+                selectedAnswers={this.props.storedAnswers.slice(
+                    this.state.activeStep * 10,
+                    (this.state.activeStep + 1) * 10
+                )}
+            />
+        );
+
+        var pageCount = this.state.isQuestionTab
+            ? Math.round(question_len / 10, 0)
+            : Math.round(answer_len / 10, 0);
+
+        const MyStepper = (
+            <MobileStepper
+                steps={pageCount+1}
+                position="static"
+                variant="text"
+                activeStep={this.state.activeStep}
+                nextButton={
+                    <Button
+                        size="small"
+                        onClick={() => this.handleStepperNext()}
+                        disabled={this.state.activeStep === pageCount}
+                    >
+                        Next
+                        <KeyboardArrowRight />
+                    </Button>
+                }
+                backButton={
+                    <Button
+                        size="small"
+                        onClick={() => this.handleStepperBack()}
+                        disabled={this.state.activeStep === 0}
+                    >
+                        <KeyboardArrowLeft />
+                        Back
+                    </Button>
+                }
+            />
+        );
+
         return (
             <div className="Main">
                 <Box pt={8} />
                 <Typography component="h1" variant="h3">
-                    Question Feed
+                    {title} Feed
                 </Typography>
+                <Button onClick={() => this.clickTabHandler()}>
+                    Toggle
+                </Button>
                 <Box pt={5} />
+
                 <Container component="main" justify="center">
+                    {MyStepper}
                     <Grid container spacing={2} direction="row">
-                        {Questions}
+                        {this.state.isQuestionTab ? Questions : Answers}
                     </Grid>
+                    {MyStepper}
                     <IconButton
                         color="primary"
                         id="question-create-button"
@@ -129,17 +207,16 @@ class QuestionList extends Component {
 
 const mapStateToProps = state => {
     return {
-        storedQuestions: state.question.questions
-        //log_status: state.rd.log_status,
+        storedQuestions: state.question.questions,
+        storedAnswers: state.answer.answers
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetAll: () => dispatch(actionCreators.getQuestions()),
+        onGetAllQuestions: () => dispatch(actionCreators.getQuestions()),
+        onGetAllAnswers: () => dispatch(actionCreators.getAllAnswers()),
         onFollow: id => dispatch(actionCreators.followQuestion(id))
-        //setLogout: () =>
-        //dispatch(actionCreators.settingLogout())
     };
 };
 

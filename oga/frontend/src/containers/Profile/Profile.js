@@ -15,7 +15,6 @@ import {
     CardContent,
     CardMedia,
     Grid,
-    Link,
     Typography
 } from "@material-ui/core";
 
@@ -36,7 +35,7 @@ class Profile extends Component {
     }
 
     onClickDetailHandler = id => {
-        this.props.history.push("/replies/" + id);
+        this.props.history.push("/reply/" + id);
     };
 
     onClickAuthorHandler = author => {
@@ -97,7 +96,7 @@ class Profile extends Component {
             return (
                 <div
                     style={{ marginBottom: 5, marginTop: 5 }}
-                    onClick={() => this.onClickDetailHandler(ans.question_id)}
+                    onClick={() => this.onClickDetailHandler(ans.id)}
                 >
                     <AnswerView
                         className="MyAnswer"
@@ -106,7 +105,7 @@ class Profile extends Component {
                         id={ans.id}
                         author={username}
                         answer_content={ans.content}
-                        place_name={ans.location}
+                        place_name={ans.location_name}
                         publish_date_time={moment(ans.publish_date_time).format(
                             "MMMM Do YYYY, h:mm:ss a"
                         )}
@@ -115,6 +114,7 @@ class Profile extends Component {
                         is_rated={ans.is_rated}
                         rateUpCount={ans.numbers_rated_up}
                         rateDownCount={ans.numbers_rated_down}
+                        hideDivider={true}
                     />
                 </div>
             );

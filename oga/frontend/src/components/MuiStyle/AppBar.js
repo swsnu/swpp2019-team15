@@ -43,7 +43,8 @@ const useStyles = makeStyles(theme => ({
     },
     appBar: {
         // padding: 5,
-        zIndex: theme.zIndex.drawer + 1
+        zIndex: theme.zIndex.drawer + 1,
+        boxShadow: ["none"]
     },
     menuButton: {
         paddingLeft: 10,
@@ -78,7 +79,7 @@ const useStyles = makeStyles(theme => ({
         height: "100%",
         width: theme.spacing(7) + 1,
         [theme.breakpoints.up("sm")]: {
-            width: theme.spacing(9) + 1,
+            width: theme.spacing(9),
             height: "100%"
         }
     },
@@ -171,12 +172,18 @@ function MenuAppBar(props) {
                                 >
                                     <MenuIcon />
                                 </IconButton>
-                                <Typography
-                                    variant="h4"
+                                <FormControlLabel
                                     className={classes.title}
-                                >
-                                    askAT
-                                </Typography>
+                                    onClick={() => props.history.push("/")}
+                                    control={
+                                        <Typography
+                                            variant="h4"
+                                            className={classes.title}
+                                        >
+                                            askAT
+                                        </Typography>
+                                    }
+                                />
                                 <FormControlLabel
                                     control={
                                         <Button

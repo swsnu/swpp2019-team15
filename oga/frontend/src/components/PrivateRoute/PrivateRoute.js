@@ -11,23 +11,23 @@
  * @author taehioum
  * @since  2019-10-25
  **/
- 
-import React from 'react'
-import { Redirect, Route } from 'react-router-dom'
-import {connect} from 'react-redux';
 
-const PrivateRoute = ({auth: auth, component: Component, ...rest }) => (
+import React from "react";
+import { Redirect, Route } from "react-router-dom";
+
+const PrivateRoute = ({ auth: auth, component: Component, ...rest }) => (
     <Route
-      {...rest}
-      render={props => {
-        if (auth) {
-          console.log(auth);
-          return <Component {...props} />;
-        } else {
-          console.log(auth);
-          return <Redirect to="/login" />;
-        }
-      }}/>
+        {...rest}
+        render={props => {
+            if (auth) {
+                console.log(auth);
+                return <Component {...props} />;
+            } else {
+                console.log(auth);
+                return <Redirect to="/login" />;
+            }
+        }}
+    />
 );
 
 export default PrivateRoute;

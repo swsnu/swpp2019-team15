@@ -13,14 +13,13 @@ import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
 import {
     Box,
     Button,
-    ButtonGroup,
     Container,
     CssBaseline,
-    Divider,
     Grid,
     IconButton,
     Typography
 } from "@material-ui/core";
+import AnswerListItem from "./AnswerListItem";
 
 class AnswerList extends Component {
     constructor(props) {
@@ -44,112 +43,29 @@ class AnswerList extends Component {
         this.props.history.push("/reply/create/" + id);
     };
 
-    clickAuthor = author => {
-        this.props.history.push("/profile/" + author);
-    };
-
     clickBackHandler = () => {
         this.props.history.goBack();
     };
 
-    rateUpHandler = id => {
-        this.props.rateUp(id);
-        // Window reload handled in actionCreators
-    };
-
-    rateDownHandler = id => {
-        this.props.rateDown(id);
-        // Window reload handled in actionCreators
-    };
-
     render() {
-        var gotten_answer_view = null;
-        var answers = null;
-        if (this.props.selectedQuestion) {
-            gotten_answer_view = (
-                <React.Fragment>
-                    <AnswerView
-                        key={this.props.selectedQuestion.id}
-                        id={this.props.selectedQuestion.id}
-                        content={this.props.selectedQuestion.content}
-                        place_name={
-                            this.props.selectedQuestion.target_location_name
-                        }
-                        is_answered={false}
-                    />
-                </React.Fragment>
-            );
-            var len = this.props.selectedAnswers.length;
-            var selected_Answers = this.props.selectedAnswers;
-            // var selected_Answers = this.props.selectedAnswers.slice(
-            //     len - 10,
-            //     len
+        var gotten_answer_view = this.props.selectedQuestion;
+        var question = null;
+        if (gotten_answer_view) {
+            question = `${this.props.selectedQuestion.content} in 
+            ${this.props.selectedQuestion.target_location_name}?`;
+            // gotten_answer_view = (
+            //     <React.Fragment>
+            //         <AnswerView
+            //             key={this.props.selectedQuestion.id}
+            //             id={this.props.selectedQuestion.id}
+            //             content={this.props.selectedQuestion.content}
+            //             place_name={
+            //                 this.props.selectedQuestion.target_location_name
+            //             }
+            //             is_answered={false}
+            //         />
+            //     </React.Fragment>
             // );
-            for (var i = 0; i < selected_Answers.length; i++) {
-                console.log(selected_Answers[i]);
-            }
-            // if (selected_Answers) {
-            //     for (var i = 0; i < selected_Answers.length; i++) {
-            //         if (!this.state.render_check[i]) {
-            //             this.props.onGetEachAnswer(selected_Answers[i].id);
-            //             this.state.render_check[i] = true;
-            //             this.forceUpdate();
-            //         }
-            //     }
-            // }
-            answers = selected_Answers.map(ans => {
-                return (
-                    <Grid item xs={6} key={ans.id}>
-                        <AnswerView
-                            key={ans.id}
-                            id={ans.id}
-                            author={ans.author}
-                            content={ans.question_type}
-                            publish_date_time={moment(
-                                ans.publish_date_time
-                            ).format("MMMM Do YYYY, h:mm:ss a")}
-                            answer_content={ans.content}
-                            is_answered={true}
-                            place_name={
-                                this.props.selectedQuestion.target_location_name
-                            }
-                            is_up={ans.is_up}
-                            is_rated={ans.is_rated}
-                            clickAuthor={() => this.clickAuthor(ans.author)}
-                            rateUp={() => this.rateUpHandler(ans.id)}
-                            rateDown={() => this.rateDownHandler(ans.id)}
-                            rateUpCount={ans.numbers_rated_up}
-                            rateDownCount={ans.numbers_rated_down}
-                            disableLike={ans.user_liked}
-                            disableDislike={ans.user_disliked}
-                            // ratings={
-                            //     <div>
-                            //         <ButtonGroup className="Rating">
-                            //             <Button
-                            //                 id="thumb_up-button"
-                            //                 color="primary"
-                            //                 onClick={() =>
-                            //                     this.rateUpHandler(ans.id)
-                            //                 }
-                            //             >
-                            //                 &#128077; {ans.numbers_rated_up}
-                            //             </Button>
-                            //             <Button
-                            //                 id="thumb_down-button"
-                            //                 color="primary"
-                            //                 onClick={() =>
-                            //                     this.rateDownHandler(ans.id)
-                            //                 }
-                            //             >
-                            //                 &#128078; {ans.numbers_rated_down}
-                            //             </Button>
-                            //         </ButtonGroup>
-                            //     </div>
-                            // }
-                        />
-                    </Grid>
-                );
-            });
         }
 
         return (
@@ -162,7 +78,7 @@ class AnswerList extends Component {
                     </Typography>
                     <Box pt={2} />
                     <Typography component="h3" variant="h4" align="center">
-                        {gotten_answer_view}
+                        {question}
                     </Typography>
                     <Box pt={5} />
                     <Typography component="h1" variant="h5" color="primary">
@@ -170,7 +86,9 @@ class AnswerList extends Component {
                     </Typography>
                     <Box pt={2} />
                     <Grid container spacing={2} direction="row">
-                        {answers}
+                        <AnswerListItem
+                            selectedAnswers={this.props.selectedAnswers}
+                        />
                     </Grid>
                     <Box pt={3} />
                     <Grid container justify="center" alignItems="center">
