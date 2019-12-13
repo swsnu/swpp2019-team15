@@ -29,6 +29,7 @@ import {
     Divider,
     FormControl,
     FormControlLabel,
+    FormLabel,
     Grid,
     IconButton,
     InputAdornment,
@@ -49,7 +50,8 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1
     },
     searchBar: {
-        zIndex: 5000
+        zIndex: 5000,
+        flexGrow: 1
     },
     menuButton: {
         paddingLeft: 10,
@@ -59,7 +61,6 @@ const useStyles = makeStyles(theme => ({
         display: "none"
     },
     drawer: {
-        // zIndex: 0,
         paddingTop: 50,
         width: drawerWidth,
         flexShrink: 0,
@@ -68,7 +69,7 @@ const useStyles = makeStyles(theme => ({
         height: "100%"
     },
     appBar: {
-        // padding: 5,
+        width: "100%",
         zIndex: 900, // theme.zIndex.drawer + 1,
         boxShadow: ["none"]
     },
@@ -90,9 +91,9 @@ const useStyles = makeStyles(theme => ({
         }),
         overflowX: "hidden",
         height: "100%",
-        width: theme.spacing(6),
+        width: theme.spacing(8),
         [theme.breakpoints.up("sm")]: {
-            width: theme.spacing(7),
+            width: theme.spacing(9),
             height: "100%"
         }
     },
@@ -108,6 +109,7 @@ const useStyles = makeStyles(theme => ({
         ...theme.mixins.toolbar
     },
     title: {
+        zIndex: 5000,
         flexGrow: 1,
         fontWeight: "bold"
     },
@@ -166,7 +168,7 @@ function MenuAppBar(props) {
             {auth && (
                 <ClickAwayListener onClickAway={handleDrawerClose}>
                     <div className={classes.root}>
-                        {/* <CssBaseline /> */}
+                        <CssBaseline />
                         <AppBar
                             id="app-bar"
                             position="fixed"
@@ -185,37 +187,40 @@ function MenuAppBar(props) {
                                 >
                                     <MenuIcon />
                                 </IconButton>
-                                <FormControlLabel
-                                    className={classes.title}
-                                    control={
-                                        <Typography
-                                            variant="h4"
-                                            className={classes.title}
-                                            onClick={() =>
-                                                props.history.push("/")
-                                            }
-                                        >
-                                            askAT
-                                        </Typography>
-                                    }
-                                />
-                                <SearchBox
-                                    position="relative"
-                                    // style={{ zIndex: 5000 }}
-                                    className={classes.searchBar}
-                                />
-                                <FormControlLabel
-                                    control={
-                                        <Button
-                                            checked={auth}
-                                            onClick={() => func()}
-                                            aria-label="logout-button"
-                                        >
-                                            <ExitToApp />
-                                            Logout
-                                        </Button>
-                                    }
-                                />
+                                <Grid xs={3}>
+                                    <FormControlLabel
+                                        className={classes.title}
+                                        control={
+                                            <Typography
+                                                onClick={() =>
+                                                    props.history.push("/")
+                                                }
+                                                variant="h4"
+                                                className={classes.title}
+                                            >
+                                                askAT
+                                            </Typography>
+                                        }
+                                    />
+                                </Grid>
+                                <Grid xs={7} align="right">
+                                    <SearchBox className={classes.searchBar} />
+                                </Grid>
+                                <Grid xs={2} align="right">
+                                    <FormControlLabel
+                                        className={classes.title}
+                                        control={
+                                            <Button
+                                                checked={auth}
+                                                onClick={() => func()}
+                                                aria-label="logout-button"
+                                            >
+                                                <ExitToApp />
+                                                Logout
+                                            </Button>
+                                        }
+                                    />
+                                </Grid>
                             </Toolbar>
                         </AppBar>
                         <Drawer

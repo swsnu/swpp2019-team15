@@ -96,14 +96,10 @@ class SearchBox extends Component {
             API_KEY +
             "&libraries=places";
         return (
-            <Grid
-                item
-                id="search-box"
-                justify="flex-end"
-                className="MapSearchBox"
-                position="relative"
-            >
+            <div align="right" justify="flex-end">
                 <TextField
+                    position="relative"
+                    className="MapSearchBox"
                     id="autocomplete"
                     type="input"
                     variant="outlined"
@@ -116,10 +112,11 @@ class SearchBox extends Component {
                     }}
                     InputProps={{
                         style: {
-                            width: "65%",
+                            width: "180%",
                             backgroundColor: "#fff",
                             height: 40,
-                            marginLeft: "80vh"
+                            marginLeft: "20%",
+                            marginRight: "80%"
                         },
                         endAdornment: (
                             <InputAdornment>
@@ -134,7 +131,7 @@ class SearchBox extends Component {
                     }}
                 />
                 <Script url={url_str} onLoad={this.handleScriptLoad} />
-            </Grid>
+            </div>
         );
     }
 }
