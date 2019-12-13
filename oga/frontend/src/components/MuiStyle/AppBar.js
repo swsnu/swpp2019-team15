@@ -4,7 +4,8 @@
 
 import React from "react";
 import { withRouter } from "react-router";
-import SearchBox from "../MapSearchBox/MapSearchBox";
+import SearchBox from "../MapSearchBox/SearchBox";
+
 // Material UI imports
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,6 +27,7 @@ import {
     CssBaseline,
     Drawer,
     Divider,
+    FormControl,
     FormControlLabel,
     Grid,
     IconButton,
@@ -39,7 +41,6 @@ import {
     Toolbar,
     Typography
 } from "@material-ui/core";
-import MapSearchBox from "../MapSearchBox/MapSearchBox";
 
 const drawerWidth = 200;
 
@@ -47,10 +48,8 @@ const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1
     },
-    appBar: {
-        // padding: 5,
-        zIndex: theme.zIndex.drawer + 1,
-        boxShadow: ["none"]
+    searchBar: {
+        zIndex: 9999
     },
     menuButton: {
         paddingLeft: 10,
@@ -60,6 +59,7 @@ const useStyles = makeStyles(theme => ({
         display: "none"
     },
     drawer: {
+        // zIndex: 0,
         paddingTop: 50,
         width: drawerWidth,
         flexShrink: 0,
@@ -67,7 +67,13 @@ const useStyles = makeStyles(theme => ({
         overflowX: "hidden",
         height: "100%"
     },
+    appBar: {
+        // padding: 5,
+        zIndex: 900, // theme.zIndex.drawer + 1,
+        boxShadow: ["none"]
+    },
     drawerOpen: {
+        zIndex: 899,
         width: drawerWidth,
         overflowX: "hidden",
         height: "100%",
@@ -77,15 +83,16 @@ const useStyles = makeStyles(theme => ({
         })
     },
     drawerClose: {
+        zIndex: 899,
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen
         }),
         overflowX: "hidden",
         height: "100%",
-        width: theme.spacing(7) + 1,
+        width: theme.spacing(6),
         [theme.breakpoints.up("sm")]: {
-            width: theme.spacing(9),
+            width: theme.spacing(7),
             height: "100%"
         }
     },
@@ -159,7 +166,7 @@ function MenuAppBar(props) {
             {auth && (
                 <ClickAwayListener onClickAway={handleDrawerClose}>
                     <div className={classes.root}>
-                        <CssBaseline />
+                        {/* <CssBaseline /> */}
                         <AppBar
                             id="app-bar"
                             position="fixed"
@@ -180,49 +187,23 @@ function MenuAppBar(props) {
                                 </IconButton>
                                 <FormControlLabel
                                     className={classes.title}
-                                    onClick={() => props.history.push("/")}
                                     control={
                                         <Typography
                                             variant="h4"
                                             className={classes.title}
+                                            onClick={() =>
+                                                props.history.push("/")
+                                            }
                                         >
                                             askAT
                                         </Typography>
                                     }
                                 />
-                                <MapSearchBox position="fixed" />
-                                {/* <Grid align="right" className="MapSearchBox"> */}
-                                <TextField
-                                    style={{
-                                        marginRight: 30,
-                                        width: "40%",
-                                        zIndex: 1000 // determines layer position for overlaying components
-                                    }}
-                                    id="searchbox"
-                                    type="text"
-                                    variant="outlined"
-                                    placeholder="Enter a location"
-                                    InputProps={{
-                                        style: {
-                                            backgroundColor: "#fff",
-                                            height: 40,
-                                            marginRight: 30
-                                        },
-                                        startAdornment: (
-                                            <InputAdornment>
-                                                <Search />
-                                            </InputAdornment>
-                                        ),
-                                        endAdornment: (
-                                            <InputAdornment>
-                                                <IconButton id="clear-search-button">
-                                                    <Close />
-                                                </IconButton>
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                />
-                                {/* </Grid> */}
+                                {/* <SearchBox
+                                    // position="fixed"
+                                    style={{ leftMargin: 1000, zIndex: 9999 }}
+                                    className={classes.searchBar}
+                                /> */}
                                 <FormControlLabel
                                     control={
                                         <Button
@@ -255,6 +236,7 @@ function MenuAppBar(props) {
                                 })
                             }}
                             open={open}
+                            style={{ zIndex: 1 }}
                             onMouseEnter={handleDrawer}
                             onMouseLeave={handleDrawerCloseOnMouseLeave}
                         >

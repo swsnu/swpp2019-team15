@@ -6,6 +6,7 @@ import "./Main.css";
 import * as actionCreators from "../../store/actions/index";
 import GoogleMap from "../Map/GoogleMap";
 import Question from "../../components/Question/Question";
+import SearchBox from "../../components/MapSearchBox/SearchBox";
 
 //Material UI imports
 import {
@@ -155,6 +156,11 @@ class QuestionList extends Component {
 
         return (
             <div className="Main">
+                <SearchBox
+                    // position="fixed"
+                    style={{ leftMargin: 1000, zIndex: 9999 }}
+                    // className={classes.searchBar}
+                />
                 <GoogleMap viewOnly={true} />
                 <Box pt={8} />
                 <Typography component="h1" variant="h3">
