@@ -2,7 +2,7 @@
  * Searchbox component for App bar
  */
 import React, { Component } from "react";
-
+import "./SearchBox.css";
 // Import Search Bar Components
 
 // Material UI imports
@@ -80,14 +80,15 @@ class SearchBox extends Component {
             "&libraries=places";
         return (
             <Grid
-                style={{ position: "fixed" }}
+                // style={{ position: "fixed" }}
                 align="right"
                 className="MapSearchBox"
+                // position="fixed"
                 // style={{ zIndex: 5555000 }}
             >
                 <TextField
                     // style={{ width: "70%" }}
-                    position="fixed"
+                    // position="fixed"
                     id="autocomplete"
                     type="input"
                     variant="outlined"

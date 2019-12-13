@@ -199,11 +199,11 @@ function MenuAppBar(props) {
                                         </Typography>
                                     }
                                 />
-                                {/* <SearchBox
-                                    // position="fixed"
+                                <SearchBox
+                                    position="absolute"
                                     style={{ leftMargin: 1000, zIndex: 9999 }}
                                     className={classes.searchBar}
-                                /> */}
+                                />
                                 <FormControlLabel
                                     control={
                                         <Button

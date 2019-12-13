@@ -156,11 +156,6 @@ class QuestionList extends Component {
 
         return (
             <div className="Main">
-                <SearchBox
-                    // position="fixed"
-                    style={{ leftMargin: 1000, zIndex: 9999 }}
-                    // className={classes.searchBar}
-                />
                 <GoogleMap viewOnly={true} />
                 <Box pt={8} />
                 <Typography component="h1" variant="h3">
