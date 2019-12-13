@@ -44,7 +44,8 @@ console.log("PushManager" in window);
 function App(props) {
     // let session = true;
     props.isLoggedIn(); //sets state's authenticate
-    if (props.auth !== null)
+    console.log(props.auth)
+    if (props.auth != null)
         return (
             <MuiThemeProvider theme={theme}>
                 <ConnectedRouter history={props.history}>
@@ -61,7 +62,7 @@ function App(props) {
                         <Switch>
                             <Route path="/signup" exact component={Signup} />
                             <Route path="/login" exact component={Login} />
-                            <Route auth={props.auth} path="/main" exact component={Main} />
+                            <Route path="/main" exact component={Main} />
                             <PrivateRoute
                                 auth={props.auth}
                                 path="/ask"
@@ -112,24 +113,7 @@ function App(props) {
             </MuiThemeProvider>
         );
     else {
-        return (
-            <MuiThemeProvider theme={theme}>
-                <ConnectedRouter history={props.history}>
-                    <WrappingAppBar />
-                    <div
-                        className="App"
-                        style={{
-                            marginLeft: theme.spacing(9) + 1,
-                            [theme.breakpoints.up("sm")]: {
-                                width: theme.spacing(9) + 1
-                            }
-                        }}
-                    >
-                    <Redirect exact from="/" to="/main" />
-                </div>
-            </ConnectedRouter>
-        </MuiThemeProvider>
-        );
+        return null;
     }
 }
 

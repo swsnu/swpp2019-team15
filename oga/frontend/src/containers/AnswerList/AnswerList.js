@@ -87,6 +87,7 @@ class AnswerList extends Component {
                     <Box pt={2} />
                     <Grid container spacing={2} direction="row">
                         <AnswerListItem
+                            auth={this.props.auth}
                             selectedAnswers={this.props.selectedAnswers}
                         />
                     </Grid>

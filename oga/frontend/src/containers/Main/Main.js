@@ -34,6 +34,7 @@ class QuestionList extends Component {
 
     componentDidMount() {
         // Fetch list of Q&A's in a given range based on current page
+        this.props.isLoggedIn();
         this.props.onGetAllQuestions();
         this.props.onGetAllAnswers();
     }
@@ -80,6 +81,7 @@ class QuestionList extends Component {
     };
 
     render() {
+        console.log(this.props.auth)
         var question_len = this.props.storedQuestions.length;
         var answer_len = this.props.storedAnswers.length;
         var title = this.state.isQuestionTab ? "Question" : "Answer"
@@ -208,6 +210,7 @@ class QuestionList extends Component {
 
 const mapStateToProps = state => {
     return {
+        auth: state.auth.authenticated,
         storedQuestions: state.question.questions,
         storedAnswers: state.answer.answers
     };
@@ -215,6 +218,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        isLoggedIn: () => dispatch(actionCreators.isLoggedIn()),
         onGetAllQuestions: () => dispatch(actionCreators.getQuestions()),
         onGetAllAnswers: () => dispatch(actionCreators.getAllAnswers()),
         onFollow: id => dispatch(actionCreators.followQuestion(id))
