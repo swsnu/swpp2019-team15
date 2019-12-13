@@ -82,6 +82,7 @@ class QuestionList extends Component {
     render() {
         var question_len = this.props.storedQuestions.length;
         var answer_len = this.props.storedAnswers.length;
+        var title = this.state.isQuestionTab ? "Question" : "Answer"
 
         // Limit to displaying only 10 most recent questions
         var stored_Questions = this.props.storedQuestions.slice(
@@ -129,7 +130,7 @@ class QuestionList extends Component {
 
         const MyStepper = (
             <MobileStepper
-                steps={pageCount}
+                steps={pageCount+1}
                 position="static"
                 variant="text"
                 activeStep={this.state.activeStep}
@@ -137,7 +138,7 @@ class QuestionList extends Component {
                     <Button
                         size="small"
                         onClick={() => this.handleStepperNext()}
-                        disabled={this.state.activeStep === pageCount - 1}
+                        disabled={this.state.activeStep === pageCount}
                     >
                         Next
                         <KeyboardArrowRight />
@@ -160,10 +161,10 @@ class QuestionList extends Component {
             <div className="Main">
                 <Box pt={8} />
                 <Typography component="h1" variant="h3">
-                    Question Feed
+                    {title} Feed
                 </Typography>
                 <Button onClick={() => this.clickTabHandler()}>
-                    Click Me!
+                    Toggle
                 </Button>
                 <Box pt={5} />
 
