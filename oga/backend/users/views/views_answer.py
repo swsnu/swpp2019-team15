@@ -10,7 +10,7 @@ from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
 
 
-@check_login_required
+#@check_login_required
 @check_request
 @require_http_methods(["GET", "POST"])
 @csrf_exempt
@@ -22,6 +22,8 @@ def get_or_create_answer(request, question_or_answer_id):
     GET: get_answers api
     """
     if request.method == "POST":
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
         req_data = json.loads(request.body.decode())
         question_type = req_data['question_type']
         answer_author = get_user(request)
@@ -81,7 +83,7 @@ def get_answers(request, question_id):
     #         ulist.append({'is_rated': True, 'is_up': False})
     #     else:
     #         ulist.append({'is_rated': False, 'is_up': False})
-    response_dict = parse_answer_list(answer_list, user)
+    response_dict = parse_answer_list(answer_all_list, user)
     # i = 0
     # for ans in response_dict:
     #     ans.update(ulist[i])
@@ -89,7 +91,7 @@ def get_answers(request, question_id):
     return JsonResponse(response_dict, safe=False, status=200)
 
 
-@check_login_required
+#@check_login_required
 @check_request
 @require_http_methods(["GET"])
 @csrf_exempt
