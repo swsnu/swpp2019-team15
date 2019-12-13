@@ -18,5 +18,4 @@ export const GET_ANSWERS = "GET_ANSWERS";
 export const GET_ANSWER = "GET_ANSWER";
 export const GET_USER_ANSWERS = "GET_USER_ANSWERS";
 export const CHECK_RATING = "CHECK_RATING";
-export const RATE_UP = "RATE_UP";
-export const RATE_DOWN = "RATE_DOWN";
+export const RATE = "RATE";

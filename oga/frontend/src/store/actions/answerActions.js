@@ -108,9 +108,9 @@ export const checkRating = answer_id => {
     };
 };
 
-export const rateUp_ = rate => {
+export const rate_ = rate => {
     return {
-        type: actionTypes.RATE_UP,
+        type: actionTypes.RATE,
         answer_id: rate.answer_id,
         rated_up: rate.rated_up,
         rated_down: rate.rated_down,
@@ -122,21 +122,9 @@ export const rateUp = answer_id => {
         return axios
             .put("/api/rate/up/" + answer_id + "/")
             .then(res => {
-                console.log("start dispatch");
-                dispatch(rateUp_(res.data));
-                // timeout needed due to asynchronous call
-                // setTimeout(() => window.location.reload(), 0);
+                dispatch(rate_(res.data));
             })
             .catch(err => alert("You already rated this answer!"));
-    };
-};
-
-export const rateDown_ = rate => {
-    return {
-        type: actionTypes.RATE_DOWN,
-        answer_id: rate.answer_id,
-        rated_up: rate.rated_up,
-        rated_down: rate.rated_down,
     };
 };
 
@@ -145,9 +133,7 @@ export const rateDown = answer_id => {
         return axios
             .put("/api/rate/down/" + answer_id + "/")
             .then(res => {
-                dispatch(rateUp_(res.data));
-                // timeout needed due to asynchronous call
-                // setTimeout(() => window.location.reload(), 0);
+                dispatch(rate_(res.data));
             })
             .catch(err => alert("You already rated this answer!"));
     };

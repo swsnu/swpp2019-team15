@@ -29,58 +29,25 @@ const answerReducer = (state = initialState, action) => {
             return { ...state, answer: action.answer };
         case actionTypes.GET_USER_ANSWERS:
             return { ...state, answers: action.answers };
-        case actionTypes.RATE_UP:
-            console.log("HI");
-
+        case actionTypes.RATE:
             var ans_id = action.answer_id;
-            console.log("HI");
+            var ans;
             for (var i = 0; i < state.answers.length; i++) {
-                var ans = state.answers[i];
+                ans = state.answers[i];
                 if (ans["id"] == ans_id) {
                     ans_id = i;
                     break;
                 }
             }
-            console.log("Here id"+ans_id);
-            // this.setState({
-            //     answers: update(
-            //         this.state.answers,
-            //         {
-            //             [ans_id]: {
-            //                 'numbers_rated_up': {$set: action.rated_up},
-            //                 'numbers_rated_down': {$set: action.rated_down}
-            //             }
-            //         }
-            //     )
-            // })
-            // console.log(state.answers[ans_id]["numbers_rated_up"]);
-            // console.log(state.answers[ans_id]["numbers_rated_down"]);
-            // console.log(action.rated_up);
-            // console.log(action.rated_down);
             var new_answers = update(state.answers, {
                 [ans_id]: {
+                    user_liked: {$set: !ans.user_liked},
+                    user_disliked: {$set: !ans.user_disliked},
                     numbers_rated_up: {$set: action.rated_up},
                     numbers_rated_down: {$set: action.rated_down}
                 }
             });
-            // console.log(state.answers[ans_id]["numbers_rated_up"]);
-            // console.log(state.answers[ans_id]["numbers_rated_down"]);
             return { ...state, answers: new_answers};
-        case actionTypes.RATE_DOWN:
-            var ans_id = action.answer_id;
-            for (var i = 0; i < this.state.answers.length; i++) {
-                var ans = this.state.answers[i];
-                if (ans["id"] == ans_id) {
-                    ans_id = i;
-                    break;
-                }
-            }
-            return update(this.state.answers, {
-                [ans_id]: {
-                    'numbers_rated_up': {$set: action.rated_up},
-                    'numbers_rated_down': {$set: action.rated_down}
-                }
-            });
         default:
             break;
     }
