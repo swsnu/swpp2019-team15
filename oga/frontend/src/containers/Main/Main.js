@@ -75,10 +75,6 @@ class QuestionList extends Component {
         this.setState({ activeStep: this.state.activeStep - 1 });
     };
 
-    handleStepperReset = () => {
-        this.setState({ activeStep: 0 });
-    };
-
     render() {
         var question_len = this.props.storedQuestions.length;
         var answer_len = this.props.storedAnswers.length;
@@ -136,6 +132,7 @@ class QuestionList extends Component {
                 activeStep={this.state.activeStep}
                 nextButton={
                     <Button
+                        id="stepper-next"
                         size="small"
                         onClick={() => this.handleStepperNext()}
                         disabled={this.state.activeStep === pageCount}
@@ -146,6 +143,7 @@ class QuestionList extends Component {
                 }
                 backButton={
                     <Button
+                        id="stepper-back"
                         size="small"
                         onClick={() => this.handleStepperBack()}
                         disabled={this.state.activeStep === 0}
@@ -163,7 +161,7 @@ class QuestionList extends Component {
                 <Typography component="h1" variant="h3">
                     {title} Feed
                 </Typography>
-                <Button onClick={() => this.clickTabHandler()}>
+                <Button id="toggle" onClick={() => this.clickTabHandler()}>
                     Toggle
                 </Button>
                 <Box pt={5} />
