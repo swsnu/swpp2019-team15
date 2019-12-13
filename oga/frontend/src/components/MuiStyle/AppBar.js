@@ -4,7 +4,7 @@
 
 import React from "react";
 import { withRouter } from "react-router";
-
+import SearchBox from "../MapSearchBox/MapSearchBox";
 // Material UI imports
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,7 +14,9 @@ import {
     LiveHelp,
     SettingsApplications,
     ChevronLeft,
-    ExitToApp
+    ExitToApp,
+    Search,
+    Close
 } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import {
@@ -25,15 +27,19 @@ import {
     Drawer,
     Divider,
     FormControlLabel,
+    Grid,
     IconButton,
+    InputAdornment,
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
     MenuItem,
+    TextField,
     Toolbar,
     Typography
 } from "@material-ui/core";
+import MapSearchBox from "../MapSearchBox/MapSearchBox";
 
 const drawerWidth = 200;
 
@@ -184,6 +190,39 @@ function MenuAppBar(props) {
                                         </Typography>
                                     }
                                 />
+                                <MapSearchBox position="fixed" />
+                                {/* <Grid align="right" className="MapSearchBox"> */}
+                                <TextField
+                                    style={{
+                                        marginRight: 30,
+                                        width: "40%",
+                                        zIndex: 1000 // determines layer position for overlaying components
+                                    }}
+                                    id="searchbox"
+                                    type="text"
+                                    variant="outlined"
+                                    placeholder="Enter a location"
+                                    InputProps={{
+                                        style: {
+                                            backgroundColor: "#fff",
+                                            height: 40,
+                                            marginRight: 30
+                                        },
+                                        startAdornment: (
+                                            <InputAdornment>
+                                                <Search />
+                                            </InputAdornment>
+                                        ),
+                                        endAdornment: (
+                                            <InputAdornment>
+                                                <IconButton id="clear-search-button">
+                                                    <Close />
+                                                </IconButton>
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                />
+                                {/* </Grid> */}
                                 <FormControlLabel
                                     control={
                                         <Button

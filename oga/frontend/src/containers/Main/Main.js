@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-
-import Question from "../../components/Question/Question";
-
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
 import "./Main.css";
 import * as actionCreators from "../../store/actions/index";
+import GoogleMap from "../Map/GoogleMap";
+import Question from "../../components/Question/Question";
 
 //Material UI imports
 import {
@@ -75,14 +74,10 @@ class QuestionList extends Component {
         this.setState({ activeStep: this.state.activeStep - 1 });
     };
 
-    handleStepperReset = () => {
-        this.setState({ activeStep: 0 });
-    };
-
     render() {
         var question_len = this.props.storedQuestions.length;
         var answer_len = this.props.storedAnswers.length;
-        var title = this.state.isQuestionTab ? "Question" : "Answer"
+        var title = this.state.isQuestionTab ? "Question" : "Answer";
 
         // Limit to displaying only 10 most recent questions
         var stored_Questions = this.props.storedQuestions.slice(
@@ -128,9 +123,10 @@ class QuestionList extends Component {
             ? Math.round(question_len / 10, 0)
             : Math.round(answer_len / 10, 0);
 
+        // Stepper component for page navigation
         const MyStepper = (
             <MobileStepper
-                steps={pageCount+1}
+                steps={pageCount + 1}
                 position="static"
                 variant="text"
                 activeStep={this.state.activeStep}
@@ -159,13 +155,12 @@ class QuestionList extends Component {
 
         return (
             <div className="Main">
+                <GoogleMap viewOnly={true} />
                 <Box pt={8} />
                 <Typography component="h1" variant="h3">
                     {title} Feed
                 </Typography>
-                <Button onClick={() => this.clickTabHandler()}>
-                    Toggle
-                </Button>
+                <Button onClick={() => this.clickTabHandler()}>Toggle</Button>
                 <Box pt={5} />
 
                 <Container component="main" justify="center">
