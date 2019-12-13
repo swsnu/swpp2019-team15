@@ -5,6 +5,7 @@ import store from "../store.js";
 
 console.log = jest.fn();
 console.error = jest.fn();
+console.alert = jest.fn();
 describe("questionActions", () => {
     afterEach(() => {
         jest.clearAllMocks();
@@ -232,7 +233,7 @@ describe("questionActions", () => {
             });
         });
         store.dispatch(actionCreators.followQuestion(1)).then(() => {
-            expect(console.log).toHaveBeenCalledTimes(1);
+            expect(console.alert).toHaveBeenCalledTimes(1);
             done();
         });
     });

@@ -5,7 +5,7 @@ from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
-from ..models import User, Answer, Profile
+from ..models import User, Answer
 from ..views.decorators import check_request, check_login_required
 
 
@@ -93,26 +93,26 @@ def parse_rating(answer):
     Single function to parse user rating
     into Json response dict
     """
-    response_dict = {
+    rating_dict = {
         'answer_id': answer.id,
         'rated_up': answer.numbers_rated_up,
         'rated_down': answer.numbers_rated_down
     }
-    return response_dict
+    return rating_dict
 
 
-@check_login_required
-@check_request
-@require_http_methods(["GET"])
-@csrf_exempt
-def get_rated_answer(request):
-    """return rated_answers done by the user"""
-    user = get_user(request)
-    users = User.objects.get(rated_up_answers__in=user)
-    users += User.objects.get(rated_down_answers__in=user)
-    if users.count() > 1:
-        return HttpResponse(status=404)
-    response_dict = [{
-        'users_id_rating': user.id
-    } for user in users]
-    return JsonResponse(response_dict, safe=False, status=201)
+# @check_login_required
+# @check_request
+# @require_http_methods(["GET"])
+# @csrf_exempt
+# def get_rated_answer(request):
+#     """return rated_answers done by the user"""
+#     user = get_user(request)
+#     users = User.objects.get(rated_up_answers__in=user)
+#     users += User.objects.get(rated_down_answers__in=user)
+#     if users.count() > 1:
+#         return HttpResponse(status=404)
+#     response_dict = [{
+#         'users_id_rating': user.id
+#     } for user in users]
+#     return JsonResponse(response_dict, safe=False, status=201)

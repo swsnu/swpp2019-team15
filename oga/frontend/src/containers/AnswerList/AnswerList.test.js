@@ -76,7 +76,7 @@ describe("<AnswerList />", () => {
     it("should render AnswerList", () => {
         const component = mount(answerList);
         const wrapper = component.find(".spyAnswer");
-        expect(wrapper.length).toBe(2);
+        expect(wrapper.length).toBe(1);
         expect(spyGetAnswers).toBeCalledTimes(1);
         expect(spyGetQuestion).toBeCalledTimes(1);
     });
