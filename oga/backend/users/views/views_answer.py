@@ -132,7 +132,7 @@ def parse_answer_list(answer_list, user):
     Single function to parse given answer list
     and return the appropriate Json response dict
     """
-    response_dict = [{
+    answer_dict = [{
         'id': ans.id,
         'question_id': ans.question.id,
         'author': ans.author.user.username,
@@ -146,7 +146,7 @@ def parse_answer_list(answer_list, user):
         'user_liked': (user in ans.users_rated_up_answers.all())
     } for ans in answer_list]
 
-    return response_dict
+    return answer_dict
 
 
 @check_login_required

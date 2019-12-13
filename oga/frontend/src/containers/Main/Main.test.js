@@ -24,7 +24,21 @@ const store = mockStore({
         ]
     },
     answer: {
-        answers: null
+        answers: [
+            {
+                id: 1,
+                question_id: 1,
+                author: "anon",
+                publish_date_time: "2019-01-02 00:00:00",
+                question_type: "rain?",
+                content: "yes",
+                location_name: "home",
+                numbers_rated_up: "0",
+                numbers_rated_down: "0",
+                user_disliked: "0",
+                user_liked: "0"
+            }
+        ]
     },
     auth: {
         username: "",
