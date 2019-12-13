@@ -1,7 +1,7 @@
 """functional views api for the models"""
 import json
 
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
@@ -17,6 +17,8 @@ def questions(request):
     """api wrapper of POST and GET methods"""
     if request.method == 'POST':
         # create new question
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
         req_data = json.loads(request.body.decode())
         location = req_data['target_location']
         content = req_data['content']
