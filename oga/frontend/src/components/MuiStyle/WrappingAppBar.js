@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import AppBar from "./AppBar";
 import { connect } from "react-redux";
-import * as actionCreators from "../../store/actions/actionTypes";
+import * as actionCreators from "../../store/actions/index"
+import { Route, Redirect } from "react-router-dom";
+import { withRouter } from "react-router";
+import Login from "../../containers/Login/Login";
 
 class WrappingAppBar extends Component {
     constructor(props) {
@@ -24,19 +27,19 @@ class WrappingAppBar extends Component {
     //     }
     // };
 
+
     render() {
-        var log_toggle
-        if (this.props.log_status) {
-            log_toggle = this.props.logout
-        } else {
-            log_toggle = this.props.login
-        }
+        var handler = this.props.log_status ? this.props.logout : () => {
+            return <Route path="/login" exact component={Login} />
+        };
         return (
-            <AppBar
-                position="static"
-                auth={this.props.log_status}
-                func={log_toggle}
-            ></AppBar>
+            <Route>
+                <AppBar
+                    position="static"
+                    auth={this.props.log_status}
+                    func={handler}
+                ></AppBar>
+            </Route>
         );
     }
 }
@@ -49,9 +52,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        login: () => dispatch(actionCreators.Login()),
         logout: () => dispatch(actionCreators.Logout())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WrappingAppBar);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(WrappingAppBar));

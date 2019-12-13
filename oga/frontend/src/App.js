@@ -48,7 +48,7 @@ function App(props) {
         return (
             <MuiThemeProvider theme={theme}>
                 <ConnectedRouter history={props.history}>
-                    <WrappingAppBar />
+                    <WrappingAppBar history={props.history}/>
                     <div
                         className="App"
                         style={{

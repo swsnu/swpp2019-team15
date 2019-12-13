@@ -131,8 +131,8 @@ const mapStateToProps = state => {
     return {
         selectedQuestion: state.question.selectedQuestion,
         selectedAnswers: state.answer.answers,
-        rated_up: state.answer.rated_up,
-        rated_down: state.answer.rated_down
+        // rated_up: state.answer.rated_up,
+        // rated_down: state.answer.rated_down
         // numbers_rated_up: state.answer.numbers_rated_up,
         // numbers_rated_down: state.answer.numbers_rated_down,
     };
