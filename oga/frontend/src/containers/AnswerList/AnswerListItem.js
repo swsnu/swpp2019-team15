@@ -20,6 +20,10 @@ class AnswerListItem extends Component {
         };
     }
 
+    componentDidMount() {
+        this.props.isLoggedIn();
+    }
+
     clickAnswerHandler = id => {
         this.props.history.push("/reply/" + id);
     };
@@ -29,6 +33,7 @@ class AnswerListItem extends Component {
     };
 
     rateUpHandler = id => {
+        //this.setState({state.answers[id].numbers_rated_up: n});
         this.props.rateUp(id);
         // Window reload handled in actionCreators
     };
@@ -41,7 +46,6 @@ class AnswerListItem extends Component {
     render() {
         var answers = null;
         var selectedAnswers = this.props.selectedAnswers;
-        console.log(selectedAnswers);
 
         answers = selectedAnswers.map(ans => {
             return (
@@ -84,13 +88,15 @@ class AnswerListItem extends Component {
 
 const mapStateToProps = state => {
     return {
-        //rated_up: state.answer.rated_up,
-        //rated_down: state.answer.rated_down
+        auth: state.auth.authenticated,
+        rated_up: state.answer.rated_up,
+        rated_down: state.answer.rated_down
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        isLoggedIn: () => dispatch(actionCreators.isLoggedIn()),
         rateUp: id => dispatch(actionCreators.rateUp(id)),
         rateDown: id => dispatch(actionCreators.rateDown(id))
     };
