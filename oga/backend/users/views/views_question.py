@@ -17,6 +17,8 @@ def questions(request):
     """api wrapper of POST and GET methods"""
     if request.method == 'POST':
         # create new question
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
         req_data = json.loads(request.body.decode())
         location = req_data['target_location']
         content = req_data['content']
@@ -79,7 +81,7 @@ def parse_question_list(question_list):
     return response_dict
 
 
-#@check_login_required
+@check_login_required
 @check_request
 @require_http_methods(["GET"])
 def question_detail(request, question_id):
