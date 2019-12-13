@@ -12,13 +12,18 @@ DB_NAME = 'askat-dev'
 API_KEY = 'LJ1SuCdQQsu2GnNt0eiQVOcT3kRK2nhDv8boWWdsTyheJSRMTWCbjfClmXfNy6nq'
 client = RecombeeClient(DB_NAME, API_KEY)
 
-@background
 def get_recommendation(user, location):
+    """return list of recommended place's names"""
     recommended = client.send(RecommendItemsToItem(location, user, 2))
-    return recommended
+    location_names = []
+    for loc in recommended['recomms']:
+        location = Location.objects.get(pk=loc['id'])
+        location_names.append(location.name)
+    return location_names
 
 @background
 def add_item(user, location):
+    """async add item to the recommbee DB"""
     loc=Location.objects.get(pk=location)
     request = []
     request.append(SetItemValues(location,
@@ -27,9 +32,3 @@ def add_item(user, location):
                                  cascade_create=True))
     request.append(AddPurchase(user, location, cascade_create=True))
     client.send(Batch(request))
-
-    recommended = client.send(RecommendItemsToItem(location, user, 2))
-    for loc in recommended['recomms']:
-        location = Location.objects.get(pk=loc['id'])
-        print(location.name)
-    print("done")
