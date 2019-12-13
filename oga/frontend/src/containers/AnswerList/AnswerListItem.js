@@ -20,6 +20,10 @@ class AnswerList extends Component {
         };
     }
 
+    componentDidMount() {
+        this.props.isLoggedIn();
+    }
+
     clickAnswerHandler = id => {
         this.props.history.push("/reply/" + id);
     };
@@ -29,8 +33,6 @@ class AnswerList extends Component {
     };
 
     rateUpHandler = id => {
-        let n = this.props.answers;
-        console.log(n);
         //this.setState({state.answers[id].numbers_rated_up: n});
         this.props.rateUp(id);
         // Window reload handled in actionCreators
@@ -86,6 +88,7 @@ class AnswerList extends Component {
 
 const mapStateToProps = state => {
     return {
+        auth: state.auth.authenticated,
         rated_up: state.answer.rated_up,
         rated_down: state.answer.rated_down
     };
@@ -93,6 +96,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        isLoggedIn: () => dispatch(actionCreators.isLoggedIn()),
         rateUp: id => dispatch(actionCreators.rateUp(id)),
         rateDown: id => dispatch(actionCreators.rateDown(id))
     };

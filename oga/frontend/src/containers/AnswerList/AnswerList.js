@@ -26,7 +26,7 @@ class AnswerList extends Component {
         super(props);
         this.state = {
             id: this.props.match.params.id,
-            render_check: []
+            render_check: [],
         };
     }
 
@@ -87,7 +87,6 @@ class AnswerList extends Component {
                     <Box pt={2} />
                     <Grid container spacing={2} direction="row">
                         <AnswerListItem
-                            auth={this.props.auth}
                             selectedAnswers={this.props.selectedAnswers}
                         />
                     </Grid>

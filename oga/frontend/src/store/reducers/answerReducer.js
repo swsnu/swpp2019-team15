@@ -1,3 +1,4 @@
+import update from 'immutability-helper';
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
@@ -29,9 +30,21 @@ const answerReducer = (state = initialState, action) => {
         case actionTypes.GET_USER_ANSWERS:
             return { ...state, answers: action.answers };
         case actionTypes.RATE_UP:
-            return { ...state, rated_up: action.rated_up+1, rated_down: action.rated_down};
+            return update(state, {
+                "answers": {
+                    [action.answer_id]: {
+                        'numbers_rated_up': {$set: action.rated_up}
+                    }
+                }
+            });
         case actionTypes.RATE_DOWN:
-            return { ...state, answer_id: action.answer_id, rated_up: action.rated_up, rated_down: action.rated_down, is_up: false};
+            return update(state, {
+                "answers": {
+                    [action.answer_id]: {
+                        'numbers_rated_down': {$set: action.rated_down}
+                    }
+                }
+            });
         default:
             break;
     }

@@ -112,8 +112,8 @@ export const _rate = rate => {
     return {
         type: actionTypes.RATE_UP,
         answer_id: rate.answer_id,
-        rated_up: rate.rated_up+1,
-        rated_down: rate.rated_down+1,
+        rated_up: rate.rated_up,
+        rated_down: rate.rated_down,
     };
 };
 
@@ -137,7 +137,7 @@ export const rateDown = answer_id => {
             .then(res => {
                 dispatch(_rate(res.data));
                 // timeout needed due to asynchronous call
-                setTimeout(() => window.location.reload(), 0);
+                // setTimeout(() => window.location.reload(), 0);
             })
             .catch(err => alert("You already rated this answer!"));
     };
