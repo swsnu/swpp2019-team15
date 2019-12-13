@@ -84,7 +84,7 @@ describe("<NewAnswer/>", () => {
 
     xit("Slider should change answer content ", () => {
         const wrapper = mount(answer);
-        const component = wrapper.find(Slider);
+        const component = wrapper.find("#slider");
         const answer_data = "NO";
         //component.props.onChange(answer_data);
         component

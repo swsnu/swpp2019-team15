@@ -1,7 +1,7 @@
 """functional views api for the models"""
 import json
 
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
@@ -10,7 +10,7 @@ from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
 
 
-@check_login_required
+#@check_login_required
 @check_request
 @require_http_methods(["GET", "POST"])
 @csrf_exempt
@@ -22,6 +22,8 @@ def get_or_create_answer(request, question_or_answer_id):
     GET: get_answers api
     """
     if request.method == "POST":
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
         req_data = json.loads(request.body.decode())
         question_type = req_data['question_type']
         answer_author = get_user(request)
@@ -90,7 +92,7 @@ def get_answers(request, question_id):
     return JsonResponse(response_dict, safe=False, status=200)
 
 
-@check_login_required
+#@check_login_required
 @check_request
 @require_http_methods(["GET"])
 @csrf_exempt
@@ -132,7 +134,7 @@ def parse_answer_list(answer_list, user):
     Single function to parse given answer list
     and return the appropriate Json response dict
     """
-    answer_dict = [{
+    response_dict = [{
         'id': ans.id,
         'question_id': ans.question.id,
         'author': ans.author.user.username,
@@ -146,7 +148,7 @@ def parse_answer_list(answer_list, user):
         'user_liked': (user in ans.users_rated_up_answers.all())
     } for ans in answer_list]
 
-    return answer_dict
+    return response_dict
 
 
 @check_login_required
