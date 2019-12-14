@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import ensure_csrf_cookie
-from users.models import Profile
+from users.models import Profile, Question, Answer
 from users.views.decorators import check_login_required
+import datetime
 
 @check_login_required
 @ensure_csrf_cookie
@@ -28,10 +29,16 @@ def get_profile(request, username=''):
         coordinates = "(" + str(round(profile.location_id.latitude, 2)) + \
             ", " + str(round(profile.location_id.longitude, 2)) + ")"
 
+    today = datetime.date.today()
+    todays_questions = Question.objects.filter(date_created__range=[today, ])
+    todays_answers = Answer.objects.filter(date_created_range=[today, ])
+
     response_dict = {
         'id': profile.id,
         'username': profile.user.username,
         'location': location_name,
-        'coordinates': coordinates
+        'coordinates': coordinates,
+        'todayQuestionCount': todays_questions,
+        'todayAnswerCount': todays_answers,
     }
     return JsonResponse(response_dict, status=200)

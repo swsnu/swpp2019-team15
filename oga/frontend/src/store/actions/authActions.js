@@ -1,7 +1,6 @@
 import React from "react";
 import * as actionTypes from "./actionTypes.js";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import { push } from "connected-react-router";
 
 export const signUp_ = res => {
@@ -97,7 +96,9 @@ export const getProfile_ = profile => {
         id: profile.id,
         username: profile.username,
         location: profile.location,
-        coordinates: profile.coordinates
+        coordinates: profile.coordinates,
+        todayAnswerCounts: profile.todayAnswerCounts,
+        todayQuestionCounts: profile.todayQuestionCounts,
     };
 };
 

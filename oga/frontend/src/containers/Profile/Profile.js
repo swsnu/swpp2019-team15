@@ -56,11 +56,15 @@ class Profile extends Component {
         let username = "";
         let location = "";
         let coordinates = "";
+        let todayQuestionCount = "";
+        let todayAnswerCount = "";
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;
             location = `${profile.location}`;
             coordinates = `${profile.coordinates}`;
+            todayQuestionCount = `${profile.todayQuestionCount}`;
+            todayAnswerCount = `${profile.todayAnswerCount}`;
         }
 
         var questions = this.props.myQuestions;
@@ -227,6 +231,32 @@ class Profile extends Component {
                                                 Answers
                                             </Typography>
                                         </Grid>
+                                        <Grid item xs={4} align="center">
+                                            <Typography
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    fontSize: 50
+                                                }}
+                                            >
+                                                {todayQuestionCount} questions!
+                                            </Typography>
+                                            <Typography variant="caption">
+                                                Today you asked
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={4} align="center">
+                                            <Typography
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    fontSize: 50
+                                                }}
+                                            >
+                                                {todayAnswerCount} people!
+                                            </Typography>
+                                            <Typography variant="caption">
+                                                Today you helped
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
                                 </CardContent>
                             </Card>
@@ -278,7 +308,7 @@ const mapStateToProps = state => {
     return {
         userProfile: state.auth.profile,
         myQuestions: state.question.questions,
-        myAnswers: state.answer.answers
+        myAnswers: state.answer.answers,
         // counts_rating_up: state.rating.rating_up,
         // counts_rating_down: state.rating.rating_down,
     };
@@ -290,7 +320,7 @@ const mapDispatchToProps = dispatch => {
         getUserQuestions: username =>
             dispatch(actionCreators.getUserQuestions(username)),
         getUserAnswers: username =>
-            dispatch(actionCreators.getUserAnswers(username))
+            dispatch(actionCreators.getUserAnswers(username)),
     };
 };
 

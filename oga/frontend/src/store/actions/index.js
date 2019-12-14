@@ -14,7 +14,8 @@ import {
     isLoggedIn,
     Logout,
     // Login,
-    getProfile
+    getProfile,
+    getTodayContribution,
 } from "./authActions.js";
 
 import {
@@ -47,6 +48,7 @@ export {
     Logout,
     // Login,
     getProfile,
+    getTodayContribution,
     checkRating,
     rateUp,
     rateDown
