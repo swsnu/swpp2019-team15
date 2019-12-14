@@ -7,16 +7,16 @@ export const theme = createMuiTheme({
     },
     palette: {
         background: {
-            default: "#f2f2f2",
-            secondary: "#ffb366"
+            default: "#f4d2d2",
+            secondary: "#9dddcb"
         },
         primary: {
-            light: "#ffe699",
-            main: "#7189bf",
+            light: "#ffffff",
+            main: "#fcb6b6",
             dark: "#cde5f7" //color for button hover
         },
         secondary: {
-            main: "#7189bf"
+            main: "#ffffff"
         }
     },
     typography: {
@@ -43,7 +43,7 @@ export const theme = createMuiTheme({
             categoryHeaderText: {
                 fontSize: 15,
                 fontWeight: 500,
-                color: "#ffb366"
+                color: "#9dddcb"
             },
             itemText: {
                 fontSize: 14,
@@ -59,3 +59,5 @@ export const theme = createMuiTheme({
         }
     }
 });
+
+export default theme;

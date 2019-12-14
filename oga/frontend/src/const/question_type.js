@@ -4,7 +4,6 @@ export const question_types = [
     "Is it RAINING",
     "Is it QUIET"
 ];
-
 /**
  * Marker values and respective labels
  * for NewAnswer Slider display
@@ -12,19 +11,9 @@ export const question_types = [
 export const answer_markers = {
     "Are there LONG LINES": [
         {
-            value: 5,
-            label: "VERY LONG",
-            content: "Lines are VERY LONG"
-        },
-        {
-            value: 4,
-            label: "LONG",
-            content: "Lines are LONG"
-        },
-        {
-            value: 3,
-            label: "MODERATE",
-            content: "Lines are MODERATE"
+            value: 1,
+            label: "NONE",
+            content: "NO LINES"
         },
         {
             value: 2,
@@ -32,16 +21,26 @@ export const answer_markers = {
             content: "LINES ARE SHORT"
         },
         {
-            value: 1,
-            label: "NONE",
-            content: "NO LINES"
+            value: 3,
+            label: "MODERATE",
+            content: "Lines are MODERATE"
+        },
+        {
+            value: 4,
+            label: "LONG",
+            content: "Lines are LONG"
+        },
+        {
+            value: 5,
+            label: "VERY LONG",
+            content: "Lines are VERY LONG"
         }
     ],
     "Are there MANY SEATS": [
         {
-            value: 3,
-            label: "MANY SEATS",
-            content: "There are MANY SEATS"
+            value: 1,
+            label: "NO SEATS",
+            content: "There are NO SEATS"
         },
         {
             value: 2,
@@ -49,21 +48,16 @@ export const answer_markers = {
             content: "There are a FEW SEATS"
         },
         {
-            value: 1,
-            label: "NO SEATS",
-            content: "There are NO SEATS"
+            value: 3,
+            label: "MANY SEATS",
+            content: "There are MANY SEATS"
         }
     ],
     "Is it RAINING": [
         {
-            value: 4,
-            label: "HEAVY",
-            content: "It is RAINING HEAVILY"
-        },
-        {
-            value: 3,
-            label: "MODERATE",
-            content: "It is RAINING MODERATELY"
+            value: 1,
+            label: "NO RAIN",
+            content: "There is NO RAIN"
         },
         {
             value: 2,
@@ -71,16 +65,21 @@ export const answer_markers = {
             content: "It is DRIZZLING"
         },
         {
-            value: 1,
-            label: "NO RAIN",
-            content: "There is NO RAIN"
+            value: 3,
+            label: "MODERATE",
+            content: "It is RAINING MODERATELY"
+        },
+        {
+            value: 4,
+            label: "HEAVY",
+            content: "It is RAINING HEAVILY"
         }
     ],
     "Is it QUIET": [
         {
-            value: 3,
-            label: "NOISY",
-            content: "It is NOISY"
+            value: 1,
+            label: "QUIET",
+            content: "It is QUIET"
         },
         {
             value: 2,
@@ -88,9 +87,9 @@ export const answer_markers = {
             content: "It is MODERATELY QUIET"
         },
         {
-            value: 1,
-            label: "QUIET",
-            content: "It is QUIET"
+            value: 3,
+            label: "NOISY",
+            content: "It is NOISY"
         }
     ]
 };

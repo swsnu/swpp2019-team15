@@ -4,6 +4,7 @@
 
 import React from "react";
 import { withRouter } from "react-router";
+import SearchBox from "../MapSearchBox/SearchBox";
 import { Route, Redirect } from "react-router-dom";
 
 // Material UI imports
@@ -15,7 +16,7 @@ import {
     LiveHelp,
     SettingsApplications,
     ChevronLeft,
-    ExitToApp
+    ExitToApp,
 } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import {
@@ -25,13 +26,18 @@ import {
     CssBaseline,
     Drawer,
     Divider,
+    FormControl,
     FormControlLabel,
+    FormLabel,
+    Grid,
     IconButton,
+    InputAdornment,
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
     MenuItem,
+    TextField,
     Toolbar,
     Typography
 } from "@material-ui/core";
@@ -42,10 +48,9 @@ const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1
     },
-    appBar: {
-        // padding: 5,
-        zIndex: theme.zIndex.drawer + 1,
-        boxShadow: ["none"]
+    searchBar: {
+        zIndex: 5000,
+        flexGrow: 1
     },
     menuButton: {
         paddingLeft: 10,
@@ -62,7 +67,13 @@ const useStyles = makeStyles(theme => ({
         overflowX: "hidden",
         height: "100%"
     },
+    appBar: {
+        width: "100%",
+        zIndex: 900, // theme.zIndex.drawer + 1,
+        boxShadow: ["none"]
+    },
     drawerOpen: {
+        zIndex: 899,
         width: drawerWidth,
         overflowX: "hidden",
         height: "100%",
@@ -72,13 +83,14 @@ const useStyles = makeStyles(theme => ({
         })
     },
     drawerClose: {
+        zIndex: 899,
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen
         }),
         overflowX: "hidden",
         height: "100%",
-        width: theme.spacing(7) + 1,
+        width: theme.spacing(8),
         [theme.breakpoints.up("sm")]: {
             width: theme.spacing(9),
             height: "100%"
@@ -96,6 +108,7 @@ const useStyles = makeStyles(theme => ({
         ...theme.mixins.toolbar
     },
     title: {
+        zIndex: 5000,
         flexGrow: 1,
         fontWeight: "bold"
     },
@@ -174,29 +187,40 @@ function MenuAppBar(props) {
                                 >
                                     <MenuIcon />
                                 </IconButton>
-                                <FormControlLabel
-                                    className={classes.title}
-                                    onClick={() => props.history.push("/")}
-                                    control={
-                                        <Typography
-                                            variant="h4"
-                                            className={classes.title}
-                                        >
-                                            askAT
-                                        </Typography>
-                                    }
-                                />
-                                <FormControlLabel
-                                    control={
-                                        <Button
-                                            onClick={() => func()}
-                                            aria-label="logout-button"
-                                        >
-                                            <ExitToApp />
-                                            {Log_toggle}
-                                        </Button>
-                                    }
-                                />
+                                <Grid xs={3}>
+                                    <FormControlLabel
+                                        className={classes.title}
+                                        control={
+                                            <Typography
+                                                onClick={() =>
+                                                    props.history.push("/")
+                                                }
+                                                variant="h4"
+                                                className={classes.title}
+                                            >
+                                                askAT
+                                            </Typography>
+                                        }
+                                    />
+                                </Grid>
+                                <Grid xs={7} align="right">
+                                    <SearchBox className={classes.searchBar} />
+                                </Grid>
+                                <Grid xs={2} align="right">
+                                    <FormControlLabel
+                                        className={classes.title}
+                                        control={
+                                            <Button
+                                                checked={auth}
+                                                onClick={() => func()}
+                                                aria-label="logout-button"
+                                            >
+                                                <ExitToApp />
+                                                {Log_toggle}
+                                            </Button>
+                                        }
+                                    />
+                                </Grid>
                             </Toolbar>
                         </AppBar>
                         <Drawer
@@ -217,6 +241,7 @@ function MenuAppBar(props) {
                                 })
                             }}
                             open={open}
+                            style={{ zIndex: 1 }}
                             onMouseEnter={handleDrawer}
                             onMouseLeave={handleDrawerCloseOnMouseLeave}
                         >

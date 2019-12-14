@@ -14,7 +14,7 @@ import {
     isLoggedIn,
     Logout,
     // Login,
-    getProfile
+    getProfile,
 } from "./authActions.js";
 
 import {
