@@ -62,8 +62,8 @@ class NewQuestion extends Component {
                     <Map />
                 </Grid>
                 <Grid item xs={6} className="AskQuestion">
-                    <Box pt={5} />
-                    <Typography variant="h6">Ask a New Question!</Typography>
+                    {/* <Box pt={5} />
+                    <Typography variant="h6">Ask a New Question!</Typography> */}
                     <Box pt={8} />
                     <Typography id="view" variant="h4">
                         {this.state.content} in {place_name}?
@@ -78,52 +78,64 @@ class NewQuestion extends Component {
                                 })
                             }
                         >
-                            <Grid container direction="row">
-                                <FormControlLabel
-                                    value="Are there LONG LINES"
-                                    control={
-                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
-                                    }
-                                    label="LONG LINES"
-                                    labelPlacement="bottom"
-                                />
-                                <FormControlLabel
-                                    value="Are there MANY SEATS"
-                                    control={
-                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
-                                    }
-                                    label="SEATS"
-                                    labelPlacement="bottom"
-                                />
-                                <FormControlLabel
-                                    value="Is it RAINING"
-                                    control={
-                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
-                                    }
-                                    label="RAIN"
-                                    labelPlacement="bottom"
-                                />
-                                <FormControlLabel
-                                    value="Is it QUIET"
-                                    control={
-                                        <CustomRadio imgsrc="/images/icons8-github-500.png" />
-                                    }
-                                    label="QUIET"
-                                    labelPlacement="bottom"
-                                />
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                spacing={8}
+                            >
+                                <Grid>
+                                    <FormControlLabel
+                                        value="Are there LONG LINES"
+                                        control={
+                                            <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                        }
+                                        label="LONG LINES"
+                                        labelPlacement="bottom"
+                                    />
+                                    <FormControlLabel
+                                        value="Are there MANY SEATS"
+                                        control={
+                                            <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                        }
+                                        label="SEATS"
+                                        labelPlacement="bottom"
+                                    />
+                                </Grid>
+                                <Grid>
+                                    <FormControlLabel
+                                        value="Is it RAINING"
+                                        control={
+                                            <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                        }
+                                        label="RAIN"
+                                        labelPlacement="bottom"
+                                    />
+                                    <FormControlLabel
+                                        value="Is it QUIET"
+                                        control={
+                                            <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                        }
+                                        label="QUIET"
+                                        labelPlacement="bottom"
+                                    />
+                                </Grid>
                             </Grid>
                         </RadioGroup>
                     </FormControl>
-                    <Box pt={5} />
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        id="confirm-create-question-button"
-                        onClick={() => this.postQuestionHandler()}
-                    >
-                        Submit
-                    </Button>
+                    <Grid xs={5}>
+                        <Box pt={10} />
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            fullWidth
+                            id="confirm-create-question-button"
+                            onClick={() => this.postQuestionHandler()}
+                        >
+                            Submit
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
         );
