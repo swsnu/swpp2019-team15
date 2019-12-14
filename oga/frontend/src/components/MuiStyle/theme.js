@@ -7,20 +7,20 @@ export const theme = createMuiTheme({
     },
     palette: {
         background: {
-            default: "#f2f2f2",
-            secondary: "#ffb366"
+            default: "#f4d2d2",
+            secondary: "#9dddcb"
         },
         primary: {
-            light: "#ffe699",
-            main: "#ffb366",
-            dark: "#ff9933" //color for button hover
+            light: "#ffffff",
+            main: "#fcb6b6",
+            dark: "#cde5f7" //color for button hover
         },
         secondary: {
-            main: "#ffb366"
+            main: "#ffffff"
         }
     },
     typography: {
-        fontFamily: "arial",
+        fontFamily: "Georgia",
         useNextVariants: true
     },
 
@@ -43,7 +43,7 @@ export const theme = createMuiTheme({
             categoryHeaderText: {
                 fontSize: 15,
                 fontWeight: 500,
-                color: "#ffb366"
+                color: "#9dddcb"
             },
             itemText: {
                 fontSize: 14,
@@ -56,16 +56,8 @@ export const theme = createMuiTheme({
                 display: "flex",
                 flexDirection: "column"
             }
-        },
-        MuiButton: {
-            raisedPrimary: {
-                margin: "10px",
-                padding: "10px",
-                color: "#ffe699"
-            }
-        },
-        MuiToolbar: {
-            backgroundColor: "transparent"
         }
     }
 });
+
+export default theme;

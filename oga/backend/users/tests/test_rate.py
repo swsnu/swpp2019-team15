@@ -54,5 +54,24 @@ class RatingTestCase(TestCase):
 
     def test_rate_down_answer(self):
         """ test rating down an answer """
+        response = self.client.put('/api/rate/down/1/')
+        self.assertEqual(response.status_code, 201)
+
+    def test_change_rate_down_to_up(self):
+        """ test changing downvote to upvote """
+        response = self.client.put('/api/rate/down/1/')
         response = self.client.put('/api/rate/up/1/')
         self.assertEqual(response.status_code, 201)
+
+    def test_change_rate_up_to_down(self):
+        """ test changing upvote to downvote """
+        response = self.client.put('/api/rate/up/1/')
+        response = self.client.put('/api/rate/down/1/')
+        self.assertEqual(response.status_code, 201)
+
+    def test_duplicate_ratings(self):
+        """ test attempting to make duplicate ratings """
+        response = self.client.put('/api/rate/up/1/')
+        response = self.client.put('/api/rate/up/1/')
+        # up rating count should not be incremented a second time
+        self.assertEqual(response.status_code, 400)

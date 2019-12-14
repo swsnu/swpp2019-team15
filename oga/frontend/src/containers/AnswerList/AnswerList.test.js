@@ -9,6 +9,7 @@ import AnswerList from "./AnswerList";
 import { history } from "../../store/store";
 import * as answerActions from "../../store/actions/answerActions";
 import * as questionActions from "../../store/actions/questionActions";
+import * as authActions from "../../store/actions/authActions";
 
 console.error = jest.fn();
 jest.mock("../../components/AnswerView/AnswerView.js", () => {
@@ -16,6 +17,11 @@ jest.mock("../../components/AnswerView/AnswerView.js", () => {
         return <div className="spyAnswer"></div>;
     });
 });
+const spyGetAnswer = jest
+    .spyOn(authActions, "isLoggedIn")
+    .mockImplementation(() => {
+        return dispatch => {};
+    });
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
@@ -35,11 +41,12 @@ const store = mockStore({
                 id: 1,
                 author: "me",
                 question_type: "MANY SEATS",
-                publish_date_time: "2019",
+                publish_date_time: "2019-01-01 00:00:00",
                 place_name: "HOME"
             }
         ]
     },
+    auth: { authenticated: false },
     router: history
 });
 
@@ -76,7 +83,7 @@ describe("<AnswerList />", () => {
     it("should render AnswerList", () => {
         const component = mount(answerList);
         const wrapper = component.find(".spyAnswer");
-        expect(wrapper.length).toBe(2);
+        expect(wrapper.length).toBe(1);
         expect(spyGetAnswers).toBeCalledTimes(1);
         expect(spyGetQuestion).toBeCalledTimes(1);
     });
@@ -98,7 +105,6 @@ describe("<AnswerList />", () => {
             .mockImplementation(path => {});
         const component = mount(answerList);
         component.setProps({ match: { params: { id: 1 } } });
-        console.log(component.props().match.params.id);
         const wrapper = component.find("#reply-create-button");
         wrapper.hostNodes().simulate("click");
         expect(spyHistoryPush).toBeCalledTimes(1);
@@ -130,12 +136,13 @@ describe("<AnswerList />", () => {
                         id: 1,
                         author: "me",
                         question_type: "MANY SEATS",
-                        publish_date_time: "2019",
+                        publish_date_time: "2019-01-01 00:00:00",
                         place_name: "HOME"
                     }
                 ]
             },
-            router: history
+            router: history,
+            auth: { authenticated: false },
         });
         let answerList = (
             <Provider store={store}>

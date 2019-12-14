@@ -1,6 +1,7 @@
 export const LOGIN_SUCCEED = "LOGIN_SUCCEED";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOG_OUT = "LOG_OUT";
+export const LOG_IN = "LOG_IN";
 export const CREATE_QUESTION = "CREATE_QUESTION";
 export const GET_QUESTIONS = "GET_QUESTIONS";
 export const GET_QUESTION = "GET_QUESTION";
@@ -17,5 +18,4 @@ export const GET_ANSWERS = "GET_ANSWERS";
 export const GET_ANSWER = "GET_ANSWER";
 export const GET_USER_ANSWERS = "GET_USER_ANSWERS";
 export const CHECK_RATING = "CHECK_RATING";
-export const RATE_UP = "RATE_UP";
-export const RATE_DOWN = "RATE_DOWN";
+export const RATE = "RATE";

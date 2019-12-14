@@ -1,14 +1,10 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import { BrowserRouter as Router } from "react-router-dom";
-import { connectRouter, ConnectedRouter } from "connected-react-router";
-import { Route, Redirect, Switch } from "react-router-dom";
-import axios from "axios";
-import { connect } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import { Route, Switch } from "react-router-dom";
 import { history } from "../../store/store";
-import * as actionCreators from "../../store/actions/authActions";
 import thunk from "redux-thunk";
 import Settings from "./Settings.js";
 

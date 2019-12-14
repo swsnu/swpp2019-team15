@@ -19,7 +19,7 @@ export const createAnswer = (answer, question_id) => {
             .post("/api/reply/" + question_id + "/", answer)
             .then(res => {
                 dispatch(createAnswer_(res.data));
-                dispatch(push("/main/"));
+                dispatch(push("/replies/" + question_id + "/"));
             })
             .catch(err => console.error(err));
     };
@@ -43,19 +43,30 @@ export const getAnswers = question_id => {
     };
 };
 
-export const getUserAnswers_ = answers => {
-    return {
-        type: actionTypes.GET_USER_ANSWERS,
-        answers: answers
+export const getAllAnswers = () => {
+    return dispatch => {
+        return axios
+            .get("/api/answers/")
+            .then(res => {
+                dispatch(getAnswers_(res.data));
+            })
+            .catch(err => console.error(err));
     };
 };
+
+// export const getUserAnswers_ = answers => {
+//     return {
+//         type: actionTypes.GET_USER_ANSWERS,
+//         answers: answers
+//     };
+// };
 
 export const getUserAnswers = (username = "") => {
     return dispatch => {
         return axios
             .get("/api/profile/answers/" + username + "/")
             .then(res => {
-                dispatch(getUserAnswers_(res.data));
+                dispatch(getAnswers_(res.data));
             })
             .catch(err => console.error(err));
     };
@@ -99,10 +110,11 @@ export const checkRating = answer_id => {
 
 export const rate_ = rate => {
     return {
-        type: actionTypes.CHECK_RATING,
+        type: actionTypes.RATE,
         answer_id: rate.answer_id,
-        rate_up: rate.rate_up,
-        rate_down: rate.rate_down
+        rated_up: rate.rated_up,
+        rated_down: rate.rated_down,
+        is_up: rate.is_up,
     };
 };
 
@@ -113,7 +125,7 @@ export const rateUp = answer_id => {
             .then(res => {
                 dispatch(rate_(res.data));
             })
-            .catch(err => console.error(err));
+            .catch(err => alert("You already rated this answer!"));
     };
 };
 
@@ -124,6 +136,6 @@ export const rateDown = answer_id => {
             .then(res => {
                 dispatch(rate_(res.data));
             })
-            .catch(err => console.error(err));
+            .catch(err => alert("You already rated this answer!"));
     };
 };

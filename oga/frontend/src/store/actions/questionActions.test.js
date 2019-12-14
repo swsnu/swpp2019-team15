@@ -5,6 +5,7 @@ import store from "../store.js";
 
 console.log = jest.fn();
 console.error = jest.fn();
+window.alert = jest.fn();
 describe("questionActions", () => {
     afterEach(() => {
         jest.clearAllMocks();
@@ -216,6 +217,7 @@ describe("questionActions", () => {
             });
         });
         store.dispatch(actionCreators.followQuestion(1)).then(() => {
+            expect(window.alert).toHaveBeenCalledTimes(1);
             expect(spy).toHaveBeenCalledTimes(1);
             done();
         });
@@ -232,7 +234,7 @@ describe("questionActions", () => {
             });
         });
         store.dispatch(actionCreators.followQuestion(1)).then(() => {
-            expect(console.log).toHaveBeenCalledTimes(1);
+            expect(window.alert).toHaveBeenCalledTimes(1);
             done();
         });
     });

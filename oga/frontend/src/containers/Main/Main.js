@@ -1,26 +1,42 @@
 import React, { Component } from "react";
-
-import Question from "../../components/Question/Question";
-
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
-
+import "./Main.css";
 import * as actionCreators from "../../store/actions/index";
+import GoogleMap from "../Map/GoogleMap";
+import Question from "../../components/Question/Question";
+import CustomToggle from "../../components/MuiStyle/CustomToggle";
 
 //Material UI imports
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import IconButton from "@material-ui/core/IconButton";
+import {
+    Box,
+    Button,
+    Container,
+    Grid,
+    IconButton,
+    MobileStepper,
+    Typography
+} from "@material-ui/core";
 import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
-
+import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
+import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import AnswerListItem from "../AnswerList/AnswerListItem";
 class QuestionList extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isQuestionTab: true,
+            activeStep: 0
+        };
+    }
+
     componentDidMount() {
-        this.props.onGetAll();
+        // Fetch list of Q&A's in a given range based on current page
+        // this.props.isLoggedIn();
+        this.props.onGetAllQuestions();
+        this.props.onGetAllAnswers();
     }
 
     clickAnswerHandler = qst => {
@@ -38,10 +54,40 @@ class QuestionList extends Component {
         this.props.onFollow(qst.id);
     };
 
+    clickAuthorHandler = author => {
+        this.props.history.push("/profile/" + author);
+    };
+
+    // Switch between Question and Answer tabs
+    clickTabHandler = () => {
+        this.setState({
+            isQuestionTab: !this.state.isQuestionTab,
+            // reset to first page
+            activeStep: 0
+        });
+    };
+
+    // Stepper handlers for controlling page navigation
+    handleStepperNext = () => {
+        this.setState({ activeStep: this.state.activeStep + 1 });
+    };
+
+    handleStepperBack = () => {
+        this.setState({ activeStep: this.state.activeStep - 1 });
+    };
+
     render() {
-        // const theme = useTheme();
-        var len = this.props.storedQuestions.length;
-        var stored_Questions = this.props.storedQuestions.slice(0, 20);
+        console.log(this.props.auth);
+        var question_len = this.props.storedQuestions.length;
+        var answer_len = this.props.storedAnswers.length;
+        var title = this.state.isQuestionTab ? "Question" : "Answer";
+
+        // Limit to displaying only 10 most recent questions
+        var stored_Questions = this.props.storedQuestions.slice(
+            this.state.activeStep * 10,
+            (this.state.activeStep + 1) * 10
+        );
+
         const Questions = stored_Questions.map(qs => {
             return (
                 <Grid item xs={6} key={qs.id}>
@@ -53,29 +99,83 @@ class QuestionList extends Component {
                             "MMMM Do YYYY, h:mm:ss a"
                         )}
                         content={qs.content}
+                        answer_count={qs.answer_count}
+                        follow_count={qs.follow_count}
                         location={qs.location}
                         is_answered={qs.is_answered}
                         showButtons={true}
                         clickAnswer={() => this.clickAnswerHandler(qs)}
                         clickFollow={() => this.clickFollowHandler(qs)}
                         clickDetail={() => this.clickDetailHandler(qs)}
+                        clickAuthor={() => this.clickAuthorHandler(qs.author)}
                     />
                 </Grid>
             );
         });
 
+        const Answers = (
+            <AnswerListItem
+                selectedAnswers={this.props.storedAnswers.slice(
+                    this.state.activeStep * 10,
+                    (this.state.activeStep + 1) * 10
+                )}
+            />
+        );
+
+        var pageCount = this.state.isQuestionTab
+            ? Math.ceil(question_len / 10, 1)
+            : Math.ceil(answer_len / 10, 1);
+
+        // Stepper component for page navigation
+        const MyStepper = (
+            <MobileStepper
+                steps={pageCount}
+                position="static"
+                variant="text"
+                activeStep={this.state.activeStep}
+                nextButton={
+                    <Button
+                        id="stepper-next"
+                        size="small"
+                        onClick={() => this.handleStepperNext()}
+                        disabled={this.state.activeStep === pageCount-1}
+                    >
+                        Next
+                        <KeyboardArrowRight />
+                    </Button>
+                }
+                backButton={
+                    <Button
+                        id="stepper-back"
+                        size="small"
+                        onClick={() => this.handleStepperBack()}
+                        disabled={this.state.activeStep === 0}
+                    >
+                        <KeyboardArrowLeft />
+                        Back
+                    </Button>
+                }
+            />
+        );
+
         return (
             <div className="Main">
+                <GoogleMap viewOnly={true} />
+                <Box pt={10} />
                 <Container component="main" justify="center">
-                    <CssBaseline />
-                    <Box pt={8} />
-                    <Typography component="h1" variant="h3">
-                        Question Feed
+                    <Typography component="h1" variant="h4">
+                        {title} Feed
                     </Typography>
-                    <Box pt={5} />
+                    <CustomToggle
+                        value="Hi"
+                        checked={this.state.isQuestionTab}
+                        onChange={() => this.clickTabHandler()}
+                    />
+                    {MyStepper}
                     <Grid container spacing={2} direction="row">
-                        {Questions}
+                        {this.state.isQuestionTab ? Questions : Answers}
                     </Grid>
+                    {MyStepper}
                     <IconButton
                         color="primary"
                         id="question-create-button"
@@ -109,17 +209,16 @@ class QuestionList extends Component {
 
 const mapStateToProps = state => {
     return {
-        storedQuestions: state.question.questions
-        //log_status: state.rd.log_status,
+        storedQuestions: state.question.questions,
+        storedAnswers: state.answer.answers
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetAll: () => dispatch(actionCreators.getQuestions()),
+        onGetAllQuestions: () => dispatch(actionCreators.getQuestions()),
+        onGetAllAnswers: () => dispatch(actionCreators.getAllAnswers()),
         onFollow: id => dispatch(actionCreators.followQuestion(id))
-        //setLogout: () =>
-        //dispatch(actionCreators.settingLogout())
     };
 };
 

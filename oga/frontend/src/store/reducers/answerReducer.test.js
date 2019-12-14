@@ -1,16 +1,13 @@
-import React from "react";
-
 import reducer from "./answerReducer.js";
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     answer: null,
-    answers: [],
+    answers: [ ],
     answer_id: null,
     is_rated: null,
-    rate_up: null,
-    rate_down: null,
-    is_up: null
+    rated_up: null,
+    rated_down: null
 };
 
 describe("Answer Reducer", () => {
@@ -77,43 +74,46 @@ describe("Answer Reducer", () => {
         });
     });
 
-    // Test rate up reducer
-    it("CheckRating should return is rated", () => {
-        const newState = reducer(undefined, {
-            type: actionTypes.RATE_UP,
+    it("RATE should toggle answer rate", () => {
+        const state = {
+            answer: null,
+            answers: [
+                {
+                    id: 1,
+                    question_id: 1,
+                    author_id: 1,
+                    question_type: "RAIN",
+                    answer_content: "YES",
+                    user_liked: false,
+                    user_disliked: false,
+                },
+            ],
+            is_rated: null,
+            rated_up: null,
+            rated_down: null
+        };
+        const newState = reducer(state, {
+            type: actionTypes.RATE,
             answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: true
+            is_up: true,
+            rated_up: 3,
+            rated_down: 2,
         });
         expect(newState).toEqual({
-            ...initialState,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: true
-        });
-    });
-
-    // Test rate down reducer
-    it("CheckRating should return is rated", () => {
-        const newState = reducer(undefined, {
-            type: actionTypes.RATE_DOWN,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: false
-        });
-        expect(newState).toEqual({
-            ...initialState,
-            answer_id: 1,
-            is_rated: true,
-            rate_up: 1,
-            rate_down: 0,
-            is_up: false
+            ...state,
+            answers: [
+                {
+                    id: 1,
+                    question_id: 1,
+                    author_id: 1,
+                    question_type: "RAIN",
+                    answer_content: "YES",
+                    user_liked: true,
+                    user_disliked: false,
+                    numbers_rated_up: 3,
+                    numbers_rated_down: 2,
+                },
+            ]
         });
     });
 });

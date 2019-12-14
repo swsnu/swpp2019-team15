@@ -60,8 +60,9 @@ class QuestionTestCase(TestCase):
         second_question.save()
         response = self.client.get('/api/questions/')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()[0]['content'], 'rains?')
-        self.assertEqual(response.json()[1]['content'], 'seats?')
+        # contents sorted in descending order of publish_date_time
+        self.assertEqual(response.json()[1]['content'], 'rains?')
+        self.assertEqual(response.json()[0]['content'], 'seats?')
 
     def test_get_question(self):
         """ test getting single question based on question id """
@@ -75,6 +76,17 @@ class QuestionTestCase(TestCase):
         question = Question.objects.get(pk=1)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(len(question.followers.all()), 1)
+        self.assertEqual(question.follow_count, 1)
+
+    def test_duplicate_follows(self):
+        """ test if duplicate questions follows are not allowed """
+        # follow same question again
+        self.client.get('/api/follow/1/')
+        response = self.client.get('/api/follow/1/')
+        question = Question.objects.get(pk=1)
+        self.assertEqual(response.status_code, 400)
+        # follow count stays at 1
+        self.assertEqual(question.follow_count, 1)
 
     def test_get_user_question_list(self):
         """ test getting question list of currently logged in user """

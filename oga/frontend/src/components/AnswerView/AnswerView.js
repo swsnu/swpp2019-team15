@@ -3,20 +3,27 @@ import moment from "moment";
 import "./AnswerView.css";
 
 //Materials UI imports
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import {
+    Button,
+    ButtonGroup,
+    Card,
+    CardContent,
+    Divider,
+    Grid,
+    Link,
+    Typography,
+    Box
+} from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Divider } from "@material-ui/core";
 
-const styles = theme => ({
+const useStyles = theme => ({
     card: {
         margin: "auto",
         transition: "0.3s",
-        boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+        width: "100%",
+        // boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
         "&:hover": {
-            boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+            boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)"
         }
     },
     content: {
@@ -24,8 +31,8 @@ const styles = theme => ({
         padding: theme.spacing(3)
     },
     divider: {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2)
+        marginTop: theme.spacing(2)
+        // marginBottom: theme.spacing(2)
     },
     heading: {
         fontWeight: "bold"
@@ -37,6 +44,9 @@ const styles = theme => ({
     },
     caption: {
         color: "#585858"
+    },
+    buttons: {
+        paddingTop: theme.spacing(2)
     }
 });
 
@@ -45,37 +55,45 @@ class AnswerView extends Component {
         super(props);
     }
 
-    rateUpHandler = id => {
-        this.props.rateUp(id);
-    };
-
-    rateDownHandler = id => {
-        this.props.rateDown(id);
-    };
-
     render() {
         const { classes } = this.props;
-
-        var selec = null;
-        if (this.props.is_answered && this.props.is_rated) {
-            if (this.props.is_up) {
-                selec = <React.Fragment>&#128077;</React.Fragment>;
-            } else {
-                selec = <React.Fragment>&#128078;</React.Fragment>;
-            }
-        }
+        // if (this.props.is_answered && this.props.is_rated) {
+        //     var selec1 = (
+        //         <React.Fragment>
+        //             Likes ({this.props.how_many_liked})
+        //         </React.Fragment>
+        //     );
+        //     var selec2 = (
+        //         <React.Fragment>
+        //             Dislikes ({this.props.how_many_disliked})
+        //         </React.Fragment>
+        //     );
+        //     if (this.props.is_up) {
+        //         sel = <span>&#128077;</span>;
+        //     } else {
+        //         sel = <span>&#128078;</span>;
+        //     }
+        // }
 
         return (
-            <Grid className="AnswerView" key={this.props.id}>
+            <Grid
+                // item
+                // xs={6}
+                className="AnswerView"
+                key={this.props.id}
+                style={{ height: "100%", width: "100%" }}
+            >
                 {this.props.is_answered ? (
-                    <Card md={3} className={classes.card}>
+                    <Card className={classes.card}>
                         <CardContent className={classes.content}>
                             <Typography
                                 className={classes.subheading}
                                 id="question-author"
                                 variant="subtitle1"
                             >
-                                {this.props.author}
+                                <Link onClick={this.props.clickAuthor}>
+                                    {this.props.author}
+                                </Link>
                             </Typography>
                             <Typography
                                 id="question-publish-date-time"
@@ -89,25 +107,48 @@ class AnswerView extends Component {
                                 ).fromNow()}{" "}
                                 &mdash; {this.props.publish_date_time}
                             </Typography>
-                            <Typography
-                                className={classes.heading}
-                                variant="h6"
-                                gutterBottom
+                            <Box pt={2} />
+                            <Link
+                                color="inherit"
+                                onClick={this.props.clickAnswer}
                             >
-                                For {this.props.content}, it is{" "}
-                                {this.props.answer_content} in{" "}
-                                {this.props.place_name}!
-                            </Typography>
-                            <Divider className={classes.divider} />
-                            <Grid align="center">
-                                {this.props.ratings}
-                                {selec}
+                                <Typography
+                                    className={classes.heading}
+                                    variant="h6"
+                                >
+                                    {this.props.answer_content} in{" "}
+                                    {this.props.place_name}
+                                </Typography>
+                            </Link>
+                            {/* prop to hide divider in Profile page view */}
+                            {!this.props.hideDivider && (
+                                <Divider className={classes.divider} />
+                            )}
+                            <Grid align="center" className="Ratings">
+                                <ButtonGroup className={classes.buttons}>
+                                    <Button
+                                        id="thumb_up-button"
+                                        color="primary"
+                                        onClick={this.props.rateUp}
+                                        disabled={!this.props.auth || this.props.disableLike}
+                                    >
+                                        &#128077; {this.props.rateUpCount}
+                                    </Button>
+                                    <Button
+                                        id="thumb_down-button"
+                                        color="primary"
+                                        onClick={this.props.rateDown}
+                                        disabled={!this.props.auth || this.props.disableDislike}
+                                    >
+                                        &#128078; {this.props.rateDownCount}
+                                    </Button>
+                                </ButtonGroup>
                             </Grid>
                         </CardContent>
                     </Card>
                 ) : (
                     <div>
-                        Is it {this.props.content} in {this.props.place_name}?
+                        {this.props.content} in {this.props.place_name}?
                     </div>
                 )}
             </Grid>
@@ -180,4 +221,4 @@ class AnswerView extends Component {
 //     );
 // };
 
-export default withStyles(styles)(AnswerView);
+export default withStyles(useStyles)(AnswerView);

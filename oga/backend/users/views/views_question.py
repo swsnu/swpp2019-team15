@@ -1,22 +1,24 @@
 """functional views api for the models"""
 import json
 
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
-from ..models import Question, Location
+from ..models import Question, Location, Answer
 from ..views.decorators import check_request, check_login_required
 
 
-@check_login_required
+#@check_login_required
 @check_request
 @require_http_methods(["POST", "GET"])
 def questions(request):
     """api wrapper of POST and GET methods"""
     if request.method == 'POST':
         # create new question
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
         req_data = json.loads(request.body.decode())
         location = req_data['target_location']
         content = req_data['content']
@@ -36,16 +38,10 @@ def questions(request):
         return JsonResponse(response_dict, status=201)
 
     else:
-        # get question list
-        question_list = Question.objects.filter()
-        response_dict = [{
-            'id': question.id,
-            'author': question.author.username,
-            'publish_date_time': question.publish_date_time,
-            'content': question.content,
-            'location': question.location_id.name,
-            'is_answered': question.is_answered,
-        } for question in question_list]
+        user = get_user(request)
+        # get list of most 100 most recent questions
+        question_list = Question.objects.filter()[:100]
+        response_dict = parse_question_list(question_list)
         return JsonResponse(response_dict, safe=False)
 
 
@@ -61,6 +57,16 @@ def get_user_questions(request, username=''):
         user = User.objects.get(username=username)
 
     question_list = Question.objects.filter(author=user)
+    response_dict = parse_question_list(question_list)
+
+    return JsonResponse(response_dict, safe=False)
+
+
+def parse_question_list(question_list):
+    """
+    Single function to parse given question list
+    and into an appropriate Json response_dict
+    """
     response_dict = [{
         'id': question.id,
         'author': question.author.username,
@@ -68,8 +74,11 @@ def get_user_questions(request, username=''):
         'content': question.content,
         'location': question.location_id.name,
         'is_answered': question.is_answered,
+        'answer_count': Answer.objects.filter(question=question).count(),
+        'follow_count': question.follow_count
     } for question in question_list]
-    return JsonResponse(response_dict, safe=False)
+
+    return response_dict
 
 
 @check_login_required
@@ -84,10 +93,10 @@ def question_detail(request, question_id):
         'author': question.author.username,
         'publish_date_time': question.publish_date_time,
         'content': question.content,
-        'location': question.location_id.name,
+        'location': location.name,
         'target_location_name': location.name,
-        'place_lat': question.location_id.latitude,
-        'place_lng': question.location_id.longitude,
+        'place_lat': location.latitude,
+        'place_lng': location.longitude,
         'is_answered': question.is_answered,
     }
     return JsonResponse(response_dict)
@@ -101,6 +110,11 @@ def follow_question(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     profile = request.user.profile
 
-    profile.follows.add(question)
+    if question not in profile.follows.all():
+        profile.follows.add(question)
+        question.follow_count += 1
+        question.save()
+        return JsonResponse({}, status=201)
 
-    return JsonResponse({}, status=201)
+    else:
+        return JsonResponse({}, status=400)

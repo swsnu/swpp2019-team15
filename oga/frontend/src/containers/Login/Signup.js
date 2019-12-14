@@ -38,6 +38,10 @@ class Signup extends Component {
 
     render() {
         return (
+            /**
+             * Prevent logged in user from accessing
+             * signup page unless user logs out
+             */
             <div
                 className="Signup"
                 style={{
@@ -137,6 +141,11 @@ class Signup extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        authenticated: state.auth.authenticated
+    };
+};
 const mapDispatchToProps = dispatch => {
     return {
         signup: (username, password) =>
@@ -149,8 +158,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(
-    // mapStateToProps,
-    null,
-    mapDispatchToProps
-)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

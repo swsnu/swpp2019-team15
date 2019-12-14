@@ -13,12 +13,14 @@ import {
     signIn,
     isLoggedIn,
     Logout,
+    // Login,
     getProfile
 } from "./authActions.js";
 
 import {
     checkRating,
     createAnswer,
+    getAllAnswers,
     getAnswers,
     getAnswer,
     getUserAnswers,
@@ -38,10 +40,12 @@ export {
     isLoggedIn,
     createAnswer,
     getAnswers,
+    getAllAnswers,
     getAnswer,
     getUserAnswers,
     followQuestion,
     Logout,
+    // Login,
     getProfile,
     checkRating,
     rateUp,

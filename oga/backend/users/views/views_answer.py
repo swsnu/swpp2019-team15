@@ -1,7 +1,7 @@
 """functional views api for the models"""
 import json
 
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
@@ -10,15 +10,20 @@ from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
 
 
-@check_login_required
+#@check_login_required
 @check_request
 @require_http_methods(["GET", "POST"])
 @csrf_exempt
 def get_or_create_answer(request, question_or_answer_id):
-    """function for post answer of question_id or get answer of answer_id
-        POST: create_answer api
-        GET: get_answers api"""
+    """
+    function to post an answer of given question_id
+    or get an answer with given answer_id
+    POST: create_answer api
+    GET: get_answers api
+    """
     if request.method == "POST":
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
         req_data = json.loads(request.body.decode())
         question_type = req_data['question_type']
         answer_author = get_user(request)
@@ -46,6 +51,8 @@ def get_or_create_answer(request, question_or_answer_id):
             'place_name': question.location_id.name,
             'place_lat': question.location_id.latitude,
             'place_lng': question.location_id.longitude,
+            'upvotes': ans.numbers_rated_up,
+            'downvotes': ans.numbers_rated_down
         }
         return JsonResponse(response_dict, safe=False, status=200)
     else:
@@ -58,20 +65,46 @@ def get_or_create_answer(request, question_or_answer_id):
 @require_http_methods(["GET"])
 @csrf_exempt
 def get_answers(request, question_id):
-    """function to get answers of question_id
-        GET: get_answers api"""
-    response_dict = []
+    """
+    function to get answers of question_id
+    GET: get_answers api
+    """
     question = Question.objects.get(id=question_id)
-    answer_all_list = Answer.objects.filter(question=question)
-    response_dict = [{
-        'id': ans.id,
-        'author': ans.author.user.username,
-        'publish_date_time': ans.publish_date_time,
-        'question_type': ans.question_type,
-        'content': ans.content,
-        'is_rated': ans.is_rated,
-        'is_up': ans.is_up
-    } for ans in answer_all_list]
+    answer_list = Answer.objects.filter(question=question)
+
+    user = get_user(request)
+    # ulist = []
+    # for answer in answer_list:
+    #     is_up_list = answer.users_rated_up_answers.all()
+    #     is_down_list = answer.users_rated_down_answers.all()
+    #     if user in is_up_list:
+    #         ulist.append({'is_rated': True, 'is_up': True})
+    #     elif user in is_down_list:
+    #         user_rated = True
+    #         ulist.append({'is_rated': True, 'is_up': False})
+    #     else:
+    #         ulist.append({'is_rated': False, 'is_up': False})
+    response_dict = parse_answer_list(answer_list, user)
+    # i = 0
+    # for ans in response_dict:
+    #     ans.update(ulist[i])
+    #     i += 1
+    return JsonResponse(response_dict, safe=False, status=200)
+
+
+#@check_login_required
+@check_request
+@require_http_methods(["GET"])
+@csrf_exempt
+def get_all_answers(request):
+    """
+    function to get all answers
+    GET: get_all_answers api
+    """
+    user = get_user(request)
+    # get most recent 100 answers without filtering
+    answer_list = Answer.objects.filter()[:100]
+    response_dict = parse_answer_list(answer_list, user)
     return JsonResponse(response_dict, safe=False, status=200)
 
 
@@ -91,17 +124,31 @@ def get_user_answers(request, username=''):
 
     profile = Profile.objects.get(user=user)
     answer_list = Answer.objects.filter(author=profile)
+    response_dict = parse_answer_list(answer_list, user)
+
+    return JsonResponse(response_dict, safe=False, status=200)
+
+
+def parse_answer_list(answer_list, user):
+    """
+    Single function to parse given answer list
+    and return the appropriate Json response dict
+    """
     response_dict = [{
         'id': ans.id,
         'question_id': ans.question.id,
-        'question_author': ans.question.author.username,
-        'question_publish_date_time': ans.question.publish_date_time,
-        'location': ans.question.location_id.name,
+        'author': ans.author.user.username,
         'publish_date_time': ans.publish_date_time,
         'question_type': ans.question_type,
         'content': ans.content,
+        'location_name': ans.question.location_id.name,
+        'numbers_rated_up': ans.numbers_rated_up,
+        'numbers_rated_down': ans.numbers_rated_down,
+        'user_disliked': (user in ans.users_rated_down_answers.all()),
+        'user_liked': (user in ans.users_rated_up_answers.all())
     } for ans in answer_list]
-    return JsonResponse(response_dict, safe=False, status=200)
+
+    return response_dict
 
 
 @check_login_required
@@ -112,6 +159,14 @@ def check_is_rated(request, answer_id):
     """function to check if the answer which corresponding to answer_id was rated
         GET: check_rating api"""
 
-    ans = Answer.objects.get(id=answer_id)
-    response_dict = {'is_rated': ans.is_rated}
+    answer = Answer.objects.get(id=answer_id)
+    is_up_list = answer.users_rated_up_answers.all()
+    is_down_list = answer.users_rated_down_answers.all()
+    user = get_user(request)
+    if user in is_up_list:
+        response_dict = ({'is_rated': True, 'is_up': True})
+    elif user in is_down_list:
+        response_dict = ({'is_rated': True, 'is_up': False})
+    else:
+        response_dict = ({'is_rated': False, 'is_up': False})
     return JsonResponse(response_dict, safe=False, status=200)
