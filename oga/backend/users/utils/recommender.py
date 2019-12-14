@@ -10,6 +10,7 @@ DB_NAME = 'askat-dev'
 API_KEY = 'LJ1SuCdQQsu2GnNt0eiQVOcT3kRK2nhDv8boWWdsTyheJSRMTWCbjfClmXfNy6nq'
 CLIENT = RecombeeClient(DB_NAME, API_KEY)
 
+
 def get_recommendation(user, location):
     """return list of recommended place's names"""
     recommended = CLIENT.send(RecommendItemsToItem(location, user, 2))
@@ -18,6 +19,7 @@ def get_recommendation(user, location):
         location = Location.objects.get(pk=loc['id'])
         location_names.append(location.name)
     return location_names
+
 
 @background
 def add_item(user, location):

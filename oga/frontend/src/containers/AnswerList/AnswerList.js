@@ -17,7 +17,8 @@ import {
     CssBaseline,
     Grid,
     IconButton,
-    Typography
+    Typography,
+    Paper
 } from "@material-ui/core";
 import AnswerListItem from "./AnswerListItem";
 
@@ -26,13 +27,14 @@ class AnswerList extends Component {
         super(props);
         this.state = {
             id: this.props.match.params.id,
-            render_check: [],
+            render_check: []
         };
     }
 
     componentDidMount() {
         this.props.onGetQuestion(this.state.id);
         this.props.onGetAnswers(this.state.id);
+        this.props.onGetRecommendations(this.state.id);
     }
 
     clickNewQuestionHandler = () => {
@@ -44,10 +46,17 @@ class AnswerList extends Component {
     };
 
     //clickBackHandler = () => {
-        //this.props.history.goBack();
+    //this.props.history.goBack();
     //};
 
     render() {
+        let recommendations = this.props.recommendations;
+        for (var i = 0; i < this.props.recommendations.length; i++) {
+            console.log(
+                `Recommendation ${i}: ${this.props.recommendations[i]}`
+            );
+        }
+
         var gotten_answer_view = this.props.selectedQuestion;
         var question = null;
         if (gotten_answer_view) {
@@ -120,6 +129,9 @@ class AnswerList extends Component {
                             Back
                         </Button>
                     </Grid>
+                    <Paper style={{ margin: 30 }}>
+                        <Typography>Recommendations for you</Typography>
+                    </Paper>
                     <Box pt={10} />
                 </Container>
             </div>
@@ -132,7 +144,8 @@ const mapStateToProps = state => {
         selectedQuestion: state.question.selectedQuestion,
         selectedAnswers: state.answer.answers,
         rated_up: state.answer.rated_up,
-        rated_down: state.answer.rated_down
+        rated_down: state.answer.rated_down,
+        recommendations: state.question.recommendations
         // numbers_rated_up: state.answer.numbers_rated_up,
         // numbers_rated_down: state.answer.numbers_rated_down,
     };
@@ -142,6 +155,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onGetQuestion: id => dispatch(actionCreators.getQuestion(id)),
         onGetAnswers: id => dispatch(actionCreators.getAnswers(id)),
+        onGetRecommendations: id =>
+            dispatch(actionCreators.getQuestionRecommendation(id))
     };
 };
 

@@ -75,6 +75,23 @@ export const getUserQuestions = (username = "") => {
             .catch(err => console.log(err));
     };
 };
+
+export const getQuestionRecommendation_ = recommendations => {
+    return {
+        type: actionTypes.GET_RECOMMENDATION,
+        recommendations: recommendations
+    };
+};
+
+export const getQuestionRecommendation = id => {
+    return dispatch => {
+        return axios
+            .get("/api/question/recommendation/" + id + "/")
+            .then(res => dispatch(getQuestionRecommendation_(res.data)))
+            .catch(err => console.log(err));
+    };
+};
+
 export const followQuestion = id => {
     return dispatch => {
         return axios

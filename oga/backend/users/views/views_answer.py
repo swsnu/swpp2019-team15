@@ -6,11 +6,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_http_methods
+from ..utils.recommender import get_recommendation
 from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
 
 
-#@check_login_required
+# @check_login_required
 @check_request
 @require_http_methods(["GET", "POST"])
 @csrf_exempt
@@ -92,7 +93,7 @@ def get_answers(request, question_id):
     return JsonResponse(response_dict, safe=False, status=200)
 
 
-#@check_login_required
+# @check_login_required
 @check_request
 @require_http_methods(["GET"])
 @csrf_exempt

@@ -14,6 +14,8 @@ urlpatterns = [
     path('profile/<str:username>/',
          views.get_profile, name='get_profile'),
     path('questions/', views.questions, name='questions'),
+    path('question/recommendation/<int:question_id>/',
+         views.question_recommendation, name='question_recommendation'),
     path('question/<int:question_id>/',
          views.question_detail, name='question_detail'),
     path('signup/', views.sign_up, name='sign_up'),

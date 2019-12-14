@@ -5,7 +5,8 @@ import {
     getQuestion,
     getQuestions,
     getUserQuestions,
-    followQuestion
+    followQuestion,
+    getQuestionRecommendation
 } from "./questionActions.js";
 
 import {
@@ -34,6 +35,7 @@ export {
     createQuestion,
     getQuestion,
     getQuestions,
+    getQuestionRecommendation,
     getUserQuestions,
     signUp,
     signIn,
