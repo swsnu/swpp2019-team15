@@ -46,7 +46,6 @@ class AnswerListItem extends Component {
     render() {
         var answers = null;
         var selectedAnswers = this.props.selectedAnswers;
-        console.log(selectedAnswers);
 
         answers = selectedAnswers.map(ans => {
             return (

@@ -9,6 +9,7 @@ import AnswerListItem from "./AnswerListItem";
 import { history } from "../../store/store";
 import * as answerActions from "../../store/actions/answerActions";
 import * as questionActions from "../../store/actions/questionActions";
+import * as authActions from "../../store/actions/authActions";
 import AnswerView from "../../components/AnswerView/AnswerView";
 
 console.error = jest.fn();
@@ -17,6 +18,11 @@ jest.mock("../../components/AnswerView/AnswerView.js", () => {
         return <div className="spyAnswer"></div>;
     });
 });
+const spyGetAnswer = jest
+    .spyOn(authActions, "isLoggedIn")
+    .mockImplementation(() => {
+        return dispatch => {};
+    });
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({
@@ -30,7 +36,25 @@ const store = mockStore({
         targetLocation: null,
         questions: []
     },
-    router: history
+    answer: {
+        answers: [
+            {
+                id: 1,
+                question_id: 1,
+                author: "anon",
+                publish_date_time: "2019-01-02 00:00:00",
+                question_type: "rain?",
+                content: "yes",
+                location_name: "home",
+                numbers_rated_up: "0",
+                numbers_rated_down: "0",
+                user_disliked: false,
+                user_liked: false,
+            }
+        ]
+    },
+    router: history,
+    auth: { authenticated: false },
 });
 
 describe("<AnswerList />", () => {
@@ -119,6 +143,4 @@ describe("<AnswerList />", () => {
         expect(spyHistoryPush).toHaveBeenCalledTimes(1);
         expect(spyHistoryPush).toHaveBeenCalledWith("/reply/1");
     });
-
-
 });

@@ -3,20 +3,37 @@ import Map from "../../containers/Map/GoogleMap";
 import "./NewAnswer.css";
 
 import { connect } from "react-redux";
+
 import * as actionCreators from "../../store/actions/";
 
 import AnswerView from "../../components/AnswerView/AnswerView";
 import { question_types, answer_markers } from "../../const/question_type";
 
 //Material design imports
-import { Box, Button, Grid, Slider, Typography } from "@material-ui/core";
-
+import {
+    Box,
+    Button,
+    Grid,
+    Slider,
+    Tooltip,
+    Typography,
+    Card,
+    Paper
+} from "@material-ui/core";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
+import InvertColorsIcon from "@material-ui/icons/InvertColors";
+import MicIcon from "@material-ui/icons/Mic";
+import EventSeatIcon from "@material-ui/icons/EventSeat";
+import Rating from "@material-ui/lab/Rating";
+import StyledRating from "../../components/MuiStyle/CustomRating";
 class NewAnswer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            answer_content: null,
+            answer_content: "No answer",
             answered: false,
+            rating: 0,
             id: this.props.match.params.id
         };
     }
@@ -26,9 +43,6 @@ class NewAnswer extends Component {
     }
 
     postAnswerHandler = (question_content, answer_content, id) => {
-        // console.log(this.state.answer_content)
-        // console.log(this.state.answered)
-        // console.log(this.props.selectedQuestion.content)
         if (this.state.answered) {
             // for testing purposes, we set type to 0, and pass content as well
             // actually, we only have to store type in questions,
@@ -38,13 +52,67 @@ class NewAnswer extends Component {
     };
 
     onChangeHandler = (event, value, answer_list) => {
-        this.setState({
-            answer_content:
-                answer_list[answer_list.findIndex(mark => mark.value === value)]
-                    .content,
-            answered: true
-        });
+        console.log(`value is ${value}`);
+        if (value > 0) {
+            this.setState({
+                answer_content:
+                    answer_markers[this.props.selectedQuestion.content][
+                        value - 1
+                    ].content,
+                // answer_list[answer_list.findIndex(mark => mark.value === value)]
+                //     .content,
+                answered: true,
+                rating: value
+            });
+        }
     };
+
+    getComponent(qs_type) {
+        console.log(`${this.qs_type}`);
+        switch (qs_type) {
+            case "Are there LONG LINES":
+                return (
+                    <EmojiPeopleRoundedIcon
+                        fontSize="inherit"
+                        style={{
+                            fontSize: "55px",
+                            width: "60px"
+                        }}
+                    />
+                );
+            case "Are there MANY SEATS":
+                return (
+                    <FavoriteIcon
+                        fontSize="inherit"
+                        style={{
+                            fontSize: "55px",
+                            width: "60px"
+                        }}
+                    />
+                );
+            case "Is it RAINING":
+                return (
+                    <InvertColorsIcon
+                        fontSize="inherit"
+                        style={{
+                            fontSize: "55px",
+                            width: "60px"
+                        }}
+                    />
+                );
+            // Is it quiet
+            default:
+                return (
+                    <MicIcon
+                        fontSize="inherit"
+                        style={{
+                            fontSize: "55px",
+                            width: "60px"
+                        }}
+                    />
+                );
+        }
+    }
 
     render() {
         var selected_question_type_list = null;
@@ -66,37 +134,50 @@ class NewAnswer extends Component {
 
             qs_type = this.props.selectedQuestion.content;
             answer_list = answer_markers[qs_type];
-            qs_type = question_types[qs_type];
+            // qs_type = question_types[qs_type];
 
+            const IconContainer = props => {
+                const { value, ...other } = props;
+                return (
+                    <Tooltip title={answer_list[value - 1].label}>
+                        <span {...other} />
+                    </Tooltip>
+                );
+            };
+
+            //Customized answer rating
             selected_question_type_list = (
-                <Slider id="#slider"
-                    style={{
-                        marginTop: 50,
-                        marginBottom: 50,
-                        width: "70%"
-                    }}
-                    defaultValue={1}
-                    aria-labelledby="answer-choices"
-                    track={false}
-                    min={1}
+                <StyledRating
+                    id="#answer-rating"
                     max={answer_list.length}
-                    step={null}
-                    marks={answer_list}
-                    valueLabelDisplay="auto"
-                    onChange={(event, value) =>
-                        this.onChangeHandler(event, value, answer_list)
+                    precision={1}
+                    icon={this.getComponent(qs_type)}
+                    value={this.state.rating}
+                    onChangeActive={(event, value) =>
+                        this.onChangeHandler(event, value)
                     }
+                    IconContainerComponent={IconContainer}
                 />
+                // <Slider
+                //     id="#slider"
+                //     style={{
+                //         marginTop: 50,
+                //         marginBottom: 50,
+                //         width: "70%"
+                //     }}
+                //     defaultValue={1}
+                //     aria-labelledby="answer-choices"
+                //     track={false}
+                //     min={1}
+                //     max={answer_list.length}
+                //     step={null}
+                //     marks={answer_list}
+                //     valueLabelDisplay="auto"
+                //     onChange={(event, value) =>
+                //         this.onChangeHandler(event, value, answer_list)
+                //     }
+                // />
             );
-            // selected_question_type_list = qs_type.map((val, index) => {
-            //     return (
-            //         <div className={"choice"} key={idx++}>
-            //             <label>{val}</label>
-            //             <input type="radio" value={val} name="answer" />
-
-            //         </div>
-            //     );
-            // });
 
             gotten_answer_view = (
                 <React.Fragment>
@@ -118,15 +199,25 @@ class NewAnswer extends Component {
                 <Grid item md={6}>
                     {map}
                 </Grid>
-                <Grid item md={6}>
+                <Grid
+                    md={6}
+                    alignItems="center"
+                    justify="center"
+                    style={{ padding: 40 }}
+                >
+                    <Box pt={5} />
+                    <Typography variant="h4">{gotten_answer_view}</Typography>
                     <Box pt={10} />
                     <Typography variant="h5" color="primary">
                         Answer a Question!
                     </Typography>
-                    <Box pt={8} />
-                    <Typography variant="h5">{gotten_answer_view}</Typography>
+                    <Box pt={3} />
+                    <Typography variant="h4">
+                        {this.state.answer_content}
+                    </Typography>
+                    <Box pt={5} />
                     <div id="answer-choices">{selected_question_type_list}</div>
-                    <Box pt={10} />
+                    <Box pt={6} />
                     <Button
                         color="primary"
                         type="submit"

@@ -161,10 +161,7 @@ class QuestionList extends Component {
         return (
             <div className="Main">
                 <GoogleMap viewOnly={true} />
-                <Box pt={8} />
-
-                {/* <Button onClick={() => this.clickTabHandler()}>Toggle</Button> */}
-                <Box pt={5} />
+                <Box pt={10} />
                 <Container component="main" justify="center">
                     <Typography component="h1" variant="h4">
                         {title} Feed
