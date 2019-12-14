@@ -217,21 +217,6 @@ class Profile extends Component {
                                             <Typography variant="caption">
                                                 Questions Asked
                                             </Typography>
-                                        </Grid>
-                                        <Grid item xs={4} align="center">
-                                            <Typography
-                                                style={{
-                                                    fontWeight: "bold",
-                                                    fontSize: 50
-                                                }}
-                                            >
-                                                {answerCount}
-                                            </Typography>
-                                            <Typography variant="caption">
-                                                Answers
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item xs={4} align="center">
                                             <Typography
                                                 style={{
                                                     fontWeight: "bold",
@@ -245,6 +230,17 @@ class Profile extends Component {
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={4} align="center">
+                                            <Typography
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    fontSize: 50
+                                                }}
+                                            >
+                                                {answerCount}
+                                            </Typography>
+                                            <Typography variant="caption">
+                                                Answers
+                                            </Typography>
                                             <Typography
                                                 style={{
                                                     fontWeight: "bold",
