@@ -12,15 +12,15 @@ export const theme = createMuiTheme({
         },
         primary: {
             light: "#ffe699",
-            main: "#ffb366",
-            dark: "#ff9933" //color for button hover
+            main: "#7189bf",
+            dark: "#cde5f7" //color for button hover
         },
         secondary: {
-            main: "#ffb366"
+            main: "#7189bf"
         }
     },
     typography: {
-        fontFamily: "arial",
+        fontFamily: "Helvetica",
         useNextVariants: true
     },
 

@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     chip: {
         marginRight: 10,
         marginLeft: 10,
-        color: "#000"
+        color: "#fff"
     },
     badge: {
         marginRight: 10,
@@ -115,7 +115,9 @@ const Question = props => {
                                 <Chip
                                     className={classes.chip}
                                     avatar={
-                                        <Avatar>{props.answer_count}</Avatar>
+                                        <Avatar style={{ color: "#000" }}>
+                                            {props.answer_count}
+                                        </Avatar>
                                     }
                                     id="create-answer-button"
                                     label="Answer"
@@ -126,7 +128,9 @@ const Question = props => {
                                 <Chip
                                     className={classes.chip}
                                     avatar={
-                                        <Avatar>{props.follow_count}</Avatar>
+                                        <Avatar style={{ color: "#000" }}>
+                                            {props.follow_count}
+                                        </Avatar>
                                     }
                                     id="follow-button"
                                     label="Follow"
