@@ -239,7 +239,7 @@ class Profile extends Component {
                                                 {answerCount}
                                             </Typography>
                                             <Typography variant="caption">
-                                                Answers
+                                                Helped
                                             </Typography>
                                             <Typography
                                                 style={{
