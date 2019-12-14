@@ -199,9 +199,9 @@ class Profile extends Component {
                                             </Typography>
                                             <Typography variant="subtitle1">
                                                 <i>
-                                                    {location}
+                                                    {/* {location} */}
                                                     <br />
-                                                    {coordinates}
+                                                    {/* {coordinates} */}
                                                 </i>
                                             </Typography>
                                         </Grid>
