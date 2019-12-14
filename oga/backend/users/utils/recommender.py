@@ -14,8 +14,7 @@ CLIENT = RecombeeClient(DB_NAME, API_KEY)
 
 def get_recommendation(user, location):
     """ retrieve result from cache """
-    ret = cache.get(user + location, ["No recommendation"])
-    print(ret)
+    ret = cache.get(user + str(location), ["No recommendations so far"])
     return ret
 
 
@@ -34,13 +33,13 @@ def add_item(user, location):
     _get_recommendation(user, location)
 
 
-def _get_recommendation(user, location):
+def _get_recommendation(user, locationid):
     """store list of recommendation in cache"""
-    recommended = CLIENT.send(RecommendItemsToItem(location, user, 2))
+    recommended = CLIENT.send(RecommendItemsToItem(locationid, user, 2))
     location_names = []
     for loc in recommended['recomms']:
         location = Location.objects.get(pk=loc['id'])
         location_names.append(location.name)
     # user and the location id is the key
-    cache.set(user + location, location_names, 15 * 60)
+    cache.set(user + str(locationid), location_names, 15 * 60)
     # return location_names

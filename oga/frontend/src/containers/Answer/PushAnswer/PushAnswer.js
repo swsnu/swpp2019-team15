@@ -9,7 +9,8 @@ import * as actionCreators from "../../../store/actions";
 import moment from "moment";
 
 // Material UI imports
-import { Typography, Paper, Grid, Box } from "@material-ui/core";
+import { Typography, Paper, Grid, Box, Link } from "@material-ui/core";
+import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 
 class PushAnswer extends Component {
     constructor(props) {
@@ -51,14 +52,35 @@ class PushAnswer extends Component {
                 // Store recommended locations in recommendation list
                 for (var i = 0; i < this.props.recommendations.length; i++) {
                     recommendations.push(
-                        <Typography variant="h6" gutterBottom>
-                            {this.props.recommendations[i]}
-                        </Typography>
+                        <div>
+                            <Typography variant="h6" gutterBottom>
+                                <RoomRoundedIcon />
+                                {"  "}
+                                {this.props.recommendations[i]}
+                            </Typography>
+                        </div>
                     );
                 }
             }
             answer = (
                 <React.Fragment>
+                    <Grid>
+                        <Typography
+                            variant="h5"
+                            style={{ marginTop: 45, marginBottom: 20 }}
+                            onClick={() =>
+                                this.props.history.push(
+                                    "/replies/" +
+                                        this.props.selectedAnswer.question_id
+                                )
+                            }
+                        >
+                            <Link color="inherit">
+                                {this.props.selectedAnswer.question_type} in{" "}
+                                {this.props.selectedAnswer.location}?
+                            </Link>
+                        </Typography>
+                    </Grid>
                     <Map
                         viewOnly={true}
                         target={{
@@ -70,17 +92,26 @@ class PushAnswer extends Component {
                         key={this.props.selectedAnswer.id}
                         id={this.props.selectedAnswer.id}
                         author={this.props.selectedAnswer.author}
-                        content={this.props.selectedAnswer.question_type}
+                        // content={this.props.selectedAnswer.question_type}
                         publish_date_time={moment(
                             this.props.publish_date_time
                         ).format("MMMM Do YYYY, h:mm:ss a")}
                         answer_content={this.props.selectedAnswer.content}
                         place_name={this.props.selectedAnswer.location}
+                        disableLike={this.props.selectedAnswer.user_liked}
+                        disableDislike={this.props.selectedAnswer.user_disliked}
+                        rateUpCount={this.props.selectedAnswer.upvotes}
+                        rateDownCount={this.props.selectedAnswer.downvotes}
                         is_answered={true}
+                        clickAuthor={() =>
+                            this.props.history.push(
+                                "/profile/" + this.props.selectedAnswer.author
+                            )
+                        }
                     />
                     <Paper>
                         <Grid style={{ margin: 30 }}>
-                            <Typography variant="h4">
+                            <Typography variant="h5">
                                 Recommendations for you
                             </Typography>
                             <Box pt={3} />
@@ -90,12 +121,7 @@ class PushAnswer extends Component {
                 </React.Fragment>
             );
         }
-        return (
-            <div className="PushAnswer">
-                <h1>You got this answer!</h1>
-                {answer}
-            </div>
-        );
+        return <div className="PushAnswer">{answer}</div>;
     }
 }
 

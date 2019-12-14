@@ -74,7 +74,10 @@ def question_recommendation(request, question_id):
     user = get_user(request)
     question = Question.objects.get(id=question_id)
     location = question.location_id
-    recommendation_list = get_recommendation(user.username, location.id)
+    try:
+        recommendation_list = get_recommendation(user.username, location.id)
+    except Exception as e:
+        print(e)
     return JsonResponse(recommendation_list, status=201, safe=False)
 
 
