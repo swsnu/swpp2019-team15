@@ -13,21 +13,10 @@ CLIENT = RecombeeClient(DB_NAME, API_KEY)
 
 
 def get_recommendation(user, location):
-<<<<<<< HEAD
-    """return list of recommended place's names"""
-    print("I am called")
-    recommended = CLIENT.send(RecommendItemsToItem(location, user, 2))
-    location_names = []
-    for loc in recommended['recomms']:
-        location = Location.objects.get(pk=loc['id'])
-        print(location.name)
-        location_names.append(location.name)
-    return location_names
-=======
     """ retrieve result from cache """
     ret = cache.get(user + location, ["No recommendation"])
+    print(ret)
     return ret
->>>>>>> 6bc56371bcb694ad04a96ef1ceccaf9b1a81d865
 
 
 @background

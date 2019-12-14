@@ -21,7 +21,6 @@ class PushAnswer extends Component {
 
     componentDidMount() {
         this.props.onGetAnswer(this.state.id);
-        this.props.onGetRecommendations(this.props.selectedAnswer.question_id);
     }
 
     // getRecommendationsHandler = id => {
@@ -31,19 +30,26 @@ class PushAnswer extends Component {
     render() {
         var answer = null;
         if (this.props.selectedAnswer) {
+            this.props.onGetRecommendations(
+                this.props.selectedAnswer.question_id
+            );
+
             // this.getRecommendationsHandler(
             //     this.props.selectedAnswer.question_id
             // );
-            var recommendations = "HI";
+            var recommendations = "No recommendations so far";
             // (
             //     <Typography variant="h6">No recommendations so far</Typography>
             // );
 
             // If recommendation list isn't empty
-            if (this.props.recommendations != null) {
+            if (
+                this.props.recommendations !== null &&
+                this.props.recommendations.length > 0
+            ) {
                 recommendations = [];
                 // Store recommended locations in recommendation list
-                for (var i = 0; i < 2; i++) {
+                for (var i = 0; i < this.props.recommendations.length; i++) {
                     recommendations.push(
                         <Typography variant="h6" gutterBottom>
                             {this.props.recommendations[i]}
@@ -69,7 +75,7 @@ class PushAnswer extends Component {
                             this.props.publish_date_time
                         ).format("MMMM Do YYYY, h:mm:ss a")}
                         answer_content={this.props.selectedAnswer.content}
-                        place_name={this.props.selectedAnswer.place_name}
+                        place_name={this.props.selectedAnswer.location}
                         is_answered={true}
                     />
                     <Paper>

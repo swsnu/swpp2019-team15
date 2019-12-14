@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_http_methods
-from ..utils.recommender import get_recommendation
+from users.utils.recommender import get_recommendation
 from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
 
@@ -34,26 +34,40 @@ def get_or_create_answer(request, question_or_answer_id):
                         question_type=question_type,
                         content=answer_content)
         answer.save()
-        response_dict = {'question_id': answer.question.id,
-                         'author': answer_author.username,
-                         'question_type': answer.question_type,
-                         'answer_content': answer.content,
-                         }
+        response_dict = {
+            'question_id': answer.question.id,
+            'author': answer_author.username,
+            'question_type': answer.question_type,
+            'answer_content': answer.content
+        }
         return JsonResponse(response_dict, status=200)
     elif request.method == "GET":
+        user = get_user(request)
         ans = Answer.objects.get(id=question_or_answer_id)
         question = ans.question
         response_dict = {
+            # 'id': ans.id,
+            # 'author': ans.author.user.username,
+            # 'question_id': ans.question.id,
+            # 'publish_date_time': ans.publish_date_time,
+            # 'question_type': ans.question_type,
+            # 'content': ans.content,
+            # 'place_name': question.location_id.name,
+            # 'place_lat': question.location_id.latitude,
+            # 'place_lng': question.location_id.longitude,
+            # 'upvotes': ans.numbers_rated_up,
+            # 'downvotes': ans.numbers_rated_down
             'id': ans.id,
+            'question_id': ans.question.id,
             'author': ans.author.user.username,
             'publish_date_time': ans.publish_date_time,
             'question_type': ans.question_type,
             'content': ans.content,
-            'place_name': question.location_id.name,
-            'place_lat': question.location_id.latitude,
-            'place_lng': question.location_id.longitude,
+            'location': ans.question.location_id.name,
             'upvotes': ans.numbers_rated_up,
-            'downvotes': ans.numbers_rated_down
+            'downvotes': ans.numbers_rated_down,
+            'user_disliked': (user in ans.users_rated_down_answers.all()),
+            'user_liked': (user in ans.users_rated_up_answers.all()),
         }
         return JsonResponse(response_dict, safe=False, status=200)
     else:
