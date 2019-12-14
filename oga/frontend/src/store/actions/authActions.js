@@ -97,8 +97,8 @@ export const getProfile_ = profile => {
         username: profile.username,
         location: profile.location,
         coordinates: profile.coordinates,
-        todayAnswerCounts: profile.todayAnswerCounts,
-        todayQuestionCounts: profile.todayQuestionCounts,
+        todayAnswerCount: profile.todayAnswerCount,
+        todayQuestionCount: profile.todayQuestionCount,
     };
 };
 

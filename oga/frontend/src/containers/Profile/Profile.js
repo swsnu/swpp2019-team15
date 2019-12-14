@@ -56,8 +56,8 @@ class Profile extends Component {
         let username = "";
         let location = "";
         let coordinates = "";
-        let todayQuestionCount = "";
-        let todayAnswerCount = "";
+        var todayQuestionCount = "";
+        var todayAnswerCount = "";
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;
@@ -238,7 +238,7 @@ class Profile extends Component {
                                                     fontSize: 50
                                                 }}
                                             >
-                                                {todayQuestionCount} questions!
+                                                {todayQuestionCount}
                                             </Typography>
                                             <Typography variant="caption">
                                                 Today you asked
@@ -251,7 +251,7 @@ class Profile extends Component {
                                                     fontSize: 50
                                                 }}
                                             >
-                                                {todayAnswerCount} people!
+                                                {todayAnswerCount}
                                             </Typography>
                                             <Typography variant="caption">
                                                 Today you helped
