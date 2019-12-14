@@ -13,10 +13,12 @@ CLIENT = RecombeeClient(DB_NAME, API_KEY)
 
 def get_recommendation(user, location):
     """return list of recommended place's names"""
+    print("I am called")
     recommended = CLIENT.send(RecommendItemsToItem(location, user, 2))
     location_names = []
     for loc in recommended['recomms']:
         location = Location.objects.get(pk=loc['id'])
+        print(location.name)
         location_names.append(location.name)
     return location_names
 
@@ -24,6 +26,7 @@ def get_recommendation(user, location):
 @background
 def add_item(user, location):
     """async add item to the recommbee DB"""
+    print("I am adding")
     loc = Location.objects.get(pk=location)
     request = []
     request.append(SetItemValues(location,

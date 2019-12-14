@@ -75,7 +75,7 @@ def question_recommendation(request, question_id):
     question = Question.objects.get(id=question_id)
     location = question.location_id
     recommendation_list = get_recommendation(user.username, location.id)
-    return JsonResponse(recommendation_list, status=201)
+    return JsonResponse(recommendation_list, status=201, safe=False)
 
 
 def parse_question_list(question_list):
