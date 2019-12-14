@@ -21,7 +21,7 @@ import {
     Paper
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import PersonIcon from "@material-ui/icons/Person";
+import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
 import InvertColorsIcon from "@material-ui/icons/InvertColors";
 import MicIcon from "@material-ui/icons/Mic";
 import EventSeatIcon from "@material-ui/icons/EventSeat";
@@ -67,6 +67,53 @@ class NewAnswer extends Component {
         }
     };
 
+    getComponent(qs_type) {
+        console.log(`${this.qs_type}`);
+        switch (qs_type) {
+            case "Are there LONG LINES":
+                return (
+                    <EmojiPeopleRoundedIcon
+                        fontSize="inherit"
+                        style={{
+                            fontSize: "55px",
+                            width: "60px"
+                        }}
+                    />
+                );
+            case "Are there MANY SEATS":
+                return (
+                    <FavoriteIcon
+                        fontSize="inherit"
+                        style={{
+                            fontSize: "55px",
+                            width: "60px"
+                        }}
+                    />
+                );
+            case "Is it RAINING":
+                return (
+                    <InvertColorsIcon
+                        fontSize="inherit"
+                        style={{
+                            fontSize: "55px",
+                            width: "60px"
+                        }}
+                    />
+                );
+            // Is it quiet
+            default:
+                return (
+                    <MicIcon
+                        fontSize="inherit"
+                        style={{
+                            fontSize: "55px",
+                            width: "60px"
+                        }}
+                    />
+                );
+        }
+    }
+
     render() {
         var selected_question_type_list = null;
         var qs_type = "";
@@ -98,20 +145,13 @@ class NewAnswer extends Component {
                 );
             };
 
+            //Customized answer rating
             selected_question_type_list = (
                 <StyledRating
                     id="#answer-rating"
                     max={answer_list.length}
                     precision={1}
-                    icon={
-                        <PersonIcon
-                            fontSize="inherit"
-                            style={{
-                                fontSize: "55px",
-                                width: "60px"
-                            }}
-                        />
-                    }
+                    icon={this.getComponent(qs_type)}
                     value={this.state.rating}
                     onChangeActive={(event, value) =>
                         this.onChangeHandler(event, value)
