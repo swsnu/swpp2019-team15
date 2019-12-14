@@ -39,19 +39,11 @@ const answerReducer = (state = initialState, action) => {
                     break;
                 }
             }
-            var is_up = action.is_up?true:false;
-            var ul, ud;
-            if (is_up) {
-                ul = true;
-                ud = false;
-            } else {
-                ul = false;
-                ud = true;
-            }
+            console.log(ans_id);
             var new_answers = update(state.answers, {
                 [ans_id]: {
-                    user_liked: {$set: ul},
-                    user_disliked: {$set: ud},
+                    user_liked: {$set: action.is_up},
+                    user_disliked: {$set: !action.is_up},
                     numbers_rated_up: {$set: action.rated_up},
                     numbers_rated_down: {$set: action.rated_down}
                 }
