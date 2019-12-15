@@ -33,14 +33,11 @@ class PushAnswer extends Component {
     }
 
     getRecommendationsHandler = () => {
-        let answer = this.props.selectedAnswer;
+        let ans = this.props.selectedAnswer;
         // Check if answer to question is negative
-        if (answer_types[answer.content] == 0) {
+        if (answer_types[ans.content] == 0) {
             // get recommendations for answered question
-
-            this.props.onGetRecommendations(
-                this.props.selectedAnswer.question_id
-            );
+            this.props.onGetRecommendations(ans.question_id);
         }
     };
 

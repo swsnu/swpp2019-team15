@@ -121,7 +121,7 @@ class NewQuestion extends Component {
                             </Grid>
                         </RadioGroup>
                     </FormControl>
-                    <Grid xs={2}>
+                    <Grid>
                         <Box pt={10} />
                         <Button
                             type="submit"

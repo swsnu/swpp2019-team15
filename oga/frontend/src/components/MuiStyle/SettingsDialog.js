@@ -9,10 +9,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 export default function SettingsDialog(props) {
     const [open, setOpen] = React.useState(true);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
     const handleClose = () => {
         setOpen(false);
     };
@@ -36,10 +32,18 @@ export default function SettingsDialog(props) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button
+                        id="cancel-button"
+                        onClick={handleClose}
+                        color="primary"
+                    >
                         Cancel
                     </Button>
-                    <Button onClick={props.openSettings} color="primary">
+                    <Button
+                        id="settings-button"
+                        onClick={props.openSettings}
+                        color="primary"
+                    >
                         Settings
                     </Button>
                 </DialogActions>
