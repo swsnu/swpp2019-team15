@@ -47,6 +47,15 @@ def get_profile(request, username=None):
         'todayQuestionCount': todays_questions,
         'todayAnswerCount': todays_answers,
         'reliability': profile.reliability,
-        # 'rankNum': rankNum
+        'rankNum': rankNum
     }
     return JsonResponse(response_dict, status=200)
+
+
+# def calculate_rankNum(profile):
+#     my_score = profile.ranking_score
+#     n_users = Profile.objects.count()
+#     for i in range(1, 11):
+#         if my_score <= Profile.objects.all()[int((i/10)*n_users)].ranking_score:
+#             return i
+#     return 0 # Error condition
