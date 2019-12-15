@@ -16,7 +16,7 @@ import {
     LiveHelp,
     SettingsApplications,
     ChevronLeft,
-    ExitToApp,
+    ExitToApp
 } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import {
@@ -125,10 +125,10 @@ const useStyles = makeStyles(theme => ({
 function MenuAppBar(props) {
     const classes = useStyles();
     var auth = props.auth;
-    var func = props.func
+    var func = props.func;
     var mouseLeaveTimeout = true;
     MenuItem.displayName = "menu_item";
-    var Log_toggle = auth ? "Log-Out" : "Log-In"
+    var Log_toggle = auth ? "Log-Out" : "Log-In";
 
     const [open, setOpen] = React.useState(false);
 
@@ -165,7 +165,7 @@ function MenuAppBar(props) {
 
     return (
         <div className="AppBar">
-            {(
+            {
                 <ClickAwayListener onClickAway={handleDrawerClose}>
                     <div className={classes.root}>
                         <CssBaseline />
@@ -181,13 +181,12 @@ function MenuAppBar(props) {
                                     edge="start"
                                     id="menu-button"
                                     className={classes.menuButton}
-                                    color="light"
                                     aria-label="menu"
                                     onClick={handleDrawer}
                                 >
                                     <MenuIcon />
                                 </IconButton>
-                                <Grid xs={3}>
+                                <Grid item xs={3}>
                                     <FormControlLabel
                                         className={classes.title}
                                         control={
@@ -203,10 +202,10 @@ function MenuAppBar(props) {
                                         }
                                     />
                                 </Grid>
-                                <Grid xs={7} align="right">
+                                <Grid item xs={7} align="right">
                                     <SearchBox className={classes.searchBar} />
                                 </Grid>
-                                <Grid xs={2} align="right">
+                                <Grid item xs={2} align="right">
                                     <FormControlLabel
                                         className={classes.title}
                                         control={
@@ -225,7 +224,7 @@ function MenuAppBar(props) {
                         </AppBar>
                         <Drawer
                             variant="permanent"
-                            containerStyle={{
+                            style={{
                                 marginLeft: "6.5%",
                                 background: "#545454",
                                 position: "fixed"
@@ -256,7 +255,7 @@ function MenuAppBar(props) {
                                     }
                                 >
                                     <ListItemIcon>
-                                        <AccountCircle color="primary" />{" "}
+                                        <AccountCircle color="primary" />
                                     </ListItemIcon>
                                     <ListItemText
                                         classes={{
@@ -298,7 +297,7 @@ function MenuAppBar(props) {
                                         <Home
                                             color="primary"
                                             id="home-button"
-                                        />{" "}
+                                        />
                                     </ListItemIcon>
                                     <ListItemText
                                         classes={{
@@ -351,7 +350,7 @@ function MenuAppBar(props) {
                         </Drawer>
                     </div>
                 </ClickAwayListener>
-            )}
+            }
         </div>
     );
 }

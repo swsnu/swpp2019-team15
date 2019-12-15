@@ -3,11 +3,8 @@ import Map from "../../containers/Map/GoogleMap";
 import "./NewAnswer.css";
 
 import { connect } from "react-redux";
-
 import * as actionCreators from "../../store/actions/";
-
-import AnswerView from "../../components/AnswerView/AnswerView";
-import { question_types, answer_markers } from "../../const/question_type";
+import { answer_markers } from "../../const/question_type";
 
 //Material design imports
 import {
@@ -158,38 +155,12 @@ class NewAnswer extends Component {
                     }
                     IconContainerComponent={IconContainer}
                 />
-                // <Slider
-                //     id="#slider"
-                //     style={{
-                //         marginTop: 50,
-                //         marginBottom: 50,
-                //         width: "70%"
-                //     }}
-                //     defaultValue={1}
-                //     aria-labelledby="answer-choices"
-                //     track={false}
-                //     min={1}
-                //     max={answer_list.length}
-                //     step={null}
-                //     marks={answer_list}
-                //     valueLabelDisplay="auto"
-                //     onChange={(event, value) =>
-                //         this.onChangeHandler(event, value, answer_list)
-                //     }
-                // />
             );
 
             gotten_answer_view = (
                 <React.Fragment>
-                    <AnswerView
-                        key={this.props.selectedQuestion.id}
-                        id={this.props.selectedQuestion.id}
-                        content={this.props.selectedQuestion.content}
-                        place_name={
-                            this.props.selectedQuestion.target_location_name
-                        }
-                        is_answered={false}
-                    />
+                    {this.props.selectedQuestion.content} in{" "}
+                    {this.props.selectedQuestion.target_location_name}?
                 </React.Fragment>
             );
         }
