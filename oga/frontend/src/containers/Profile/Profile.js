@@ -62,7 +62,7 @@ class Profile extends Component {
         var todayQuestionCount = "";
         var todayAnswerCount = "";
         let reliability = "";
-        let rankNum = 0;
+        var rankNum = 0;
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;

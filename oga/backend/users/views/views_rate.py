@@ -5,9 +5,9 @@ from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
-from ..models import Answer
+from ..models import Profile, Question, Answer
 from ..views.decorators import check_request, check_login_required
-from math import sqrt
+from math import log10, sqrt
 
 
 @check_login_required
@@ -44,6 +44,10 @@ def rate_up_answer(request, answer_id):
 
     profile.rate_up += 1
     profile.reliability = calculate_reliability(profile, profile.rate_up, profile.rate_down)
+    profile.save()
+    n_ans = Answer.objects.all().count()
+    n_qus = Question.objects.all().count()
+    profile.rank_score = calculate_score(profile.reliability, n_ans, n_qus)
     profile.save()
     response_dict = parse_rating(answer, True)
 
@@ -85,7 +89,10 @@ def rate_down_answer(request, answer_id):
 
     profile.rate_down += 1
     profile.reliability = calculate_reliability(profile, profile.rate_up, profile.rate_down)
-    print(profile.reliability)
+    profile.save()
+    n_ans = Answer.objects.all().count()
+    n_qus = Question.objects.all().count()
+    profile.rank_score = calculate_score(profile.reliability, n_ans, n_qus)
     profile.save()
     response_dict = parse_rating(answer, False)
 
@@ -104,6 +111,10 @@ def parse_rating(answer, is_up):
         'is_up': is_up,
     }
     return rating_dict
+
+
+def calculate_score(reliability, n_ans, n_qus):
+    return reliability * (n_ans / (1+log10(n_qus)))
 
 
 def calculate_reliability(profile, ups, downs):
