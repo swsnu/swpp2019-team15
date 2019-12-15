@@ -40,6 +40,7 @@ def get_profile(request, username=None):
                                            publish_date_time__day=today.day).count()  
 
     rankNum = calculate_rankNum(profile)
+    print(rankNum)
     response_dict = {
         'id': profile.id,
         'username': profile.user.username,
