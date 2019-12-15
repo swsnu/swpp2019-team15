@@ -11,6 +11,23 @@ import thunk from "redux-thunk";
 import Main from "./Main.js";
 
 const mockStore = configureMockStore([thunk]);
+
+// Mock GoogleMaps API
+const mockGeolocation = {
+    getCurrentPosition: jest.fn(),
+    watchPosition: jest.fn().mockImplementationOnce(success =>
+        Promise.resolve(
+            success({
+                coords: {
+                    latitude: 1.23,
+                    longitude: 4.56
+                }
+            })
+        )
+    )
+};
+global.navigator.geolocation = mockGeolocation;
+
 const spyGetAnswer = jest
     .spyOn(answerActions, "getAllAnswers")
     .mockImplementation(() => {
@@ -114,7 +131,7 @@ const fullStore = mockStore({
                 content: "rain?",
                 location: "home",
                 is_answered: false
-            },
+            }
         ]
     },
     answer: {
@@ -136,9 +153,15 @@ const fullStore = mockStore({
     },
     auth: {
         username: "",
-        password: ""
+        password: "",
+        justLoggedIn: null
     },
-    router: history
+    router: history,
+    location: {
+        name: null,
+        targetLocation: null,
+        currentCoordinates: null
+    }
 });
 const store = mockStore({
     question: {
@@ -150,7 +173,7 @@ const store = mockStore({
                 content: "rain?",
                 location: "home",
                 is_answered: false
-            },
+            }
         ]
     },
     answer: {
@@ -172,9 +195,15 @@ const store = mockStore({
     },
     auth: {
         username: "",
-        password: ""
+        password: "",
+        justLoggedIn: null
     },
-    router: history
+    router: history,
+    location: {
+        name: null,
+        targetLocation: null,
+        currentCoordinates: null
+    }
 });
 
 describe("<Main />", () => {
@@ -318,10 +347,16 @@ describe("<Main />", () => {
         const instance = wrapper.find(Main.WrappedComponent).instance();
         const m = jest.spyOn(instance, "handleStepperNext");
         let button = wrapper.find("#stepper-next");
-        button.hostNodes().at(0).simulate('click');
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("click");
         expect(m).toHaveBeenCalledTimes(0);
         button = wrapper.find("#stepper-back");
-        button.hostNodes().at(0).simulate('click');
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("click");
         expect(m).toHaveBeenCalledTimes(0);
     });
 
@@ -343,11 +378,17 @@ describe("<Main />", () => {
         const wrapper = mount(main);
         const instance = wrapper.find(Main.WrappedComponent).instance();
         let button = wrapper.find("#stepper-next");
-        button.hostNodes().at(0).simulate('click');
-        expect(instance.state['activeStep']).toEqual(1);
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("click");
+        expect(instance.state["activeStep"]).toEqual(1);
         button = wrapper.find("#stepper-back");
-        button.hostNodes().at(0).simulate('click');
-        expect(instance.state['activeStep']).toEqual(0);
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("click");
+        expect(instance.state["activeStep"]).toEqual(0);
     });
 
     it("should call not handlerStepperPrev when at first page", () => {
@@ -360,24 +401,31 @@ describe("<Main />", () => {
         const instance = wrapper.find(Main.WrappedComponent).instance();
         const m = jest.spyOn(instance, "handleStepperBack");
         let button = wrapper.find("#stepper-back");
-        button.hostNodes().at(0).simulate('click');
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("click");
         expect(m).toHaveBeenCalledTimes(0);
     });
 
-  it("should toggle between answer/question list ", () => {
-        const spyFollow = jest
-            .spyOn(actionCreators, "followQuestion")
-            .mockImplementation(path => {
-                return dispatch => {};
-            });
+    it("should toggle between answer/question list ", () => {
         const wrapper = mount(main);
         const instance = wrapper.find(Main.WrappedComponent).instance();
         const m = jest.spyOn(instance, "clickTabHandler");
         let button = wrapper.find("#toggle");
-        button.hostNodes().at(0).simulate('click'); // shows answer page
-        expect(instance.state['isQuestionTab']).toEqual(false);
-        button.hostNodes().at(0).simulate('click'); // shows questions page
-        expect(instance.state['isQuestionTab']).toEqual(true);
+        // Toggle between pages
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("change");
+        //show answer page
+        expect(instance.state["isQuestionTab"]).toEqual(false);
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("change");
+        // shows questions page
+        expect(instance.state["isQuestionTab"]).toEqual(true);
         expect(m).toHaveBeenCalledTimes(2);
     });
 });

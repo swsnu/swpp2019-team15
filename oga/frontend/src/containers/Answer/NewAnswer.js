@@ -162,11 +162,12 @@ class NewAnswer extends Component {
 
         return (
             <Grid container className="Answer" direction="row">
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     {map}
                 </Grid>
                 <Grid
                     md={6}
+                    xs={12}
                     alignItems="center"
                     justify="center"
                     style={{ padding: 40 }}

@@ -58,12 +58,10 @@ class NewQuestion extends Component {
                 align="center"
                 direction="row"
             >
-                <Grid item xs={6}>
+                <Grid item md={6} xs={12}>
                     <Map />
                 </Grid>
-                <Grid item xs={6} className="AskQuestion">
-                    {/* <Box pt={5} />
-                    <Typography variant="h6">Ask a New Question!</Typography> */}
+                <Grid item md={6} xs={12} className="AskQuestion">
                     <Box pt={8} />
                     <Typography id="view" variant="h4">
                         {this.state.content} in {place_name}?
@@ -123,7 +121,7 @@ class NewQuestion extends Component {
                             </Grid>
                         </RadioGroup>
                     </FormControl>
-                    <Grid xs={5}>
+                    <Grid xs={2}>
                         <Box pt={10} />
                         <Button
                             type="submit"

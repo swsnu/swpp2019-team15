@@ -97,7 +97,7 @@ class QuestionList extends Component {
 
         const Questions = stored_Questions.map(qs => {
             return (
-                <Grid item xs={6} key={qs.id}>
+                <Grid item md={6} xs={12} key={qs.id}>
                     <Question
                         key={qs.id}
                         id={qs.id}
@@ -181,7 +181,7 @@ class QuestionList extends Component {
                         {title} Feed
                     </Typography>
                     <CustomToggle
-                        value="Hi"
+                        id="toggle"
                         checked={this.state.isQuestionTab}
                         onChange={() => this.clickTabHandler()}
                     />
