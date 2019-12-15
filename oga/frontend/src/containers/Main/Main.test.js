@@ -397,7 +397,7 @@ describe("<Main />", () => {
         const wrapper = mount(main);
         const instance = wrapper.find(Main.WrappedComponent).instance();
         const m = jest.spyOn(instance, "clickTabHandler");
-        let button = wrapper.find({value: "Hi"});
+        let button = wrapper.find({id: "custom-toggle"});
         button.hostNodes().at(0).simulate('click'); // shows answer page
         expect(instance.state['isQuestionTab']).toEqual(false);
         button.hostNodes().at(0).simulate('click'); // shows questions page
