@@ -38,7 +38,7 @@ def get_profile(request, username=None):
                                            publish_date_time__year=today.year,
                                            publish_date_time__month=today.month,
                                            publish_date_time__day=today.day).count()
-    rankNum = calculate_rankNum(profile)
+    # rankNum = calculate_rankNum(profile)
     response_dict = {
         'id': profile.id,
         'username': profile.user.username,
@@ -47,6 +47,6 @@ def get_profile(request, username=None):
         'todayQuestionCount': todays_questions,
         'todayAnswerCount': todays_answers,
         'reliability': profile.reliability,
-        'rankNum': rankNum
+        # 'rankNum': rankNum
     }
     return JsonResponse(response_dict, status=200)

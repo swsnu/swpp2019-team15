@@ -85,6 +85,7 @@ def rate_down_answer(request, answer_id):
 
     profile.rate_down += 1
     profile.reliability = calculate_reliability(profile, profile.rate_up, profile.rate_down)
+    print(profile.reliability)
     profile.save()
     response_dict = parse_rating(answer, False)
 
