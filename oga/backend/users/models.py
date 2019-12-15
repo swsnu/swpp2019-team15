@@ -50,6 +50,7 @@ class Profile(models.Model):
     follows = models.ManyToManyField(Question, related_name='followers')
     rate_up = models.PositiveSmallIntegerField(default=0)
     rate_down = models.PositiveSmallIntegerField(default=0)
+    reliability = models.FloatField(default=0)
 
     def __str__(self):
         return self.user.username

@@ -61,6 +61,7 @@ class Profile extends Component {
         let coordinates = "";
         var todayQuestionCount = "";
         var todayAnswerCount = "";
+        let reliability = "";
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;
@@ -68,6 +69,7 @@ class Profile extends Component {
             coordinates = `${profile.coordinates}`;
             todayQuestionCount = `${profile.todayQuestionCount}`;
             todayAnswerCount = `${profile.todayAnswerCount}`;
+            reliability = `${profile.reliability}`;
         }
 
         var questions = this.props.myQuestions;
@@ -211,9 +213,9 @@ class Profile extends Component {
                                             </Typography>
                                             <Typography variant="subtitle1">
                                                 <i>
-                                                    {/* {location} */}
+                                                    Reliability
                                                     <br />
-                                                    {/* {coordinates} */}
+                                                    {reliability}
                                                 </i>
                                             </Typography>
                                         </Grid>

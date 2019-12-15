@@ -7,6 +7,7 @@ from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
 from ..models import Answer
 from ..views.decorators import check_request, check_login_required
+from math import sqrt
 
 
 @check_login_required
@@ -42,6 +43,7 @@ def rate_up_answer(request, answer_id):
     answer.save()
 
     profile.rate_up += 1
+    profile.reliability = calculate_reliability(profile, profile.rate_up, profile.rate_down)
     profile.save()
     response_dict = parse_rating(answer, True)
 
@@ -82,6 +84,7 @@ def rate_down_answer(request, answer_id):
     answer.save()
 
     profile.rate_down += 1
+    profile.reliability = calculate_reliability(profile, profile.rate_up, profile.rate_down)
     profile.save()
     response_dict = parse_rating(answer, False)
 
@@ -100,6 +103,26 @@ def parse_rating(answer, is_up):
         'is_up': is_up,
     }
     return rating_dict
+
+
+def calculate_reliability(profile, ups, downs):
+    """
+    Calculate reliability of user
+    from https://stackoverflow.com/questions/10029588/
+    python-implementation-of-the-wilson-score-interval
+    """
+    n = ups + downs
+
+    if n == 0:
+        return 0
+
+    z = 1.96 #1.44 = 85%, 1.96 = 95%
+    phat = float(ups) / n
+    val = ((phat + z*z/(2*n) - z * sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n))
+    return round(val, 2)
+
+
+
 
 
 # @check_login_required

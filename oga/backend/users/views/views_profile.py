@@ -46,5 +46,6 @@ def get_profile(request, username=None):
         'coordinates': coordinates,
         'todayQuestionCount': todays_questions,
         'todayAnswerCount': todays_answers,
+        'reliability': profile.reliability,
     }
     return JsonResponse(response_dict, status=200)
