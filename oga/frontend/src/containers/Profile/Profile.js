@@ -36,7 +36,7 @@ class Profile extends Component {
     }
 
     onClickDetailHandler = id => {
-        this.props.history.push("/reply/" + id);
+        this.props.history.push("/replies/" + id);
     };
 
     onClickAuthorHandler = author => {
@@ -107,7 +107,6 @@ class Profile extends Component {
                     style={{ marginBottom: 5, marginTop: 5 }}
                     // onClick={() => this.onClickDetailHandler(ans.id)}
                 >
-
                     <AnswerView
                         className="MyAnswer"
                         auth={this.props.auth}
@@ -319,7 +318,7 @@ const mapStateToProps = state => {
         auth: state.auth.authenticated,
         userProfile: state.auth.profile,
         myQuestions: state.question.questions,
-        myAnswers: state.answer.answers,
+        myAnswers: state.answer.answers
         // counts_rating_up: state.rating.rating_up,
         // counts_rating_down: state.rating.rating_down,
     };

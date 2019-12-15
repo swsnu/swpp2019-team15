@@ -34,7 +34,8 @@ export const signIn_ = res => {
     return {
         type: actionTypes.AUTHENTICATED,
         //userid: res.data.id,
-        authenticated: true
+        authenticated: true,
+        justLoggedIn: true
     };
 };
 

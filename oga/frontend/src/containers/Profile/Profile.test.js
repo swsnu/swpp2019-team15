@@ -111,7 +111,7 @@ describe("<Profile />", () => {
         //button.hostNodes().simulate('click');
         expect(spyHistoryPush).toHaveBeenCalledTimes(1);
         expect(m).toHaveBeenCalledTimes(1);
-        expect(spyHistoryPush).toHaveBeenCalledWith("/reply/1");
+        expect(spyHistoryPush).toHaveBeenCalledWith("/replies/1");
     });
 
     it("should change tab state when 'My Question' button clicked", () => {

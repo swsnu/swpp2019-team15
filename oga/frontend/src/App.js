@@ -44,19 +44,19 @@ console.log("PushManager" in window);
 function App(props) {
     // let session = true;
     props.isLoggedIn(); //sets state's authenticate
-    console.log(props.auth)
+    console.log(props.auth);
     if (props.auth != null)
         return (
             <MuiThemeProvider theme={theme}>
                 <ConnectedRouter history={props.history}>
-                    <WrappingAppBar history={props.history}/>
+                    <WrappingAppBar history={props.history} />
                     <div
                         className="App"
                         style={{
-                            marginLeft: theme.spacing(9),
-                            [theme.breakpoints.up("sm")]: {
-                                width: theme.spacing(9)
-                            }
+                            marginLeft: theme.spacing(9)
+                            // [theme.breakpoints.up("sm")]: {
+                            //     width: theme.spacing(9)
+                            // }
                         }}
                     >
                         <Switch>

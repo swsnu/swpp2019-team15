@@ -8,6 +8,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from users.views.decorators import check_login_required
 from users.models import Profile, Question, Answer
 
+
 @check_login_required
 @ensure_csrf_cookie
 @require_http_methods(["GET"])

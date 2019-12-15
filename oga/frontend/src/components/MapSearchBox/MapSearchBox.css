@@ -1,9 +1,9 @@
 .MapSearchBox {
-    position: absolute;
+    position: relative;
     align-items: center;
     justify-content: center;
 }
 .MapSearchBox input[type="text"] {
     position: relative;
-    width: 500px;
+    /* width: 500px; */
 }
