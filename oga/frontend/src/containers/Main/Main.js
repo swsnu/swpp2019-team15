@@ -77,7 +77,6 @@ class QuestionList extends Component {
     };
 
     render() {
-        console.log(this.props.auth);
         var question_len = this.props.storedQuestions.length;
         var answer_len = this.props.storedAnswers.length;
         var title = this.state.isQuestionTab ? "Question" : "Answer";
@@ -88,7 +87,7 @@ class QuestionList extends Component {
             (this.state.activeStep + 1) * 10
         );
 
-        const Questions = stored_Questions.map(qs => {
+        const Questions = question_len == 0 ? null : stored_Questions.map(qs => {
             return (
                 <Grid item xs={6} key={qs.id}>
                     <Question
@@ -113,7 +112,7 @@ class QuestionList extends Component {
             );
         });
 
-        const Answers = (
+        const Answers = answer_len == 0 ? null : (
             <AnswerListItem
                 selectedAnswers={this.props.storedAnswers.slice(
                     this.state.activeStep * 10,
@@ -127,6 +126,7 @@ class QuestionList extends Component {
             : Math.ceil(answer_len / 10, 1);
         
         var content = this.state.isQuestionTab ? Questions : Answers;
+        // console.log(content)
 
         // Stepper component for page navigation
         const MyStepper = (
