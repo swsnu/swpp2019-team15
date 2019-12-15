@@ -10,14 +10,11 @@ import Avatar from "@material-ui/core/Avatar";
 const useStyles = makeStyles({
     root: {
         backgroundColor: "transparent"
-        // "&:hover": {
-        //     backgroundColor: "#ff9933"
-        // }
     },
     icon: {
         borderRadius: "50%",
-        width: 120,
-        height: 120,
+        width: 150,
+        height: 150,
         boxShadow:
             "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
         backgroundColor: "#f5f8fa",
@@ -36,8 +33,8 @@ const useStyles = makeStyles({
         }
     },
     checkedIcon: {
-        width: 120,
-        height: 120,
+        width: 150,
+        height: 150,
         backgroundColor: "#ffb366",
         backgroundImage:
             "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
