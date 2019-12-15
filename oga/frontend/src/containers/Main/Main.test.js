@@ -174,6 +174,9 @@ const store = mockStore({
         username: "",
         password: ""
     },
+    location: {
+        currentCoordinates: null,
+    },
     router: history
 });
 
