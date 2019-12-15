@@ -11,6 +11,20 @@ import thunk from "redux-thunk";
 import Main from "./Main.js";
 
 const mockStore = configureMockStore([thunk]);
+
+// Mock GoogleMaps API
+const mockGeolocation = {
+    getCurrentPosition: jest.fn(),
+    watchPosition: jest.fn()
+    .mockImplementationOnce((success) => Promise.resolve(success({
+      coords: {
+        latitude: 51.1,
+        longitude: 45.3
+      }
+    }))),
+  };
+global.navigator.geolocation = mockGeolocation;
+
 const spyGetAnswer = jest
     .spyOn(answerActions, "getAllAnswers")
     .mockImplementation(() => {
@@ -383,7 +397,7 @@ describe("<Main />", () => {
         const wrapper = mount(main);
         const instance = wrapper.find(Main.WrappedComponent).instance();
         const m = jest.spyOn(instance, "clickTabHandler");
-        let button = wrapper.find("#toggle");
+        let button = wrapper.find({value: "Hi"});
         button.hostNodes().at(0).simulate('click'); // shows answer page
         expect(instance.state['isQuestionTab']).toEqual(false);
         button.hostNodes().at(0).simulate('click'); // shows questions page
