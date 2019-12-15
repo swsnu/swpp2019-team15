@@ -62,6 +62,7 @@ class Profile extends Component {
         var todayQuestionCount = "";
         var todayAnswerCount = "";
         let reliability = "";
+        let ranking = 0;
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;
@@ -70,6 +71,7 @@ class Profile extends Component {
             todayQuestionCount = `${profile.todayQuestionCount}`;
             todayAnswerCount = `${profile.todayAnswerCount}`;
             reliability = `${profile.reliability}`;
+            ranking = profile.ranking;
         }
 
         var questions = this.props.myQuestions;
@@ -209,7 +211,7 @@ class Profile extends Component {
                                             >
                                                 {"   "}
                                                 {/* TODO: Rank to be determined based on point system implementation */}
-                                                {rank[10]}
+                                                {rank[ranking]}
                                             </Typography>
                                             <Typography variant="subtitle1">
                                                 <i>

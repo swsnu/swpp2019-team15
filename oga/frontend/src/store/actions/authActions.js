@@ -100,6 +100,7 @@ export const getProfile_ = profile => {
         todayAnswerCount: profile.todayAnswerCount,
         todayQuestionCount: profile.todayQuestionCount,
         reliability: profile.reliability,
+        ranking: profile.ranking,
     };
 };
 

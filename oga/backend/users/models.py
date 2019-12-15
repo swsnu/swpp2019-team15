@@ -51,6 +51,10 @@ class Profile(models.Model):
     rate_up = models.PositiveSmallIntegerField(default=0)
     rate_down = models.PositiveSmallIntegerField(default=0)
     reliability = models.FloatField(default=0)
+    ranking_score = models.FloatField(default=0)
+
+    class Meta:
+        ordering = ['ranking_score']
 
     def __str__(self):
         return self.user.username

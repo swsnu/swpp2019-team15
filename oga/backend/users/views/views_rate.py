@@ -5,9 +5,9 @@ from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
-from ..models import Answer
+from ..models import Answer, Question
 from ..views.decorators import check_request, check_login_required
-from math import sqrt
+from math import sqrt, log10
 
 
 @check_login_required
@@ -43,8 +43,7 @@ def rate_up_answer(request, answer_id):
     answer.save()
 
     profile.rate_up += 1
-    profile.reliability = calculate_reliability(profile, profile.rate_up, profile.rate_down)
-    profile.save()
+    calculate_reliability(profile, user, profile.rate_up, profile.rate_down)
     response_dict = parse_rating(answer, True)
 
     return JsonResponse(response_dict, safe=False, status=201)
@@ -84,8 +83,7 @@ def rate_down_answer(request, answer_id):
     answer.save()
 
     profile.rate_down += 1
-    profile.reliability = calculate_reliability(profile, profile.rate_up, profile.rate_down)
-    profile.save()
+    calculate_reliability(profile, user, profile.rate_up, profile.rate_down)
     response_dict = parse_rating(answer, False)
 
     return JsonResponse(response_dict, safe=False, status=201)
@@ -105,7 +103,7 @@ def parse_rating(answer, is_up):
     return rating_dict
 
 
-def calculate_reliability(profile, ups, downs):
+def calculate_reliability(profile, user, ups, downs):
     """
     Calculate reliability of user
     from https://stackoverflow.com/questions/10029588/
@@ -118,11 +116,19 @@ def calculate_reliability(profile, ups, downs):
 
     z = 1.96 #1.44 = 85%, 1.96 = 95%
     phat = float(ups) / n
-    val = ((phat + z*z/(2*n) - z * sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n))
-    return round(val, 2)
+    profile.reliability = ((phat + z*z/(2*n) - z * sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n))
+    n_ans = Answer.objects.filter(user=user).count()
+    n_qus = Question.objects.filter(author=user).count()
+    profile.ranking_score = calculate_rank(profile.reliability, n_ans, n_qus)
+    profile.save()
+    return
 
 
-
+def calculate_rank(reliability, num_of_answers, num_of_questions):
+    """
+    Calculate rank of user
+    """
+    return reliability * (num_of_answers / ( 1 + log10(num_of_questions)))
 
 
 # @check_login_required
