@@ -19,8 +19,8 @@ const mockGeolocation = {
         Promise.resolve(
             success({
                 coords: {
-                    latitude: 1.23,
-                    longitude: 4.56
+                    latitude: 51.1,
+                    longitude: 45.3
                 }
             })
         )
@@ -151,6 +151,12 @@ const fullStore = mockStore({
             }
         ]
     },
+    location: {
+        currentCoordinates: {
+            latitude: 2,
+            longitude: 1
+        }
+    },
     auth: {
         username: "",
         password: "",
@@ -198,12 +204,10 @@ const store = mockStore({
         password: "",
         justLoggedIn: null
     },
-    router: history,
     location: {
-        name: null,
-        targetLocation: null,
         currentCoordinates: null
-    }
+    },
+    router: history
 });
 
 describe("<Main />", () => {

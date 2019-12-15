@@ -5,7 +5,8 @@ const initialState = {
     selectedQuestion: null,
     user_name: null,
     targetLocation: null,
-    questions: []
+    questions: [],
+    recommendations: [],
 };
 describe("Question Reducer", () => {
     it("should return default state", () => {
@@ -33,7 +34,8 @@ describe("Question Reducer", () => {
                     target_location: undefined,
                     content: "HI"
                 }
-            ]
+            ],
+            recommendations: [],
         });
     });
 
