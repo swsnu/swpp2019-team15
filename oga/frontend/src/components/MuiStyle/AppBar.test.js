@@ -1,17 +1,15 @@
 import React from "react";
 import AppBar from "./AppBar";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { Provider } from "react-redux";
-import { connectRouter, ConnectedRouter } from "connected-react-router";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { Route, Switch } from "react-router-dom";
 
 import { history } from "../../store/store";
 import configureMockStore from "redux-mock-store";
 // import * as actionCreators from './store/actions/authActions';
 import thunk from "redux-thunk";
-import ShallowRenderer from "react-router-dom";
 import { createMount } from "@material-ui/core/test-utils";
-import { cleanUp } from "@material-ui/core/test-utils";
 
 const mockStore = configureMockStore([thunk]);
 const store = mockStore({ auth: { authenticated: true }, router: history });
