@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
 import "./AnswerList.css";
 
 import { connect } from "react-redux";
@@ -49,7 +49,7 @@ class AnswerListItem extends Component {
 
         answers = selectedAnswers.map(ans => {
             return (
-                <Grid item xs={6} key={ans.id}>
+                <Grid item md={6} xs={12} key={ans.id}>
                     <AnswerView
                         auth={this.props.auth}
                         key={ans.id}

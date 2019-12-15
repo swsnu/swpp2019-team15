@@ -16,7 +16,7 @@ import {
     LiveHelp,
     SettingsApplications,
     ChevronLeft,
-    ExitToApp,
+    ExitToApp
 } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import {
@@ -26,18 +26,14 @@ import {
     CssBaseline,
     Drawer,
     Divider,
-    FormControl,
     FormControlLabel,
-    FormLabel,
     Grid,
     IconButton,
-    InputAdornment,
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
     MenuItem,
-    TextField,
     Toolbar,
     Typography
 } from "@material-ui/core";
@@ -65,7 +61,8 @@ const useStyles = makeStyles(theme => ({
         flexShrink: 0,
         whiteSpace: "nowrap",
         overflowX: "hidden",
-        height: "100%"
+        height: "100%",
+        paddingLeft: 0
     },
     appBar: {
         width: "100%",
@@ -90,7 +87,7 @@ const useStyles = makeStyles(theme => ({
         }),
         overflowX: "hidden",
         height: "100%",
-        width: theme.spacing(8),
+        width: theme.spacing(9),
         [theme.breakpoints.up("sm")]: {
             width: theme.spacing(9),
             height: "100%"
@@ -104,12 +101,12 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-end",
-        padding: theme.spacing(0, 1),
+        // padding: theme.spacing(0, 1),
         ...theme.mixins.toolbar
     },
     title: {
         zIndex: 5000,
-        flexGrow: 1,
+        // flexGrow: 1,
         fontWeight: "bold"
     },
     selected: {
@@ -125,10 +122,10 @@ const useStyles = makeStyles(theme => ({
 function MenuAppBar(props) {
     const classes = useStyles();
     var auth = props.auth;
-    var func = props.func
+    var func = props.func;
     var mouseLeaveTimeout = true;
     MenuItem.displayName = "menu_item";
-    var Log_toggle = auth ? "Log-Out" : "Log-In"
+    var Log_toggle = auth ? "Logout" : "Login";
 
     const [open, setOpen] = React.useState(false);
 
@@ -155,17 +152,10 @@ function MenuAppBar(props) {
             mouseLeaveTimeout = false;
         }, 200);
     };
-    // const handleMenu = event => {
-    //     setAnchorEl(event.currentTarget);
-    // };
-
-    // const handleClose = () => {
-    //     setAnchorEl(null);
-    // };
 
     return (
         <div className="AppBar">
-            {(
+            {
                 <ClickAwayListener onClickAway={handleDrawerClose}>
                     <div className={classes.root}>
                         <CssBaseline />
@@ -181,13 +171,12 @@ function MenuAppBar(props) {
                                     edge="start"
                                     id="menu-button"
                                     className={classes.menuButton}
-                                    color="light"
                                     aria-label="menu"
                                     onClick={handleDrawer}
                                 >
                                     <MenuIcon />
                                 </IconButton>
-                                <Grid xs={3}>
+                                <Grid item xs={3}>
                                     <FormControlLabel
                                         className={classes.title}
                                         control={
@@ -203,10 +192,10 @@ function MenuAppBar(props) {
                                         }
                                     />
                                 </Grid>
-                                <Grid xs={7} align="right">
+                                <Grid item xs={7} align="right">
                                     <SearchBox className={classes.searchBar} />
                                 </Grid>
-                                <Grid xs={2} align="right">
+                                <Grid item xs={2} align="right">
                                     <FormControlLabel
                                         className={classes.title}
                                         control={
@@ -214,6 +203,7 @@ function MenuAppBar(props) {
                                                 checked={auth}
                                                 onClick={() => func()}
                                                 aria-label="logout-button"
+                                                nowrap
                                             >
                                                 <ExitToApp />
                                                 {Log_toggle}
@@ -225,8 +215,7 @@ function MenuAppBar(props) {
                         </AppBar>
                         <Drawer
                             variant="permanent"
-                            containerStyle={{
-                                marginLeft: "6.5%",
+                            style={{
                                 background: "#545454",
                                 position: "fixed"
                             }}
@@ -245,7 +234,11 @@ function MenuAppBar(props) {
                             onMouseEnter={handleDrawer}
                             onMouseLeave={handleDrawerCloseOnMouseLeave}
                         >
-                            <List style={{ paddingTop: 100 }}>
+                            <List
+                                style={{
+                                    paddingTop: 100
+                                }}
+                            >
                                 <ListItem
                                     className={classes.listItem}
                                     button
@@ -256,7 +249,7 @@ function MenuAppBar(props) {
                                     }
                                 >
                                     <ListItemIcon>
-                                        <AccountCircle color="primary" />{" "}
+                                        <AccountCircle color="primary" />
                                     </ListItemIcon>
                                     <ListItemText
                                         classes={{
@@ -298,7 +291,7 @@ function MenuAppBar(props) {
                                         <Home
                                             color="primary"
                                             id="home-button"
-                                        />{" "}
+                                        />
                                     </ListItemIcon>
                                     <ListItemText
                                         classes={{
@@ -351,7 +344,7 @@ function MenuAppBar(props) {
                         </Drawer>
                     </div>
                 </ClickAwayListener>
-            )}
+            }
         </div>
     );
 }

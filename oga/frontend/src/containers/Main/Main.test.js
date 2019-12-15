@@ -159,9 +159,15 @@ const fullStore = mockStore({
     },
     auth: {
         username: "",
-        password: ""
+        password: "",
+        justLoggedIn: null
     },
-    router: history
+    router: history,
+    location: {
+        name: null,
+        targetLocation: null,
+        currentCoordinates: null
+    }
 });
 const store = mockStore({
     question: {
@@ -195,7 +201,8 @@ const store = mockStore({
     },
     auth: {
         username: "",
-        password: ""
+        password: "",
+        justLoggedIn: null
     },
     location: {
         currentCoordinates: null

@@ -3,11 +3,8 @@ import Map from "../../containers/Map/GoogleMap";
 import "./NewAnswer.css";
 
 import { connect } from "react-redux";
-
 import * as actionCreators from "../../store/actions/";
-
-import AnswerView from "../../components/AnswerView/AnswerView";
-import { question_types, answer_markers } from "../../const/question_type";
+import { answer_markers } from "../../const/question_type";
 
 //Material design imports
 import {
@@ -24,8 +21,6 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
 import InvertColorsIcon from "@material-ui/icons/InvertColors";
 import MicIcon from "@material-ui/icons/Mic";
-import EventSeatIcon from "@material-ui/icons/EventSeat";
-import Rating from "@material-ui/lab/Rating";
 import StyledRating from "../../components/MuiStyle/CustomRating";
 class NewAnswer extends Component {
     constructor(props) {
@@ -59,8 +54,6 @@ class NewAnswer extends Component {
                     answer_markers[this.props.selectedQuestion.content][
                         value - 1
                     ].content,
-                // answer_list[answer_list.findIndex(mark => mark.value === value)]
-                //     .content,
                 answered: true,
                 rating: value
             });
@@ -134,7 +127,6 @@ class NewAnswer extends Component {
 
             qs_type = this.props.selectedQuestion.content;
             answer_list = answer_markers[qs_type];
-            // qs_type = question_types[qs_type];
 
             const IconContainer = props => {
                 const { value, ...other } = props;
@@ -158,49 +150,24 @@ class NewAnswer extends Component {
                     }
                     IconContainerComponent={IconContainer}
                 />
-                // <Slider
-                //     id="#slider"
-                //     style={{
-                //         marginTop: 50,
-                //         marginBottom: 50,
-                //         width: "70%"
-                //     }}
-                //     defaultValue={1}
-                //     aria-labelledby="answer-choices"
-                //     track={false}
-                //     min={1}
-                //     max={answer_list.length}
-                //     step={null}
-                //     marks={answer_list}
-                //     valueLabelDisplay="auto"
-                //     onChange={(event, value) =>
-                //         this.onChangeHandler(event, value, answer_list)
-                //     }
-                // />
             );
 
             gotten_answer_view = (
                 <React.Fragment>
-                    <AnswerView
-                        key={this.props.selectedQuestion.id}
-                        id={this.props.selectedQuestion.id}
-                        content={this.props.selectedQuestion.content}
-                        place_name={
-                            this.props.selectedQuestion.target_location_name
-                        }
-                        is_answered={false}
-                    />
+                    {this.props.selectedQuestion.content} in{" "}
+                    {this.props.selectedQuestion.target_location_name}?
                 </React.Fragment>
             );
         }
 
         return (
             <Grid container className="Answer" direction="row">
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     {map}
                 </Grid>
                 <Grid
                     md={6}
+                    xs={12}
                     alignItems="center"
                     justify="center"
                     style={{ padding: 40 }}

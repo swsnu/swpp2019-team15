@@ -34,7 +34,8 @@ export const signIn_ = res => {
     return {
         type: actionTypes.AUTHENTICATED,
         //userid: res.data.id,
-        authenticated: true
+        authenticated: true,
+        justLoggedIn: true
     };
 };
 
@@ -98,7 +99,7 @@ export const getProfile_ = profile => {
         location: profile.location,
         coordinates: profile.coordinates,
         todayAnswerCount: profile.todayAnswerCount,
-        todayQuestionCount: profile.todayQuestionCount,
+        todayQuestionCount: profile.todayQuestionCount
     };
 };
 

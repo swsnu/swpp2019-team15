@@ -51,9 +51,10 @@ class MapSearchBox extends Component {
             <Grid item align="left" className="MapSearchBox">
                 <TextField
                     style={{
-                        position: "fixed",
+                        position: "absolute",
+                        width: "90%",
                         margin: 30,
-                        zIndex: 500 // determines layer position for overlaying components
+                        zIndex: 501 // determines layer position for overlaying components
                     }}
                     id="searchbox"
                     type="text"
@@ -65,8 +66,8 @@ class MapSearchBox extends Component {
                     placeholder="Enter a location"
                     InputProps={{
                         style: {
-                            backgroundColor: "#fff",
-                            zIndex: 1000 // determines layer position for overlaying components
+                            backgroundColor: "#fff"
+                            // zIndex: 1000 // determines layer position for overlaying components
                         },
                         endAdornment: (
                             <InputAdornment>
