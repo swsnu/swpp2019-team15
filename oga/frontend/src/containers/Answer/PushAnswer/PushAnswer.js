@@ -11,10 +11,8 @@ import moment from "moment";
 // Material UI imports
 import {
     Typography,
-    Paper,
     Grid,
     Box,
-    Link,
     Card,
     CardContent,
     CardHeader
@@ -109,7 +107,6 @@ class PushAnswer extends Component {
                                     )
                                 }
                                 author={this.props.selectedAnswer.author}
-                                // content={this.props.selectedAnswer.question_type}
                                 publish_date_time={moment(
                                     this.props.publish_date_time
                                 ).format("MMMM Do YYYY, h:mm:ss a")}
@@ -186,8 +183,6 @@ const mapDispatchToProps = dispatch => {
         onGetAnswer: id => dispatch(actionCreators.getAnswer(id)),
         onGetRecommendations: id =>
             dispatch(actionCreators.getQuestionRecommendation(id))
-        //setLogout: () =>
-        //dispatch(actionCreators.settingLogout())
     };
 };
 

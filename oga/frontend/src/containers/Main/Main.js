@@ -22,23 +22,30 @@ import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import AnswerListItem from "../AnswerList/AnswerListItem";
+import SettingsDialog from "../../components/MuiStyle/SettingsDialog";
 class QuestionList extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isQuestionTab: true,
-            activeStep: 0
+            activeStep: 0,
+            showDialog: false
         };
     }
 
     componentDidMount() {
         // Fetch list of Q&A's in a given range based on current page
         // this.props.isLoggedIn();
+        // this.showDialogHandler();
         this.props.onGetAllQuestions();
         this.props.onGetAllAnswers();
+        this.setState({ showDialog: this.props.justLoggedIn });
     }
 
+    // Show dialog if user just logged in
+
+    // Handlers to redirect onClick
     clickAnswerHandler = qst => {
         this.props.history.push("/reply/create/" + qst.id);
     };
@@ -138,7 +145,7 @@ class QuestionList extends Component {
                         id="stepper-next"
                         size="small"
                         onClick={() => this.handleStepperNext()}
-                        disabled={this.state.activeStep === pageCount-1}
+                        disabled={this.state.activeStep === pageCount - 1}
                     >
                         Next
                         <KeyboardArrowRight />
@@ -160,6 +167,13 @@ class QuestionList extends Component {
 
         return (
             <div className="Main">
+                {this.state.showDialog && (
+                    <SettingsDialog
+                        openSettings={() =>
+                            this.props.history.push("/settings")
+                        }
+                    />
+                )}
                 <GoogleMap viewOnly={true} />
                 <Box pt={10} />
                 <Container component="main" justify="center">
@@ -210,7 +224,8 @@ class QuestionList extends Component {
 const mapStateToProps = state => {
     return {
         storedQuestions: state.question.questions,
-        storedAnswers: state.answer.answers
+        storedAnswers: state.answer.answers,
+        justLoggedIn: state.auth.justLoggedIn
     };
 };
 

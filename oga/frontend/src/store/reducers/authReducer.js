@@ -2,7 +2,8 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     authenticated: null,
-    profile: null,
+    justLoggedIn: null,
+    profile: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -11,7 +12,11 @@ const authReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.AUTHENTICATED:
             //const userid = action.userid;
-            return { ...state, authenticated: action.authenticated };
+            return {
+                ...state,
+                authenticated: action.authenticated,
+                justLoggedIn: action.justLoggedIn
+            };
         case actionTypes.UNAUTHENTICATED:
             console.log(action);
             return { ...state, authenticated: false };
@@ -22,7 +27,7 @@ const authReducer = (state = initialState, action) => {
                 location: action.location,
                 coordinates: action.coordinates,
                 todayAnswerCount: action.todayAnswerCount,
-                todayQuestionCount: action.todayQuestionCount,
+                todayQuestionCount: action.todayQuestionCount
             };
             return { ...state, profile: payload };
         default:

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import moment from "moment";
 import "./AnswerView.css";
-import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 
 //Materials UI imports
 import {
@@ -23,7 +22,6 @@ const useStyles = theme => ({
         margin: "auto",
         transition: "0.3s",
         width: "100%",
-        // boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
         "&:hover": {
             boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)"
         }
@@ -153,11 +151,6 @@ class AnswerView extends Component {
                         </Grid>
                     </CardContent>
                 </Card>
-                {/* // ) : ( //{" "}
-                // <div>
-                //     // {this.props.content} in {this.props.place_name}? //{" "}
-                // </div>
-                // // )} */}
             </Grid>
         );
     }

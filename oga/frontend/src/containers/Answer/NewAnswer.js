@@ -21,8 +21,6 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
 import InvertColorsIcon from "@material-ui/icons/InvertColors";
 import MicIcon from "@material-ui/icons/Mic";
-import EventSeatIcon from "@material-ui/icons/EventSeat";
-import Rating from "@material-ui/lab/Rating";
 import StyledRating from "../../components/MuiStyle/CustomRating";
 class NewAnswer extends Component {
     constructor(props) {
@@ -56,8 +54,6 @@ class NewAnswer extends Component {
                     answer_markers[this.props.selectedQuestion.content][
                         value - 1
                     ].content,
-                // answer_list[answer_list.findIndex(mark => mark.value === value)]
-                //     .content,
                 answered: true,
                 rating: value
             });
@@ -131,7 +127,6 @@ class NewAnswer extends Component {
 
             qs_type = this.props.selectedQuestion.content;
             answer_list = answer_markers[qs_type];
-            // qs_type = question_types[qs_type];
 
             const IconContainer = props => {
                 const { value, ...other } = props;
