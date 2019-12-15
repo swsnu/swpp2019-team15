@@ -33,6 +33,9 @@ const store = mockStore({
             place_name: "HOME"
         }
     },
+    question: {
+        recommendations: null
+    },
     router: history
 });
 const spyGetQuestion = jest
@@ -67,6 +70,9 @@ describe("<PushAnswer/>", () => {
         const store = mockStore({
             answer: {
                 answer: null
+            },
+            question: {
+                recommendations: null
             },
             router: history
         });

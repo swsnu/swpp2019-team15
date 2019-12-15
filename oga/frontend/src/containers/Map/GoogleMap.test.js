@@ -21,7 +21,8 @@ describe("<Map/>", () => {
     mapApi.places = jest.mock();
     const store = mockStore({
         location: {
-          currentCoordinates: {
+          currentCoordinates:
+          {
             latitude: 2,
             longitude: 1
           }
