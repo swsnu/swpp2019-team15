@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from .models import User, Profile, Question, Answer
 from .utils.send_push import send_push
 from .utils.haversine import distance
+from .utils.recommender import add_item
 
 # pylint: disable=unused-argument
 @receiver(post_save, sender=User)
@@ -31,6 +32,14 @@ def notify_new_question(sender, instance, created, **kwargs):
                     profile.location_id and
                     distance(qs_l, rc_l) <= 0.3):
                 send_push(profile, data)
+
+@receiver(post_save, sender=Question)
+def add_question(sender, instance, created, **kwargs):
+    """upon saving a new question, add it to the recommender"""
+    if created:
+        location = instance.location_id.id
+        username = instance.author.username
+        add_item(username, location)
 
 @receiver(post_save, sender=Answer)
 def notify_new_answer(sender, instance, created, **kwargs):

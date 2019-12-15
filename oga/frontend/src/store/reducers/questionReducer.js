@@ -4,7 +4,9 @@ const initialState = {
     selectedQuestion: null,
     user_name: null,
     targetLocation: null,
-    questions: []
+    questions: [],
+    // list of recommended locations
+    recommendations: []
 };
 
 const questionReducer = (state = initialState, action) => {
@@ -23,6 +25,8 @@ const questionReducer = (state = initialState, action) => {
             return { ...state, selectedQuestion: action.selectedQuestion };
         case actionTypes.GET_USER_QUESTIONS:
             return { ...state, questions: action.questions };
+        case actionTypes.GET_RECOMMENDATION:
+            return { ...state, recommendations: action.recommendations };
         default:
             break;
     }

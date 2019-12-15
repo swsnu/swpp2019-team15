@@ -17,7 +17,8 @@ import {
     CssBaseline,
     Grid,
     IconButton,
-    Typography
+    Typography,
+    Paper
 } from "@material-ui/core";
 import AnswerListItem from "./AnswerListItem";
 
@@ -26,7 +27,7 @@ class AnswerList extends Component {
         super(props);
         this.state = {
             id: this.props.match.params.id,
-            render_check: [],
+            render_check: []
         };
     }
 
@@ -44,7 +45,7 @@ class AnswerList extends Component {
     };
 
     //clickBackHandler = () => {
-        //this.props.history.goBack();
+    //this.props.history.goBack();
     //};
 
     render() {
@@ -120,6 +121,7 @@ class AnswerList extends Component {
                             Back
                         </Button>
                     </Grid>
+
                     <Box pt={10} />
                 </Container>
             </div>
@@ -141,7 +143,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onGetQuestion: id => dispatch(actionCreators.getQuestion(id)),
-        onGetAnswers: id => dispatch(actionCreators.getAnswers(id)),
+        onGetAnswers: id => dispatch(actionCreators.getAnswers(id))
     };
 };
 

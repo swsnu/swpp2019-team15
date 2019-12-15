@@ -7,10 +7,11 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_http_methods
 from ..models import Question, Location, Answer
+from ..utils.recommender import get_recommendation
 from ..views.decorators import check_request, check_login_required
 
 
-#@check_login_required
+# @check_login_required
 @check_request
 @require_http_methods(["POST", "GET"])
 def questions(request):
@@ -60,6 +61,21 @@ def get_user_questions(request, username=''):
     response_dict = parse_question_list(question_list)
 
     return JsonResponse(response_dict, safe=False)
+
+
+@check_login_required
+@check_request
+@require_http_methods(["GET"])
+def question_recommendation(request, question_id):
+    """
+    function to get recommendations for given question
+    GET: question_recommendation api
+    """
+    user = get_user(request)
+    question = Question.objects.get(id=question_id)
+    location = question.location_id
+    recommendation_list = get_recommendation(user.username, location.id)
+    return JsonResponse(recommendation_list, status=201, safe=False)
 
 
 def parse_question_list(question_list):

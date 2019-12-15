@@ -53,9 +53,9 @@ function App(props) {
                     <div
                         className="App"
                         style={{
-                            marginLeft: theme.spacing(9) + 1,
+                            marginLeft: theme.spacing(9),
                             [theme.breakpoints.up("sm")]: {
-                                width: theme.spacing(9) + 1
+                                width: theme.spacing(9)
                             }
                         }}
                     >

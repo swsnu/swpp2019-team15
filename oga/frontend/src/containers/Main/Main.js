@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-
-import Question from "../../components/Question/Question";
-
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
 import "./Main.css";
 import * as actionCreators from "../../store/actions/index";
+import GoogleMap from "../Map/GoogleMap";
+import Question from "../../components/Question/Question";
+import CustomToggle from "../../components/MuiStyle/CustomToggle";
 
 //Material UI imports
 import {
@@ -77,10 +77,10 @@ class QuestionList extends Component {
     };
 
     render() {
-        console.log(this.props.auth)
+        console.log(this.props.auth);
         var question_len = this.props.storedQuestions.length;
         var answer_len = this.props.storedAnswers.length;
-        var title = this.state.isQuestionTab ? "Question" : "Answer"
+        var title = this.state.isQuestionTab ? "Question" : "Answer";
 
         // Limit to displaying only 10 most recent questions
         var stored_Questions = this.props.storedQuestions.slice(
@@ -123,12 +123,13 @@ class QuestionList extends Component {
         );
 
         var pageCount = this.state.isQuestionTab
-            ? Math.round(question_len / 10, 0)
-            : Math.round(answer_len / 10, 0);
+            ? Math.ceil(question_len / 10, 1)
+            : Math.ceil(answer_len / 10, 1);
 
+        // Stepper component for page navigation
         const MyStepper = (
             <MobileStepper
-                steps={pageCount+1}
+                steps={pageCount}
                 position="static"
                 variant="text"
                 activeStep={this.state.activeStep}
@@ -137,7 +138,7 @@ class QuestionList extends Component {
                         id="stepper-next"
                         size="small"
                         onClick={() => this.handleStepperNext()}
-                        disabled={this.state.activeStep === pageCount}
+                        disabled={this.state.activeStep === pageCount-1}
                     >
                         Next
                         <KeyboardArrowRight />
@@ -159,16 +160,17 @@ class QuestionList extends Component {
 
         return (
             <div className="Main">
-                <Box pt={8} />
-                <Typography component="h1" variant="h3">
-                    {title} Feed
-                </Typography>
-                <Button id="toggle" onClick={() => this.clickTabHandler()}>
-                    Toggle
-                </Button>
-                <Box pt={5} />
-
+                <GoogleMap viewOnly={true} />
+                <Box pt={10} />
                 <Container component="main" justify="center">
+                    <Typography component="h1" variant="h4">
+                        {title} Feed
+                    </Typography>
+                    <CustomToggle
+                        value="Hi"
+                        checked={this.state.isQuestionTab}
+                        onChange={() => this.clickTabHandler()}
+                    />
                     {MyStepper}
                     <Grid container spacing={2} direction="row">
                         {this.state.isQuestionTab ? Questions : Answers}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import "./AnswerView.css";
+import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 
 //Materials UI imports
 import {
@@ -57,23 +58,6 @@ class AnswerView extends Component {
 
     render() {
         const { classes } = this.props;
-        // if (this.props.is_answered && this.props.is_rated) {
-        //     var selec1 = (
-        //         <React.Fragment>
-        //             Likes ({this.props.how_many_liked})
-        //         </React.Fragment>
-        //     );
-        //     var selec2 = (
-        //         <React.Fragment>
-        //             Dislikes ({this.props.how_many_disliked})
-        //         </React.Fragment>
-        //     );
-        //     if (this.props.is_up) {
-        //         sel = <span>&#128077;</span>;
-        //     } else {
-        //         sel = <span>&#128078;</span>;
-        //     }
-        // }
 
         return (
             <Grid
@@ -130,7 +114,10 @@ class AnswerView extends Component {
                                         id="thumb_up-button"
                                         color="primary"
                                         onClick={this.props.rateUp}
-                                        disabled={!this.props.auth || this.props.disableLike}
+                                        disabled={
+                                            !this.props.auth ||
+                                            this.props.disableLike
+                                        }
                                     >
                                         &#128077; {this.props.rateUpCount}
                                     </Button>
@@ -138,7 +125,10 @@ class AnswerView extends Component {
                                         id="thumb_down-button"
                                         color="primary"
                                         onClick={this.props.rateDown}
-                                        disabled={!this.props.auth || this.props.disableDislike}
+                                        disabled={
+                                            !this.props.auth ||
+                                            this.props.disableDislike
+                                        }
                                     >
                                         &#128078; {this.props.rateDownCount}
                                     </Button>
