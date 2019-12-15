@@ -47,6 +47,12 @@ const useStyles = theme => ({
     },
     buttons: {
         paddingTop: theme.spacing(2)
+    },
+    button: {
+        fontSize: 20,
+        paddingTop: 0,
+        paddingBottom: 0,
+        marginBotton: 0
     }
 });
 
@@ -126,6 +132,7 @@ class AnswerView extends Component {
                         <Grid align="center" className="Ratings">
                             <ButtonGroup className={classes.buttons}>
                                 <Button
+                                    className={classes.button}
                                     id="thumb_up-button"
                                     color="primary"
                                     onClick={this.props.rateUp}
@@ -134,9 +141,12 @@ class AnswerView extends Component {
                                         this.props.disableLike
                                     }
                                 >
-                                    &#128077; {this.props.rateUpCount}
+                                    &#129321;
+                                    {"  "}
+                                    {this.props.rateUpCount}
                                 </Button>
                                 <Button
+                                    className={classes.button}
                                     id="thumb_down-button"
                                     color="primary"
                                     onClick={this.props.rateDown}
@@ -145,7 +155,9 @@ class AnswerView extends Component {
                                         this.props.disableDislike
                                     }
                                 >
-                                    &#128078; {this.props.rateDownCount}
+                                    &#129317;
+                                    {"  "}
+                                    {this.props.rateDownCount}
                                 </Button>
                             </ButtonGroup>
                         </Grid>
