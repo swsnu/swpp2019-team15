@@ -134,6 +134,13 @@ const fullStore = mockStore({
             }
         ]
     },
+    location: {
+        currentCoordinates:
+        {
+          latitude: 2,
+          longitude: 1
+        }
+    },
     auth: {
         username: "",
         password: ""
@@ -175,7 +182,7 @@ const store = mockStore({
         password: ""
     },
     location: {
-        currentCoordinates: null,
+        currentCoordinates: null
     },
     router: history
 });

@@ -44,7 +44,7 @@ def get_or_create_answer(request, question_or_answer_id):
     elif request.method == "GET":
         user = get_user(request)
         ans = Answer.objects.get(id=question_or_answer_id)
-        question = ans.question
+        # question = ans.question
         response_dict = {
             # 'id': ans.id,
             # 'author': ans.author.user.username,
