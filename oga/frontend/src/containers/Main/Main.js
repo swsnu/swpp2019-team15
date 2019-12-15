@@ -129,7 +129,7 @@ class QuestionList extends Component {
         // Stepper component for page navigation
         const MyStepper = (
             <MobileStepper
-                steps={pageCount}
+                steps={pageCount+1}
                 position="static"
                 variant="text"
                 activeStep={this.state.activeStep}
@@ -138,7 +138,7 @@ class QuestionList extends Component {
                         id="stepper-next"
                         size="small"
                         onClick={() => this.handleStepperNext()}
-                        disabled={this.state.activeStep === pageCount-1}
+                        disabled={pageCount == 0 || this.state.activeStep === pageCount-1}
                     >
                         Next
                         <KeyboardArrowRight />
