@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     authenticated: null,
-    profile: null
+    profile: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -20,7 +20,9 @@ const authReducer = (state = initialState, action) => {
                 id: action.id,
                 username: action.username,
                 location: action.location,
-                coordinates: action.coordinates
+                coordinates: action.coordinates,
+                todayAnswerCount: action.todayAnswerCount,
+                todayQuestionCount: action.todayQuestionCount,
             };
             return { ...state, profile: payload };
         default:

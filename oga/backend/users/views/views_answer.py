@@ -123,7 +123,6 @@ def get_all_answers(request):
     return JsonResponse(response_dict, safe=False, status=200)
 
 
-@csrf_exempt
 @check_login_required
 @check_request
 @require_http_methods(["GET"])
