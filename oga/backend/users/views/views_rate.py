@@ -1,5 +1,6 @@
 """functional views api for the models"""
 
+from math import log10, sqrt
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
@@ -7,7 +8,6 @@ from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
 from ..models import Profile, Question, Answer
 from ..views.decorators import check_request, check_login_required
-from math import log10, sqrt
 
 
 @check_login_required
@@ -88,7 +88,7 @@ def rate_down_answer(request, answer_id):
     answer.save()
 
     profile.rate_down += 1
-    profile.reliability = calculate_reliability(profile, profile.rate_up, profile.rate_down)
+    profile.reliability = calculate_reliability(profile.rate_up, profile.rate_down)
     profile.save()
     n_ans = Answer.objects.all().count()
     n_qus = Question.objects.all().count()
@@ -113,11 +113,14 @@ def parse_rating(answer, is_up):
     return rating_dict
 
 
-def calculate_score(reliability, n_ans, n_qus):
-    return reliability * (n_ans / (1+log10(n_qus)))
+def calculate_score(reliability, num_ans, num_qus):
+    """
+    calculate rank score
+    """
+    return reliability * (num_ans / (1+log10(num_qus)))
 
 
-def calculate_reliability(profile, ups, downs):
+def calculate_reliability(ups, downs):
     """
     Calculate reliability of user
     from https://stackoverflow.com/questions/10029588/
@@ -128,9 +131,9 @@ def calculate_reliability(profile, ups, downs):
     if n == 0:
         return 0
 
-    z = 1.96 #1.44 = 85%, 1.96 = 95%
+    z_val = 1.96 #1.44 = 85%, 1.96 = 95%
     phat = float(ups) / n
-    val = ((phat + z*z/(2*n) - z * sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n))
+    val = ((phat + z_val*z_val/(2*n) - z_val * sqrt((phat*(1-phat)+z_val*z_val/(4*n))/n))/(1+z_val*z_val/n))
     return round(val, 2)
 
 

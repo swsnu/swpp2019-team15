@@ -38,10 +38,10 @@ def get_profile(request, username=None):
     todays_answers = Answer.objects.filter(author=profile,
                                            publish_date_time__year=today.year,
                                            publish_date_time__month=today.month,
-                                           publish_date_time__day=today.day).count()  
+                                           publish_date_time__day=today.day).count() 
 
-    rankNum = calculate_rankNum(profile)
-    print(rankNum)
+    rank_num = calculate_ranknum(profile)
+    print(rank_num)
     response_dict = {
         'id': profile.id,
         'username': profile.user.username,
@@ -50,12 +50,15 @@ def get_profile(request, username=None):
         'todayQuestionCount': todays_questions,
         'todayAnswerCount': todays_answers,
         'reliability': profile.reliability,
-        'rankNum': rankNum
+        'rankNum': rank_num
     }
     return JsonResponse(response_dict, status=200)
 
 
-def calculate_rankNum(profile):
+def calculate_ranknum(profile):
+    """
+    calculate ranking number(10 is best, 1 is worst)
+    """
     my_score = profile.rank_score
     print(my_score)
     n_users = Profile.objects.count()
