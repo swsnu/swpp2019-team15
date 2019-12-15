@@ -29,6 +29,7 @@ class Profile extends Component {
 
     componentDidMount() {
         var username = this.props.match.params.username;
+        this.props.isLoggedIn();
         this.props.getProfile(username);
         this.props.getUserQuestions(username);
         this.props.getUserAnswers(username);
@@ -44,12 +45,10 @@ class Profile extends Component {
 
     rateUpHandler = id => {
         this.props.rateUp(id);
-        // Window reload handled in actionCreators
     };
 
     rateDownHandler = id => {
         this.props.rateDown(id);
-        // Window reload handled in actionCreators
     };
 
     render() {
@@ -102,12 +101,15 @@ class Profile extends Component {
                     style={{ marginBottom: 5, marginTop: 5 }}
                     onClick={() => this.onClickDetailHandler(ans.id)}
                 >
+
                     <AnswerView
                         className="MyAnswer"
+                        auth={this.props.auth}
                         key={ans.id}
                         align="left"
                         id={ans.id}
                         author={username}
+                        content={ans.question_type}
                         answer_content={ans.content}
                         place_name={ans.location_name}
                         publish_date_time={moment(ans.publish_date_time).format(
@@ -116,8 +118,13 @@ class Profile extends Component {
                         is_answered={true}
                         is_up={ans.is_up}
                         is_rated={ans.is_rated}
+                        clickAuthor={null}
+                        rateUp={() => this.rateUpHandler(ans.id)}
+                        rateDown={() => this.rateDownHandler(ans.id)}
                         rateUpCount={ans.numbers_rated_up}
                         rateDownCount={ans.numbers_rated_down}
+                        disableLike={ans.user_liked}
+                        disableDislike={ans.user_disliked}
                         hideDivider={true}
                     />
                 </div>
@@ -302,6 +309,7 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
     return {
+        auth: state.auth.authenticated,
         userProfile: state.auth.profile,
         myQuestions: state.question.questions,
         myAnswers: state.answer.answers,
@@ -312,11 +320,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        isLoggedIn: () => dispatch(actionCreators.isLoggedIn()),
         getProfile: username => dispatch(actionCreators.getProfile(username)),
         getUserQuestions: username =>
             dispatch(actionCreators.getUserQuestions(username)),
         getUserAnswers: username =>
             dispatch(actionCreators.getUserAnswers(username)),
+        rateUp: id => dispatch(actionCreators.rateUp(id)),
+        rateDown: id => dispatch(actionCreators.rateDown(id))
     };
 };
 
