@@ -38,7 +38,7 @@ def get_profile(request, username=None):
     todays_answers = Answer.objects.filter(author=profile,
                                            publish_date_time__year=today.year,
                                            publish_date_time__month=today.month,
-                                           publish_date_time__day=today.day).count() 
+                                           publish_date_time__day=today.day).count()
 
     rank_num = calculate_ranknum(profile)
     print(rank_num)

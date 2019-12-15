@@ -6,7 +6,7 @@ from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
-from ..models import Profile, Question, Answer
+from ..models import Question, Answer
 from ..views.decorators import check_request, check_login_required
 
 
@@ -43,7 +43,7 @@ def rate_up_answer(request, answer_id):
     answer.save()
 
     profile.rate_up += 1
-    profile.reliability = calculate_reliability(profile, profile.rate_up, profile.rate_down)
+    profile.reliability = calculate_reliability(profile.rate_up, profile.rate_down)
     profile.save()
     n_ans = Answer.objects.all().count()
     n_qus = Question.objects.all().count()
@@ -126,14 +126,15 @@ def calculate_reliability(ups, downs):
     from https://stackoverflow.com/questions/10029588/
     python-implementation-of-the-wilson-score-interval
     """
-    n = ups + downs
+    num = ups + downs
 
-    if n == 0:
+    if num == 0:
         return 0
 
     z_val = 1.96 #1.44 = 85%, 1.96 = 95%
-    phat = float(ups) / n
-    val = ((phat + z_val*z_val/(2*n) - z_val * sqrt((phat*(1-phat)+z_val*z_val/(4*n))/n))/(1+z_val*z_val/n))
+    phat = float(ups) / num
+    tmp = (phat + z_val*z_val/(2*num) - z_val * sqrt((phat*(1-phat)+z_val*z_val/(4*num))/num))
+    val = tmp /(1+z_val*z_val/num)
     return round(val, 2)
 
 
