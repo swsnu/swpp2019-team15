@@ -87,44 +87,56 @@ class QuestionList extends Component {
             (this.state.activeStep + 1) * 10
         );
 
-        const Questions = question_len == 0 ? null : stored_Questions.map(qs => {
-            return (
-                <Grid item xs={6} key={qs.id}>
-                    <Question
-                        key={qs.id}
-                        id={qs.id}
-                        author={qs.author}
-                        publish_date_time={moment(qs.publish_date_time).format(
-                            "MMMM Do YYYY, h:mm:ss a"
-                        )}
-                        content={qs.content}
-                        answer_count={qs.answer_count}
-                        follow_count={qs.follow_count}
-                        location={qs.location}
-                        is_answered={qs.is_answered}
-                        showButtons={true}
-                        clickAnswer={() => this.clickAnswerHandler(qs)}
-                        clickFollow={() => this.clickFollowHandler(qs)}
-                        clickDetail={() => this.clickDetailHandler(qs)}
-                        clickAuthor={() => this.clickAuthorHandler(qs.author)}
-                    />
-                </Grid>
-            );
-        });
+        const Questions =
+            question_len == 0
+                ? null
+                : stored_Questions.map(qs => {
+                      return (
+                          <Grid item xs={6} key={qs.id}>
+                              <Question
+                                  key={qs.id}
+                                  id={qs.id}
+                                  author={qs.author}
+                                  publish_date_time={moment(
+                                      qs.publish_date_time
+                                  ).format("MMMM Do YYYY, h:mm:ss a")}
+                                  content={qs.content}
+                                  answer_count={qs.answer_count}
+                                  follow_count={qs.follow_count}
+                                  location={qs.location}
+                                  is_answered={qs.is_answered}
+                                  showButtons={true}
+                                  clickAnswer={() =>
+                                      this.clickAnswerHandler(qs)
+                                  }
+                                  clickFollow={() =>
+                                      this.clickFollowHandler(qs)
+                                  }
+                                  clickDetail={() =>
+                                      this.clickDetailHandler(qs)
+                                  }
+                                  clickAuthor={() =>
+                                      this.clickAuthorHandler(qs.author)
+                                  }
+                              />
+                          </Grid>
+                      );
+                  });
 
-        const Answers = answer_len == 0 ? null : (
-            <AnswerListItem
-                selectedAnswers={this.props.storedAnswers.slice(
-                    this.state.activeStep * 10,
-                    (this.state.activeStep + 1) * 10
-                )}
-            />
-        );
+        const Answers =
+            answer_len == 0 ? null : (
+                <AnswerListItem
+                    selectedAnswers={this.props.storedAnswers.slice(
+                        this.state.activeStep * 10,
+                        (this.state.activeStep + 1) * 10
+                    )}
+                />
+            );
 
         var pageCount = this.state.isQuestionTab
             ? Math.ceil(question_len / 10, 1)
             : Math.ceil(answer_len / 10, 1);
-        
+
         var content = this.state.isQuestionTab ? Questions : Answers;
         // console.log(content)
 
@@ -140,7 +152,10 @@ class QuestionList extends Component {
                         id="stepper-next"
                         size="small"
                         onClick={() => this.handleStepperNext()}
-                        disabled={pageCount == 0 || this.state.activeStep === pageCount-1}
+                        disabled={
+                            pageCount == 0 ||
+                            this.state.activeStep === pageCount - 1
+                        }
                     >
                         Next
                         <KeyboardArrowRight />
@@ -169,7 +184,7 @@ class QuestionList extends Component {
                         {title} Feed
                     </Typography>
                     <CustomToggle
-                        value="Hi"
+                        id="toggle"
                         checked={this.state.isQuestionTab}
                         onChange={() => this.clickTabHandler()}
                     />

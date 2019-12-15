@@ -15,14 +15,17 @@ const mockStore = configureMockStore([thunk]);
 // Mock GoogleMaps API
 const mockGeolocation = {
     getCurrentPosition: jest.fn(),
-    watchPosition: jest.fn()
-    .mockImplementationOnce((success) => Promise.resolve(success({
-      coords: {
-        latitude: 51.1,
-        longitude: 45.3
-      }
-    }))),
-  };
+    watchPosition: jest.fn().mockImplementationOnce(success =>
+        Promise.resolve(
+            success({
+                coords: {
+                    latitude: 51.1,
+                    longitude: 45.3
+                }
+            })
+        )
+    )
+};
 global.navigator.geolocation = mockGeolocation;
 
 const spyGetAnswer = jest
@@ -128,7 +131,7 @@ const fullStore = mockStore({
                 content: "rain?",
                 location: "home",
                 is_answered: false
-            },
+            }
         ]
     },
     answer: {
@@ -149,10 +152,9 @@ const fullStore = mockStore({
         ]
     },
     location: {
-        currentCoordinates:
-        {
-          latitude: 2,
-          longitude: 1
+        currentCoordinates: {
+            latitude: 2,
+            longitude: 1
         }
     },
     auth: {
@@ -171,7 +173,7 @@ const store = mockStore({
                 content: "rain?",
                 location: "home",
                 is_answered: false
-            },
+            }
         ]
     },
     answer: {
@@ -342,10 +344,16 @@ describe("<Main />", () => {
         const instance = wrapper.find(Main.WrappedComponent).instance();
         const m = jest.spyOn(instance, "handleStepperNext");
         let button = wrapper.find("#stepper-next");
-        button.hostNodes().at(0).simulate('click');
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("click");
         expect(m).toHaveBeenCalledTimes(0);
         button = wrapper.find("#stepper-back");
-        button.hostNodes().at(0).simulate('click');
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("click");
         expect(m).toHaveBeenCalledTimes(0);
     });
 
@@ -367,11 +375,17 @@ describe("<Main />", () => {
         const wrapper = mount(main);
         const instance = wrapper.find(Main.WrappedComponent).instance();
         let button = wrapper.find("#stepper-next");
-        button.hostNodes().at(0).simulate('click');
-        expect(instance.state['activeStep']).toEqual(1);
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("click");
+        expect(instance.state["activeStep"]).toEqual(1);
         button = wrapper.find("#stepper-back");
-        button.hostNodes().at(0).simulate('click');
-        expect(instance.state['activeStep']).toEqual(0);
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("click");
+        expect(instance.state["activeStep"]).toEqual(0);
     });
 
     it("should call not handlerStepperPrev when at first page", () => {
@@ -384,24 +398,31 @@ describe("<Main />", () => {
         const instance = wrapper.find(Main.WrappedComponent).instance();
         const m = jest.spyOn(instance, "handleStepperBack");
         let button = wrapper.find("#stepper-back");
-        button.hostNodes().at(0).simulate('click');
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("click");
         expect(m).toHaveBeenCalledTimes(0);
     });
 
-  it("should toggle between answer/question list ", () => {
-        const spyFollow = jest
-            .spyOn(actionCreators, "followQuestion")
-            .mockImplementation(path => {
-                return dispatch => {};
-            });
+    it("should toggle between answer/question list ", () => {
         const wrapper = mount(main);
         const instance = wrapper.find(Main.WrappedComponent).instance();
         const m = jest.spyOn(instance, "clickTabHandler");
-        let button = wrapper.find({id: "custom-toggle"});
-        button.hostNodes().at(0).simulate('click'); // shows answer page
-        expect(instance.state['isQuestionTab']).toEqual(false);
-        button.hostNodes().at(0).simulate('click'); // shows questions page
-        expect(instance.state['isQuestionTab']).toEqual(true);
+        let button = wrapper.find("#toggle");
+        // Toggle between pages
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("change");
+        //show answer page
+        expect(instance.state["isQuestionTab"]).toEqual(false);
+        button
+            .hostNodes()
+            .at(0)
+            .simulate("change");
+        // shows questions page
+        expect(instance.state["isQuestionTab"]).toEqual(true);
         expect(m).toHaveBeenCalledTimes(2);
     });
 });
