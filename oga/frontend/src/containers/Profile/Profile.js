@@ -43,6 +43,10 @@ class Profile extends Component {
         this.props.history.push("/profile/" + author);
     };
 
+    clickAnswerHandler = id => {
+        this.props.history.push("/reply/" + id);
+    };
+
     rateUpHandler = id => {
         this.props.rateUp(id);
     };
@@ -99,7 +103,7 @@ class Profile extends Component {
             return (
                 <div
                     style={{ marginBottom: 5, marginTop: 5 }}
-                    onClick={() => this.onClickDetailHandler(ans.id)}
+                    // onClick={() => this.onClickDetailHandler(ans.id)}
                 >
 
                     <AnswerView
@@ -126,6 +130,7 @@ class Profile extends Component {
                         disableLike={ans.user_liked}
                         disableDislike={ans.user_disliked}
                         hideDivider={true}
+                        clickAnswer={() => this.clickAnswerHandler(ans.id)}
                     />
                 </div>
             );
