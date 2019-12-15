@@ -77,7 +77,6 @@ class QuestionList extends Component {
     };
 
     render() {
-        console.log(this.props.auth);
         var question_len = this.props.storedQuestions.length;
         var answer_len = this.props.storedAnswers.length;
         var title = this.state.isQuestionTab ? "Question" : "Answer";
