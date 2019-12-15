@@ -125,11 +125,13 @@ class QuestionList extends Component {
         var pageCount = this.state.isQuestionTab
             ? Math.ceil(question_len / 10, 1)
             : Math.ceil(answer_len / 10, 1);
+        
+        var content = this.state.isQuestionTab ? Questions : Answers;
 
         // Stepper component for page navigation
         const MyStepper = (
             <MobileStepper
-                steps={pageCount+1}
+                steps={content == null ? 1 : pageCount}
                 position="static"
                 variant="text"
                 activeStep={this.state.activeStep}
@@ -173,7 +175,7 @@ class QuestionList extends Component {
                     />
                     {MyStepper}
                     <Grid container spacing={2} direction="row">
-                        {this.state.isQuestionTab ? Questions : Answers}
+                        {content}
                     </Grid>
                     {MyStepper}
                     <IconButton
