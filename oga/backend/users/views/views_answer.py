@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_http_methods
-from users.utils.recommender import get_recommendation
+# from users.utils.recommender import get_recommendation
 from users.models import Question, Answer, Profile
 from users.views.decorators import check_request, check_login_required
 
