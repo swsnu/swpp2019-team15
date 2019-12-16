@@ -92,6 +92,7 @@ class GoogleMap extends Component {
     };
 
     submitHandler = place => {
+        console.log(place);
         //const { 0: place } = this.state.places;
         //if (place) {
         this.props.submitPlace(place);
