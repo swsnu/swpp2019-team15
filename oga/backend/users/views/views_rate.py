@@ -136,23 +136,3 @@ def calculate_reliability(ups, downs):
     tmp = (phat + z_val*z_val/(2*num) - z_val * sqrt((phat*(1-phat)+z_val*z_val/(4*num))/num))
     val = tmp /(1+z_val*z_val/num)
     return round(val, 2)
-
-
-
-
-
-# @check_login_required
-# @check_request
-# @require_http_methods(["GET"])
-# @csrf_exempt
-# def get_rated_answer(request):
-#     """return rated_answers done by the user"""
-#     user = get_user(request)
-#     users = User.objects.get(rated_up_answers__in=user)
-#     users += User.objects.get(rated_down_answers__in=user)
-#     if users.count() > 1:
-#         return HttpResponse(status=404)
-#     response_dict = [{
-#         'users_id_rating': user.id
-#     } for user in users]
-#     return JsonResponse(response_dict, safe=False, status=201)

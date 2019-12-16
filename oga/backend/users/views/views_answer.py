@@ -75,22 +75,7 @@ def get_answers(request, question_id):
     answer_list = Answer.objects.filter(question=question)
 
     user = get_user(request)
-    # ulist = []
-    # for answer in answer_list:
-    #     is_up_list = answer.users_rated_up_answers.all()
-    #     is_down_list = answer.users_rated_down_answers.all()
-    #     if user in is_up_list:
-    #         ulist.append({'is_rated': True, 'is_up': True})
-    #     elif user in is_down_list:
-    #         user_rated = True
-    #         ulist.append({'is_rated': True, 'is_up': False})
-    #     else:
-    #         ulist.append({'is_rated': False, 'is_up': False})
     response_dict = parse_answer_list(answer_list, user)
-    # i = 0
-    # for ans in response_dict:
-    #     ans.update(ulist[i])
-    #     i += 1
     return JsonResponse(response_dict, safe=False, status=200)
 
 

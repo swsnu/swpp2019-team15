@@ -1,6 +1,5 @@
 """wrapper for recombee"""
 from recombee_api_client.api_client import RecombeeClient
-# from recombee_api_client.exceptions import APIException
 from recombee_api_client.api_requests import AddPurchase, RecommendItemsToItem
 from recombee_api_client.api_requests import Batch, SetItemValues
 from background_task import background
@@ -42,4 +41,3 @@ def _get_recommendation(user, locationid):
         location_names.append(location.name)
     # user and the location id is the key
     cache.set(user + str(locationid), location_names, 15 * 60)
-    # return location_names
