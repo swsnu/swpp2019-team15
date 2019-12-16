@@ -55,13 +55,16 @@ class GoogleMap extends Component {
         //     lng: this.props.target.lng}
 
         if (this.props.viewOnly) {
-            if (this.props.target) {
+            if (this.props.targets) {
+              for (var i = 0; i < this.props.targets.length; i++) {
+                var t = this.props.targets[i];
                 var target = {
-                    lat: this.props.target["lat"],
-                    lng: this.props.target["lng"]
+                    lat: t["lat"],
+                    lng: t["lng"]
                 };
-                var marker = this.state.marker;
+                var marker = new maps.Marker({ map: map });
                 marker.setPosition(target);
+              }
             }
         }
     };
@@ -112,10 +115,16 @@ class GoogleMap extends Component {
         this.setState({ places: place });
         this.renderMap(place);
         this.renderMarkers(place);
+        const { 0: plc } = this.state.places;
+        if (plc) {
+            this.props.submitPlace(plc);
+        }
     };
 
     onClick = coord => {
-        console.log("im called");
+        if (this.props.viewOnly) {
+          return;
+        }
         const map = this.state.mapInstance;
         const maps = this.state.mapApi;
         const marker = this.state.marker;
@@ -128,10 +137,16 @@ class GoogleMap extends Component {
             //openNow: true,
             types: [
                 "point_of_interest",
-                "establishment",
-                "restaurant",
                 "bus_station",
-                "cafe"
+                "atm",
+                "bar",
+                "park",
+                "gym",
+                "store",
+                "cafe",
+                "library",
+                "school",
+                "restaurant",
             ],
             language: "kor",
             //radius: 200,}
@@ -164,7 +179,6 @@ class GoogleMap extends Component {
         //FIXME: BUGGY
         console.log(this.props.currentCoordinates);
         if (this.props.currentCoordinates && places.length == 0) {
-            console.log("HI");
             center = {
                 lat: this.props.currentCoordinates.latitude,
                 lng: this.props.currentCoordinates.longitude
@@ -195,13 +209,13 @@ class GoogleMap extends Component {
                         key: API_KEY,
                         libraries: ["places", "geometry"]
                     }}
-                    options={{ disableDefaultUI: true }}
+                    options={{ disableDefaultUI: this.props.viewOnly }}
                     //styles:[{featureType: "transit", elementType: "labels"}],
                     //labels: true, mapTypeControl: false, mapTypeId: "roadmap", tilt: 0}}
                     //layerTypes={['TransitLayer']}
                     onClick={this.onClick}
                     yesIWantToUseGoogleMapApiInternals
-                    //onChildClick={this.clickSubmitHandler}
+                    onChildClick={this.clickSubmitHandler}
                     onGoogleApiLoaded={({ map, maps }) =>
                         this.apiHasLoaded(map, maps)
                     }
