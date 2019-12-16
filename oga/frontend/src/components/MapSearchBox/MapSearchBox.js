@@ -14,7 +14,7 @@ import React, { Component } from "react";
 import "./MapSearchBox.css";
 
 // Material ui components
-import { Close, Search } from "@material-ui/icons";
+import { Close } from "@material-ui/icons";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -35,7 +35,7 @@ class MapSearchBox extends Component {
         mapApi.event.clearInstanceListeners(this.searchInput);
     }
 
-    onPlacesChanged = ({ map, addplace } = this.props) => {
+    onPlacesChanged = ({ addplace } = this.props) => {
         const selected = this.searchBox.getPlaces();
         //const { 0: place } = selected;
         addplace(selected);

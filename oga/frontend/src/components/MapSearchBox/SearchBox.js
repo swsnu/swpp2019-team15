@@ -7,13 +7,11 @@ import "./SearchBox.css";
 
 // Material UI imports
 import {
-    Grid,
     IconButton,
     InputAdornment,
-    TextField,
-    Input
+    TextField
 } from "@material-ui/core";
-import { Close, Search } from "@material-ui/icons";
+import { Close } from "@material-ui/icons";
 
 // Import React Scrit Library to load Google object
 import Script from "react-load-script";

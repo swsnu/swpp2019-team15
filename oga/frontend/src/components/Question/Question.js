@@ -3,7 +3,6 @@ import moment from "moment";
 
 //Materials UI imports
 import { makeStyles } from "@material-ui/core/styles";
-import CommentIcon from "@material-ui/icons/Comment";
 import {
     Avatar,
     Card,
