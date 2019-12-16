@@ -33,13 +33,14 @@ class PushAnswer extends Component {
         this.props.onGetAnswer(this.state.id);
     }
 
-    getRecommendationsHandler = () => {
-        let ans = this.props.selectedAnswer;
-        // Check if answer to question is negative
-        if (answer_types[ans.content] == 0) {
-            // get recommendations for answered question
-            this.props.onGetRecommendations(ans.question_id);
-        }
+    rateUpHandler = id => {
+        this.props.rateUp(id);
+        window.location.reload();
+    };
+
+    rateDownHandler = id => {
+        this.props.rateDown(id);
+        window.location.reload();
     };
     shouldComponentUpdate(nextProps, nextState) {
       if ( this.state.hasFetched ) {
@@ -51,14 +52,14 @@ class PushAnswer extends Component {
     render() {
         var answer = null;
         if (this.props.selectedAnswer) {
-            this.getRecommendationsHandler();
+            // this.getRecommendationsHandler();
             var recommendations = null;
 
             var answer = this.props.selectedAnswer;
             // Check if answer to question is negative
             if (answer_types[answer.content] == 0) {
-                // get recommendations for answered question
-                this.getRecommendationsHandler();
+                // // get recommendations for answered question
+                // this.getRecommendationsHandler();
                 if (
                     this.props.recommendations &&
                     this.props.recommendations.length > 0
@@ -110,6 +111,7 @@ class PushAnswer extends Component {
                                     )
                                 }
                                 author={this.props.selectedAnswer.author}
+                                auth={this.props.auth}
                                 publish_date_time={moment(
                                     this.props.publish_date_time
                                 ).format("MMMM Do YYYY, h:mm:ss a")}
@@ -134,6 +136,16 @@ class PushAnswer extends Component {
                                     this.props.history.push(
                                         "/profile/" +
                                             this.props.selectedAnswer.author
+                                    )
+                                }
+                                rateUp={() =>
+                                    this.rateUpHandler(
+                                        this.props.selectedAnswer.id
+                                    )
+                                }
+                                rateDown={() =>
+                                    this.rateDownHandler(
+                                        this.props.selectedAnswer.id
                                     )
                                 }
                             />
@@ -177,15 +189,19 @@ class PushAnswer extends Component {
 const mapStateToProps = state => {
     return {
         selectedAnswer: state.answer.answer,
-        recommendations: state.question.recommendations
+        recommendations: state.question.recommendations,
+        auth: state.auth.authenticated
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        isLoggedIn: () => dispatch(actionCreators.isLoggedIn()),
         onGetAnswer: id => dispatch(actionCreators.getAnswer(id)),
         onGetRecommendations: id =>
-            dispatch(actionCreators.getQuestionRecommendation(id))
+            dispatch(actionCreators.getQuestionRecommendation(id)),
+        rateUp: id => dispatch(actionCreators.rateUp(id)),
+        rateDown: id => dispatch(actionCreators.rateDown(id))
     };
 };
 
