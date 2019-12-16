@@ -52,14 +52,14 @@ class PushAnswer extends Component {
     render() {
         var answer = null;
         if (this.props.selectedAnswer) {
-            this.getRecommendationsHandler();
+            // this.getRecommendationsHandler();
             var recommendations = null;
 
             var answer = this.props.selectedAnswer;
             // Check if answer to question is negative
             if (answer_types[answer.content] == 0) {
-                // get recommendations for answered question
-                this.getRecommendationsHandler();
+                // // get recommendations for answered question
+                // this.getRecommendationsHandler();
                 if (
                     this.props.recommendations &&
                     this.props.recommendations.length > 0
