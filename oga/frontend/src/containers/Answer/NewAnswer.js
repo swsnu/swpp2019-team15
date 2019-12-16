@@ -118,10 +118,10 @@ class NewAnswer extends Component {
             map = (
                 <Map
                     viewOnly={true}
-                    target={{
+                    targets={[{
                         lat: this.props.selectedQuestion.place_lat,
                         lng: this.props.selectedQuestion.place_lng
-                    }}
+                    }]}
                 ></Map>
             );
 
