@@ -120,7 +120,8 @@ class NewAnswer extends Component {
                     viewOnly={true}
                     targets={[{
                         lat: this.props.selectedQuestion.place_lat,
-                        lng: this.props.selectedQuestion.place_lng
+                        lng: this.props.selectedQuestion.place_lng,
+                        loc: this.props.selectedQuestion.location,
                     }]}
                 ></Map>
             );
