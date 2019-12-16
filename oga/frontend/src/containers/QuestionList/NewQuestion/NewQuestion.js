@@ -86,7 +86,7 @@ class NewQuestion extends Component {
                                     <FormControlLabel
                                         value="Are there LONG LINES"
                                         control={
-                                            <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                            <CustomRadio imgsrc="/images/lines.png" />
                                         }
                                         label="LONG LINES"
                                         labelPlacement="bottom"
@@ -94,7 +94,7 @@ class NewQuestion extends Component {
                                     <FormControlLabel
                                         value="Are there MANY SEATS"
                                         control={
-                                            <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                            <CustomRadio imgsrc="/images/seats.png" />
                                         }
                                         label="SEATS"
                                         labelPlacement="bottom"
@@ -104,7 +104,7 @@ class NewQuestion extends Component {
                                     <FormControlLabel
                                         value="Is it RAINING"
                                         control={
-                                            <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                            <CustomRadio imgsrc="/images/rain.png" />
                                         }
                                         label="RAIN"
                                         labelPlacement="bottom"
@@ -112,7 +112,7 @@ class NewQuestion extends Component {
                                     <FormControlLabel
                                         value="Is it QUIET"
                                         control={
-                                            <CustomRadio imgsrc="/images/icons8-github-500.png" />
+                                            <CustomRadio imgsrc="/images/noise.png" />
                                         }
                                         label="QUIET"
                                         labelPlacement="bottom"
@@ -121,7 +121,7 @@ class NewQuestion extends Component {
                             </Grid>
                         </RadioGroup>
                     </FormControl>
-                    <Grid>
+                    <Grid xs={3}>
                         <Box pt={10} />
                         <Button
                             type="submit"

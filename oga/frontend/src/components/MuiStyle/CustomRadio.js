@@ -13,11 +13,12 @@ const useStyles = makeStyles({
     },
     icon: {
         borderRadius: "50%",
+        padding: 30,
         width: 150,
         height: 150,
         boxShadow:
             "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
-        backgroundColor: "#f5f8fa",
+        backgroundColor: "#eceff9", //"#cde5f7", //"#efeff5", //"#f5f8fa",
         backgroundImage:
             "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
         "$root.Mui-focusVisible &": {
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
             outlineOffset: 2
         },
         "input:hover ~ &": {
-            backgroundColor: "#ebf1f5"
+            backgroundColor: "#cde5f7"
         },
         "input:disabled ~ &": {
             boxShadow: "none",
@@ -35,7 +36,8 @@ const useStyles = makeStyles({
     checkedIcon: {
         width: 150,
         height: 150,
-        backgroundColor: "#ffb366",
+        padding: 30,
+        backgroundColor: "#80aaff",
         backgroundImage:
             "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
         "&:before": {
@@ -46,7 +48,7 @@ const useStyles = makeStyles({
             content: '""'
         },
         "input:hover ~ &": {
-            backgroundColor: "#ff9933"
+            backgroundColor: "#80aaff"
         }
     }
 });
