@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./PushAnswer.css";
+
 import AnswerView from "../../../components/AnswerView/AnswerView";
 import Map from "../../Map/GoogleMap";
 

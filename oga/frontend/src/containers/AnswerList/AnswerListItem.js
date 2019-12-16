@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./AnswerList.css";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
