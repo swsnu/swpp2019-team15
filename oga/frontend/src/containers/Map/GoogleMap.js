@@ -65,7 +65,7 @@ class GoogleMap extends Component {
                 var marker = new maps.Marker({ map: map });
                 marker.setPosition(target);
                 var infowindow = new maps.InfoWindow();
-                var n = t["qid"]
+                // var n = t["qid"]
                 if (t["con"]) {
                   infowindow.setContent(t["con"] + " in " + t["loc"] + "?\n" + 
                                         t["ans"] + " answers");
@@ -104,7 +104,7 @@ class GoogleMap extends Component {
     //but we can render any component via this library
     renderMarkers = places => {
         const map = this.state.mapInstance;
-        const mapApi = this.state.mapApi;
+        // const mapApi = this.state.mapApi;
         const marker = this.state.marker;
         const infowindow = this.state.infowindow;
         const { 0: place } = places;

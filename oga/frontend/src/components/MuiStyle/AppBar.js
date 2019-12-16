@@ -5,7 +5,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import SearchBox from "../MapSearchBox/SearchBox";
-import { Route, Redirect } from "react-router-dom";
+
 
 // Material UI imports
 import clsx from "clsx";

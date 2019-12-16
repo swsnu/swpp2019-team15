@@ -1,22 +1,12 @@
 import React, { Component } from "react";
 import Map from "../../containers/Map/GoogleMap";
-import "./NewAnswer.css";
 
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/";
 import { answer_markers } from "../../const/question_type";
 
 //Material design imports
-import {
-    Box,
-    Button,
-    Grid,
-    Slider,
-    Tooltip,
-    Typography,
-    Card,
-    Paper
-} from "@material-ui/core";
+import { Box, Button, Grid, Tooltip, Typography } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
 import InvertColorsIcon from "@material-ui/icons/InvertColors";
@@ -111,18 +101,20 @@ class NewAnswer extends Component {
         var selected_question_type_list = null;
         var qs_type = "";
         var answer_list = null;
-        var idx = 0;
+        // var idx = 0;
         let gotten_answer_view = null;
         var map = null;
         if (this.props.selectedQuestion) {
             map = (
                 <Map
                     viewOnly={true}
-                    targets={[{
-                        lat: this.props.selectedQuestion.place_lat,
-                        lng: this.props.selectedQuestion.place_lng,
-                        loc: this.props.selectedQuestion.location,
-                    }]}
+                    targets={[
+                        {
+                            lat: this.props.selectedQuestion.place_lat,
+                            lng: this.props.selectedQuestion.place_lng,
+                            loc: this.props.selectedQuestion.location
+                        }
+                    ]}
                 ></Map>
             );
 

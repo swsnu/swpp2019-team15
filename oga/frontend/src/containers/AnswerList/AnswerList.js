@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import "./AnswerList.css";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import * as actionCreators from "../../store/actions/";
 
 import moment from "moment";
-import AnswerView from "../../components/AnswerView/AnswerView";
 
 //Material UI imports
 import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
@@ -17,8 +15,7 @@ import {
     CssBaseline,
     Grid,
     IconButton,
-    Typography,
-    Paper
+    Typography
 } from "@material-ui/core";
 import AnswerListItem from "./AnswerListItem";
 
