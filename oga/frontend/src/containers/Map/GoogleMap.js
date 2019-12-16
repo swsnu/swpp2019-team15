@@ -66,15 +66,21 @@ class GoogleMap extends Component {
                 marker.setPosition(target);
                 var infowindow = new maps.InfoWindow();
                 var n = t["qid"]
-                infowindow.setContent(t["con"] + " in " + t["loc"] + "?\n" + 
-                                      t["ans"] + " answers");
-                infowindow.open(map, marker);
-                marker.addListener("click", 
-                  () => this.props.history.push("/replies/" + t["qid"]
-                ));
+                if (t["con"]) {
+                  infowindow.setContent(t["con"] + " in " + t["loc"] + "?\n" + 
+                                        t["ans"] + " answers");
+                  infowindow.setOptions({
+                      disableAutoPan: true,
+                  });
+                  infowindow.open(map, marker);
+                  marker.addListener("click", 
+                    () => this.props.history.push("/replies/" + t["qid"]
+                  ));
+                }
               }
             }
         }
+
     };
 
     clickSubmitHandler = () => {
