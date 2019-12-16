@@ -46,7 +46,7 @@ class NewQuestion extends Component {
     // };
 
     render() {
-        let place_name = "......";
+        let place_name = "there";
         if (this.props.target_location)
             place_name = this.props.target_location.name;
 

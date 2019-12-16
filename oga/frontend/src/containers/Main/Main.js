@@ -84,6 +84,7 @@ class QuestionList extends Component {
     };
 
     render() {
+        var targets;
         var question_len = this.props.storedQuestions.length;
         var answer_len = this.props.storedAnswers.length;
         var title = this.state.isQuestionTab ? "Question" : "Answer";
@@ -139,6 +140,10 @@ class QuestionList extends Component {
                     )}
                 />
             );
+        targets = stored_Questions.map(qs => ({qid: qs.id, con: qs.content, loc: qs.location, 
+                                               lat: qs.lat, lng: qs.lng, ans: qs.answer_count}));
+        console.log(stored_Questions);
+
 
         var pageCount = this.state.isQuestionTab
             ? Math.ceil(question_len / 10, 1)
@@ -191,7 +196,7 @@ class QuestionList extends Component {
                         }
                     />
                 )}
-                <GoogleMap viewOnly={true} />
+                <GoogleMap viewOnly={true} targets={targets}/>
                 <Box pt={10} />
                 <Container component="main" justify="center">
                     <Typography component="h1" variant="h4">

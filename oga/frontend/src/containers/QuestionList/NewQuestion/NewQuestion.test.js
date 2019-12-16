@@ -160,7 +160,7 @@ describe("<NewQuestion/>", () => {
         const component = mount(nq);
         let wrapper = component.find("#view").find(Typography);
         //const instance = component.find(NewQuestion.WrappedComponent).instance();
-        expect(wrapper.text()).toBe("How is it in ......?");
+        expect(wrapper.text()).toBe("How is it in there?");
 
         // Should alert when creating a question with null location
         const mockAlert = jest

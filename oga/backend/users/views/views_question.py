@@ -35,7 +35,9 @@ def questions(request):
         response_dict = {'id': question.id,
                          'author_id': user.id,
                          'content': question.content,
-                         'target_location': location.name}
+                         'target_location': location.name,
+                         'lat': location.latitude,
+                         'lng': location.longitude}
         return JsonResponse(response_dict, status=201)
 
     else:
@@ -89,6 +91,8 @@ def parse_question_list(question_list):
         'publish_date_time': question.publish_date_time,
         'content': question.content,
         'location': question.location_id.name,
+        'lat': question.location_id.latitude,
+        'lng': question.location_id.longitude,
         'is_answered': question.is_answered,
         'answer_count': Answer.objects.filter(question=question).count(),
         'follow_count': question.follow_count
