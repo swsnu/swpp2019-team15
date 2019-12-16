@@ -40,6 +40,8 @@ def get_profile(request, username=None):
                                            publish_date_time__month=today.month,
                                            publish_date_time__day=today.day).count()
 
+    rank_num = calculate_ranknum(profile)
+    print(rank_num)
     response_dict = {
         'id': profile.id,
         'username': profile.user.username,
@@ -47,5 +49,20 @@ def get_profile(request, username=None):
         'coordinates': coordinates,
         'todayQuestionCount': todays_questions,
         'todayAnswerCount': todays_answers,
+        'reliability': profile.reliability,
+        'rankNum': rank_num
     }
     return JsonResponse(response_dict, status=200)
+
+
+def calculate_ranknum(profile):
+    """
+    calculate ranking number(10 is best, 1 is worst)
+    """
+    my_score = profile.rank_score
+    print(my_score)
+    n_users = Profile.objects.count()
+    for i in range(1, 11):
+        if my_score <= Profile.objects.all()[int((i/10)*n_users)].rank_score:
+            return i
+    return 0 # Error condition

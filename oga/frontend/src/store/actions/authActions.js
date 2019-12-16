@@ -99,7 +99,9 @@ export const getProfile_ = profile => {
         location: profile.location,
         coordinates: profile.coordinates,
         todayAnswerCount: profile.todayAnswerCount,
-        todayQuestionCount: profile.todayQuestionCount
+        todayQuestionCount: profile.todayQuestionCount,
+        reliability: profile.reliability,
+        rankNum: profile.rankNum,
     };
 };
 

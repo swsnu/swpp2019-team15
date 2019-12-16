@@ -1,11 +1,12 @@
 """functional views api for the models"""
 
+from math import log10, sqrt
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import get_user
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import get_object_or_404
-from ..models import Answer
+from ..models import Question, Answer
 from ..views.decorators import check_request, check_login_required
 
 
@@ -42,6 +43,11 @@ def rate_up_answer(request, answer_id):
     answer.save()
 
     profile.rate_up += 1
+    profile.reliability = calculate_reliability(profile.rate_up, profile.rate_down)
+    profile.save()
+    n_ans = Answer.objects.all().count()
+    n_qus = Question.objects.all().count()
+    profile.rank_score = calculate_score(profile.reliability, n_ans, n_qus)
     profile.save()
     response_dict = parse_rating(answer, True)
 
@@ -82,6 +88,11 @@ def rate_down_answer(request, answer_id):
     answer.save()
 
     profile.rate_down += 1
+    profile.reliability = calculate_reliability(profile.rate_up, profile.rate_down)
+    profile.save()
+    n_ans = Answer.objects.all().count()
+    n_qus = Question.objects.all().count()
+    profile.rank_score = calculate_score(profile.reliability, n_ans, n_qus)
     profile.save()
     response_dict = parse_rating(answer, False)
 
@@ -100,6 +111,34 @@ def parse_rating(answer, is_up):
         'is_up': is_up,
     }
     return rating_dict
+
+
+def calculate_score(reliability, num_ans, num_qus):
+    """
+    calculate rank score
+    """
+    return reliability * (num_ans / (1+log10(num_qus)))
+
+
+def calculate_reliability(ups, downs):
+    """
+    Calculate reliability of user
+    from https://stackoverflow.com/questions/10029588/
+    python-implementation-of-the-wilson-score-interval
+    """
+    num = ups + downs
+
+    if num == 0:
+        return 0
+
+    z_val = 1.96 #1.44 = 85%, 1.96 = 95%
+    phat = float(ups) / num
+    tmp = (phat + z_val*z_val/(2*num) - z_val * sqrt((phat*(1-phat)+z_val*z_val/(4*num))/num))
+    val = tmp /(1+z_val*z_val/num)
+    return round(val, 2)
+
+
+
 
 
 # @check_login_required

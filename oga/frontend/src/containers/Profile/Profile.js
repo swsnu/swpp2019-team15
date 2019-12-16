@@ -61,6 +61,8 @@ class Profile extends Component {
         let coordinates = "";
         var todayQuestionCount = "";
         var todayAnswerCount = "";
+        let reliability = "";
+        var rankNum = 0;
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;
@@ -68,6 +70,8 @@ class Profile extends Component {
             coordinates = `${profile.coordinates}`;
             todayQuestionCount = `${profile.todayQuestionCount}`;
             todayAnswerCount = `${profile.todayAnswerCount}`;
+            reliability = `${profile.reliability}`;
+            rankNum = profile.rankNum;
         }
 
         var questions = this.props.myQuestions;
@@ -206,13 +210,13 @@ class Profile extends Component {
                                             >
                                                 {"   "}
                                                 {/* TODO: Rank to be determined based on point system implementation */}
-                                                {rank[10]}
+                                                {rank[rankNum]}
                                             </Typography>
                                             <Typography variant="subtitle1">
                                                 <i>
-                                                    {/* {location} */}
+                                                    Reliability
                                                     <br />
-                                                    {/* {coordinates} */}
+                                                    {reliability}
                                                 </i>
                                             </Typography>
                                         </Grid>
