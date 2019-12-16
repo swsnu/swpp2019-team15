@@ -11,11 +11,8 @@ import {
     Box,
     Button,
     Grid,
-    Slider,
     Tooltip,
-    Typography,
-    Card,
-    Paper
+    Typography
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
@@ -111,7 +108,7 @@ class NewAnswer extends Component {
         var selected_question_type_list = null;
         var qs_type = "";
         var answer_list = null;
-        var idx = 0;
+        // var idx = 0;
         let gotten_answer_view = null;
         var map = null;
         if (this.props.selectedQuestion) {

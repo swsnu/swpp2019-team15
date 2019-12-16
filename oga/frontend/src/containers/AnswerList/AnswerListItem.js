@@ -9,7 +9,7 @@ import moment from "moment";
 import AnswerView from "../../components/AnswerView/AnswerView";
 
 //Material UI imports
-import { Container, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 class AnswerListItem extends Component {
     constructor(props) {

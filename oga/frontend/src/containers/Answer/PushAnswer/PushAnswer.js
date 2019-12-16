@@ -54,7 +54,7 @@ class PushAnswer extends Component {
             this.getRecommendationsHandler();
             var recommendations = null;
 
-            var answer = this.props.selectedAnswer;
+            answer = this.props.selectedAnswer;
             // Check if answer to question is negative
             if (answer_types[answer.content] == 0) {
                 // get recommendations for answered question
