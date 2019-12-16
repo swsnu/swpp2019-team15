@@ -13,6 +13,7 @@ class Location(models.Model):
     name = models.CharField(max_length=100)
     longitude = models.FloatField(blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
+    place_type = models.CharField(max_length=100, default="")
 
     def __str__(self):
         return self.name

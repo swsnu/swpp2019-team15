@@ -17,7 +17,6 @@ def get_recommendation(user, location):
     ret = cache.get(user + str(location), ["No recommendations so far"])
     return ret
 
-
 @background
 def add_item(user, location):
     """async add item to the recommbee DB"""
@@ -33,7 +32,6 @@ def add_item(user, location):
                                  cascade_create=True))
     request.append(AddPurchase(user, location, cascade_create=True))
     CLIENT.send(Batch(request))
-
 
 def _get_recommendation(user, locationid):
     """store list of recommendation in cache"""

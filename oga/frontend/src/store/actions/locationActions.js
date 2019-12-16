@@ -6,7 +6,8 @@ export const setTargetLocation_ = target => {
         type: actionTypes.SET_TARGET_LOCATION,
         name: target.name,
         latitude: target.geometry.location.lat(),
-        longitude: target.geometry.location.lng()
+        longitude: target.geometry.location.lng(),
+        place_type: target.types[0],
     };
 };
 

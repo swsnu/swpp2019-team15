@@ -25,7 +25,8 @@ class LocationTestCase(TestCase):
 
     def test_post_location(self):
         """ test adding questions """
-        location = {'name':'school', 'longitude':27.123, 'latitude':23.234}
+        location = {'name':'school', 'longitude':27.123, 'latitude':23.234,
+                    'place_type': 'cafe'}
         response = self.client.post('/api/location/',
                                     json.dumps(location),
                                     content_type='application/json')

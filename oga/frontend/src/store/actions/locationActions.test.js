@@ -9,10 +9,10 @@ describe('authActions', () => {
   })
 
   it(`'setTargetLocation' should set location correctly`, (done) => {
-    const newLocation = {name:"home", geometry:{location: {lat:()=>10, lng:()=>10}}};
+    const newLocation = {name:"home", geometry:{location: {lat:()=>10, lng:()=>10}}, types: ["cafe"]};
     store.dispatch(actionCreators.setTargetLocation(newLocation));
     const newState = store.getState();
-    expect(newState.location.targetLocation).toStrictEqual({name:"home", latitude:10, longitude:10});
+    expect(newState.location.targetLocation).toStrictEqual({name:"home", latitude:10, longitude:10, place_type:"cafe"});
     done();
   });
 
