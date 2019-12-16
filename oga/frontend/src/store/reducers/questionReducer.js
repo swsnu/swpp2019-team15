@@ -9,7 +9,7 @@ const initialState = {
     recommendations: []
 };
 
-const questionReducer = (state = initialState, action) => {
+const questionReducer = (action, state = initialState) => {
     switch (action.type) {
         case actionTypes.CREATE_QUESTION:
             const newQuestion = {

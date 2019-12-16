@@ -10,7 +10,7 @@ const initialState = {
     rated_down: null,
 };
 
-const answerReducer = (state = initialState, action) => {
+const answerReducer = (action, state = initialState) => {
     switch (action.type) {
         case actionTypes.CREATE_ANSWER:
             const newAnswer = {
