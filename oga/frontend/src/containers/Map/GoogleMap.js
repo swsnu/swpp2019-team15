@@ -57,13 +57,21 @@ class GoogleMap extends Component {
         if (this.props.viewOnly) {
             if (this.props.targets) {
               for (var i = 0; i < this.props.targets.length; i++) {
-                var t = this.props.targets[i];
+                let t = this.props.targets[i];
                 var target = {
                     lat: t["lat"],
                     lng: t["lng"]
                 };
                 var marker = new maps.Marker({ map: map });
                 marker.setPosition(target);
+                var infowindow = new maps.InfoWindow();
+                var n = t["qid"]
+                infowindow.setContent(t["con"] + " in " + t["loc"] + "?\n" + 
+                                      t["ans"] + " answers");
+                infowindow.open(map, marker);
+                marker.addListener("click", 
+                  () => this.props.history.push("/replies/" + t["qid"]
+                ));
               }
             }
         }
