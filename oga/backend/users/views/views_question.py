@@ -22,12 +22,15 @@ def questions(request):
             return HttpResponse(status=401)
         req_data = json.loads(request.body.decode())
         location = req_data['target_location']
+        print(location['place_type'])
         content = req_data['content']
         user = get_user(request)
 
         location, _ = Location.objects.get_or_create(name=location['name'],
                                                      latitude=location['latitude'],
-                                                     longitude=location['longitude'])
+                                                     longitude=location['longitude'],
+                                                     place_type=location['place_type'],
+                                                     )
 
         question = Question(author=user, location_id=location,
                             content=content)

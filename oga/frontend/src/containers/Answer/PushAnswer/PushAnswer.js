@@ -24,7 +24,8 @@ class PushAnswer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.match.params.id
+            id: this.props.match.params.id,
+            hasFetched: false,
         };
     }
 
@@ -40,20 +41,24 @@ class PushAnswer extends Component {
             this.props.onGetRecommendations(ans.question_id);
         }
     };
+    shouldComponentUpdate(nextProps, nextState) {
+      if ( this.state.hasFetched ) {
+        return false;
+      }
+      return true;
+    }
 
     render() {
         var answer = null;
         if (this.props.selectedAnswer) {
+            this.getRecommendationsHandler();
             var recommendations = null;
 
             var answer = this.props.selectedAnswer;
             // Check if answer to question is negative
             if (answer_types[answer.content] == 0) {
-                console.log(
-                    `${answer.content}: ${answer_types[answer.content]}`
-                );
                 // get recommendations for answered question
-                this.props.onGetRecommendations(answer.question_id);
+                this.getRecommendationsHandler();
                 if (
                     this.props.recommendations &&
                     this.props.recommendations.length > 0
@@ -74,6 +79,7 @@ class PushAnswer extends Component {
                                 </Typography>
                             </div>
                         );
+                    this.state.hasFetched = true;
                     }
                 }
             }
@@ -83,10 +89,10 @@ class PushAnswer extends Component {
                     <Grid item md={6} xs={12}>
                         <Map
                             viewOnly={true}
-                            target={{
+                            targets={[{
                                 lat: this.props.selectedAnswer.place_lat,
                                 lng: this.props.selectedAnswer.place_lng
-                            }}
+                            }]}
                         ></Map>
                     </Grid>
                     <Grid item style={{ padding: 30 }} md={6} xs={12}>

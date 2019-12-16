@@ -14,7 +14,10 @@ CLIENT = RecombeeClient(DB_NAME, API_KEY)
 
 def get_recommendation(user, location):
     """ retrieve result from cache """
-    ret = cache.get(user + str(location), ["No recommendations so far"])
+    try:
+        ret = cache.get(user + str(location), ["No recommendations so far"])
+    except Exception as e:
+        print(e)
     return ret
 
 
@@ -33,7 +36,6 @@ def add_item(user, location):
                                  cascade_create=True))
     request.append(AddPurchase(user, location, cascade_create=True))
     CLIENT.send(Batch(request))
-
 
 def _get_recommendation(user, locationid):
     """store list of recommendation in cache"""

@@ -40,7 +40,7 @@ class SearchBox extends Component {
     }
 
     handleScroll = () => {
-        console.log("Scrolling");
+        //console.log("Scrolling");
         // Close dropdown list on scroll
         var click = document.getElementById("autocomplete");
         click.blur();
