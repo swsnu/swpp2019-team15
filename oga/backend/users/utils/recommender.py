@@ -14,12 +14,8 @@ CLIENT = RecombeeClient(DB_NAME, API_KEY)
 
 def get_recommendation(user, location):
     """ retrieve result from cache """
-    try:
-        ret = cache.get(user + str(location), ["No recommendations so far"])
-    except Exception as e:
-        print(e)
+    ret = cache.get(user + str(location), ["No recommendations so far"])
     return ret
-
 
 @background
 def add_item(user, location):
