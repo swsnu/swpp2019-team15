@@ -36,7 +36,7 @@ class QuestionTestCase(TestCase):
     def test_add_questions(self):
         """ test adding questions """
         location = {'name': 'school', 'longitude': 27.123, 'latitude': 23.234,
-                'type': 'cafe'}
+                    'place_type': 'cafe'}
         question_data = {'target_location': location,
                          'content': 'raining??'}
         response = self.client.post('/api/questions/',

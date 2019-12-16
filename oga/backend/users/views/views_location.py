@@ -17,7 +17,9 @@ def locations(request):
     print(req_data)
     location, _ = Location.objects.get_or_create(name=req_data['name'],
                                                  latitude=req_data['latitude'],
-                                                 longitude=req_data['longitude'])
+                                                 longitude=req_data['longitude'],
+                                                 place_type=req_data['place_type'],
+                                                 )
     user = get_user(request)
     profile = get_object_or_404(Profile, user=user)
     profile.location_id = location
