@@ -6,12 +6,11 @@ const initialState = {
     profile: null
 };
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action = null) => {
     switch (action.type) {
-        case actionTypes.SIGN_UP: //nothing to do, really or show some success message?
+        case actionTypes.SIGN_UP:
             return { ...state };
         case actionTypes.AUTHENTICATED:
-            //const userid = action.userid;
             return {
                 ...state,
                 authenticated: action.authenticated,
@@ -29,7 +28,7 @@ const authReducer = (state = initialState, action) => {
                 todayAnswerCount: action.todayAnswerCount,
                 todayQuestionCount: action.todayQuestionCount,
                 reliability: action.reliability,
-                rankNum: action.rankNum,
+                rankNum: action.rankNum
             };
             return { ...state, profile: payload };
         default:

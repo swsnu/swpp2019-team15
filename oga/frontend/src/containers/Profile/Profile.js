@@ -57,8 +57,6 @@ class Profile extends Component {
 
     render() {
         let username = "";
-        let location = "";
-        let coordinates = "";
         var todayQuestionCount = "";
         var todayAnswerCount = "";
         let reliability = "";
@@ -66,8 +64,6 @@ class Profile extends Component {
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;
-            // location = `${profile.location}`;
-            // coordinates = `${profile.coordinates}`;
             todayQuestionCount = `${profile.todayQuestionCount}`;
             todayAnswerCount = `${profile.todayAnswerCount}`;
             reliability = `${profile.reliability}`;
@@ -101,14 +97,8 @@ class Profile extends Component {
         let answerCount = answers.length;
 
         const myAnswers = answers.map(ans => {
-            // var time = moment(ans.publish_date_time).format(
-            //     "MMMM Do YYYY, h:mm:ss a"
-            // );
             return (
-                <div
-                    style={{ marginBottom: 5, marginTop: 5 }}
-                    // onClick={() => this.onClickDetailHandler(ans.id)}
-                >
+                <div style={{ marginBottom: 5, marginTop: 5 }}>
                     <AnswerView
                         className="MyAnswer"
                         auth={this.props.auth}
@@ -328,8 +318,6 @@ const mapStateToProps = state => {
         userProfile: state.auth.profile,
         myQuestions: state.question.questions,
         myAnswers: state.answer.answers
-        // counts_rating_up: state.rating.rating_up,
-        // counts_rating_down: state.rating.rating_down,
     };
 };
 

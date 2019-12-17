@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import PushNotification from "../../components/PushNotification/PushNotification";
-import { connect } from "react-redux";
-import * as actionCreators from "../../store/actions/";
 
 //Material UI imports
 import Button from "@material-ui/core/Button";
@@ -19,20 +17,21 @@ class Settings extends Component {
         this.state = {
             location_subscribe: false,
             push_subscribe: false,
-            coordinations: null
+            coordinations: null,
+            watchID: null
         };
     }
 
     clickLocationHandler = val => {
-        var watchID = null;
-
         if (val) {
-            watchID = navigator.geolocation.watchPosition(position => {
-                this.state.coordinates = position.coords;
-            });
+            this.state.watchID = navigator.geolocation.watchPosition(
+                position => {
+                    this.state.coordinates = position.coords;
+                }
+            );
             this.setState({ ...this.state, location_subscribe: true });
         } else {
-            navigator.geolocation.clearWatch(watchID);
+            navigator.geolocation.clearWatch(this.state.watchID);
             this.setState({ ...this.state, location_subscribe: false });
         }
     };
