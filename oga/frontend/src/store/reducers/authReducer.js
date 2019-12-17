@@ -6,7 +6,7 @@ const initialState = {
     profile: null
 };
 
-const authReducer = (state = initialState, action = null) => {
+const authReducer = (state = initialState, action = "") => {
     switch (action.type) {
         case actionTypes.SIGN_UP:
             return { ...state };

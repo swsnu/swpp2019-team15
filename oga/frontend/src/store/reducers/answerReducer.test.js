@@ -3,7 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     answer: null,
-    answers: [ ],
+    answers: [],
     answer_id: null,
     is_rated: null,
     rated_up: null,
@@ -85,8 +85,8 @@ describe("Answer Reducer", () => {
                     question_type: "RAIN",
                     answer_content: "YES",
                     user_liked: false,
-                    user_disliked: false,
-                },
+                    user_disliked: false
+                }
             ],
             is_rated: null,
             rated_up: null,
@@ -97,7 +97,7 @@ describe("Answer Reducer", () => {
             answer_id: 1,
             is_up: true,
             rated_up: 3,
-            rated_down: 2,
+            rated_down: 2
         });
         expect(newState).toEqual({
             ...state,
@@ -111,8 +111,8 @@ describe("Answer Reducer", () => {
                     user_liked: true,
                     user_disliked: false,
                     numbers_rated_up: 3,
-                    numbers_rated_down: 2,
-                },
+                    numbers_rated_down: 2
+                }
             ]
         });
     });

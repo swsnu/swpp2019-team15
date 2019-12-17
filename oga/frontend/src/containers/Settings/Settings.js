@@ -17,7 +17,7 @@ class Settings extends Component {
         this.state = {
             location_subscribe: false,
             push_subscribe: false,
-            coordinations: null,
+            coordinates: null,
             watchID: null
         };
     }
