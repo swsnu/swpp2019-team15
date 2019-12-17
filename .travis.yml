@@ -45,5 +45,5 @@ matrix:
       - coverage xml
       after_success:
       - coveralls
-      - cd ../
+      - cd ../../
       - sonar-scanner
