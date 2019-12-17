@@ -11,7 +11,6 @@ import thunk from "redux-thunk";
 import PushAnswer from "./PushAnswer.js";
 import { history } from "../../../store/store";
 import * as questionActions from "../../../store/actions/questionActions";
-import * as actionCreators from "../../../store/actions/answerActions";
 
 const mockGeolocation = {
     getCurrentPosition: jest.fn(),

@@ -27,8 +27,9 @@ class Settings extends Component {
     clickLocationHandler = val => {
         var watchID = null;
         if (val) {
-            watchID = navigator.geolocation.watchPosition();
-            // position => { const { latitude, longitude } = position.coords;});
+            watchID = navigator.geolocation.watchPosition(position => {
+                const {} = position.coords;
+            });
             this.setState({ ...this.state, location_subscribe: true });
         } else {
             watchID = navigator.geolocation.clearWatch(watchID);
