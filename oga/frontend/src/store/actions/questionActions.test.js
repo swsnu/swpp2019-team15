@@ -238,4 +238,36 @@ describe("questionActions", () => {
             done();
         });
     });
+
+    it(`'getQuestionRecommendation' should be called well `, done => {
+        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
+            return new Promise((resolve, reject) => {
+                const result = {
+                    status: 200,
+                    data: { id: 1 }
+                };
+                resolve(result);
+            });
+        });
+        store.dispatch(actionCreators.getQuestionRecommendation(1)).then(() => {
+            expect(spy).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it(`'getQuestionRecommendation' should handle error `, done => {
+        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
+            return new Promise((resolve, reject) => {
+                const result = {
+                    status: 200,
+                    data: { id: 1 }
+                };
+                reject(result);
+            });
+        });
+        store.dispatch(actionCreators.getQuestionRecommendation(1)).then(() => {
+            expect(console.log).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
 });
