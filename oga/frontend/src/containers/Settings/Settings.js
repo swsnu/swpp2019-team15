@@ -19,24 +19,20 @@ class Settings extends Component {
         this.state = {
             location_subscribe: false,
             push_subscribe: false,
-            notificationSetting: "OFF",
-            locationSetting: "OFF"
+            coordinations: null
         };
     }
 
     clickLocationHandler = val => {
         var watchID = null;
+
         if (val) {
             watchID = navigator.geolocation.watchPosition(position => {
-// <<<<<<< HEAD
-//                 const { latitude, longitude } = position.coords;
-// =======
-                const {} = position.coords;
-// >>>>>>> 86f9a450711b56b804ac480f93ba518d85728325
+                this.state.coordinates = position.coords;
             });
             this.setState({ ...this.state, location_subscribe: true });
         } else {
-            watchID = navigator.geolocation.clearWatch(watchID);
+            navigator.geolocation.clearWatch(watchID);
             this.setState({ ...this.state, location_subscribe: false });
         }
     };
