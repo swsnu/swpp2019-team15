@@ -67,16 +67,16 @@ describe("<Settings />", () => {
     //     expect(mockClearWatch).toHaveBeenCalledTimes(1);
     // });
 
-    it("should watchPosition when location toggle clicked", () => {
-        const component = mount(settings);
-        const instance = component.find(".Settings").instance();
+    // it("should watchPosition when location toggle clicked", () => {
+    //     const component = mount(settings);
+    //     const instance = component.find(".Settings").instance();
 
-        component
-            .find("#location-toggle")
-            .hostNodes()
-            .simulate("click");
-        expect(mockWatchPosition).toHaveBeenCalledTimes(1);
-    });
+    //     component
+    //         .find("#location-toggle")
+    //         .hostNodes()
+    //         .simulate("click");
+    //     expect(mockWatchPosition).toHaveBeenCalledTimes(1);
+    // });
 
     xit("should handle back button clicks", () => {
         const spyHistoryPush = jest
