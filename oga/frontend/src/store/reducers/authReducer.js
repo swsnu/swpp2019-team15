@@ -6,7 +6,8 @@ const initialState = {
     profile: null
 };
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state, action) => {
+    if (typeof state === 'undefined') return initialState;
     switch (action.type) {
         case actionTypes.SIGN_UP: //nothing to do, really or show some success message?
             return { ...state };
