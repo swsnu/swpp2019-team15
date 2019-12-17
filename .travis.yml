@@ -45,5 +45,6 @@ matrix:
       - coverage run --branch --source='./users' manage.py test && coverage report -m
       - coverage xml
       after_success:
-      - sonar-scanner
       - coveralls
+      - cd ../
+      - sonar-scanner
