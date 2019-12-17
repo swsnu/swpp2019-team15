@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import AnswerView from "../../../components/AnswerView/AnswerView";
 import Map from "../../Map/GoogleMap";
-
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import * as actionCreators from "../../../store/actions";
@@ -43,6 +42,7 @@ class PushAnswer extends Component {
         this.props.rateDown(id);
         window.location.reload();
     };
+
     shouldComponentUpdate(nextProps, nextState) {
         if (this.state.hasFetched) {
             return false;
@@ -104,7 +104,7 @@ class PushAnswer extends Component {
                         <Grid>
                             <AnswerView
                                 key={this.props.selectedAnswer.id}
-                                id={this.props.selectedAnswer.id}
+                                id="push-answer"
                                 showQuestion={true}
                                 clickQuestion={() =>
                                     this.props.history.push(
