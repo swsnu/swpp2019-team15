@@ -284,4 +284,38 @@ describe("answerActions", () => {
             done();
         });
     });
+
+    it(`'getAllAnswers' should be called correctly`, done => {
+        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
+            return new Promise((resolve, reject) => {
+                const result = {
+                    status: 200,
+                    data: { id: 1 }
+                };
+                resolve(result);
+            });
+        });
+
+        store.dispatch(actionCreators.getAllAnswers()).then(() => {
+            expect(spy).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
+
+    it(`'getAllAnswers' should handle error correctly`, done => {
+        const spy = jest.spyOn(axios, "get").mockImplementation(url => {
+            return new Promise((resolve, reject) => {
+                const result = {
+                    status: 200,
+                    data: { id: 1 }
+                };
+                reject(result);
+            });
+        });
+
+        store.dispatch(actionCreators.getAllAnswers()).then(() => {
+            expect(console.error).toHaveBeenCalledTimes(1);
+            done();
+        });
+    });
 });
