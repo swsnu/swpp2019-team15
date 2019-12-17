@@ -37,6 +37,9 @@ const store = mockStore({
     question: {
         recommendations: null
     },
+    auth: {
+        authenticated: true
+    },
     router: history
 });
 const spyGetQuestion = jest

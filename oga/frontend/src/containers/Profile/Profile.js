@@ -67,8 +67,8 @@ class Profile extends Component {
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;
-            location = `${profile.location}`;
-            coordinates = `${profile.coordinates}`;
+            // location = `${profile.location}`;
+            // coordinates = `${profile.coordinates}`;
             todayQuestionCount = `${profile.todayQuestionCount}`;
             todayAnswerCount = `${profile.todayAnswerCount}`;
             reliability = `${profile.reliability}`;
@@ -102,9 +102,9 @@ class Profile extends Component {
         let answerCount = answers.length;
 
         const myAnswers = answers.map(ans => {
-            var time = moment(ans.publish_date_time).format(
-                "MMMM Do YYYY, h:mm:ss a"
-            );
+            // var time = moment(ans.publish_date_time).format(
+            //     "MMMM Do YYYY, h:mm:ss a"
+            // );
             return (
                 <div
                     style={{ marginBottom: 5, marginTop: 5 }}

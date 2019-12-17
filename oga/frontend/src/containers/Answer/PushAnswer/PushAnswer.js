@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./PushAnswer.css";
+
 import AnswerView from "../../../components/AnswerView/AnswerView";
 import Map from "../../Map/GoogleMap";
 
@@ -25,7 +25,7 @@ class PushAnswer extends Component {
         super(props);
         this.state = {
             id: this.props.match.params.id,
-            hasFetched: false,
+            hasFetched: false
         };
     }
 
@@ -34,32 +34,33 @@ class PushAnswer extends Component {
         this.props.onGetAnswer(this.state.id);
     }
 
-    getRecommendationsHandler = () => {
-        let ans = this.props.selectedAnswer;
-        // Check if answer to question is negative
-        if (answer_types[ans.content] == 0) {
-            // get recommendations for answered question
-            this.props.onGetRecommendations(ans.question_id);
-        }
+    rateUpHandler = id => {
+        this.props.rateUp(id);
+        window.location.reload();
+    };
+
+    rateDownHandler = id => {
+        this.props.rateDown(id);
+        window.location.reload();
     };
     shouldComponentUpdate(nextProps, nextState) {
-      if ( this.state.hasFetched ) {
-        return false;
-      }
-      return true;
+        if (this.state.hasFetched) {
+            return false;
+        }
+        return true;
     }
 
     render() {
         var answer = null;
         if (this.props.selectedAnswer) {
-            this.getRecommendationsHandler();
+            // this.getRecommendationsHandler();
             var recommendations = null;
 
-            var answer = this.props.selectedAnswer;
+            answer = this.props.selectedAnswer;
             // Check if answer to question is negative
             if (answer_types[answer.content] == 0) {
-                // get recommendations for answered question
-                this.getRecommendationsHandler();
+                // // get recommendations for answered question
+                // this.getRecommendationsHandler();
                 if (
                     this.props.recommendations &&
                     this.props.recommendations.length > 0
@@ -80,7 +81,7 @@ class PushAnswer extends Component {
                                 </Typography>
                             </div>
                         );
-                    this.state.hasFetched = true;
+                        this.state.hasFetched = true;
                     }
                 }
             }
@@ -90,10 +91,12 @@ class PushAnswer extends Component {
                     <Grid item md={6} xs={12}>
                         <Map
                             viewOnly={true}
-                            targets={[{
-                                lat: this.props.selectedAnswer.place_lat,
-                                lng: this.props.selectedAnswer.place_lng
-                            }]}
+                            targets={[
+                                {
+                                    lat: this.props.selectedAnswer.place_lat,
+                                    lng: this.props.selectedAnswer.place_lng
+                                }
+                            ]}
                         ></Map>
                     </Grid>
                     <Grid item style={{ padding: 30 }} md={6} xs={12}>
@@ -111,6 +114,7 @@ class PushAnswer extends Component {
                                     )
                                 }
                                 author={this.props.selectedAnswer.author}
+                                auth={this.props.auth}
                                 publish_date_time={moment(
                                     this.props.publish_date_time
                                 ).format("MMMM Do YYYY, h:mm:ss a")}
@@ -135,6 +139,16 @@ class PushAnswer extends Component {
                                     this.props.history.push(
                                         "/profile/" +
                                             this.props.selectedAnswer.author
+                                    )
+                                }
+                                rateUp={() =>
+                                    this.rateUpHandler(
+                                        this.props.selectedAnswer.id
+                                    )
+                                }
+                                rateDown={() =>
+                                    this.rateDownHandler(
+                                        this.props.selectedAnswer.id
                                     )
                                 }
                             />
@@ -185,10 +199,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        isLoggedIn: () => dispatch(actionCreators.isLoggedIn()),
         onGetAnswer: id => dispatch(actionCreators.getAnswer(id)),
         onGetRecommendations: id =>
             dispatch(actionCreators.getQuestionRecommendation(id)),
-        isLoggedIn: () => dispatch(actionCreators.isLoggedIn())
+        rateUp: id => dispatch(actionCreators.rateUp(id)),
+        rateDown: id => dispatch(actionCreators.rateDown(id))
     };
 };
 

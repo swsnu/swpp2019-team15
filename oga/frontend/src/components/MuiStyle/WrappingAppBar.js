@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import AppBar from "./AppBar";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index"
-import { Route, Redirect } from "react-router-dom";
+import { Route,} from "react-router-dom";
 import { withRouter } from "react-router";
-import Login from "../../containers/Login/Login";
 
 class WrappingAppBar extends Component {
     constructor(props) {

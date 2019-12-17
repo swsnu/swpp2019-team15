@@ -10,7 +10,6 @@
  */
 
 import React, { Component } from "react";
-import * as actionCreators from "../../store/actions/index";
 import appServerKey from "../../const/applicationServerPublicKey";
 import axios from "axios";
 

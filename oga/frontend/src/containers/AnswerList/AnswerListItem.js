@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./AnswerList.css";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
@@ -9,7 +8,7 @@ import moment from "moment";
 import AnswerView from "../../components/AnswerView/AnswerView";
 
 //Material UI imports
-import { Container, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 class AnswerListItem extends Component {
     constructor(props) {
