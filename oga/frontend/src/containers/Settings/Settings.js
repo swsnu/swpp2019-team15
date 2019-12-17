@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import PushNotification from "../../components/PushNotification/PushNotification";
 import { connect } from "react-redux";
-import * as actionCreators from "../../store/actions/";
 
 //Material UI imports
 import Button from "@material-ui/core/Button";
@@ -31,6 +30,7 @@ class Settings extends Component {
                 this.state.coordinates = position.coords;
             });
             this.setState({ ...this.state, location_subscribe: true });
+            console.log(watchID)
         } else {
             navigator.geolocation.clearWatch(watchID);
             this.setState({ ...this.state, location_subscribe: false });
