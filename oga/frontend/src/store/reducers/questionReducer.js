@@ -9,7 +9,7 @@ const initialState = {
     recommendations: []
 };
 
-const questionReducer = (initialState, action) => {
+const questionReducer = (state, action) => {
     if (typeof state === 'undefined') return initialState;
     switch (action.type) {
         case actionTypes.CREATE_QUESTION:
