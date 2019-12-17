@@ -40,10 +40,6 @@ class NewQuestion extends Component {
         }
     };
 
-    // clickMapHandler = () => {
-    //     this.props.history.push("/map");
-    // };
-
     render() {
         let place_name = "there";
         if (this.props.target_location)

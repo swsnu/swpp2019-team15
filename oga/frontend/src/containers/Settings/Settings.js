@@ -28,7 +28,11 @@ class Settings extends Component {
         var watchID = null;
         if (val) {
             watchID = navigator.geolocation.watchPosition(position => {
-                const { latitude, longitude } = position.coords;
+// <<<<<<< HEAD
+//                 const { latitude, longitude } = position.coords;
+// =======
+                const {} = position.coords;
+// >>>>>>> 86f9a450711b56b804ac480f93ba518d85728325
             });
             this.setState({ ...this.state, location_subscribe: true });
         } else {
@@ -92,10 +96,10 @@ class Settings extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        logout: () => dispatch(actionCreators.Logout())
-    };
-};
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         logout: () => dispatch(actionCreators.Logout())
+//     };
+// };
 
-export default connect(null, mapDispatchToProps)(withRouter(Settings));
+export default withRouter(Settings);
