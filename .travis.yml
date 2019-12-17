@@ -16,7 +16,8 @@ matrix:
           token:
             secure: "Q9g0bc6al30cci9wBd8z61BcMWRx2+p7a8YIQabpDRuL3LRVijDO2qGsIUlMK5MeJk0d+Hl2ZYLcLBLBku+eYBsFBX1018tOQGzJFvP0qeNo/P4k4FIeu+lCeoBY95uYj+zgID1eVd87So/6wQVpR+Cnlqj0iQ5OqFdHuU5VBFpuYu1WONUEfYnIzdlt6WTxFZbE6MOGbClGKN7Fv/BU3m78D2eFlCi9zzJZMFwAF2MEeWQC9/xi6Yh0ZpyXSo9hr5H1xcFto9C4m+JDMZUAOAypFAfoMsj16nu6Esfv+TjTecoh5+he4GFP/wtaSK7PkbPezaysfcObC0ifCkqMTPEN+Q1VrmoqJpOiOSa3JGH2j/1iYYfGPPplM4rFiI6v2LKw8gJ3Cmt1MzLNpVH4ZMCx6DmBMFAsNLnxQGLUq+Bx3wW4Fj+vPH6Zo+kMTGmFM3iwESHGhqko4Qxsc/sCyqNmmCHpGdhWAaYeaB82QzfP8RhLoyHJviJ/XclVqUwDyuVAHi56S2Qvv7nq1WjiL3aH9xnWzdUYWDky4pUcaWlxD31cmUJUSTguIsZYdFejq6iOg6ebvQnKovbpCrh8l4VqGrOKE5bi5cMmmjG1L6Li+pC8oiZd+0W8vEyXqBciB7WgMLzh6U6+es4chYwfaVRRMhod23vkCutS4u8ZLyo="
     install:
-    - cd oga/frontend
+    - cd oga
+    - cd frontend
     - npm install
     - npm install yarn
     - npm install coveralls
@@ -26,7 +27,7 @@ matrix:
     - cd backend
     - pip install -r requirements.txt
     - pip install coveralls
-    - cd ../../
+    - cd ../
     script:
     - cd frontend
     - ./node_modules/.bin/eslint src
@@ -37,19 +38,20 @@ matrix:
     - coverage run --source='.' manage.py test
     - coverage report -m
     - coverage xml
-    - cd ..
+    - cd ../
+    - cd ../
     - sonar-scanner
     after_success:
-    - cd frontend
+    - cd oga/frontend
     - coveralls-lcov -v -n coverage/lcov.info > coverage.json
     - cd ..
     - cd backend
     - coveralls --merge=../frontend/coverage.json
-    - cd ..
+    - cd ../../
     after_failure:
     - cd frontend
     - coveralls-lcov -v -n coverage/lcov.info > coverage.json
     - cd ..
     - cd backend
     - coveralls --merge=../frontend/coverage.json
-    - cd ..
+    - cd ../../
