@@ -15,8 +15,7 @@ import {
     CardContent,
     CardMedia,
     Grid,
-    Typography,
-    ButtonGroup
+    Typography
 } from "@material-ui/core";
 
 class Profile extends Component {
