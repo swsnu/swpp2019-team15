@@ -15,8 +15,7 @@ import {
     CardContent,
     CardMedia,
     Grid,
-    Typography,
-    ButtonGroup
+    Typography
 } from "@material-ui/core";
 
 class Profile extends Component {
@@ -59,7 +58,7 @@ class Profile extends Component {
     render() {
         let username = "";
         let location = "";
-        let coordinates = "";
+        // let coordinates = "";
         var todayQuestionCount = "";
         var todayAnswerCount = "";
         let reliability = "";
@@ -67,7 +66,7 @@ class Profile extends Component {
         if (this.props.userProfile) {
             var profile = this.props.userProfile;
             username = profile.username;
-            // location = `${profile.location}`;
+            location = `${profile.location}`;
             // coordinates = `${profile.coordinates}`;
             todayQuestionCount = `${profile.todayQuestionCount}`;
             todayAnswerCount = `${profile.todayAnswerCount}`;
