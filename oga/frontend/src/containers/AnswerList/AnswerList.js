@@ -44,29 +44,12 @@ class AnswerList extends Component {
         this.props.history.push("/reply/create/" + id);
     };
 
-    //clickBackHandler = () => {
-    //this.props.history.goBack();
-    //};
-
     render() {
         var gotten_answer_view = this.props.selectedQuestion;
         var question = null;
         if (gotten_answer_view) {
             question = `${this.props.selectedQuestion.content} in 
             ${this.props.selectedQuestion.target_location_name}?`;
-            // gotten_answer_view = (
-            //     <React.Fragment>
-            //         <AnswerView
-            //             key={this.props.selectedQuestion.id}
-            //             id={this.props.selectedQuestion.id}
-            //             content={this.props.selectedQuestion.content}
-            //             place_name={
-            //                 this.props.selectedQuestion.target_location_name
-            //             }
-            //             is_answered={false}
-            //         />
-            //     </React.Fragment>
-            // );
         }
 
         return (

@@ -30,6 +30,7 @@ class PushAnswer extends Component {
     }
 
     componentDidMount() {
+        this.props.isLoggedIn();
         this.props.onGetAnswer(this.state.id);
     }
 
@@ -177,7 +178,8 @@ class PushAnswer extends Component {
 const mapStateToProps = state => {
     return {
         selectedAnswer: state.answer.answer,
-        recommendations: state.question.recommendations
+        recommendations: state.question.recommendations,
+        auth: state.auth.authenticated
     };
 };
 
@@ -185,7 +187,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onGetAnswer: id => dispatch(actionCreators.getAnswer(id)),
         onGetRecommendations: id =>
-            dispatch(actionCreators.getQuestionRecommendation(id))
+            dispatch(actionCreators.getQuestionRecommendation(id)),
+        isLoggedIn: () => dispatch(actionCreators.isLoggedIn())
     };
 };
 

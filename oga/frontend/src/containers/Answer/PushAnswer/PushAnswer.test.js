@@ -11,7 +11,7 @@ import thunk from "redux-thunk";
 import PushAnswer from "./PushAnswer.js";
 import { history } from "../../../store/store";
 import * as questionActions from "../../../store/actions/questionActions";
-import * as actionCreators from "../../../store/actions/answerActions";
+import * as answerActions from "../../../store/actions/answerActions";
 
 const mockGeolocation = {
     getCurrentPosition: jest.fn(),
@@ -28,11 +28,12 @@ const store = mockStore({
         answer: {
             id: 1,
             author: "me",
-            question_type: "MANY SEATS",
+            content: "There are MANY SEATS",
             publish_date_time: "2019",
             place_name: "HOME"
         }
     },
+    auth: { authenticated: false },
     question: {
         recommendations: null
     },
@@ -43,7 +44,7 @@ const spyGetQuestion = jest
     .mockImplementation(question => {
         return dispatch => {};
     });
-const state = { content: "" };
+const state = { id: 1, hasFetched: false };
 
 describe("<PushAnswer/>", () => {
     let answer;
@@ -60,6 +61,10 @@ describe("<PushAnswer/>", () => {
         );
     });
 
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
     it("should render without errors", () => {
         const wrapper = mount(answer);
         expect(wrapper.find(".PushAnswer").length).toBe(1);
@@ -74,6 +79,7 @@ describe("<PushAnswer/>", () => {
             question: {
                 recommendations: null
             },
+            auth: { authenticated: null },
             router: history
         });
         answer = (
@@ -87,5 +93,87 @@ describe("<PushAnswer/>", () => {
         );
         const wrapper = mount(answer);
         expect(wrapper.find(".AnswerView").length).toBe(0);
+    });
+
+    it("should not get recommendations for positive answers", () => {
+        const spyGetRecommendation = jest
+            .spyOn(questionActions, "getQuestionRecommendation")
+            .mockImplementation(id => {
+                return dispatch => {};
+            });
+        expect(spyGetRecommendation.length).toBe(0);
+    });
+
+    it("should get recommendations for negative answers", () => {
+        const spyGetRecommendation = jest
+            .spyOn(questionActions, "getQuestionRecommendation")
+            .mockImplementation(id => {
+                return dispatch => {};
+            });
+        const store = mockStore({
+            answer: {
+                answer: {
+                    id: 1,
+                    author: "me",
+                    content: "There are NO SEATS",
+                    publish_date_time: "2019",
+                    place_name: "HOME"
+                }
+            },
+            auth: { authenticated: true },
+            question: {
+                recommendations: null
+            },
+            router: history
+        });
+        answer = (
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                    <Switch>
+                        <Route path="/" exact component={PushAnswer} />
+                    </Switch>
+                </ConnectedRouter>
+            </Provider>
+        );
+
+        const wrapper = mount(answer);
+        expect(spyGetRecommendation).toHaveBeenCalled();
+    });
+
+    it("hasFetched should be true when getRecommendations called", () => {
+        const spyGetRecommendation = jest
+            .spyOn(questionActions, "getQuestionRecommendation")
+            .mockImplementation(id => {
+                return dispatch => {};
+            });
+        const store = mockStore({
+            answer: {
+                answer: {
+                    id: 1,
+                    author: "me",
+                    content: "There are NO SEATS",
+                    publish_date_time: "2019",
+                    place_name: "HOME"
+                }
+            },
+            auth: { authenticated: true },
+            question: {
+                recommendations: null
+            },
+            router: history
+        });
+        answer = (
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                    <Switch>
+                        <Route path="/" exact component={PushAnswer} />
+                    </Switch>
+                </ConnectedRouter>
+            </Provider>
+        );
+
+        const wrapper = mount(answer);
+        const shouldUpdate = wrapper.find("shouldComponentUpdate");
+        expect(shouldUpdate.returned(true)).to.be.equal(true);
     });
 });
