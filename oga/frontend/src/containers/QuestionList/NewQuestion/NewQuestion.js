@@ -40,10 +40,6 @@ class NewQuestion extends Component {
         }
     };
 
-    // clickMapHandler = () => {
-    //     this.props.history.push("/map");
-    // };
-
     render() {
         let place_name = "there";
         if (this.props.target_location)
@@ -120,7 +116,7 @@ class NewQuestion extends Component {
                             </Grid>
                         </RadioGroup>
                     </FormControl>
-                    <Grid xs={3}>
+                    <Grid>
                         <Box pt={10} />
                         <Button
                             type="submit"

@@ -27,12 +27,11 @@ class Settings extends Component {
     clickLocationHandler = val => {
         var watchID = null;
         if (val) {
-            // watchID = navigator.geolocation.watchPosition(position => {
-            //     const { latitude, longitude } = position.coords;
-            // });
+            watchID = navigator.geolocation.watchPosition();
+            // position => { const { latitude, longitude } = position.coords;});
             this.setState({ ...this.state, location_subscribe: true });
         } else {
-            // watchID = navigator.geolocation.clearWatch(watchID);
+            watchID = navigator.geolocation.clearWatch(watchID);
             this.setState({ ...this.state, location_subscribe: false });
         }
     };
@@ -92,10 +91,10 @@ class Settings extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        logout: () => dispatch(actionCreators.Logout())
-    };
-};
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         logout: () => dispatch(actionCreators.Logout())
+//     };
+// };
 
-export default connect(null, mapDispatchToProps)(withRouter(Settings));
+export default withRouter(Settings);

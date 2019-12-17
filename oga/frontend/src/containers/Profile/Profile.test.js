@@ -24,7 +24,8 @@ const store = mockStore({
                 location: "",
                 coordinates: ""
             }
-        ]
+        ],
+        authenticated: true
     },
     question: {
         questions: [
