@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import AnswerView from "../../../components/AnswerView/AnswerView";
 import Map from "../../Map/GoogleMap";
-
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import * as actionCreators from "../../../store/actions";
@@ -25,11 +24,12 @@ class PushAnswer extends Component {
         super(props);
         this.state = {
             id: this.props.match.params.id,
-            hasFetched: false,
+            hasFetched: false
         };
     }
 
     componentDidMount() {
+        this.props.isLoggedIn();
         this.props.onGetAnswer(this.state.id);
     }
 
@@ -42,11 +42,12 @@ class PushAnswer extends Component {
         this.props.rateDown(id);
         window.location.reload();
     };
+
     shouldComponentUpdate(nextProps, nextState) {
-      if ( this.state.hasFetched ) {
-        return false;
-      }
-      return true;
+        if (this.state.hasFetched) {
+            return false;
+        }
+        return true;
     }
 
     render() {
@@ -80,7 +81,7 @@ class PushAnswer extends Component {
                                 </Typography>
                             </div>
                         );
-                    this.state.hasFetched = true;
+                        this.state.hasFetched = true;
                     }
                 }
             }
@@ -90,10 +91,12 @@ class PushAnswer extends Component {
                     <Grid item md={6} xs={12}>
                         <Map
                             viewOnly={true}
-                            targets={[{
-                                lat: this.props.selectedAnswer.place_lat,
-                                lng: this.props.selectedAnswer.place_lng
-                            }]}
+                            targets={[
+                                {
+                                    lat: this.props.selectedAnswer.place_lat,
+                                    lng: this.props.selectedAnswer.place_lng
+                                }
+                            ]}
                         ></Map>
                     </Grid>
                     <Grid item style={{ padding: 30 }} md={6} xs={12}>
@@ -101,7 +104,7 @@ class PushAnswer extends Component {
                         <Grid>
                             <AnswerView
                                 key={this.props.selectedAnswer.id}
-                                id={this.props.selectedAnswer.id}
+                                id="push-answer"
                                 showQuestion={true}
                                 clickQuestion={() =>
                                     this.props.history.push(

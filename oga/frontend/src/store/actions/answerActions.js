@@ -54,13 +54,6 @@ export const getAllAnswers = () => {
     };
 };
 
-// export const getUserAnswers_ = answers => {
-//     return {
-//         type: actionTypes.GET_USER_ANSWERS,
-//         answers: answers
-//     };
-// };
-
 export const getUserAnswers = (username = "") => {
     return dispatch => {
         return axios
@@ -114,7 +107,7 @@ export const rate_ = rate => {
         answer_id: rate.answer_id,
         rated_up: rate.rated_up,
         rated_down: rate.rated_down,
-        is_up: rate.is_up,
+        is_up: rate.is_up
     };
 };
 

@@ -52,7 +52,7 @@ class MapSearchBox extends Component {
                 <TextField
                     style={{
                         position: "absolute",
-                        width: "90%",
+                        width: "85%",
                         margin: 30,
                         zIndex: 501 // determines layer position for overlaying components
                     }}
@@ -67,10 +67,9 @@ class MapSearchBox extends Component {
                     InputProps={{
                         style: {
                             backgroundColor: "#fff"
-                            // zIndex: 1000 // determines layer position for overlaying components
                         },
                         endAdornment: (
-                            <InputAdornment>
+                            <InputAdornment position="end">
                                 <IconButton
                                     id="clear-search-button"
                                     onClick={this.clearSearchBox}

@@ -149,7 +149,7 @@ class Profile extends Component {
                         style={{ marginTop: 50 }}
                         direction="row"
                     >
-                        <Grid item md={6} xs={6} align="center">
+                        <Grid item md={6} md={6} xs={12} align="center">
                             <Card style={{ maxWidth: "90%" }}>
                                 <CardMedia
                                     style={{
@@ -272,7 +272,7 @@ class Profile extends Component {
                                 </CardContent>
                             </Card>
                         </Grid>
-                        <Grid item md={6} xs={6} align="left">
+                        <Grid item md={6} xs={12} align="left">
                             <Grid style={{ maxWidth: "95%" }}>
                                 <Button
                                     id="my-question-tab"
@@ -282,6 +282,10 @@ class Profile extends Component {
                                         this.setState({
                                             isQuestionTab: true
                                         });
+                                    }}
+                                    style={{
+                                        backgroundColor: "#cde5f7",
+                                        color: "#000"
                                     }}
                                 >
                                     My Questions
@@ -295,10 +299,13 @@ class Profile extends Component {
                                             isQuestionTab: false
                                         });
                                     }}
+                                    style={{
+                                        backgroundColor: "#cde5f7",
+                                        color: "#000"
+                                    }}
                                 >
                                     My Answers
                                 </Button>
-
                                 <Grid item>
                                     {this.state.isQuestionTab
                                         ? myQuestions

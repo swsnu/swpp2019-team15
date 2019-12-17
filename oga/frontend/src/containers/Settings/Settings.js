@@ -7,7 +7,6 @@ import * as actionCreators from "../../store/actions/";
 //Material UI imports
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -20,20 +19,20 @@ class Settings extends Component {
         this.state = {
             location_subscribe: false,
             push_subscribe: false,
-            notificationSetting: "OFF",
-            locationSetting: "OFF"
+            coordinations: null
         };
     }
 
     clickLocationHandler = val => {
         var watchID = null;
+
         if (val) {
             watchID = navigator.geolocation.watchPosition(position => {
-                const { latitude, longitude } = position.coords;
+                this.state.coordinates = position.coords;
             });
             this.setState({ ...this.state, location_subscribe: true });
         } else {
-            watchID = navigator.geolocation.clearWatch(watchID);
+            navigator.geolocation.clearWatch(watchID);
             this.setState({ ...this.state, location_subscribe: false });
         }
     };
@@ -93,10 +92,10 @@ class Settings extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        logout: () => dispatch(actionCreators.Logout())
-    };
-};
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         logout: () => dispatch(actionCreators.Logout())
+//     };
+// };
 
-export default connect(null, mapDispatchToProps)(withRouter(Settings));
+export default withRouter(Settings);

@@ -2,15 +2,9 @@
  * Searchbox component for App bar
  */
 import React, { Component } from "react";
-import "./SearchBox.css";
-// Import Search Bar Components
 
 // Material UI imports
-import {
-    IconButton,
-    InputAdornment,
-    TextField
-} from "@material-ui/core";
+import { IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 
 // Import React Scrit Library to load Google object
@@ -38,7 +32,6 @@ class SearchBox extends Component {
     }
 
     handleScroll = () => {
-        //console.log("Scrolling");
         // Close dropdown list on scroll
         var click = document.getElementById("autocomplete");
         click.blur();
@@ -46,9 +39,6 @@ class SearchBox extends Component {
 
     handleScriptLoad = () => {
         // Declare Options For Autocomplete
-        //const options = {
-        //types: ['(cities)'],
-        //};
 
         // Initialize Google Autocomplete
         /*global google*/ // To disable any eslint 'google not defined' errors
@@ -84,7 +74,9 @@ class SearchBox extends Component {
     onClearSearchBox = () => {
         // Clear text field value in search box
         var autocomplete = document.getElementById("autocomplete");
-        autocomplete.value = "";
+        if (autocomplete) {
+            autocomplete.value = "";
+        }
     };
 
     render() {
@@ -117,7 +109,7 @@ class SearchBox extends Component {
                             marginRight: "80%"
                         },
                         endAdornment: (
-                            <InputAdornment>
+                            <InputAdornment position="end">
                                 <IconButton
                                     id="clear-search-button"
                                     onClick={() => this.onClearSearchBox()}
