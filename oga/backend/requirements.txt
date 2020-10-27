@@ -13,7 +13,7 @@ chardet==3.0.4
 Click==7.0
 constantly==15.1.0
 coverage==4.5.4
-cryptography==2.8
+cryptography==3.2
 daphne==2.3.0
 Django==2.2.8
 django-background-tasks==1.2.0
